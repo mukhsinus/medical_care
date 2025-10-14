@@ -1,0 +1,110 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "about": "Biz haqimizda",
+    "catalog": "Katalog",
+    "contacts": "Aloqa"
+  },
+  "hero": {
+    "eyebrow": "Tibbiy buyumlar ulgurji savdosi",
+    "title": "Tibbiy muassasalar uchun professional tibbiy jihozlar",
+    "subtitle": "O'zbekiston bo'ylab tibbiy muassasalarni sertifikatlangan tibbiy buyumlar bilan ta'minlaymiz",
+    "cta_primary": "Narxlar ro'yxatini so'rang",
+    "cta_secondary": "Bog'laning"
+  },
+  "kpi": {
+    "delivery": "24-72 soatda yetkazib berish",
+    "sku": "1000+ mahsulot",
+    "certified": "Sertifikatlangan"
+  },
+  "categories": {
+    "title": "Mahsulot katalogi",
+    "gloves": {
+      "name": "Nitril qo'lqoplar",
+      "desc": "Yuqori sifatli tekshiruv va jarrohlik qo'lqoplari, teshilishga chidamli"
+    },
+    "masks": {
+      "name": "Niqoblar va respiratorlar",
+      "desc": "Xalqaro xavfsizlik standartlariga mos himoya niqoblari va respiratorlari"
+    },
+    "syringes": {
+      "name": "Shpritslar va ignalar",
+      "desc": "Turli o'lchamdagi steril bir martalik shpritslar va ignalar"
+    },
+    "gowns": {
+      "name": "Jarrohlik xalatlari",
+      "desc": "Himoya jarrohlik xalatlari va tibbiy kiyimlar"
+    },
+    "dressings": {
+      "name": "Bog'lovlar va plastirlar",
+      "desc": "Yara parvarishi buyumlari, shu jumladan bintlar, doka va yopishqoq plastirlar"
+    },
+    "lab": {
+      "name": "Laboratoriya sarflari",
+      "desc": "Zarur laboratoriya buyumlari va sarflanadigan materiallar"
+    }
+  },
+  "howWeWork": {
+    "title": "Biz qanday ishlaymiz",
+    "step1": "Narx so'rash",
+    "step2": "Taklif olish",
+    "step3": "Buyurtmani tasdiqlash",
+    "step4": "Tez yetkazib berish"
+  },
+  "about": {
+    "title": "Medicare haqida",
+    "mission": "Medicare - O'zbekistonda yetakchi tibbiy buyumlar ulgurji etkazib beruvchisi bo'lib, tibbiy muassasalarni yuqori sifatli sertifikatlangan tibbiy jihozlar va sarflanadigan materiallar bilan ta'minlashga ixtisoslashgan.",
+    "quality": "Sifat kafolati",
+    "qualityDesc": "Barcha mahsulotlarimiz CE va ISO sertifikatlash standartlariga mos keladi, xavfsizlik va ishonchlilikni ta'minlaydi.",
+    "logistics": "Professional logistika",
+    "logisticsDesc": "Zamonaviy ombor ob'ektlari va O'zbekiston bo'ylab samarali yetkazib berish tarmog'i.",
+    "certification": "Sertifikatlar",
+    "certificationDesc": "CE sertifikatlangan va ISO talablariga mos mahsulotlar to'liq hujjatlar bilan."
+  },
+  "catalog": {
+    "title": "Mahsulot katalogi",
+    "subtitle": "Tibbiy buyumlarning keng assortimentini o'rganing",
+    "contactCta": "Batafsil ma'lumot so'rang"
+  },
+  "contacts": {
+    "title": "Biz bilan bog'laning",
+    "subtitle": "Bizning jamoamiz yordam berishga tayyor",
+    "phone": "Telefon",
+    "email": "Elektron pochta",
+    "address": "Manzil",
+    "addressValue": "Toshkent, O'zbekiston",
+    "hours": "Ish vaqti",
+    "hoursValue": "Dush-Jum: 9:00 - 18:00",
+    "getInTouch": "Bog'laning",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp"
+  },
+  "footer": {
+    "description": "O'zbekistonda professional tibbiy buyumlar ulgurji etkazib beruvchisi",
+    "legal": "Huquqiy ma'lumot",
+    "privacy": "Maxfiylik siyosati",
+    "terms": "Foydalanish shartlari"
+  },
+  "legal": {
+    "privacy": {
+      "title": "Maxfiylik siyosati",
+      "intro": "Ushbu Maxfiylik siyosati Medicare shaxsiy ma'lumotlaringizni qanday to'playdi, foydalanadi va himoya qilishini tasvirlaydi.",
+      "collection": "Ma'lumotlarni to'plash",
+      "collectionText": "Biz siz to'g'ridan-to'g'ri taqdim etgan ma'lumotlarni, masalan, narxlar ro'yxatini so'raganingizda yoki biz bilan bog'langaningizda to'playmiz.",
+      "usage": "Ma'lumotlardan foydalanish",
+      "usageText": "Biz ma'lumotni so'rovlaringizga javob berish, xizmatlar ko'rsatish va takliflarimizni yaxshilash uchun ishlatamiz.",
+      "protection": "Ma'lumotlarni himoya qilish",
+      "protectionText": "Shaxsiy ma'lumotlaringizni himoya qilish uchun tegishli xavfsizlik choralarini qo'llaymiz."
+    },
+    "terms": {
+      "title": "Foydalanish shartlari",
+      "intro": "Medicare xizmatlaridan foydalangan holda, siz ushbu shartlarga rozilik bildirasiz.",
+      "services": "Xizmatlar",
+      "servicesText": "Medicare tibbiy muassasalar va tashkilotlarga ulgurji tibbiy buyumlarni taqdim etadi.",
+      "orders": "Buyurtmalar va yetkazib berish",
+      "ordersText": "Barcha buyurtmalar mavjudligi va tasdiqlanishiga bog'liq. Yetkazib berish muddatlari taxminiy.",
+      "liability": "Javobgarlikni cheklash",
+      "liabilityText": "Medicare to'g'ri mahsulot ma'lumotini taqdim etishga intiladi, ammo mutlaq aniqlikni kafolatlamaydi."
+    }
+  }
+}

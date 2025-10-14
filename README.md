@@ -1,73 +1,157 @@
-# Welcome to your Lovable project
+# Medicare - Medical Supplies Wholesaler
 
-## Project info
+Professional multilingual website for Medicare, a medical supplies wholesaler in Uzbekistan.
 
-**URL**: https://lovable.dev/projects/d89b04d0-5412-4897-8d98-b8bf9df6af37
+## Features
 
-## How can I edit this code?
+- **Multilingual Support**: Instant language switching between Russian, Uzbek, and English
+- **SEO Optimized**: International SEO with hreflang tags, sitemap, and structured data
+- **Responsive Design**: Mobile-first approach with beautiful medical-themed UI
+- **Static Site**: No backend required, pure client-side application
+- **Contact Integration**: Direct links to email, Telegram, and WhatsApp
 
-There are several ways of editing your application.
+## Technology Stack
 
-**Use Lovable**
+- **Framework**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS with custom design tokens
+- **Routing**: React Router v6
+- **UI Components**: shadcn/ui
+- **SEO**: React Helmet Async
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d89b04d0-5412-4897-8d98-b8bf9df6af37) and start prompting.
+## Project Structure
 
-Changes made via Lovable will be committed automatically to this repo.
+```
+src/
+├── assets/           # Images and static assets
+├── components/       # Reusable components
+│   ├── ui/          # shadcn/ui components
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── Layout.tsx
+│   └── SEO.tsx
+├── contexts/        # React contexts
+│   └── LanguageContext.tsx
+├── locales/         # Translation files (en.json, ru.json, uz.json)
+├── pages/           # Page components
+│   ├── Home.tsx
+│   ├── About.tsx
+│   ├── Catalog.tsx
+│   ├── Contacts.tsx
+│   ├── Privacy.tsx
+│   └── Terms.tsx
+└── App.tsx          # Main app component with routing
+```
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js 18+ and npm
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```bash
+# Clone the repository
+git clone <repository-url>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navigate to project directory
+cd medicare
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Building for Production
 
-**Use GitHub Codespaces**
+```bash
+# Build the project
+npm run build
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Preview the production build
+npm run preview
+```
 
-## What technologies are used for this project?
+The build output will be in the `dist/` directory.
 
-This project is built with:
+## Deployment
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Cloudflare Pages
 
-## How can I deploy this project?
+1. **Connect Repository**: Link your GitHub/GitLab repository to Cloudflare Pages
+2. **Build Settings**:
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+   - Root directory: `/`
+3. **Deploy**: Cloudflare Pages will automatically build and deploy
 
-Simply open [Lovable](https://lovable.dev/projects/d89b04d0-5412-4897-8d98-b8bf9df6af37) and click on Share -> Publish.
+### Other Static Hosts
 
-## Can I connect a custom domain to my Lovable project?
+The `dist/` directory can be deployed to:
+- Vercel
+- Netlify
+- GitHub Pages
+- AWS S3 + CloudFront
+- Any static hosting service
 
-Yes, you can!
+## Localization
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Adding a New Language
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+1. Create a new translation file in `src/locales/{locale}.json`
+2. Add the locale to the `Locale` type in `src/contexts/LanguageContext.tsx`
+3. Import and add the translations to the `translations` object
+4. Update the `LanguageSwitcher` component with the new locale
+5. Add routes for the new locale in `src/App.tsx`
+6. Update `sitemap.xml` with the new locale URLs
+
+### Updating Translations
+
+Edit the respective JSON file in `src/locales/` directory:
+- `en.json` - English translations
+- `ru.json` - Russian translations
+- `uz.json` - Uzbek translations
+
+## Customization
+
+### Design System
+
+The design system is defined in:
+- `src/index.css` - CSS variables for colors, gradients, and shadows
+- `tailwind.config.ts` - Tailwind configuration
+
+### Contact Information
+
+Update contact details in:
+- Translation files (`src/locales/*.json`)
+- Contact page component (`src/pages/Contacts.tsx`)
+- Footer component (`src/components/Footer.tsx`)
+
+### SEO Configuration
+
+Update meta tags and structured data in:
+- `index.html` - Base meta tags
+- `src/components/SEO.tsx` - Dynamic SEO component
+- `public/sitemap.xml` - Sitemap with all routes
+
+## Performance
+
+The application is optimized for performance:
+- Lazy loading of images
+- Code splitting by route
+- Optimized assets with Vite
+- Minimal JavaScript bundle
+- Efficient CSS with Tailwind
+
+## License
+
+Copyright © 2025 Medicare. All rights reserved.
+
+## Support
+
+For support, email info@medicare.uz or contact via Telegram.

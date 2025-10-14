@@ -1,0 +1,110 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "catalog": "Catalog",
+    "contacts": "Contacts"
+  },
+  "hero": {
+    "eyebrow": "Medical Supplies Wholesaler",
+    "title": "Professional Medical Equipment for Healthcare Facilities",
+    "subtitle": "Providing insight, care, and certified medical supplies across Uzbekistan",
+    "cta_primary": "Request Price List",
+    "cta_secondary": "Contact Us"
+  },
+  "kpi": {
+    "delivery": "24-72h delivery",
+    "sku": "1000+ SKUs",
+    "certified": "Certified"
+  },
+  "categories": {
+    "title": "Product Catalog",
+    "gloves": {
+      "name": "Nitrile Gloves",
+      "desc": "High-quality examination and surgical gloves with superior puncture resistance"
+    },
+    "masks": {
+      "name": "Masks & Respirators",
+      "desc": "Protective face masks and respirators meeting international safety standards"
+    },
+    "syringes": {
+      "name": "Syringes & Needles",
+      "desc": "Sterile disposable syringes and needles in various sizes"
+    },
+    "gowns": {
+      "name": "Surgical Gowns",
+      "desc": "Protective surgical gowns and medical apparel"
+    },
+    "dressings": {
+      "name": "Dressings & Plasters",
+      "desc": "Wound care supplies including bandages, gauze, and adhesive plasters"
+    },
+    "lab": {
+      "name": "Laboratory Disposables",
+      "desc": "Essential laboratory supplies and consumables"
+    }
+  },
+  "howWeWork": {
+    "title": "How We Work",
+    "step1": "Request quote",
+    "step2": "Receive proposal",
+    "step3": "Confirm order",
+    "step4": "Fast delivery"
+  },
+  "about": {
+    "title": "About Medicare",
+    "mission": "Medicare is a leading medical supplies wholesaler in Uzbekistan, dedicated to providing healthcare facilities with high-quality, certified medical equipment and disposables.",
+    "quality": "Quality Assurance",
+    "qualityDesc": "All our products meet CE and ISO certification standards, ensuring safety and reliability.",
+    "logistics": "Professional Logistics",
+    "logisticsDesc": "Modern warehouse facilities and efficient delivery network across Uzbekistan.",
+    "certification": "Certifications",
+    "certificationDesc": "CE certified and ISO compliant products with full documentation."
+  },
+  "catalog": {
+    "title": "Product Catalog",
+    "subtitle": "Explore our comprehensive range of medical supplies",
+    "contactCta": "Request Details"
+  },
+  "contacts": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "addressValue": "Tashkent, Uzbekistan",
+    "hours": "Working Hours",
+    "hoursValue": "Mon-Fri: 9:00 - 18:00",
+    "getInTouch": "Get In Touch",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp"
+  },
+  "footer": {
+    "description": "Professional medical supplies wholesaler in Uzbekistan",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "legal": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "This Privacy Policy describes how Medicare collects, uses, and protects your personal information.",
+      "collection": "Information Collection",
+      "collectionText": "We collect information you provide directly to us, such as when you request a price list or contact us.",
+      "usage": "Information Usage",
+      "usageText": "We use the information to respond to your inquiries, provide services, and improve our offerings.",
+      "protection": "Data Protection",
+      "protectionText": "We implement appropriate security measures to protect your personal information."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "intro": "By using Medicare's services, you agree to these terms.",
+      "services": "Services",
+      "servicesText": "Medicare provides wholesale medical supplies to healthcare facilities and institutions.",
+      "orders": "Orders and Delivery",
+      "ordersText": "All orders are subject to availability and confirmation. Delivery times are estimates.",
+      "liability": "Limitation of Liability",
+      "liabilityText": "Medicare strives to provide accurate product information but does not guarantee absolute accuracy."
+    }
+  }
+}

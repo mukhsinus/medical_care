@@ -5,6 +5,10 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 
+// ↓ добавили импорт логотипа (1x + 2x для ретины)
+import logo1x from '@/assets/logo.png';
+import logo2x from '@/assets/logo.png';
+
 export const Header = () => {
   const { locale, t } = useLanguage();
   const location = useLocation();
@@ -12,9 +16,7 @@ export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -27,27 +29,28 @@ export const Header = () => {
   ];
 
   const isActive = (path: string) => {
-    if (path === `/${locale}`) {
-      return location.pathname === path;
-    }
+    if (path === `/${locale}`) return location.pathname === path;
     return location.pathname.startsWith(path);
   };
 
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-all ${
-        isScrolled
-          ? 'bg-background/80 backdrop-blur-lg border-b shadow-sm'
-          : 'bg-background border-b'
+        isScrolled ? 'bg-background/80 backdrop-blur-lg border-b shadow-sm' : 'bg-background border-b'
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <Link to={`/${locale}`} className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center text-primary-foreground font-bold text-lg transition-transform group-hover:scale-105">
-              M
-            </div>
-            <span className="text-xl font-bold text-foreground">MEDICARE</span>
+          {/* ЛОГО: заменили div+текст на картинку */}
+          <Link to={`/${locale}`} className="flex items-center">
+            <img
+              src={logo1x}
+              srcSet={`${logo2x} 2x`}
+              alt="Medicare"
+              className="h-8 w-auto"   /* под высоту навбара (32px). Можно h-9 */
+              loading="eager"
+              decoding="async"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
@@ -75,6 +78,7 @@ export const Header = () => {
             size="icon"
             className="md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X /> : <Menu />}
           </Button>

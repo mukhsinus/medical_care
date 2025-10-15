@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 
+// ↓ импортируем тот же логотип
+import logo1x from '@/assets/logo.png';
+import logo2x from '@/assets/logo.png';
+
 export const Footer = () => {
   const { locale, t } = useLanguage();
 
@@ -9,11 +13,16 @@ export const Footer = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
+            {/* Лого в футере */}
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center text-primary-foreground font-bold text-lg">
-                M
-              </div>
-              <span className="text-xl font-bold">MEDICARE</span>
+              <img
+                src={logo1x}
+                srcSet={`${logo2x} 2x`}
+                alt="Medicare"
+                className="h-8 w-auto"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <p className="text-sm text-muted-foreground">{t.footer.description}</p>
           </div>

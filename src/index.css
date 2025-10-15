@@ -2,22 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* ======================================================
+   💎 MEDICARE DESIGN SYSTEM — ICE BLUE PREMIUM THEME
+   — Единые токены (HSL), мягкие тени, стекло, blur
+   ====================================================== */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 215 25% 15%;
+    /* -------- Core Palette -------- */
+    --background: 200 60% 98%;
+    --foreground: 220 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 220 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover-foreground: 220 15% 15%;
 
-    --primary: 195 85% 45%;
+    --primary: 200 90% 50%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 195 85% 95%;
@@ -26,46 +28,28 @@ All colors MUST be HSL.
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 195 85% 92%;
+    --accent: 200 80% 94%;
     --accent-foreground: 195 85% 35%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 195 85% 45%;
+    --border: 210 40% 90%;
+    --input: 210 40% 90%;
+    --ring: 200 90% 50%;
 
-    --radius: 0.75rem;
-    
-    /* Medical theme gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(195 85% 45%) 0%, hsl(195 75% 55%) 100%);
-    --gradient-card: linear-gradient(to bottom, hsl(0 0% 100%) 0%, hsl(195 85% 98%) 100%);
-    
-    /* Shadows */
-    --shadow-soft: 0 4px 24px -8px hsl(195 85% 45% / 0.15);
-    --shadow-card: 0 2px 12px -4px hsl(195 85% 45% / 0.1);
-    
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* -------- Effects -------- */
+    --shadow-soft: 0 8px 24px -10px hsl(200 90% 40% / 0.12);
+    --shadow-card: 0 4px 16px -6px hsl(200 90% 40% / 0.08);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* -------- Gradients -------- */
+    --gradient-hero: linear-gradient(135deg, hsl(200 85% 50%) 0%, hsl(200 70% 60%) 100%);
+    --gradient-card: linear-gradient(to bottom, hsl(0 0% 100%) 0%, hsl(200 80% 98%) 100%);
   }
 
+  /* -------- Dark Mode -------- */
   .dark {
     --background: 215 25% 12%;
     --foreground: 0 0% 98%;
@@ -88,32 +72,188 @@ All colors MUST be HSL.
     --accent: 215 25% 22%;
     --accent-foreground: 195 85% 55%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 0 0% 98%;
-
     --border: 215 25% 20%;
     --input: 215 25% 20%;
     --ring: 195 85% 55%;
-    
-    --gradient-hero: linear-gradient(135deg, hsl(195 85% 35%) 0%, hsl(195 75% 45%) 100%);
-    --gradient-card: linear-gradient(to bottom, hsl(215 25% 15%) 0%, hsl(215 25% 18%) 100%);
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
-}
 
-@layer base {
+  /* -------- Base Styles -------- */
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-[hsl(var(--foreground))] font-sans antialiased;
+    background: linear-gradient(135deg, hsl(200 60% 98%) 0%, hsl(210 60% 96%) 100%);
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-semibold tracking-tight text-[hsl(var(--foreground))];
+  }
+
+  img {
+    @apply select-none rounded-2xl shadow-card;
+  }
+
+  ::selection {
+    background: hsl(200 90% 50% / .18);
+  }
+}
+
+/* ======================================================
+   ✨ COMPONENTS: Buttons, Cards, Chips, Glass, Hero
+   ====================================================== */
+@layer components {
+  /* -------- Primary Button -------- */
+  .btn-primary {
+    @apply bg-[hsl(var(--primary))] text-white px-6 py-3 rounded-xl font-medium
+           shadow-soft transition-all hover:shadow-lg hover:bg-[hsl(200_90%_45%)];
+  }
+
+  /* -------- Outline Button -------- */
+  .btn-outline {
+    @apply border border-[hsl(var(--border))] text-[hsl(var(--primary))]
+           px-6 py-3 rounded-xl font-medium bg-white/70 backdrop-blur-sm
+           transition-all hover:bg-[hsl(var(--accent))]/60 hover:shadow-soft;
+  }
+
+  /* -------- KPI / Info Card (универсальная) -------- */
+  .card {
+    @apply bg-white/60 backdrop-blur-md border border-[hsl(var(--border))]
+           rounded-2xl shadow-card transition-all
+           hover:-translate-y-1 hover:shadow-soft;
+  }
+
+  /* -------- Eyebrow Label / Chip -------- */
+  .eyebrow {
+    @apply inline-block px-4 py-1.5 bg-[hsl(var(--accent))] text-[hsl(200_85%_35%)]
+           rounded-full text-sm font-medium mb-6 shadow-sm;
+  }
+
+
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* фото на всю ширину */
+  .hero::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    top: 0;
+    bottom: 0;
+    background-image: var(--hero-full-bg-image);
+    background-size: cover;
+    background-position: center 45%;
+    opacity: var(--hero-image-opacity, .25);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* голубая вуаль поверх фото */
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    top: 0;
+    bottom: 0;
+    background:
+      radial-gradient(900px 520px at 20% 20%, hsl(200 80% 96% / .30), transparent 60%),
+      linear-gradient(135deg, hsl(205 70% 98% / .20), hsl(200 60% 99% / .20));
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /*  блок куда кладем стеклянную панель */
+  .hero-scene { position: relative; }
+
+  /* контент над фоном */
+  .hero > * {
+    position: relative;
+    z-index: 1; 
+  }
+
+  .glass-panel::before { content: none; }
+
+
+  /* стеклянная панель */
+  .glass-panel {
+    position: relative;
+    overflow: hidden;
+    background: hsl(0 0% 100% / .15);
+    border: 1px solid hsl(0 0% 100% / .60);
+    backdrop-filter: saturate(170%) blur(14px);
+    -webkit-backdrop-filter: saturate(170%) blur(14px);
+    border-radius: 1.25rem;
+    box-shadow:
+      0 14px 32px -12px hsl(200 90% 40% / .16),
+      0 -14px 32px -12px hsla(200,90%,40%,.18),
+      12px 0 24px -16px hsl(200 90% 40% / .10),
+      -12px 0 24px -16px hsl(200 90% 40% / .10),
+      inset 0 1px 0 hsl(0 0% 100% / .35);
+  }
+
+/* фон на всю панель */
+  .glass-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--panel-bg-image); /* из JSX */
+    background-size: cover;
+    background-position: center;
+    opacity: .15;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* чтобы контент был выше фонового слоя */
+  .glass-panel > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* карточки как на референсе (для KPI) */
+  .glass-card {
+    background: hsl(0 0% 100% / .70);
+    border: 1px solid hsl(var(--border) / .9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    box-shadow: 0 6px 20px -12px hsl(200 90% 40% / .12);
+  }
+
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass-panel { background: hsl(0 0% 100% / .88); }
+    .glass-card  { background: hsl(0 0% 100% / .92); }
+  }
+}
+
+
+@layer utilities {
+  .bg-blur {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Чуть мягче скролл на десктопе */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+}
+
+/*  📱 Адаптивные штрихи для hero  */
+@media (max-width: 768px) {
+  .hero-scene::after {
+    background:
+      radial-gradient(520px 360px at 24% 22%, hsl(200 80% 96% / .92), transparent 58%),
+      linear-gradient(135deg, hsl(205 70% 97% / .92), hsl(200 60% 98% / .92));
   }
 }

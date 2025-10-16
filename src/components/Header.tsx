@@ -34,13 +34,11 @@ export const Header = () => {
 
   return (
     <header className="sticky top-4 z-50">
-      <div className="mx-4 md:mx-7">
-        
+      {/* относительная обёртка — якорь для выпадающего меню */}
+      <div className="mx-4 md:mx-7 relative">
         {/* стеклянная «плавающая» капсула */}
         <div className={`nav-glass w-full ${isScrolled ? 'nav-glass--scrolled' : ''} mb-3 sm:mb-3 md:mb-0`}>
-          <div className="container mx-auto px-4"></div>
-            <div className="h-16 px-3 md:px-5 flex items-center justify-between">
-              
+          <div className="h-12 md:h-16 px-4 md:px-5 flex items-center justify-between">
             {/* ЛОГО */}
             <Link to={`/${locale}`} className="flex items-center">
               <img
@@ -86,32 +84,42 @@ export const Header = () => {
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
-
-          {/* Мобильное меню внутри стеклянной капсулы */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden border-t border-white/60 px-3 py-3">
-              <nav className="flex flex-col gap-2">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive(item.path)
-                        ? 'bg-white/70 text-slate-900'
-                        : 'text-slate-700/80 hover:text-slate-900 hover:bg-white/60'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-                <div className="pt-2 border-t border-white/60">
-                  <LanguageSwitcher />
-                </div>
-              </nav>
-            </div>
-          )}
         </div>
+
+        {/* Мобильное меню — выпадает ВНИЗ под капсулой */}
+        {isMobileMenuOpen && (
+          <>
+            {/* кликабельная подложка для закрытия вне меню */}
+            <div
+              className="fixed inset-0 z-40 md:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            <div className="absolute left-0 right-0 top-full mt-2 z-50 md:hidden">
+              <div className="nav-glass overflow-hidden rounded-2xl">
+                <nav className="p-3">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`block px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                        isActive(item.path)
+                          ? 'bg-white/70 text-slate-900'
+                          : 'text-slate-700/80 hover:text-slate-900 hover:bg-white/60'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                  <div className="pt-2 mt-2 border-t border-white/60">
+                    <LanguageSwitcher />
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </header>
   );

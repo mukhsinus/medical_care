@@ -42,25 +42,25 @@ export default function Home() {
 
                     {/* hero */}
       <section
-        className="hero relative -mt-8 md:-mt-10 pt-8 md:pt-10 min-h-[785px] md:min-h-[560px] lg:min-h-[840px]"
+        className="hero relative min-h-[calc(100dvh-64px)] md:min-h-[560px] lg:min-h-[720px]"
         style={{
           ['--hero-full-bg-image' as any]: `url(${heroImage})`,
           ['--hero-image-opacity' as any]: '1',
-          
+          ['--hero-overlap' as any]: '80px',
         }}
       >
         <div className="hero-scene mx-2 md:mx-4 px-2 md:px-3 py-3 md:py-4">
-          <div className="glass-panel w-full min-h-[300px] md:min-h-[745px] flex flex-col justify-center md:mt-2.5">
+          <div className="glass-panel w-full  min-h-[300px] md:min-h-[680px] flex flex-col justify-center md:mt-2.5">
             <div className="container mx-auto px-4">
               <div className="grid md:grid-cols-1 gap-12 items-center">
                 <div>
-                  <div className="eyebrow">{t.hero.eyebrow}</div>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                  {/* <div className="eyebrow">{t.hero.eyebrow}</div> */}
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
                     {t.hero.title}
                   </h1>
-                  <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl">
+                  {/* <p className="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-xl">
                     {t.hero.subtitle}
-                  </p>
+                  </p> */}
                   <div className="flex flex-wrap gap-4">
                     <Button size="lg" onClick={() => handleContactClick('email')} className="btn-primary shadow-lg hover:shadow-xl">
                       <Mail className="mr-2 h-5 w-5" />

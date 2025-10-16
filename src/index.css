@@ -292,9 +292,12 @@
 /*  📱 Адаптивные штрихи для hero  */
 @media (max-width: 768px) {
 
+  .nav-glass { border-radius: 14px; }
+
   .glass-panel {
   min-height: 300px;
   border-radius: 16px;
+  padding-block: clamp(18px, 3vw, 32px);
   }
 
   .hero-scene::after {
@@ -302,5 +305,8 @@
       radial-gradient(520px 360px at 24% 22%, hsl(200 80% 96% / .92), transparent 58%),
       linear-gradient(135deg, hsl(205 70% 97% / .92), hsl(200 60% 98% / .92));
   }
+
+
+
 }
 

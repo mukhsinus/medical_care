@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ======================================================
-   💎 MEDICARE DESIGN SYSTEM — ICE BLUE PREMIUM THEME
-   — Единые токены (HSL), мягкие тени, стекло, blur
-   ====================================================== */
 
 @layer base {
   :root {
@@ -100,31 +96,29 @@
   }
 }
 
-/* ======================================================
-   ✨ COMPONENTS: Buttons, Cards, Chips, Glass, Hero
-   ====================================================== */
+
 @layer components {
-  /* -------- Primary Button -------- */
+
   .btn-primary {
     @apply bg-[hsl(var(--primary))] text-white px-6 py-3 rounded-xl font-medium
            shadow-soft transition-all hover:shadow-lg hover:bg-[hsl(200_90%_45%)];
   }
 
-  /* -------- Outline Button -------- */
+
   .btn-outline {
     @apply border border-[hsl(var(--border))] text-[hsl(var(--primary))]
            px-6 py-3 rounded-xl font-medium bg-white/70 backdrop-blur-sm
            transition-all hover:bg-[hsl(var(--accent))]/60 hover:shadow-soft;
   }
 
-  /* -------- KPI / Info Card (универсальная) -------- */
+
   .card {
     @apply bg-white/60 backdrop-blur-md border border-[hsl(var(--border))]
            rounded-2xl shadow-card transition-all
            hover:-translate-y-1 hover:shadow-soft;
   }
 
-  /* -------- Eyebrow Label / Chip -------- */
+
   .eyebrow {
     @apply inline-block px-4 py-1.5 bg-[hsl(var(--accent))] text-[hsl(200_85%_35%)]
            rounded-full text-sm font-medium mb-6 shadow-sm;
@@ -186,7 +180,7 @@
   .glass-panel {
     position: relative;
     overflow: hidden;
-    background: hsl(0 0% 100% / .15);
+    background: hsl(0 0% 100% / .1);
     border: 1px solid hsl(0 0% 100% / .60);
     backdrop-filter: saturate(170%) blur(14px);
     -webkit-backdrop-filter: saturate(170%) blur(14px);
@@ -251,6 +245,12 @@
 
 /*  📱 Адаптивные штрихи для hero  */
 @media (max-width: 768px) {
+
+  .glass-panel {
+  min-height: 300px;
+  border-radius: 16px;
+  }
+
   .hero-scene::after {
     background:
       radial-gradient(520px 360px at 24% 22%, hsl(200 80% 96% / .92), transparent 58%),

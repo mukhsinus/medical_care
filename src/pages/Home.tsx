@@ -39,17 +39,18 @@ export default function Home() {
     <Layout>
       <SEO title={t.hero.title} description={t.hero.subtitle} path="" />
 
-    {/* ===================== HERO ===================== */}
+
+                    {/* hero */}
       <section
-        className="hero relative md:min-h-[560px] lg:min-h-[680px]"
+        className="hero relative min-h-[785px] md:min-h-[560px] lg:min-h-[840px]"
         style={{
           ['--hero-full-bg-image' as any]: `url(${heroImage})`,
-          ['--hero-image-opacity' as any]: '.95',
+          ['--hero-image-opacity' as any]: '1',
         }}
       >
         <div className="hero-scene mx-2 md:mx-4 px-2 md:px-3 py-3 md:py-4">
-          <div className="glass-panel min-h-[460px] md:min-h-[620px] flex flex-col justify-center mt-2.5">
-            <div className="container mx-auto px-6">
+          <div className="glass-panel w-full min-h-[300px] md:min-h-[745px] flex flex-col justify-center md:mt-2.5">
+            <div className="container mx-auto px-4">
               <div className="grid md:grid-cols-1 gap-12 items-center">
                 <div>
                   <div className="eyebrow">{t.hero.eyebrow}</div>

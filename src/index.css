@@ -125,11 +125,53 @@
   }
 
 
-
+@layer components {
   .hero {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    --hero-overlap: 96px;
+  }}
+
+  /* NAV как стеклянная панель */
+  .nav-glass {
+    position: relative;
+    overflow: hidden;                     /* как у glass-panel */
+    background: hsl(0 0% 100% / .10);
+    border: 1px solid hsl(0 0% 100% / .60);
+    backdrop-filter: saturate(170%) blur(14px);
+    -webkit-backdrop-filter: saturate(170%) blur(14px);
+    border-radius: 1.25rem;               /* = 20px */
+    box-shadow:
+      0 14px 32px -12px hsl(200 90% 40% / .16),
+      0 -14px 32px -12px hsla(200,90%,40%,.18),
+      12px 0 24px -16px hsl(200 90% 40% / .10),
+      -12px 0 24px -16px hsl(200 90% 40% / .10),
+      inset 0 1px 0 hsl(0 0% 100% / .35);
+    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
   }
+
+  /* лёгкий «блик» сверху, как у стекла */
+  .nav-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(1200px 220px at 50% -80px, hsl(0 0% 100% / .35), transparent 60%);
+    pointer-events: none;
+  }
+
+  /* чуть плотнее при прокрутке */
+  .nav-glass--scrolled {
+    background: hsl(0 0% 100% / .18);
+    border-color: hsl(0 0% 100% / .65);
+    box-shadow:
+      0 14px 38px -10px hsl(200 90% 30% / .22),
+      inset 0 1px 0 hsl(0 0% 100% / .38);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .nav-glass { background: hsl(0 0% 100% / .88); } /* фолбэк без blur */
+  }
+}
 
   /* фото на всю ширину */
   .hero::before {
@@ -138,7 +180,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    top: 0;
+    top: calc(var(--hero-overlap) * -1);
     bottom: 0;
     background-image: var(--hero-full-bg-image);
     background-size: cover;
@@ -155,7 +197,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    top: 0;
+    top: calc(var(--hero-overlap) * -1);
     bottom: 0;
     background:
       radial-gradient(900px 520px at 20% 20%, hsl(200 80% 96% / .30), transparent 60%),
@@ -163,6 +205,8 @@
     z-index: 0;
     pointer-events: none;
   }
+
+  
 
   /*  блок куда кладем стеклянную панель */
   .hero-scene { position: relative; }
@@ -223,10 +267,9 @@
   }
 
 
-  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .glass-panel { background: hsl(0 0% 100% / .88); }
-    .glass-card  { background: hsl(0 0% 100% / .92); }
-  }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-panel { background: hsl(0 0% 100% / .88); }
+  .glass-card  { background: hsl(0 0% 100% / .92); }
 }
 
 
@@ -236,6 +279,9 @@
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
+
+  .page-gutter { margin-inline: .5rem; }   /* mx-2 */
+  @media (min-width:768px){ .page-gutter{ margin-inline: 1rem; } } /* md:mx-4 */
 
   /* Чуть мягче скролл на десктопе */
   .scroll-smooth {
@@ -257,3 +303,4 @@
       linear-gradient(135deg, hsl(205 70% 97% / .92), hsl(200 60% 98% / .92));
   }
 }
+

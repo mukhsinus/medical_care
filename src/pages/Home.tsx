@@ -42,10 +42,11 @@ export default function Home() {
 
                     {/* hero */}
       <section
-        className="hero relative min-h-[785px] md:min-h-[560px] lg:min-h-[840px]"
+        className="hero relative -mt-8 md:-mt-10 pt-8 md:pt-10 min-h-[785px] md:min-h-[560px] lg:min-h-[840px]"
         style={{
           ['--hero-full-bg-image' as any]: `url(${heroImage})`,
           ['--hero-image-opacity' as any]: '1',
+          
         }}
       >
         <div className="hero-scene mx-2 md:mx-4 px-2 md:px-3 py-3 md:py-4">

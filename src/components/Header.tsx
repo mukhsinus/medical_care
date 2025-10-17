@@ -33,76 +33,86 @@ export const Header = () => {
   };
 
   return (
-    <header className="header">
-      {/* Relative wrapper — anchor for dropdown menu */}
-      <div className="header-wrapper">
-        {/* Glass "floating" capsule */}
-        <div className={`nav-glass ${isScrolled ? 'nav-glass--scrolled' : ''}`}>
-          <div className="nav-bar">
-            {/* Logo */}
-            <Link to={`/${locale}`} className="logo-link">
+    <header className="sticky top-4 z-50">
+      {/* относительная обёртка — якорь для выпадающего меню */}
+      <div className="mx-4 md:mx-7 relative">
+        {/* стеклянная «плавающая» капсула */}
+        <div className={`nav-glass w-full ${isScrolled ? 'nav-glass--scrolled' : ''} mb-3 sm:mb-3 md:mb-0`}>
+          <div className="h-12 md:h-16 px-4 md:px-5 flex items-center justify-between">
+            {/* ЛОГО */}
+            <Link to={`/${locale}`} className="flex items-center">
               <img
                 src={logo1x}
                 srcSet={`${logo2x} 2x`}
                 alt="Medicare"
-                className="logo-img"
+                className="h-8 w-auto"
                 loading="eager"
                 decoding="async"
               />
             </Link>
 
-            {/* Navigation — desktop */}
-            <nav className="nav-desktop">
+            {/* Навигация — десктоп */}
+            <nav className="hidden md:flex items-center gap-1">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActive(item.path)
+                      ? 'bg-white/70 text-slate-900'
+                      : 'text-slate-700/80 hover:text-slate-900 hover:bg-white/60'
+                  }`}
                 >
                   {item.label}
                 </Link>
               ))}
             </nav>
 
-            {/* Language switcher — desktop */}
-            <div className="language-switcher-desktop">
+            {/* Переключатель языка — десктоп */}
+            <div className="hidden md:flex">
               <LanguageSwitcher />
             </div>
 
-            {/* Burger — mobile */}
+            {/* Бургер — мобилка */}
             <Button
-              className="mobile-menu-button"
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
               aria-label="Toggle Menu"
               onClick={() => setIsMobileMenuOpen((v) => !v)}
             >
-              {isMobileMenuOpen ? <X className="icon" /> : <Menu className="icon" />}
+              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {/* Mobile menu — drops DOWN below capsule */}
+        {/* Мобильное меню — выпадает ВНИЗ под капсулой */}
         {isMobileMenuOpen && (
           <>
-            {/* Clickable overlay to close outside menu */}
+            {/* кликабельная подложка для закрытия вне меню */}
             <div
-              className="mobile-menu-overlay"
+              className="fixed inset-0 z-40 md:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
               aria-hidden="true"
             />
-            <div className="mobile-menu">
-              <div className="mobile-menu-glass">
-                <nav className="nav-mobile">
+            <div className="absolute left-0 right-0 top-full mt-2 z-50 md:hidden">
+              <div className="nav-glass overflow-hidden rounded-2xl">
+                <nav className="p-3">
                   {navItems.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                      className={`block px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                        isActive(item.path)
+                          ? 'bg-white/70 text-slate-900'
+                          : 'text-slate-700/80 hover:text-slate-900 hover:bg-white/60'
+                      }`}
                     >
                       {item.label}
                     </Link>
                   ))}
-                  <div className="mobile-language-divider">
+                  <div className="pt-2 mt-2 border-t border-white/60">
                     <LanguageSwitcher />
                   </div>
                 </nav>

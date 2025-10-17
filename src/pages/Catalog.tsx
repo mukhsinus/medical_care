@@ -35,41 +35,36 @@ export default function Catalog() {
         path="/catalog"
       />
 
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              {t.catalog.title}
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {t.catalog.subtitle}
-            </p>
+      <section className="catalog-section">
+        <div className="catalog-container">
+          <div className="catalog-header">
+            <h1 className="catalog-title">{t.catalog.title}</h1>
+            <p className="catalog-subtitle">{t.catalog.subtitle}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="catalog-grid">
             {categories.map((category) => {
               const catData = t.categories[category.key as keyof typeof t.categories] as { name: string; desc: string };
               return (
-                <Card key={category.key} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="aspect-video overflow-hidden bg-accent/20">
+                <Card key={category.key} className="catalog-card">
+                  <div className="card-image-wrapper">
                     <img
                       src={category.image}
                       alt={catData.name}
-                      className="w-full h-full object-cover"
+                      className="card-image"
                       loading="lazy"
                     />
                   </div>
-                  <CardHeader>
-                    <CardTitle>{catData.name}</CardTitle>
-                    <CardDescription className="text-base">{catData.desc}</CardDescription>
+                  <CardHeader className="card-header">
+                    <CardTitle className="card-title">{catData.name}</CardTitle>
+                    <CardDescription className="card-description">{catData.desc}</CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="card-content">
                     <Button
-                      variant="outline"
-                      className="w-full"
+                      className="catalog-button"
                       onClick={handleContactClick}
                     >
-                      <Mail className="mr-2 h-4 w-4" />
+                      <Mail className="catalog-icon" />
                       {t.catalog.contactCta}
                     </Button>
                   </CardContent>

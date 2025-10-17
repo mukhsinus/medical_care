@@ -1318,3 +1318,386 @@ img {
       linear-gradient(135deg, hsla(205, 70%, 97%, 0.92), hsla(200, 60%, 98%, 0.92));
   }
 }
+/* Catalog page styles, replacing Tailwind and shadcn/ui classes from Catalog.tsx and index.css */
+
+/* Catalog section */
+.catalog-section {
+  padding-top: 4rem; /* py-16 */
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .catalog-section {
+    padding-top: 6rem; /* md:py-24 */
+    padding-bottom: 6rem;
+  }
+}
+
+/* Container */
+.catalog-container {
+  max-width: 1280px; /* max-w-6xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem;
+}
+
+/* Header section */
+.catalog-header {
+  text-align: center; /* text-center */
+  margin-bottom: 3rem; /* mb-12 */
+}
+
+/* Title */
+.catalog-title {
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 700; /* font-bold */
+  margin-bottom: 1rem; /* mb-4 */
+  color: hsl(220, 15%, 15%); /* text-[hsl(var(--foreground))] */
+}
+
+@media (min-width: 768px) {
+  .catalog-title {
+    font-size: 3rem; /* md:text-5xl */
+  }
+}
+
+/* Subtitle */
+.catalog-subtitle {
+  font-size: 1.25rem; /* text-xl */
+  color: hsl(215, 16%, 47%); /* text-muted-foreground */
+  max-width: 32rem; /* max-w-2xl */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Catalog grid */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* grid-cols-1 */
+  gap: 2rem; /* gap-8 */
+  max-width: 1152px; /* max-w-5xl */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .catalog-grid {
+    grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
+  }
+}
+
+/* Card (replacing shadcn/ui Card) */
+.catalog-card {
+  overflow: hidden; /* overflow-hidden */
+  background: hsla(0, 0%, 100%, 0.7); /* shadcn/ui Card default */
+  border: 1px solid hsl(210, 40%, 90%); /* border-[hsl(var(--border))] */
+  border-radius: 1rem; /* rounded-2xl from index.css */
+  box-shadow: 0 6px 20px -12px hsla(200, 90%, 40%, 0.12); /* shadow-card */
+  transition: box-shadow 0.2s ease; /* transition-shadow */
+}
+
+.catalog-card:hover {
+  box-shadow: 0 10px 15px -3px hsla(200, 90%, 40%, 0.15); /* hover:shadow-lg */
+}
+
+/* Image wrapper */
+.card-image-wrapper {
+  aspect-ratio: 16 / 9; /* aspect-video */
+  overflow: hidden; /* overflow-hidden */
+  background: hsla(200, 80%, 94%, 0.2); /* bg-accent/20 */
+}
+
+/* Image */
+.card-image {
+  width: 100%; /* w-full */
+  height: 100%; /* h-full */
+  object-fit: cover; /* object-cover */
+  user-select: none; /* select-none from base styles */
+  border-radius: 1rem; /* rounded-2xl from base img styles */
+  box-shadow: 0 4px 16px -6px hsla(200, 90%, 40%, 0.08); /* shadow-card */
+}
+
+/* Card header (replacing shadcn/ui CardHeader) */
+.card-header {
+  padding: 1.5rem; /* shadcn/ui default */
+}
+
+/* Card title (replacing shadcn/ui CardTitle) */
+.card-title {
+  font-size: 1.25rem; /* shadcn/ui default */
+  font-weight: 600; /* font-semibold */
+  color: hsl(220, 15%, 15%); /* text-[hsl(var(--foreground))] */
+}
+
+/* Card description (replacing shadcn/ui CardDescription) */
+.card-description {
+  font-size: 1rem; /* text-base */
+  color: hsl(215, 16%, 47%); /* text-muted-foreground */
+}
+
+/* Card content (replacing shadcn/ui CardContent) */
+.card-content {
+  padding: 1.5rem; /* shadcn/ui default */
+}
+
+/* Button (replacing shadcn/ui Button variant="outline") */
+.catalog-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* gap-2 from buttonVariants */
+  width: 100%; /* w-full */
+  height: 2.5rem; /* h-10 from size="default" */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  border: 1px solid hsl(210, 40%, 90%); /* border-input */
+  background: hsl(200, 60%, 98%); /* bg-background */
+  color: hsl(220, 15%, 15%); /* text-[hsl(var(--foreground))] */
+  border-radius: 0.375rem; /* rounded-md */
+  transition: color 0.2s ease, background-color 0.2s ease; /* transition-colors */
+  cursor: pointer;
+}
+
+.catalog-button:hover {
+  background: hsl(200, 80%, 94%); /* hover:bg-accent */
+  color: hsl(195, 85%, 35%); /* hover:text-accent-foreground */
+}
+
+.catalog-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(200, 60%, 98%), 0 0 0 4px hsl(200, 90%, 50%); /* focus-visible:ring-2 ring-ring ring-offset-2 */
+}
+
+.catalog-button:disabled {
+  pointer-events: none;
+  opacity: 0.5; /* disabled:opacity-50 */
+}
+
+/* Icon (Mail) */
+.catalog-icon {
+  width: 1rem; /* h-4 w-4 */
+  height: 1rem;
+  margin-right: 0.5rem; /* mr-2 */
+  pointer-events: none; /* from buttonVariants */
+  flex-shrink: 0;
+}
+
+/* Base styles from index.css */
+body {
+  color: hsl(220, 15%, 15%); /* text-[hsl(var(--foreground))] */
+  font-family: ui-sans-serif, system-ui, sans-serif; /* font-sans */
+  -webkit-font-smoothing: antialiased; /* antialiased */
+  background: linear-gradient(135deg, hsl(200, 60%, 98%) 0%, hsl(210, 60%, 96%) 100%);
+}
+
+img {
+  user-select: none; /* select-none */
+  border-radius: 1rem; /* rounded-2xl */
+  box-shadow: 0 4px 16px -6px hsla(200, 90%, 40%, 0.08); /* shadow-card */
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 215 25% 12%;
+    --foreground: 0 0% 98%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 215 25% 22%;
+    --accent-foreground: 195 85% 55%;
+    --border: 215 25% 20%;
+    --input: 215 25% 20%;
+    --ring: 195 85% 55%;
+  }
+
+  body {
+    color: hsl(0, 0%, 98%); /* --foreground */
+    background: linear-gradient(135deg, hsl(215, 25%, 12%) 0%, hsl(215, 25%, 15%) 100%);
+  }
+
+  .catalog-title {
+    color: hsl(0, 0%, 98%); /* --foreground */
+  }
+
+  .catalog-subtitle {
+    color: hsl(215, 20%, 65%); /* text-muted-foreground */
+  }
+
+  .catalog-card {
+    background: hsla(215, 25%, 15%, 0.7);
+    border-color: hsl(215, 25%, 20%);
+  }
+
+  .card-image-wrapper {
+    background: hsla(215, 25%, 22%, 0.2); /* bg-accent/20 */
+  }
+
+  .card-title {
+    color: hsl(0, 0%, 98%); /* --foreground */
+  }
+
+  .card-description {
+    color: hsl(215, 20%, 65%); /* text-muted-foreground */
+  }
+
+  .catalog-button {
+    border-color: hsl(215, 25%, 20%); /* border-input */
+    background: hsl(215, 25%, 12%); /* bg-background */
+    color: hsl(0, 0%, 98%); /* --foreground */
+  }
+
+  .catalog-button:hover {
+    background: hsl(215, 25%, 22%); /* hover:bg-accent */
+    color: hsl(195, 85%, 55%); /* hover:text-accent-foreground */
+  }
+}
+
+/* Footer styles, replacing Tailwind classes from Footer.tsx and index.css */
+
+/* Footer container */
+.footer {
+  background: hsla(210, 40%, 96%, 0.3); /* bg-muted/30 */
+  border-top: 1px solid hsl(210, 40%, 90%); /* border-t border-[hsl(var(--border))] */
+  margin-top: auto; /* mt-auto */
+}
+
+/* Main content wrapper */
+.footer-container {
+  max-width: 1280px; /* max-w-6xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 1rem; /* px-4 py-8 */
+}
+
+/* Grid layout for footer sections */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* grid-cols-1 */
+  gap: 2rem; /* gap-8 */
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr); /* md:grid-cols-3 */
+  }
+}
+
+/* Logo section */
+.logo-section {
+  display: flex;
+  align-items: center; /* items-center */
+  gap: 0.5rem; /* gap-2 */
+  margin-bottom: 0.75rem; /* mb-3 */
+}
+
+/* Logo image */
+.footer-logo-img {
+  height: 2rem; /* h-8 */
+  width: auto; /* w-auto */
+  user-select: none; /* select-none from base styles */
+  border-radius: 1rem; /* rounded-2xl from base img styles */
+  box-shadow: 0 4px 16px -6px hsla(200, 90%, 40%, 0.08); /* shadow-card */
+}
+
+/* Description text */
+.footer-description {
+  font-size: 0.875rem; /* text-sm */
+  color: hsl(215, 16%, 47%); /* text-muted-foreground */
+}
+
+/* Section title */
+.footer-section-title {
+  font-weight: 600; /* font-semibold */
+  margin-bottom: 0.75rem; /* mb-3 */
+  color: hsl(220, 15%, 15%); /* text-[hsl(var(--foreground))] */
+}
+
+/* List for catalog/legal links */
+.footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* space-y-2 */
+}
+
+/* Catalog list items */
+.catalog-item {
+  font-size: 0.875rem; /* text-sm */
+  color: hsl(215, 16%, 47%); /* text-muted-foreground */
+}
+
+/* Legal links */
+.legal-link {
+  font-size: 0.875rem; /* text-sm */
+  color: hsl(215, 16%, 47%); /* text-muted-foreground */
+  text-decoration: none;
+  transition: color 0.2s ease; /* transition-colors */
+}
+
+.legal-link:hover {
+  color: hsl(220, 15%, 15%); /* hover:text-foreground */
+}
+
+/* Copyright section */
+.copyright {
+  border-top: 1px solid hsl(210, 40%, 90%); /* border-t border-[hsl(var(--border))] */
+  margin-top: 2rem; /* mt-8 */
+  padding-top: 1.5rem; /* pt-6 */
+  text-align: center; /* text-center */
+  font-size: 0.875rem; /* text-sm */
+  color: hsl(215, 16%, 47%); /* text-muted-foreground */
+}
+
+/* Base styles from index.css */
+body {
+  color: hsl(220, 15%, 15%); /* text-[hsl(var(--foreground))] */
+  font-family: ui-sans-serif, system-ui, sans-serif; /* font-sans */
+  -webkit-font-smoothing: antialiased; /* antialiased */
+  background: linear-gradient(135deg, hsl(200, 60%, 98%) 0%, hsl(210, 60%, 96%) 100%);
+}
+
+img {
+  user-select: none; /* select-none */
+  border-radius: 1rem; /* rounded-2xl */
+  box-shadow: 0 4px 16px -6px hsla(200, 90%, 40%, 0.08); /* shadow-card */
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 215 25% 12%;
+    --foreground: 0 0% 98%;
+    --muted: 215 25% 20%;
+    --muted-foreground: 215 20% 65%;
+    --border: 215 25% 20%;
+  }
+
+  body {
+    color: hsl(0, 0%, 98%); /* --foreground */
+    background: linear-gradient(135deg, hsl(215, 25%, 12%) 0%, hsl(215, 25%, 15%) 100%);
+  }
+
+  .footer {
+    background: hsla(215, 25%, 20%, 0.3); /* bg-muted/30 */
+    border-top-color: hsl(215, 25%, 20%); /* border-[hsl(var(--border))] */
+  }
+
+  .footer-section-title {
+    color: hsl(0, 0%, 98%); /* --foreground */
+  }
+
+  .footer-description,
+  .catalog-item,
+  .legal-link,
+  .copyright {
+    color: hsl(215, 20%, 65%); /* text-muted-foreground */
+  }
+
+  .legal-link:hover {
+    color: hsl(0, 0%, 98%); /* hover:text-foreground */
+  }
+
+  .copyright {
+    border-top-color: hsl(215, 25%, 20%);
+  }
+}

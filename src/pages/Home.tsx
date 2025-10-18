@@ -49,7 +49,7 @@ export default function Home() {
         style={{
           ['--hero-full-bg-image' as any]: `url(${heroImage})`,
           ['--hero-image-opacity' as any]: '1',
-          ['--hero-overlap' as any]: '110px',
+          ['--hero-overlap' as any]: '132px',
           marginTop: 'calc(var(--hero-overlap) * -0.5)',
           // запас под длинный RU заголовок
         }}
@@ -153,7 +153,7 @@ export default function Home() {
                   <div
                     className="
                       h-full w-full
-                      group relative glass-card overflow-hidden rounded-2xl
+                      group relative glass-card overflow-hidden rounded-2xl isolate
                       aspect-square transition-transform duration-200
                       hover:scale-[1.01] active:scale-[.99]
                        flex justify-center
@@ -162,7 +162,7 @@ export default function Home() {
                     <img
                       src={category.image}
                       alt={catData.name}
-                      className="h-[80%] w-[80%] object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+                      className="z-content h-[65%] w-[70%] object-contain transition-transform duration-300 group-hover:scale-[0.8]"
                       loading="lazy"
                       decoding="async"
                     />

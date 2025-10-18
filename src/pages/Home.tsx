@@ -41,21 +41,27 @@ export default function Home() {
 
       {/* ===================== HERO ===================== */}
       <section
-        className="hero relative min-h-[calc(100dvh-64px)] md:min-h-[560px] lg:min-h-[720px]"
+        className="
+          hero relative min-h-[100svh]
+          [--hero-top-gap:5rem] md:[--hero-top-gap:6rem]
+          [--hero-bottom-gap:2.5rem] md:[--hero-bottom-gap:3rem]
+        "
         style={{
           ['--hero-full-bg-image' as any]: `url(${heroImage})`,
           ['--hero-image-opacity' as any]: '1',
-          ['--hero-overlap' as any]: '80px',
-          // стабильная высота стеклянной панели (под самый длинный RU-текст)
-          ['--hero-panel-min-h' as any]: '24rem',
+          ['--hero-overlap' as any]: '110px',
+          marginTop: 'calc(var(--hero-overlap) * -0.5)',
+          // запас под длинный RU заголовок
         }}
       >
-        <div className="hero-scene mx-2 md:mx-4 px-2 md:px-3 py-3 md:py-4">
+        <div className="hero-scene mx-2 md:mx-4 px-2 md:px-3">
+
           <div
             className="
               glass-panel w-full
-              min-h-[var(--hero-panel-min-h)]
-              flex flex-col justify-center md:mt-2.5
+              mt-[var(--hero-top-gap)]
+              min-h-[calc(100svh-var(--hero-top-gap)-var(--hero-bottom-gap))]
+              flex flex-col justify-center
             "
           >
             <div className="container mx-auto px-4">
@@ -121,6 +127,9 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* небольшой внутренний отступ снизу секции, чтобы панель "почти у основания" */}
+          <div className="h-[var(--hero-bottom-gap)]" aria-hidden />
         </div>
       </section>
 
@@ -165,7 +174,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* SEO-текст остаётся, но визуально скрыт, чтобы не ломать квадрат */}
+                    {/* SEO-текст остаётся, но визуально скрыт */}
                     <p className="sr-only">{catData.desc}</p>
                   </div>
                 </Link>

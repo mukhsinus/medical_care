@@ -7,12 +7,12 @@ import { Clock, Package, ShieldCheck, Mail, MessageCircle, Send } from 'lucide-r
 import { Link } from 'react-router-dom';
 
 import heroImage from '@/assets/hero-image.jpg';
-import categoryGloves from '@/assets/category-gloves.jpg';
-import categoryMasks from '@/assets/category-masks.jpg';
-import categorySyringes from '@/assets/category-syringes.jpg';
-import categoryGowns from '@/assets/category-gowns.jpg';
-import categoryDressings from '@/assets/category-dressings.jpg';
-import categoryLab from '@/assets/category-lab.jpg';
+import categoryGloves from '@/assets/gloves.webp';
+import categoryMasks from '@/assets/mask.png';
+import categorySyringes from '@/assets/needles.webp';
+import categoryGowns from '@/assets/gown.png';
+import categoryDressings from '@/assets/plaster.png';
+import categoryLab from '@/assets/disposable.png';
 
 const categories = [
   { key: 'gloves', image: categoryGloves },
@@ -44,7 +44,7 @@ export default function Home() {
         className="
           hero relative min-h-[100svh]
           [--hero-top-gap:5rem] md:[--hero-top-gap:6rem]
-          [--hero-bottom-gap:2.5rem] md:[--hero-bottom-gap:3rem]
+          [--hero-bottom-gap:2.5rem] md:[--hero-bottom-gap:3rem] overflow-x-hidden
         "
         style={{
           ['--hero-full-bg-image' as any]: `url(${heroImage})`,
@@ -141,7 +141,7 @@ export default function Home() {
           </h2>
 
           {/* 2 в ряд на мобиле, квадратные карточки, стиль mini app */}
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-3 lg:gap-7">
             {categories.map((category) => {
               const catData = t.categories[category.key as keyof typeof t.categories] as {
                 name: string;
@@ -152,27 +152,36 @@ export default function Home() {
                 <Link key={category.key} to={`/${locale}/catalog`}>
                   <div
                     className="
+                      h-full w-full
                       group relative glass-card overflow-hidden rounded-2xl
                       aspect-square transition-transform duration-200
                       hover:scale-[1.01] active:scale-[.99]
+                       flex justify-center
                     "
                   >
                     <img
                       src={category.image}
                       alt={catData.name}
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                      className="h-[80%] w-[80%] object-contain transition-transform duration-300 group-hover:scale-[1.03]"
                       loading="lazy"
                       decoding="async"
                     />
 
                     {/* подпись в стиле mini app */}
-                    <div className="absolute inset-x-2 bottom-2 md:inset-x-3 md:bottom-3">
-                      <div className="glass-panel rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 inline-block">
-                        <span className="text-[12px] md:text-sm font-semibold">
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-3 w-[90%] max-w-[180px]">
+                      <div
+                        className="
+                          glass-panel w-full text-center
+                          rounded-lg px-2.5 py-1.5 md:px-3 md:py-2
+                          flex items-end justify-center
+                        "
+                      >
+                        <span className="text-[12px] md:text-sm font-semibold leading-tight">
                           {catData.name}
                         </span>
                       </div>
                     </div>
+
 
                     {/* SEO-текст остаётся, но визуально скрыт */}
                     <p className="sr-only">{catData.desc}</p>

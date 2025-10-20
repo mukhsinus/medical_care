@@ -132,44 +132,40 @@
     --hero-overlap: 96px;
   }}
 
-  /* NAV как стеклянная панель */
+  /* =====================  NAV — полный прозрачный жидкий стекло эффект ===================== */
   .nav-glass {
     position: relative;
-    overflow: hidden;                     /* как у glass-panel */
-    background: hsl(0 0% 100% / .10);
-    border: 1px solid hsl(0 0% 100% / .60);
-    backdrop-filter: saturate(170%) blur(14px);
-    -webkit-backdrop-filter: saturate(170%) blur(14px);
-    border-radius: 1.25rem;               /* = 20px */
+    overflow: hidden;
+    background: transparent;
+    border: 1px solid hsl(0 0% 100% / .4);
+    border-radius: 1.25rem; 
     box-shadow:
-      0 14px 32px -12px hsl(200 90% 40% / .16),
-      0 -14px 32px -12px hsla(200,90%,40%,.18),
-      12px 0 24px -16px hsl(200 90% 40% / .10),
-      -12px 0 24px -16px hsl(200 90% 40% / .10),
-      inset 0 1px 0 hsl(0 0% 100% / .35);
-    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+      0 10px 24px -12px hsl(200 90% 40% / .14),
+      inset 0 1px 0 hsl(0 0% 100% / .45);
+    transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
   }
 
-  /* лёгкий «блик» сверху, как у стекла */
+  /* бликовая подсветка сверху — как у iOS стекла */
   .nav-glass::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(1200px 220px at 50% -80px, hsl(0 0% 100% / .35), transparent 60%);
+    background: linear-gradient(to bottom, hsl(0 0% 100% / .16), transparent 60%);
     pointer-events: none;
   }
 
   /* чуть плотнее при прокрутке */
   .nav-glass--scrolled {
     background: hsl(0 0% 100% / .18);
-    border-color: hsl(0 0% 100% / .65);
+    border-color: hsl(0 0% 100% / .55);
     box-shadow:
       0 14px 38px -10px hsl(200 90% 30% / .22),
       inset 0 1px 0 hsl(0 0% 100% / .38);
   }
 
+  /* фолбэк без blur */
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .nav-glass { background: hsl(0 0% 100% / .88); } /* фолбэк без blur */
+    .nav-glass { background: hsl(0 0% 100% / .7); }
   }
 }
 
@@ -322,8 +318,5 @@
       radial-gradient(520px 360px at 24% 22%, hsl(200 80% 96% / .92), transparent 58%),
       linear-gradient(135deg, hsl(205 70% 97% / .92), hsl(200 60% 98% / .92));
   }
-
-
-
 }
 

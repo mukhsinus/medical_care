@@ -10,6 +10,8 @@ import categorySyringes from '@/assets/category-syringes.jpg';
 import categoryGowns from '@/assets/category-gowns.jpg';
 import categoryDressings from '@/assets/category-dressings.jpg';
 import categoryLab from '@/assets/category-lab.jpg';
+import catalogImage from '@/assets/catalog-image.jpg';
+
 
 const categories = [
   { key: 'gloves', image: categoryGloves },
@@ -34,6 +36,21 @@ export default function Catalog() {
         description={t.catalog.subtitle}
         path="/catalog"
       />
+
+
+      <section
+        className="
+          catalog relative min-h-[100svh]
+          [--catalog-top-gap:5rem] md:[--catalog-top-gap:6rem]
+          [--catalog-bottom-gap:2.5rem] md:[--catalog-bottom-gap:3rem] overflow-x-hidden
+        "
+        style={{
+          ['--catalog-full-bg-image' as any]: `url(${catalogImage})`,
+          ['--catalog-image-opacity' as any]: '1',
+          ['--catalog-overlap' as any]: '132px',
+        }}
+      ></section>
+
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">

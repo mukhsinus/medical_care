@@ -184,6 +184,8 @@
     overflow: hidden;
     background: transparent;
     border: 1px solid hsl(0 0% 100% / .4);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%); 
     border-radius: 1.25rem;
     box-shadow:
       0 10px 24px -12px hsl(200 90% 40% / .14),

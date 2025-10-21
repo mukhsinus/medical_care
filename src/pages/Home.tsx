@@ -9,18 +9,18 @@ import { Link } from 'react-router-dom';
 import heroImage from '@/assets/hero-image.jpg';
 import catalogImage from '@/assets/catalog-image.webp';
 
-import categoryGloves from '@/assets/gloves.webp';
-import categoryMasks from '@/assets/mask.png';
-import categorySyringes from '@/assets/needles.webp';
-import categoryGowns from '@/assets/gown.png';
+import categoryInjection from '@/assets/category-injection.png';
+import categoryEquipment from '@/assets/category-equipment.png';
+import categorySurgery from '@/assets/category-surgery.png';
+import categoryHygiene from '@/assets/category-hygiene.png';
 import categoryDressings from '@/assets/plaster.png';
 import categoryLab from '@/assets/disposable.png';
 
 const categories = [
-  { key: 'gloves', image: categoryGloves },
-  { key: 'masks', image: categoryMasks },
-  { key: 'syringes', image: categorySyringes },
-  { key: 'gowns', image: categoryGowns },
+  { key: 'gloves', image: categoryInjection },
+  { key: 'masks', image: categoryEquipment },
+  { key: 'syringes', image: categorySurgery },
+  { key: 'gowns', image: categoryHygiene },
   { key: 'dressings', image: categoryDressings },
   { key: 'lab', image: categoryLab },
 ];

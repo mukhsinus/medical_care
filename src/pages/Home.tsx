@@ -148,12 +148,12 @@ export default function Home() {
                     <img
                       src={category.image}
                       alt={catData.name}
-                      className="z-content h-[65%] w-[70%] object-contain transition-transform duration-300 group-hover:scale-[0.8]"
+                      className="z-content h-[65%] w-[70%] object-contain transition-transform duration-300 group-hover:scale-[0.95]"
                       loading="lazy"
                       decoding="async"
                     />
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-3 w-[90%] max-w-[180px]">
-                      <div className="glass-panel w-full text-center rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 flex items-end justify-center">
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-3 w-[90%] max-w-[200px] sm:w-auto">
+                      <div className="w-full text-center rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 flex items-end justify-center"> {/*  убрал glass panel */}
                         <span className="text-[12px] md:text-sm font-semibold leading-tight">
                           {catData.name}
                         </span>

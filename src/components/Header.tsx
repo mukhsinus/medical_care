@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 
-import logo1x from '@/assets/logo.png';
-import logo2x from '@/assets/logo.png';
+import logo1x from '@/assets/logo-removebg-preview.png';
+import logo2x from '@/assets/logo-removebg-preview.png';
 
 export const Header = () => {
   const { locale, t } = useLanguage();

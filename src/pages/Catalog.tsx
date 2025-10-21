@@ -5,19 +5,19 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Mail } from 'lucide-react';
 
-import categoryGloves from '@/assets/category-gloves.jpg';
-import categoryMasks from '@/assets/category-masks.jpg';
-import categorySyringes from '@/assets/category-syringes.jpg';
-import categoryGowns from '@/assets/category-gowns.jpg';
+import categoryInjection from '@/assets/category-injection.png';
+import categoryEquipment from '@/assets/category-equipment.png';
+import categorySurgery from '@/assets/category-surgery.png';
+import categoryhygiene from '@/assets/category-hygiene.png';
 import categoryDressings from '@/assets/category-dressings.jpg';
 import categoryLab from '@/assets/category-lab.jpg';
 import catalogImage from '@/assets/catalog-image.webp';
 
 const categories = [
-  { key: 'gloves', image: categoryGloves },
-  { key: 'masks', image: categoryMasks },
-  { key: 'syringes', image: categorySyringes },
-  { key: 'gowns', image: categoryGowns },
+  { key: 'gloves', image: categoryInjection },
+  { key: 'masks', image: categoryEquipment },
+  { key: 'syringes', image: categorySurgery},
+  { key: 'gowns', image: categoryhygiene },
   { key: 'dressings', image: categoryDressings },
   { key: 'lab', image: categoryLab },
 ];

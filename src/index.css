@@ -83,7 +83,7 @@
 
   h1, h2, h3, h4, h5 { @apply font-semibold tracking-tight text-[hsl(var(--foreground))]; }
 
-  img { @apply select-none rounded-2xl shadow-card; }
+  img { @apply select-none rounded-2xl; }  /* shadow-card */
 
   ::selection { background: hsl(200 90% 50% / .18); }
 }

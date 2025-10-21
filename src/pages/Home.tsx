@@ -7,6 +7,8 @@ import { Clock, Package, ShieldCheck, Mail, MessageCircle, Send } from 'lucide-r
 import { Link } from 'react-router-dom';
 
 import heroImage from '@/assets/hero-image.jpg';
+import catalogImage from '@/assets/catalog-image.webp';
+
 import categoryGloves from '@/assets/gloves.webp';
 import categoryMasks from '@/assets/mask.png';
 import categorySyringes from '@/assets/needles.webp';
@@ -51,11 +53,9 @@ export default function Home() {
           ['--hero-image-opacity' as any]: '1',
           ['--hero-overlap' as any]: '132px',
           marginTop: 'calc(var(--hero-overlap) * -0.5)',
-          // запас под длинный RU заголовок
         }}
       >
         <div className="hero-scene mx-2 md:mx-4 px-2 md:px-3">
-
           <div
             className="
               glass-panel w-full
@@ -74,21 +74,11 @@ export default function Home() {
                     {t.hero.subtitle}
                   </p>
                   <div className="flex flex-wrap gap-4">
-                    <Button
-                      size="lg"
-                      onClick={() => handleContactClick('email')}
-                      className="btn-primary shadow-lg hover:shadow-xl"
-                    >
+                    <Button size="lg" onClick={() => handleContactClick('email')} className="btn-primary shadow-lg hover:shadow-xl">
                       <Mail className="mr-2 h-5 w-5" />
                       {t.hero.cta_primary}
                     </Button>
-
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      onClick={() => handleContactClick('telegram')}
-                      className="btn-outline"
-                    >
+                    <Button size="lg" variant="outline" onClick={() => handleContactClick('telegram')} className="btn-outline">
                       <Send className="mr-2 h-5 w-5" />
                       {t.hero.cta_secondary}
                     </Button>
@@ -106,7 +96,6 @@ export default function Home() {
                     <p className="font-semibold text-lg">{t.kpi.delivery}</p>
                   </CardContent>
                 </Card>
-
                 <Card className="glass-card">
                   <CardContent className="pt-6 flex items-center gap-4">
                     <div className="p-3 bg-[hsl(200_80%_94%)] rounded-lg">
@@ -115,7 +104,6 @@ export default function Home() {
                     <p className="font-semibold text-lg">{t.kpi.sku}</p>
                   </CardContent>
                 </Card>
-
                 <Card className="glass-card">
                   <CardContent className="pt-6 flex items-center gap-4">
                     <div className="p-3 bg-[hsl(200_80%_94%)] rounded-lg">
@@ -128,37 +116,35 @@ export default function Home() {
             </div>
           </div>
 
-          {/* небольшой внутренний отступ снизу секции, чтобы панель "почти у основания" */}
           <div className="h-[var(--hero-bottom-gap)]" aria-hidden />
         </div>
       </section>
 
-      {/* ===================== CATEGORIES ===================== */}
-      <section className="py-20 bg-muted/20">
-        <div className="container mx-auto px-4">
+      {/* ===================== CATEGORIES (фон только в этой секции, НЕ заходит под HERO) ===================== */}
+      <section
+        className="
+          catalog relative isolate min-h-[100svh] overflow-x-hidden
+          [--catalog-top-gap:4rem] md:[--catalog-top-gap:5rem]
+          [--catalog-bottom-gap:2.5rem] md:[--catalog-bottom-gap:3rem]
+        "
+        style={{
+          ['--catalog-full-bg-image' as any]: `url(${catalogImage})`,
+          ['--catalog-image-opacity' as any]: '0.45',
+          ['--catalog-overlap' as any]: '0px',          // ⬅️ отключаем «заезд» вверх
+          // marginTop убираем полностью, чтобы фон каталога не лез под hero
+        }}
+      >
+        <div className="container mx-auto px-4 pt-12 md:pt-16">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             {t.categories.title}
           </h2>
 
-          {/* 2 в ряд на мобиле, квадратные карточки, стиль mini app */}
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-3 lg:gap-7">
             {categories.map((category) => {
-              const catData = t.categories[category.key as keyof typeof t.categories] as {
-                name: string;
-                desc: string;
-              };
-
+              const catData = t.categories[category.key as keyof typeof t.categories] as { name: string; desc: string };
               return (
                 <Link key={category.key} to={`/${locale}/catalog`}>
-                  <div
-                    className="
-                      h-full w-full
-                      group relative glass-card overflow-hidden rounded-2xl isolate
-                      aspect-square transition-transform duration-200
-                      hover:scale-[1.01] active:scale-[.99]
-                       flex justify-center
-                    "
-                  >
+                  <div className="h-full w-full group relative glass-card overflow-hidden rounded-2xl isolate aspect-square transition-transform duration-200 hover:scale-[1.01] active:scale-[.99] flex justify-center">
                     <img
                       src={category.image}
                       alt={catData.name}
@@ -166,50 +152,21 @@ export default function Home() {
                       loading="lazy"
                       decoding="async"
                     />
-
-                    {/* подпись в стиле mini app */}
                     <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-3 w-[90%] max-w-[180px]">
-                      <div
-                        className="
-                          glass-panel w-full text-center
-                          rounded-lg px-2.5 py-1.5 md:px-3 md:py-2
-                          flex items-end justify-center
-                        "
-                      >
+                      <div className="glass-panel w-full text-center rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 flex items-end justify-center">
                         <span className="text-[12px] md:text-sm font-semibold leading-tight">
                           {catData.name}
                         </span>
                       </div>
                     </div>
-
-
-                    {/* SEO-текст остаётся, но визуально скрыт */}
                     <p className="sr-only">{catData.desc}</p>
                   </div>
                 </Link>
               );
             })}
           </div>
-        </div>
-      </section>
 
-      {/* ===================== HOW WE WORK ===================== */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
-            {t.howWeWork.title}
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {(['step1', 'step2', 'step3', 'step4'] as const).map((step, index) => (
-              <div key={step} className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  {index + 1}
-                </div>
-                <h3 className="font-semibold text-lg">{t.howWeWork[step]}</h3>
-              </div>
-            ))}
-          </div>
+          <div className="h-[var(--catalog-bottom-gap)]" aria-hidden />
         </div>
       </section>
 
@@ -222,29 +179,16 @@ export default function Home() {
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             {t.hero.subtitle}
           </p>
-
           <div className="flex flex-wrap justify-center gap-4">
             <Button size="lg" onClick={() => handleContactClick('email')} className="btn-primary">
               <Mail className="mr-2 h-5 w-5" />
               {t.contacts.email}
             </Button>
-
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => handleContactClick('telegram')}
-              className="btn-outline"
-            >
+            <Button size="lg" variant="outline" onClick={() => handleContactClick('telegram')} className="btn-outline">
               <Send className="mr-2 h-5 w-5" />
               {t.contacts.telegram}
             </Button>
-
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => handleContactClick('whatsapp')}
-              className="btn-outline"
-            >
+            <Button size="lg" variant="outline" onClick={() => handleContactClick('whatsapp')} className="btn-outline">
               <MessageCircle className="mr-2 h-5 w-5" />
               {t.contacts.whatsapp}
             </Button>

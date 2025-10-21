@@ -97,7 +97,7 @@ export const Header = () => {
             />
             <div className="absolute left-0 right-0 top-full mt-2 z-50 md:hidden">
               <div className="nav-glass overflow-hidden rounded-2xl">
-                <nav className="p-3">
+                <nav className="p-3 bg-white/80">
                   {navItems.map((item) => (
                     <Link
                       key={item.path}
@@ -105,7 +105,7 @@ export const Header = () => {
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={`block px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                         isActive(item.path)
-                          ? 'bg-white/70 text-slate-900'
+                          ? 'bg-white text-slate-900'
                           : 'text-slate-700/80 hover:text-slate-900 hover:bg-white/60'
                       }`}
                     >

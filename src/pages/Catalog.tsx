@@ -57,14 +57,14 @@ export default function Catalog() {
                     <img
                       src={category.image}
                       alt={catData.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       loading="lazy"
                       decoding="async"
                     />
                   </div>
                   <CardHeader>
                     <CardTitle>{catData.name}</CardTitle>
-                    <CardDescription className="text-base">{catData.desc}</CardDescription>
+                    <CardDescription className="text-base min-h-[48px]">{catData.desc}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Button

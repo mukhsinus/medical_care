@@ -186,6 +186,22 @@
     pointer-events: none;
   }
 
+  .catalog::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    top: calc(var(--catalog-overlap) * -1);
+    bottom: 0;
+    background-image: var(--catalog-full-bg-image);
+    background-size: cover;
+    background-position: center 45%;
+    opacity: var(--catalog-image-opacity, .25);
+    z-index: 0;
+    pointer-events: none;
+  }
+
   /* голубая вуаль поверх фото */
   .hero::after {
     content: "";

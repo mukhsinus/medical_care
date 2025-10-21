@@ -10,7 +10,7 @@ import categorySyringes from '@/assets/category-syringes.jpg';
 import categoryGowns from '@/assets/category-gowns.jpg';
 import categoryDressings from '@/assets/category-dressings.jpg';
 import categoryLab from '@/assets/category-lab.jpg';
-import catalogImage from '@/assets/catalog-image.jpg';
+import catalogImage from '@/assets/catalog-image.webp';
 
 
 const categories = [
@@ -45,6 +45,7 @@ export default function Catalog() {
           [--catalog-bottom-gap:2.5rem] md:[--catalog-bottom-gap:3rem] overflow-x-hidden
         "
         style={{
+          // backgroundImage:`url(${catalogImage})`,
           ['--catalog-full-bg-image' as any]: `url(${catalogImage})`,
           ['--catalog-image-opacity' as any]: '1',
           ['--catalog-overlap' as any]: '132px',

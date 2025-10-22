@@ -97,7 +97,7 @@ export const Header = () => {
             />
             <div className="absolute left-0 right-0 top-full mt-2 z-50 md:hidden">
               <div className="nav-glass overflow-hidden rounded-2xl">
-                <nav className="p-3">
+                <nav className="p-3 nav-glass-blurred">
                   {navItems.map((item) => (
                     <Link
                       key={item.path}

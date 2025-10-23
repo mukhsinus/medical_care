@@ -41,6 +41,11 @@ import categorySurgery from '@/assets/category-surgery.png'
 import categoryhygiene from '@/assets/category-hygiene.png'
 import categoryDressings from '@/assets/sterilization.png'
 import categoryLab from '@/assets/lab.png'
+import { get } from 'http'
+const itemsImg = import.meta.glob('@/assets/items/*.{png,jpg,jpeg,webp}', { eager: true });
+const getImage = (filename: string) => {
+  return itemsImg[`/src/assets/items/${filename}`]?.default;
+};
 
 type CatalogItem = {
   id: number
@@ -55,24 +60,24 @@ type CatalogItem = {
 /* ------------------- SAMPLE DATA ------------------- */
 /* --------------------------------------------------- */
 const allItems: CatalogItem[] = [
-  { id: 1, category: 'injection', name: 'Insulin Syringes 1ml', description: 'High-quality insulin syringes', price: 2.5, image: '/images/insulin-syringe.jpg' },
-  { id: 2, category: 'injection', name: 'Hypodermic Needles 21G', description: 'Sterile needles', price: 0.8, image: '/images/needle-21g.jpg' },
-  { id: 3, category: 'injection', name: 'IV Cannula 20G', description: 'Intravenous cannula', price: 1.2, image: '/images/iv-cannula.jpg' },
-  { id: 4, category: 'equipment', name: 'Digital Thermometer', description: 'Accurate digital thermometer', price: 15, image: '/images/thermometer.jpg' },
-  { id: 5, category: 'equipment', name: 'Blood Pressure Monitor', description: 'Automatic monitor', price: 45, image: '/images/bp-monitor.jpg' },
-  { id: 6, category: 'equipment', name: 'Stethoscope Littmann', description: 'Premium cardiology stethoscope', price: 120, image: '/images/stethoscope.jpg' },
-  { id: 7, category: 'surgery', name: 'Surgical Scalpel #11', description: 'Precision blade', price: 3.5, image: '/images/scalpel.jpg' },
-  { id: 8, category: 'surgery', name: 'Surgical Forceps', description: 'Sterile forceps', price: 8, image: '/images/forceps.jpg' },
-  { id: 9, category: 'surgery', name: 'Suture Kit', description: 'Complete suture kit', price: 12, image: '/images/suture-kit.jpg' },
-  { id: 10, category: 'hygiene', name: 'Alcohol 70% 500ml', description: 'Medical disinfectant', price: 5, image: '/images/alcohol.jpg' },
-  { id: 11, category: 'hygiene', name: 'Hand Sanitizer 100ml', description: 'Portable sanitizer', price: 3.2, image: '/images/hand-sanitizer.jpg' },
-  { id: 12, category: 'hygiene', name: 'PPE Kit', description: 'Full protective kit', price: 25, image: '/images/ppe-kit.jpg' },
-  { id: 13, category: 'dressings', name: 'Gauze Bandages 10cm', description: 'Sterile gauze', price: 4.5, image: '/images/gauze.jpg' },
-  { id: 14, category: 'dressings', name: 'Adhesive Bandages', description: 'Assorted bandages', price: 2, image: '/images/adhesive-bandages.jpg' },
-  { id: 15, category: 'dressings', name: 'Hydrocolloid Dressings', description: 'Advanced healing', price: 18, image: '/images/hydrocolloid.jpg' },
-  { id: 16, category: 'lab', name: 'Test Tubes 10ml', description: 'Glass test tubes', price: 1.5, image: '/images/test-tubes.jpg' },
-  { id: 17, category: 'lab', name: 'Pipettes 1ml', description: 'Disposable pipettes', price: 0.3, image: '/images/pipettes.jpg' },
-  { id: 18, category: 'lab', name: 'Microscope Slides', description: 'Pre-cleaned slides', price: 6, image: '/images/slides.jpg' },
+  { id: 1, category: 'injection', name: 'Insulin Syringes 1ml', description: 'High-quality insulin syringes', price: 2.5,image: getImage('insulin-syringe.webp') },
+  { id: 2, category: 'injection', name: 'Hypodermic Needles 21G', description: 'Sterile needles', price: 0.8, image: getImage('hypodemic_21.webp') },
+  { id: 3, category: 'injection', name: 'IV Cannula 20G', description: 'Intravenous cannula', price: 1.2, image: getImage('cannula_20.png') },
+  { id: 4, category: 'equipment', name: 'Digital Thermometer', description: 'Accurate digital thermometer', price: 15, image: getImage('dig_thermometer.webp') },
+  { id: 5, category: 'equipment', name: 'Blood Pressure Monitor', description: 'Automatic monitor', price: 45, image: getImage('blood-pressure.png') },
+  { id: 6, category: 'equipment', name: 'Stethoscope Littmann', description: 'Premium cardiology stethoscope', price: 120, image: getImage('stethoscope.png') },
+  { id: 7, category: 'surgery', name: 'Surgical Scalpel #11', description: 'Precision blade', price: 3.5, image: getImage('scalpel-11.png') },
+  { id: 8, category: 'surgery', name: 'Surgical Forceps', description: 'Sterile forceps', price: 8, image: getImage('forceps.webp') },
+  { id: 9, category: 'surgery', name: 'Suture Kit', description: 'Complete suture kit', price: 12, image: getImage('suture.webp') },
+  { id: 10, category: 'hygiene', name: 'Alcohol 70% 500ml', description: 'Medical disinfectant', price: 5, image: getImage('alcohol.png') },
+  { id: 11, category: 'hygiene', name: 'Hand Sanitizer 100ml', description: 'Portable sanitizer', price: 3.2, image: getImage('sanitizer.png') },
+  { id: 12, category: 'hygiene', name: 'PPE Kit', description: 'Full protective kit', price: 25, image: getImage('ppe.png') },
+  { id: 13, category: 'dressings', name: 'Gauze Bandages 10cm', description: 'Sterile gauze', price: 4.5, image: getImage('gauze.png') },
+  { id: 14, category: 'dressings', name: 'Adhesive Bandages', description: 'Assorted bandages', price: 2, image: getImage('adhesive.png') },
+  { id: 15, category: 'dressings', name: 'Hydrocolloid Dressings', description: 'Advanced healing', price: 18, image: getImage('hydrocolloid.png') },
+  { id: 16, category: 'lab', name: 'Test Tubes 10ml', description: 'Glass test tubes', price: 1.5, image: getImage('test-tube.webp') },
+  { id: 17, category: 'lab', name: 'Pipettes 1ml', description: 'Disposable pipettes', price: 0.3, image: getImage('pipette.webp') },
+  { id: 18, category: 'lab', name: 'Microscope Slides', description: 'Pre-cleaned slides', price: 6, image: getImage('slides.png') },
 ]
 
 const categories = [
@@ -379,7 +384,7 @@ export default function Catalog() {
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
                           onError={e => {
                             e.currentTarget.src = '/images/placeholder-product.jpg'
                           }}

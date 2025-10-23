@@ -13,8 +13,8 @@ import categoryInjection from '@/assets/category-injection.png';
 import categoryEquipment from '@/assets/category-equipment.png';
 import categorySurgery from '@/assets/category-surgery.png';
 import categoryHygiene from '@/assets/category-hygiene.png';
-import categoryDressings from '@/assets/plaster.png';
-import categoryLab from '@/assets/disposable.png';
+import categoryDressings from '@/assets/sterilization.png';
+import categoryLab from '@/assets/lab.png';
 
 const categories = [
   { key: 'injection', image: categoryInjection },

@@ -30,9 +30,9 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-3">{t.nav.catalog}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>{t.categories.gloves.name}</li>
-              <li>{t.categories.masks.name}</li>
-              <li>{t.categories.syringes.name}</li>
+              <li>{t.categories.injection.name}</li>
+              <li>{t.categories.equipment.name}</li>
+              <li>{t.categories.surgery.name}</li>
             </ul>
           </div>
 

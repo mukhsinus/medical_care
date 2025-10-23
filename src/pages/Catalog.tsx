@@ -9,8 +9,8 @@ import categoryInjection from '@/assets/category-injection.png';
 import categoryEquipment from '@/assets/category-equipment.png';
 import categorySurgery from '@/assets/category-surgery.png';
 import categoryhygiene from '@/assets/category-hygiene.png';
-import categoryDressings from '@/assets/category-dressings.jpg';
-import categoryLab from '@/assets/category-lab.jpg';
+import categoryDressings from '@/assets/sterilization.png';
+import categoryLab from '@/assets/lab.png';
 import catalogImage from '@/assets/catalog-image.webp';
 
 const categories = [

@@ -64,7 +64,21 @@
   "catalog": {
     "title": "Product Catalog",
     "subtitle": "Explore our comprehensive range of medical supplies",
-    "contactCta": "Request Details"
+    "contactCta": "Request Details",
+    "allItems": "All Products",
+    "loading": "Loading...",
+    "noItems": "No products found.",
+    "searchPlaceholder": "Search products...",
+    "categories": "Categories",
+    "noResults": "No results found for your search.",
+    "noSearchResults": "Try adjusting your search or filter to find what you're looking for.",
+    "noCategoryResults": "No products available in this category.",
+    "clearFilters": "Clear Filters",
+    "products": "Products",
+    "itemsFound": "Items found",
+    "showAll": "Show All",
+    "inquirie": "Inquirie"
+
   },
   "contacts": {
     "title": "Contact Us",

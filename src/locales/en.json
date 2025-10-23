@@ -19,28 +19,28 @@
   },
   "categories": {
     "title": "Product Catalog",
-    "gloves": {
-      "name": "Nitrile Gloves",
+    "injection": {
+      "name": "Injection Supplies",
       "desc": "High-quality examination and surgical gloves with superior puncture resistance"
     },
-    "masks": {
-      "name": "Masks & Respirators",
+    "equipment": {
+      "name": "Protective Equipment",
       "desc": "Protective face masks and respirators meeting international safety standards"
     },
-    "syringes": {
-      "name": "Syringes & Needles",
+    "surgery": {
+      "name": "Surgery & Gynecology",
       "desc": "Sterile disposable syringes and needles in various sizes"
     },
-    "gowns": {
-      "name": "Surgical Gowns",
+    "hygiene": {
+      "name": "Hygiene Materials",
       "desc": "Protective surgical gowns and medical apparel"
     },
     "dressings": {
-      "name": "Dressings & Plasters",
+      "name": "Laboratory Equipment",
       "desc": "Wound care supplies including bandages, gauze, and adhesive plasters"
     },
     "lab": {
-      "name": "Laboratory Disposables",
+      "name": "Sterilization",
       "desc": "Essential laboratory supplies and consumables"
     }
   },

@@ -19,28 +19,28 @@
   },
   "categories": {
     "title": "Mahsulot katalogi",
-    "gloves": {
-      "name": "Nitril qo'lqoplar",
+    "injection": {
+      "name": "In’yeksion vositalar",
       "desc": "Yuqori sifatli tekshiruv va jarrohlik qo'lqoplari, teshilishga chidamli"
     },
-    "masks": {
-      "name": "Niqoblar va respiratorlar",
+    "equipment": {
+      "name": "Himoya vositalari",
       "desc": "Xalqaro xavfsizlik standartlariga mos himoya niqoblari va respiratorlari"
     },
-    "syringes": {
-      "name": "Shpritslar va ignalar",
+    "surgery": {
+      "name": "Jarrohlik va ginekologiya",
       "desc": "Turli o'lchamdagi steril bir martalik shpritslar va ignalar"
     },
-    "gowns": {
-      "name": "Jarrohlik xalatlari",
+    "hygiene": {
+      "name": "Gigiyenik materiallar",
       "desc": "Himoya jarrohlik xalatlari va tibbiy kiyimlar"
     },
     "dressings": {
-      "name": "Bog'lovlar va plastirlar",
+      "name": "Laboratoriya anjomlari",
       "desc": "Yara parvarishi buyumlari, shu jumladan bintlar, doka va yopishqoq plastirlar"
     },
     "lab": {
-      "name": "Laboratoriya sarflari",
+      "name": "Sterilizatsiya vositalari",
       "desc": "Zarur laboratoriya buyumlari va sarflanadigan materiallar"
     }
   },

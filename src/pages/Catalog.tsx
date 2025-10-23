@@ -14,10 +14,10 @@ import categoryLab from '@/assets/category-lab.jpg';
 import catalogImage from '@/assets/catalog-image.webp';
 
 const categories = [
-  { key: 'gloves', image: categoryInjection },
-  { key: 'masks', image: categoryEquipment },
-  { key: 'syringes', image: categorySurgery},
-  { key: 'gowns', image: categoryhygiene },
+  { key: 'injection', image: categoryInjection },
+  { key: 'equipment', image: categoryEquipment },
+  { key: 'surgery', image: categorySurgery},
+  { key: 'hygiene', image: categoryhygiene },
   { key: 'dressings', image: categoryDressings },
   { key: 'lab', image: categoryLab },
 ];
@@ -25,6 +25,8 @@ const categories = [
 export default function Catalog() {
   const { t } = useLanguage();
 
+
+  
   const handleContactClick = () => {
     window.open('mailto:info@medicare.uz?subject=Catalog Inquiry', '_blank');
   };

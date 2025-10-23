@@ -17,10 +17,10 @@ import categoryDressings from '@/assets/plaster.png';
 import categoryLab from '@/assets/disposable.png';
 
 const categories = [
-  { key: 'gloves', image: categoryInjection },
-  { key: 'masks', image: categoryEquipment },
-  { key: 'syringes', image: categorySurgery },
-  { key: 'gowns', image: categoryHygiene },
+  { key: 'injection', image: categoryInjection },
+  { key: 'equipment', image: categoryEquipment },
+  { key: 'surgery', image: categorySurgery },
+  { key: 'hygiene', image: categoryHygiene },
   { key: 'dressings', image: categoryDressings },
   { key: 'lab', image: categoryLab },
 ];

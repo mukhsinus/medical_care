@@ -143,7 +143,7 @@ export default function Home() {
             {categories.map((category) => {
               const catData = t.categories[category.key as keyof typeof t.categories] as { name: string; desc: string };
               return (
-                <Link key={category.key} to={`/${locale}/catalog`}>
+                <Link key={category.key} to={`/${locale}/catalog?category=${category.key}`}>
                   <div className="h-full w-full group relative glass-card overflow-hidden rounded-2xl isolate aspect-square transition-transform duration-200 hover:scale-[1.01] active:scale-[.99] flex justify-center">
                     <img
                       src={category.image}

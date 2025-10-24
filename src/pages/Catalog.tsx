@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import {
   useNavigate,
   useSearchParams,
-  useLocation,
 } from 'react-router-dom'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Layout } from '@/components/Layout'
@@ -21,12 +20,6 @@ import { Mail, Search, ChevronLeft, Filter } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
-import {
   Pagination,
   PaginationContent,
   PaginationItem,
@@ -35,15 +28,19 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination'
 
+/** картинки категорий больше не используем, оставляю импорты нетронутыми,
+ * если у тебя строгий eslint на "no-unused-vars" — можно удалить.
+ */
 import categoryInjection from '@/assets/category-injection.png'
 import categoryEquipment from '@/assets/category-equipment.png'
 import categorySurgery from '@/assets/category-surgery.png'
 import categoryhygiene from '@/assets/category-hygiene.png'
 import categoryDressings from '@/assets/sterilization.png'
 import categoryLab from '@/assets/lab.png'
-import { get } from 'http'
+
 const itemsImg = import.meta.glob('@/assets/items/*.{png,jpg,jpeg,webp}', { eager: true });
 const getImage = (filename: string) => {
+  // @ts-ignore
   return itemsImg[`/src/assets/items/${filename}`]?.default;
 };
 
@@ -80,6 +77,7 @@ const allItems: CatalogItem[] = [
   { id: 18, category: 'lab', name: 'Microscope Slides', description: 'Pre-cleaned slides', price: 6, image: getImage('slides.png') },
 ]
 
+/** Список категорий (оставляю как был, но “all” будем рисовать отдельно) */
 const categories = [
   { key: 'all', name: 'All Products', icon: 'Package' },
   { key: 'injection', image: categoryInjection },
@@ -209,6 +207,8 @@ export default function Catalog() {
   }
 
   /* ---------- main UI ---------- */
+  const visibleCategories = categories.filter(c => c.key !== 'all')
+
   return (
     <Layout>
       <SEO
@@ -232,7 +232,7 @@ export default function Catalog() {
           </div>
 
           {/* Search Bar */}
-          <div className="mx-auto mb-6 max-w-md">
+          <div className="mx-auto mb-3 max-w-md">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -255,81 +255,43 @@ export default function Catalog() {
             </div>
           </div>
 
-          {/* Breadcrumb – Mobile Only, After Search, No Overlap */}
-          <div className="mb-6 md:hidden z-10 pb-8">
-            <nav aria-label="breadcrumb" className="flex items-center gap-1 text-sm">
-              <a
-                href="/catalog"
-                onClick={(e) => {
-                  e.preventDefault()
-                  handleCategoryClick('all')
-                }}
-                className="hover:underline"
-              >
-                {t.catalog.title}
-              </a>
+          {/* Zara-style text categories under search */}
+          <nav className="mx-auto mb-10 max-w-5xl overflow-x-auto">
+            <ul className="flex items-center gap-3 md:gap-5 whitespace-nowrap">
+              {/* All */}
+              <li>
+                <button
+                  type="button"
+                  onClick={() => handleCategoryClick('all')}
+                  className={`px-2 md:px-3 py-1.5 text-sm md:text-base transition
+                    border-b-2
+                    ${activeCategory === 'all'
+                      ? 'border-sky-500 text-sky-700 font-semibold'
+                      : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'}`}
+                  aria-pressed={activeCategory === 'all'}
+                >
+                  {t.catalog.allItems}
+                </button>
+              </li>
 
-              {activeCategory !== 'all' && (
-                <>
-                  <span className="px-1 text-muted-foreground">/</span>
-                  <span className="font-medium text-foreground">
-                    {getCategoryName(activeCategory)}
-                  </span>
-                </>
-              )}
-            </nav>
-          </div>
-
-          {/* Category Navigation – Always on Desktop, Only on Mobile when 'all' */}
-          {(activeCategory === 'all' || window.innerWidth >= 768) && (
-            <div className="mb-12">
-              <h2 className="mb-6 flex items-center text-2xl font-semibold">
-                <Filter className="mr-2 h-5 w-5" />
-                {t.catalog.categories}
-              </h2>
-
-              <div className={`grid gap-4 ${
-                activeCategory === 'all' 
-                  ? 'grid-cols-2 md:grid-cols-2 lg:grid-cols-4'  // 4 per row when 'all'
-                  : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'  // 6 per row when category selected
-              }`}>
-                {categories.map(cat => (
-                  <Button
-                    key={cat.key}
-                    variant={activeCategory === cat.key ? 'default' : 'outline'}
-                    className={`flex-col gap-2 p-3 ${
-                      activeCategory === 'all'
-                        ? 'h-32'  // Bigger height when 'all'
-                        : 'h-20'  // Normal height when category selected
-                    } ${activeCategory === cat.key
-                      ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                      : 'hover:bg-accent'
-                    }`}
+              {visibleCategories.map(cat => (
+                <li key={cat.key}>
+                  <button
+                    type="button"
                     onClick={() => handleCategoryClick(cat.key)}
+                    className={`px-2 md:px-3 py-1.5 text-sm md:text-base transition
+                      border-b-2
+                      ${activeCategory === cat.key
+                        ? 'border-sky-500 text-sky-700 font-semibold'
+                        : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'}`}
+                    aria-pressed={activeCategory === cat.key}
                   >
-                    {'icon' in cat ? (
-                      <span className={`text-3xl ${
-                        activeCategory === 'all' ? 'mb-1' : 'mb-0'
-                      }`}>{cat.icon}</span>
-                    ) : (
-                      <img
-                        src={cat.image}
-                        alt={getCategoryName(cat.key)}
-                        className={`mx-auto object-contain ${
-                          activeCategory === 'all' 
-                            ? 'h-16 w-16'  // Bigger images when 'all'
-                            : 'h-12 w-12'  // Normal images when category selected
-                        }`}
-                      />
-                    )}
-                    <span className="text-center text-xs font-medium leading-tight">
-                      {getCategoryName(cat.key)}
-                    </span>
-                  </Button>
-                ))}
-              </div>
-            </div>
-          )}
+                    {getCategoryName(cat.key)}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           {/* Items + Pagination */}
           <div className="mb-12">
@@ -386,7 +348,7 @@ export default function Catalog() {
                           alt={item.name}
                           className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
                           onError={e => {
-                            e.currentTarget.src = '/images/placeholder-product.jpg'
+                            (e.currentTarget as HTMLImageElement).src = '/images/placeholder-product.jpg'
                           }}
                         />
                         <Badge className="absolute right-2 top-2">{item.category}</Badge>

@@ -78,7 +78,26 @@
     "itemsFound": "Items found",
     "showAll": "Show All",
     "inquirie": "Inquirie"
-
+  },
+  "items": {
+    "1": { "name": "Insulin Syringes 1ml", "description": "High-quality insulin syringes" },
+    "2": { "name": "Hypodermic Needles 21G", "description": "Sterile needles" },
+    "3": { "name": "IV Cannula 20G", "description": "Intravenous cannula" },
+    "4": { "name": "Digital Thermometer", "description": "Accurate digital thermometer" },
+    "5": { "name": "Blood Pressure Monitor", "description": "Automatic monitor" },
+    "6": { "name": "Stethoscope Littmann", "description": "Premium cardiology stethoscope" },
+    "7": { "name": "Surgical Scalpel #11", "description": "Precision blade" },
+    "8": { "name": "Surgical Forceps", "description": "Sterile forceps" },
+    "9": { "name": "Suture Kit", "description": "Complete suture kit" },
+    "10": { "name": "Alcohol 70% 500ml", "description": "Medical disinfectant" },
+    "11": { "name": "Hand Sanitizer 100ml", "description": "Portable sanitizer" },
+    "12": { "name": "PPE Kit", "description": "Full protective kit" },
+    "13": { "name": "Gauze Bandages 10cm", "description": "Sterile gauze" },
+    "14": { "name": "Adhesive Bandages", "description": "Assorted bandages" },
+    "15": { "name": "Hydrocolloid Dressings", "description": "Advanced healing" },
+    "16": { "name": "Test Tubes 10ml", "description": "Glass test tubes" },
+    "17": { "name": "Pipettes 1ml", "description": "Disposable pipettes" },
+    "18": { "name": "Microscope Slides", "description": "Pre-cleaned slides" }
   },
   "contacts": {
     "title": "Contact Us",

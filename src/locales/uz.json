@@ -62,9 +62,96 @@
     "certificationDesc": "CE sertifikatlangan va ISO talablariga mos mahsulotlar to'liq hujjatlar bilan."
   },
   "catalog": {
-    "title": "Mahsulot katalogi",
-    "subtitle": "Tibbiy buyumlarning keng assortimentini o'rganing",
-    "contactCta": "Batafsil ma'lumot so'rang"
+  "title": "Mahsulotlar katalogi",
+  "subtitle": "Bizning keng qamrovli tibbiy jihozlar assortimentini o'rganing",
+  "contactCta": "Tafsilotlarni so'rash",
+  "allItems": "Barcha mahsulotlar",
+  "loading": "Yuklanmoqda...",
+  "noItems": "Mahsulotlar topilmadi.",
+  "searchPlaceholder": "Mahsulotlarni qidiring...",
+  "categories": "Kategoriyalar",
+  "noResults": "Sizning qidiruvingiz uchun hech qanday natija topilmadi.",
+  "noSearchResults": "Qidiruv yoki filtrni o'zgartirib, kerakli narsani topishga harakat qiling.",
+  "noCategoryResults": "Ushbu kategoriyada mahsulotlar mavjud emas.",
+  "clearFilters": "Filtrlarni tozalash",
+  "products": "Mahsulotlar",
+  "itemsFound": "Topilgan mahsulotlar",
+  "showAll": "Barchasini ko'rsatish",
+  "inquirie": "So'rov"
+},
+  "items": {
+    "1": { 
+      "name": "Insulin shpritslari 1ml", 
+      "description": "Yuqori sifatli insulin shpritslari" 
+    },
+    "2": { 
+      "name": "Gipodermik ignalar 21G", 
+      "description": "Steril ignalar" 
+    },
+    "3": { 
+      "name": "IV kanulya 20G", 
+      "description": "Tomir ichiga kanulya" 
+    },
+    "4": { 
+      "name": "Raqamli termometr", 
+      "description": "Aniq raqamli termometr" 
+    },
+    "5": { 
+      "name": "Qon bosimi o'lchagich", 
+      "description": "Avtomatik monitor" 
+    },
+    "6": { 
+      "name": "Stetoskop Littmann", 
+      "description": "Premium kardiologik stetoskop" 
+    },
+    "7": { 
+      "name": "Jarrohlik skalpeli #11", 
+      "description": "Aniq pichoq" 
+    },
+    "8": { 
+      "name": "Jarrohlik pensasi", 
+      "description": "Steril pensalar" 
+    },
+    "9": { 
+      "name": "Tikuv to'plami", 
+      "description": "To'liq tikuv to'plami" 
+    },
+    "10": { 
+      "name": "Spirt 70% 500ml", 
+      "description": "Tibbiy dezinfeksiyalash vositasi" 
+    },
+    "11": { 
+      "name": "Qo'l dezinfeksiyasi 100ml", 
+      "description": "Ko'chmas dezinfeksiya vositasi" 
+    },
+    "12": { 
+      "name": "Himoya to'plami", 
+      "description": "To'liq himoya to'plami" 
+    },
+    "13": { 
+      "name": "Marli o'ramlar 10sm", 
+      "description": "Steril marli" 
+    },
+    "14": { 
+      "name": "Yopishqoq o'ramlar", 
+      "description": "Turli xil o'ramlar" 
+    },
+    "15": { 
+      "name": "Gidrokolloid povbandlar", 
+      "description": "Rivojlangan davolash" 
+    },
+    "16": { 
+      "name": "Sinov naychalari 10ml", 
+      "description": "Shisha sinov naychalari" 
+    },
+    "17": { 
+      "name": "Pippeta 1ml", 
+      "description": "Bir martalik pippeta" 
+    },
+    "18": { 
+      "name": "Mikroskop shlyapalar", 
+      "description": "Oldindan tozalanadigan shlyapalar" 
+    }
   },
   "contacts": {
     "title": "Biz bilan bog'laning",

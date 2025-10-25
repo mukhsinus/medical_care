@@ -1,36 +1,19 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import {
-  useNavigate,
-  useSearchParams,
-} from 'react-router-dom'
+import { useEffect, useState, useCallback } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Layout } from '@/components/Layout'
 import { SEO } from '@/components/SEO'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Mail, Search, ChevronLeft, Filter } from 'lucide-react'
+import { Mail, Search, ChevronLeft } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination'
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination'
+import debounce from 'lodash.debounce'
 
-/** картинки категорий больше не используем, оставляю импорты нетронутыми,
- * если у тебя строгий eslint на "no-unused-vars" — можно удалить.
- */
+/** Category images are unused but kept for compatibility */
 import categoryInjection from '@/assets/category-injection.png'
 import categoryEquipment from '@/assets/category-equipment.png'
 import categorySurgery from '@/assets/category-surgery.png'
@@ -38,46 +21,42 @@ import categoryhygiene from '@/assets/category-hygiene.png'
 import categoryDressings from '@/assets/sterilization.png'
 import categoryLab from '@/assets/lab.png'
 
-const itemsImg = import.meta.glob('@/assets/items/*.{png,jpg,jpeg,webp}', { eager: true });
+const itemsImg = import.meta.glob('@/assets/items/*.{png,jpg,jpeg,webp}', { eager: true })
 const getImage = (filename: string) => {
   // @ts-ignore
-  return itemsImg[`/src/assets/items/${filename}`]?.default;
-};
+  return itemsImg[`/src/assets/items/${filename}`]?.default
+}
 
 type CatalogItem = {
   id: number
   category: string
-  name: string
-  description: string
+  nameKey: string
+  descriptionKey: string
   price: number
   image: string
 }
 
-/* --------------------------------------------------- */
-/* ------------------- SAMPLE DATA ------------------- */
-/* --------------------------------------------------- */
 const allItems: CatalogItem[] = [
-  { id: 1, category: 'injection', name: 'Insulin Syringes 1ml', description: 'High-quality insulin syringes', price: 2.5,image: getImage('insulin-syringe.webp') },
-  { id: 2, category: 'injection', name: 'Hypodermic Needles 21G', description: 'Sterile needles', price: 0.8, image: getImage('hypodemic_21.webp') },
-  { id: 3, category: 'injection', name: 'IV Cannula 20G', description: 'Intravenous cannula', price: 1.2, image: getImage('cannula_20.png') },
-  { id: 4, category: 'equipment', name: 'Digital Thermometer', description: 'Accurate digital thermometer', price: 15, image: getImage('dig_thermometer.webp') },
-  { id: 5, category: 'equipment', name: 'Blood Pressure Monitor', description: 'Automatic monitor', price: 45, image: getImage('blood-pressure.png') },
-  { id: 6, category: 'equipment', name: 'Stethoscope Littmann', description: 'Premium cardiology stethoscope', price: 120, image: getImage('stethoscope.png') },
-  { id: 7, category: 'surgery', name: 'Surgical Scalpel #11', description: 'Precision blade', price: 3.5, image: getImage('scalpel-11.png') },
-  { id: 8, category: 'surgery', name: 'Surgical Forceps', description: 'Sterile forceps', price: 8, image: getImage('forceps.webp') },
-  { id: 9, category: 'surgery', name: 'Suture Kit', description: 'Complete suture kit', price: 12, image: getImage('suture.webp') },
-  { id: 10, category: 'hygiene', name: 'Alcohol 70% 500ml', description: 'Medical disinfectant', price: 5, image: getImage('alcohol.png') },
-  { id: 11, category: 'hygiene', name: 'Hand Sanitizer 100ml', description: 'Portable sanitizer', price: 3.2, image: getImage('sanitizer.png') },
-  { id: 12, category: 'hygiene', name: 'PPE Kit', description: 'Full protective kit', price: 25, image: getImage('ppe.png') },
-  { id: 13, category: 'dressings', name: 'Gauze Bandages 10cm', description: 'Sterile gauze', price: 4.5, image: getImage('gauze.png') },
-  { id: 14, category: 'dressings', name: 'Adhesive Bandages', description: 'Assorted bandages', price: 2, image: getImage('adhesive.png') },
-  { id: 15, category: 'dressings', name: 'Hydrocolloid Dressings', description: 'Advanced healing', price: 18, image: getImage('hydrocolloid.png') },
-  { id: 16, category: 'lab', name: 'Test Tubes 10ml', description: 'Glass test tubes', price: 1.5, image: getImage('test-tube.webp') },
-  { id: 17, category: 'lab', name: 'Pipettes 1ml', description: 'Disposable pipettes', price: 0.3, image: getImage('pipette.webp') },
-  { id: 18, category: 'lab', name: 'Microscope Slides', description: 'Pre-cleaned slides', price: 6, image: getImage('slides.png') },
+  { id: 1, category: 'injection', nameKey: 'items.1.name', descriptionKey: 'items.1.description', price: 2.5, image: getImage('insulin-syringe.webp') },
+  { id: 2, category: 'injection', nameKey: 'items.2.name', descriptionKey: 'items.2.description', price: 0.8, image: getImage('hypodemic_21.webp') },
+  { id: 3, category: 'injection', nameKey: 'items.3.name', descriptionKey: 'items.3.description', price: 1.2, image: getImage('cannula_20.png') },
+  { id: 4, category: 'equipment', nameKey: 'items.4.name', descriptionKey: 'items.4.description', price: 15, image: getImage('dig_thermometer.webp') },
+  { id: 5, category: 'equipment', nameKey: 'items.5.name', descriptionKey: 'items.5.description', price: 45, image: getImage('blood-pressure.png') },
+  { id: 6, category: 'equipment', nameKey: 'items.6.name', descriptionKey: 'items.6.description', price: 120, image: getImage('stethoscope.png') },
+  { id: 7, category: 'surgery', nameKey: 'items.7.name', descriptionKey: 'items.7.description', price: 3.5, image: getImage('scalpel-11.png') },
+  { id: 8, category: 'surgery', nameKey: 'items.8.name', descriptionKey: 'items.8.description', price: 8, image: getImage('forceps.webp') },
+  { id: 9, category: 'surgery', nameKey: 'items.9.name', descriptionKey: 'items.9.description', price: 12, image: getImage('suture.webp') },
+  { id: 10, category: 'hygiene', nameKey: 'items.10.name', descriptionKey: 'items.10.description', price: 5, image: getImage('alcohol.png') },
+  { id: 11, category: 'hygiene', nameKey: 'items.11.name', descriptionKey: 'items.11.description', price: 3.2, image: getImage('sanitizer.png') },
+  { id: 12, category: 'hygiene', nameKey: 'items.12.name', descriptionKey: 'items.12.description', price: 25, image: getImage('ppe.png') },
+  { id: 13, category: 'dressings', nameKey: 'items.13.name', descriptionKey: 'items.13.description', price: 4.5, image: getImage('gauze.png') },
+  { id: 14, category: 'dressings', nameKey: 'items.14.name', descriptionKey: 'items.14.description', price: 2, image: getImage('adhesive.png') },
+  { id: 15, category: 'dressings', nameKey: 'items.15.name', descriptionKey: 'items.15.description', price: 18, image: getImage('hydrocolloid.png') },
+  { id: 16, category: 'lab', nameKey: 'items.16.name', descriptionKey: 'items.16.description', price: 1.5, image: getImage('test-tube.webp') },
+  { id: 17, category: 'lab', nameKey: 'items.17.name', descriptionKey: 'items.17.description', price: 0.3, image: getImage('pipette.webp') },
+  { id: 18, category: 'lab', nameKey: 'items.18.name', descriptionKey: 'items.18.description', price: 6, image: getImage('slides.png') },
 ]
 
-/** Список категорий (оставляю как был, но “all” будем рисовать отдельно) */
 const categories = [
   { key: 'all', name: 'All Products', icon: 'Package' },
   { key: 'injection', image: categoryInjection },
@@ -88,9 +67,6 @@ const categories = [
   { key: 'lab', image: categoryLab },
 ]
 
-/* --------------------------------------------------- */
-/* ------------------- COMPONENT --------------------- */
-/* --------------------------------------------------- */
 export default function Catalog() {
   const { t } = useLanguage()
   const navigate = useNavigate()
@@ -102,6 +78,25 @@ export default function Catalog() {
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 16
+
+  /* ---------- Helper to get translated field ---------- */
+  const getTranslatedField = (key: string): string => {
+    const keys = key.split('.')
+    let value: any = t
+    for (const k of keys) {
+      value = value?.[k]
+      if (!value) return key
+    }
+    return typeof value === 'string' ? value : key
+  }
+
+  /* ---------- Debounced filter handler ---------- */
+  const debouncedFilter = useCallback(
+    debounce((cat: string, srch: string) => {
+      filterItems(cat, srch)
+    }, 300),
+    [t] // Re-create when translation changes
+  )
 
   /* ---------- sync URL → state ---------- */
   useEffect(() => {
@@ -118,18 +113,22 @@ export default function Catalog() {
       filterItems(cat, srch)
       setLoading(false)
     }, 300)
-  }, [searchParams])
+  }, [searchParams, t])
 
   /* ---------- filter logic ---------- */
   const filterItems = (cat: string, srch: string) => {
     let list = allItems
     if (cat !== 'all') list = list.filter(i => i.category === cat)
-    if (srch.trim())
-      list = list.filter(
-        i =>
-          i.name.toLowerCase().includes(srch.toLowerCase()) ||
-          i.description.toLowerCase().includes(srch.toLowerCase())
-      )
+    if (srch.trim()) {
+      list = list.filter(i => {
+        const translatedName = getTranslatedField(i.nameKey)
+        const translatedDescription = getTranslatedField(i.descriptionKey)
+        return (
+          translatedName.toLowerCase().includes(srch.toLowerCase()) ||
+          translatedDescription.toLowerCase().includes(srch.toLowerCase())
+        )
+      })
+    }
     setFilteredItems(list)
   }
 
@@ -153,14 +152,19 @@ export default function Catalog() {
     setActiveCategory(cat)
     setCurrentPage(1)
     updateUrl(cat, searchTerm, 1)
+    filterItems(cat, searchTerm)
   }
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value
     setSearchTerm(val)
     setCurrentPage(1)
-    updateUrl(activeCategory, val, 1)
-    filterItems(activeCategory, val)
+    debouncedFilter(activeCategory, val)
+  }
+
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    updateUrl(activeCategory, searchTerm, 1)
   }
 
   const handleClearSearch = () => {
@@ -177,7 +181,7 @@ export default function Catalog() {
 
   const handleContactClick = (item?: CatalogItem) => {
     const subject = item
-      ? `Inquiry about ${item.name}`
+      ? `Inquiry about ${getTranslatedField(item.nameKey)}`
       : 'Catalog Inquiry'
     window.open(
       `mailto:info@medicare.uz?subject=${encodeURIComponent(subject)}`,
@@ -219,7 +223,6 @@ export default function Catalog() {
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          {/* Header */}
           <div className="mb-12 text-center">
             <h1 className="mb-4 text-4xl font-bold md:text-5xl">
               {activeCategory === 'all'
@@ -231,8 +234,7 @@ export default function Catalog() {
             </p>
           </div>
 
-          {/* Search Bar */}
-          <div className="mx-auto mb-3 max-w-md">
+          <form onSubmit={handleSearchSubmit} className="mx-auto mb-3 max-w-md">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -253,12 +255,10 @@ export default function Catalog() {
                 </Button>
               )}
             </div>
-          </div>
+          </form>
 
-          {/* Zara-style text categories under search */}
-          <nav className="mx-auto mb-10 max-w-5xl overflow-x-auto">
-            <ul className="flex items-center gap-3 md:gap-5 whitespace-nowrap">
-              {/* All */}
+          <nav className="mx-auto mb-10 max-w-7xl overflow-x-hidden">
+            <ul className="flex flex-wrap items-center gap-3 md:gap-5 w-[100%]">
               <li>
                 <button
                   type="button"
@@ -293,7 +293,6 @@ export default function Catalog() {
             </ul>
           </nav>
 
-          {/* Items + Pagination */}
           <div className="mb-12">
             {filteredItems.length === 0 ? (
               <div className="py-12 text-center">
@@ -303,7 +302,7 @@ export default function Catalog() {
                 <h3 className="mb-2 text-xl font-semibold">{t.catalog.noResults}</h3>
                 <p className="mb-6 text-muted-foreground">
                   {searchTerm
-                    ? `No products match "${searchTerm}"`
+                    ? t.catalog.noSearchResults
                     : t.catalog.noCategoryResults}
                 </p>
                 <Button
@@ -336,7 +335,7 @@ export default function Catalog() {
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {paginatedItems.map(item => (
                     <Card
                       key={item.id}
@@ -345,19 +344,19 @@ export default function Catalog() {
                       <div className="relative aspect-square overflow-hidden bg-accent/20">
                         <img
                           src={item.image}
-                          alt={item.name}
+                          alt={getTranslatedField(item.nameKey)}
                           className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
                           onError={e => {
                             (e.currentTarget as HTMLImageElement).src = '/images/placeholder-product.jpg'
                           }}
                         />
-                        <Badge className="absolute right-2 top-2">{item.category}</Badge>
+                        <Badge className="absolute right-2 top-2">{getCategoryName(item.category)}</Badge>
                       </div>
 
                       <CardHeader className="pb-2 pt-4">
-                        <CardTitle className="line-clamp-1 text-lg">{item.name}</CardTitle>
+                        <CardTitle className="line-clamp-1 text-lg">{getTranslatedField(item.nameKey)}</CardTitle>
                         <CardDescription className="line-clamp-2 text-sm">
-                          {item.description}
+                          {getTranslatedField(item.descriptionKey)}
                         </CardDescription>
                       </CardHeader>
 
@@ -369,14 +368,13 @@ export default function Catalog() {
                         </div>
                         <Button className="w-full" onClick={() => handleContactClick(item)}>
                           <Mail className="mr-2 h-4 w-4" />
-                          {t.catalog.inquire}
+                          {t.catalog.contactCta}
                         </Button>
                       </CardContent>
                     </Card>
                   ))}
                 </div>
 
-                {/* Pagination */}
                 {totalPages > 1 && (
                   <div className="mt-10 flex justify-center">
                     <Pagination>
@@ -413,7 +411,6 @@ export default function Catalog() {
             )}
           </div>
 
-          {/* bottom gap */}
           <div className="h-[var(--catalog-bottom-gap)]" aria-hidden />
         </div>
       </section>

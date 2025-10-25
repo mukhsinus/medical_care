@@ -338,40 +338,56 @@ export default function Catalog() {
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {paginatedItems.map(item => (
                     <Card
-                      key={item.id}
-                      className="overflow-hidden transition-shadow hover:shadow-lg group"
+                  key={item.id}
+                  className="overflow-hidden transition-shadow hover:shadow-lg group flex flex-col"
+                  style={{ height: '400px' }} // Fixed height for the entire card
+                >
+                  <div className="relative aspect-square overflow-hidden bg-accent/20">
+                    <img
+                      src={item.image}
+                      alt={getTranslatedField(item.nameKey)}
+                      className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = '/images/placeholder-product.jpg'
+                      }}
+                    />
+                    <Badge className="absolute right-2 top-2">{getCategoryName(item.category)}</Badge>
+                  </div>
+
+                  <CardHeader className="pb-2 pt-4 flex-1" style={{ minHeight: '100px' }}>
+                    <CardTitle
+                      className="line-clamp-1 text-lg"
+                      style={{ height: '24px', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                      title={getTranslatedField(item.nameKey)} // Tooltip for accessibility
                     >
-                      <div className="relative aspect-square overflow-hidden bg-accent/20">
-                        <img
-                          src={item.image}
-                          alt={getTranslatedField(item.nameKey)}
-                          className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-                          onError={e => {
-                            (e.currentTarget as HTMLImageElement).src = '/images/placeholder-product.jpg'
-                          }}
-                        />
-                        <Badge className="absolute right-2 top-2">{getCategoryName(item.category)}</Badge>
-                      </div>
+                      {getTranslatedField(item.nameKey)}
+                    </CardTitle>
+                    <CardDescription
+                      className="line-clamp-2 text-sm"
+                      style={{ height: '40px', overflow: 'hidden' }}
+                      title={getTranslatedField(item.descriptionKey)} // Tooltip for accessibility
+                    >
+                      {getTranslatedField(item.descriptionKey)}
+                    </CardDescription>
+                  </CardHeader>
 
-                      <CardHeader className="pb-2 pt-4">
-                        <CardTitle className="line-clamp-1 text-lg">{getTranslatedField(item.nameKey)}</CardTitle>
-                        <CardDescription className="line-clamp-2 text-sm">
-                          {getTranslatedField(item.descriptionKey)}
-                        </CardDescription>
-                      </CardHeader>
-
-                      <CardContent className="pt-0">
-                        <div className="mb-3 flex items-center justify-between">
-                          <span className="text-2xl font-bold text-primary">
-                            ${item.price.toFixed(2)}
-                          </span>
-                        </div>
-                        <Button className="w-full" onClick={() => handleContactClick(item)}>
-                          <Mail className="mr-2 h-4 w-4" />
-                          {t.catalog.contactCta}
-                        </Button>
-                      </CardContent>
-                    </Card>
+                  <CardContent className="pt-0 flex flex-col justify-end" style={{ height: '100px' }}>
+                    <div className="mb-3 flex items-center justify-between">
+                      <span className="text-2xl font-bold text-primary">
+                        ${item.price.toFixed(2)}
+                      </span>
+                    </div>
+                    <Button
+                      className="w-full h-10 text-xs" // Reduced font size for better fit
+                      style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                      onClick={() => handleContactClick(item)}
+                      title={t.catalog.contactCta} // Tooltip for accessibility
+                    >
+                      <Mail className="mr-2 h-4 w-4 flex-shrink-0" />
+                      <span className="truncate">{t.catalog.contactCta}</span>
+                    </Button>
+                  </CardContent>
+                </Card>
                   ))}
                 </div>
 

@@ -223,41 +223,81 @@ export default function Catalog() {
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="mb-12 text-center">
-            <h1 className="mb-4 text-4xl font-bold md:text-5xl">
+          <div className="sr-only">
+            <h1>
               {activeCategory === 'all'
                 ? t.catalog.title
                 : `${getCategoryName(activeCategory)} - ${t.catalog.title}`}
             </h1>
-            <p className="mx-auto max-w-2xl text-xl text-muted-foreground">
-              {t.catalog.subtitle}
-            </p>
+            <p>{t.catalog.subtitle}</p>
           </div>
 
-          <form onSubmit={handleSearchSubmit} className="mx-auto mb-3 max-w-md">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder={t.catalog.searchPlaceholder}
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className="pl-10"
-              />
-              {searchTerm && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
-                  onClick={handleClearSearch}
-                >
-                  <span className="sr-only">Clear</span>×
-                </Button>
-              )}
-            </div>
-          </form>
+{/* ===== MOBILE: "All" above search (visible only on small screens) ===== */}
+<div className="mb-3 md:hidden">
+  <button
+    type="button"
+    onClick={() => handleCategoryClick('all')}
+    className={`w-full text-left px-3 py-2 text-sm rounded-md transition
+      ${activeCategory === 'all'
+        ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
+        : 'border border-transparent text-slate-700 bg-white/0 hover:bg-slate-50'}`}
+    aria-pressed={activeCategory === 'all'}
+  >
+    {t.catalog.allItems}
+  </button>
+</div>
 
-          <nav className="mx-auto mb-10 max-w-7xl overflow-x-hidden">
+{/* ===== Search (unchanged position) ===== */}
+<form onSubmit={handleSearchSubmit} className="mx-auto mb-3 max-w-md">
+  <div className="relative">
+    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+    <Input
+      type="search"
+      placeholder={t.catalog.searchPlaceholder}
+      value={searchTerm}
+      onChange={handleSearchChange}
+      className="pl-10"
+    />
+    {searchTerm && (
+      <Button
+        variant="ghost"
+        size="sm"
+        className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
+        onClick={handleClearSearch}
+      >
+        <span className="sr-only">Clear</span>×
+      </Button>
+    )}
+  </div>
+</form>
+
+          {/* ===== MOBILE: categories grid (2 rows × scroll columns) with block background like "All" ===== */}
+          <nav className="md:hidden mb-6">
+            <ul className="grid grid-flow-col grid-rows-2 auto-cols-min gap-3 overflow-x-auto pb-2">
+              {visibleCategories.map(cat => (
+                <li key={cat.key} className="min-w-[110px] flex-shrink-0">
+                  {/* Обёртка, создаёт фонный блок и скругление (как у "All") */}
+                  <div className="rounded-md bg-white shadow-sm">
+                    <button
+                      type="button"
+                      onClick={() => handleCategoryClick(cat.key)}
+                      className={`w-full text-left px-3 py-2 text-[0.65rem] leading-tight transition rounded-md
+                        ${activeCategory === cat.key
+                          ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
+                          : 'text-slate-700 hover:bg-slate-50'}`}
+                      aria-pressed={activeCategory === cat.key}
+                      title={getCategoryName(cat.key)}
+                    >
+                      {getCategoryName(cat.key)}
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* ===== DESKTOP: keep original nav (hidden on mobile) ===== */}
+          <nav className="hidden md:block mx-auto mb-10 max-w-7xl overflow-x-hidden">
             <ul className="flex flex-wrap items-center gap-3 md:gap-5 w-[100%]">
               <li>
                 <button
@@ -274,22 +314,45 @@ export default function Catalog() {
                 </button>
               </li>
 
-              {visibleCategories.map(cat => (
-                <li key={cat.key}>
-                  <button
-                    type="button"
-                    onClick={() => handleCategoryClick(cat.key)}
-                    className={`px-2 md:px-3 py-1.5 text-sm md:text-base transition
-                      border-b-2
-                      ${activeCategory === cat.key
-                        ? 'border-sky-500 text-sky-700 font-semibold'
-                        : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'}`}
-                    aria-pressed={activeCategory === cat.key}
-                  >
-                    {getCategoryName(cat.key)}
-                  </button>
-                </li>
-              ))}
+              {visibleCategories.map((cat, idx) => {
+                const mobileOrderMap: Record<string, number> = {
+                  injection: 2,
+                  lab: 3,
+                  surgery: 4,
+                  hygiene: 5,
+                  dressings: 6,
+                  equipment: 7,
+                }
+                const desktopOrderMap: Record<string, number> = {
+                  injection: 2,
+                  equipment: 3,
+                  surgery: 4,
+                  hygiene: 5,
+                  dressings: 6,
+                  lab: 7,
+                }
+
+                const mOrder = mobileOrderMap[cat.key] ?? idx + 2
+                const dOrder = desktopOrderMap[cat.key] ?? idx + 2
+                const orderClass = `order-${mOrder} md:order-${dOrder}`
+
+                return (
+                  <li key={cat.key} className={orderClass}>
+                    <button
+                      type="button"
+                      onClick={() => handleCategoryClick(cat.key)}
+                      className={`px-2 md:px-3 py-0.5 text-xs md:text-base transition
+                        border-b-2
+                        ${activeCategory === cat.key
+                          ? 'border-sky-500 text-sky-700 font-semibold'
+                          : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'}`}
+                      aria-pressed={activeCategory === cat.key}
+                    >
+                      {getCategoryName(cat.key)}
+                    </button>
+                  </li>
+                )
+              })}
             </ul>
           </nav>
 

@@ -221,7 +221,7 @@ export default function Catalog() {
         path="/catalog"
       />
 
-      <section className="py-16 md:py-24">
+      <section className="pb-16 pt-6 md:py-24">
         <div className="container mx-auto px-4">
           <div className="sr-only">
             <h1>
@@ -272,29 +272,31 @@ export default function Catalog() {
 </form>
 
           {/* ===== MOBILE: categories grid (2 rows × scroll columns) with block background like "All" ===== */}
-          <nav className="md:hidden mb-6">
-            <ul className="grid grid-flow-col grid-rows-2 auto-cols-min gap-3 overflow-x-auto pb-2">
-              {visibleCategories.map(cat => (
-                <li key={cat.key} className="min-w-[110px] flex-shrink-0">
-                  {/* Обёртка, создаёт фонный блок и скругление (как у "All") */}
-                  <div className="rounded-md bg-white shadow-sm">
-                    <button
-                      type="button"
-                      onClick={() => handleCategoryClick(cat.key)}
-                      className={`w-full text-left px-3 py-2 text-[0.65rem] leading-tight transition rounded-md
-                        ${activeCategory === cat.key
-                          ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
-                          : 'text-slate-700 hover:bg-slate-50'}`}
-                      aria-pressed={activeCategory === cat.key}
-                      title={getCategoryName(cat.key)}
-                    >
-                      {getCategoryName(cat.key)}
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <nav className="md:hidden mb-6 flex justify-center">
+  <ul className="grid grid-flow-col grid-rows-2 gap-4 justify-center">
+    {visibleCategories.map((cat) => (
+      <li key={cat.key} className="w-[110px] flex justify-center align-center">
+        <div className="rounded-md bg-white shadow-sm w-full h-full flex items-center justify-center">
+          <button
+            type="button"
+            onClick={() => handleCategoryClick(cat.key)}
+            className={`w-full text-center px-3 py-2 text-[0.65rem] leading-tight transition rounded-md my-[auto]
+              ${
+                activeCategory === cat.key
+                  ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
+                  : 'text-slate-700 hover:bg-slate-50'
+              }`}
+            aria-pressed={activeCategory === cat.key}
+            title={getCategoryName(cat.key)}
+          >
+            {getCategoryName(cat.key)}
+          </button>
+        </div>
+      </li>
+    ))}
+  </ul>
+</nav>
+
 
           {/* ===== DESKTOP: keep original nav (hidden on mobile) ===== */}
           <nav className="hidden md:block mx-auto mb-10 max-w-7xl overflow-x-hidden">

@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Mail, Search, ChevronLeft } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { useCart } from '@/contexts/CartContext'
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination'
 import debounce from 'lodash.debounce'
 
@@ -69,6 +70,7 @@ const categories = [
 
 export default function Catalog() {
   const { t } = useLanguage()
+  const { addItem } = useCart()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
@@ -442,15 +444,26 @@ export default function Catalog() {
                         ${item.price.toFixed(2)}
                       </span>
                     </div>
-                    <Button
-                      className="w-full h-10 text-xs" // Reduced font size for better fit
-                      style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
-                      onClick={() => handleContactClick(item)}
-                      title={t.catalog.contactCta} // Tooltip for accessibility
-                    >
-                      <Mail className="mr-2 h-4 w-4 flex-shrink-0" />
-                      <span className="truncate">{t.catalog.contactCta}</span>
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                        className="flex-1 h-10 text-xs"
+                        style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                        onClick={() => addItem({ id: item.id, name: getTranslatedField(item.nameKey), price: item.price, image: item.image }, 1)}
+                        title={t.catalog.addToBasket || 'Add to basket'}
+                      >
+                        <span className="truncate">{t.catalog.addToBasket || 'Add to basket'}</span>
+                      </Button>
+
+                      <Button
+                        className="h-10 text-xs w-36"
+                        variant="outline"
+                        onClick={() => handleContactClick(item)}
+                        title={t.catalog.contactCta}
+                      >
+                        <Mail className="mr-2 h-4 w-4 flex-shrink-0" />
+                        <span className="truncate">{t.catalog.contactCta}</span>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
                   ))}

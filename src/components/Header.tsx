@@ -2,8 +2,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShoppingBasket, User } from 'lucide-react';
 import { Button } from './ui/button';
+import { useCart } from '@/contexts/CartContext';
 
 import logo1x from '@/assets/logo-removebg-preview.png';
 import logo2x from '@/assets/logo-removebg-preview.png';
@@ -13,6 +14,7 @@ export const Header = () => {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -20,11 +22,18 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
+  // Mobile nav items (excluding login)
+  const mobileNavItems = [
     { path: `/${locale}`, label: t.nav.home },
     { path: `/${locale}/about`, label: t.nav.about },
     { path: `/${locale}/catalog`, label: t.nav.catalog },
     { path: `/${locale}/contacts`, label: t.nav.contacts },
+  ];
+
+  // Desktop nav items (including login)
+  const desktopNavItems = [
+    ...mobileNavItems,
+    { path: `/${locale}/login`, label: t.nav.login },
   ];
 
   const isActive = (path: string) => {
@@ -51,9 +60,31 @@ export const Header = () => {
               />
             </Link>
 
+            {/* Бургер, корзина и логин — мобилка */}
+            <div className="flex items-center gap-2 md:hidden">
+              <Link to={`/${locale}/basket`} className="relative">
+                <ShoppingBasket className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                  {totalItems}
+                </span>
+              </Link>
+              <Link to={`/${locale}/login`}>
+                <User className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
+              </Link>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                aria-label="Toggle Menu"
+                onClick={() => setIsMobileMenuOpen((v) => !v)}
+              >
+                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
+
             {/* Навигация — десктоп */}
             <nav className="hidden md:flex items-center gap-1">
-              {navItems.map((item) => (
+              {desktopNavItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
@@ -68,21 +99,19 @@ export const Header = () => {
               ))}
             </nav>
 
-            {/* Переключатель языка — десктоп */}
-            <div className="hidden md:flex">
+            {/* Переключатель языка и иконки — десктоп */}
+            <div className="hidden md:flex items-center gap-2">
               <LanguageSwitcher />
+              <Link to={`/${locale}/basket`} className="relative">
+                <ShoppingBasket className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                  {totalItems}
+                </span>
+              </Link>
+              <Link to={`/${locale}/login`}>
+                <User className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
+              </Link>
             </div>
-
-            {/* Бургер — мобилка */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              aria-label="Toggle Menu"
-              onClick={() => setIsMobileMenuOpen((v) => !v)}
-            >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
           </div>
         </div>
 
@@ -98,7 +127,7 @@ export const Header = () => {
             <div className="absolute left-0 right-0 top-full mt-2 z-50 md:hidden">
               <div className="nav-glass overflow-hidden rounded-2xl">
                 <nav className="p-3 nav-glass-blurred">
-                  {navItems.map((item) => (
+                  {mobileNavItems.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}

@@ -24,7 +24,7 @@ const fetchUserProfile = async () => {
 const fetchUserOrders = async () => {
   const token = localStorage.getItem('authToken');
   if (!token) throw new Error('Unauthorized');
-  const response = await fetch('/api/user/orders', {
+  const response = await fetch('http://localhost:8090/api/user/orders', {
     headers: { Authorization: `Bearer ${token}` },
   });
   if (!response.ok) throw new Error('Failed to fetch orders');
@@ -34,7 +34,7 @@ const fetchUserOrders = async () => {
 const updateUserProfile = async (data: { name: string }) => {
   const token = localStorage.getItem('authToken');
   if (!token) throw new Error('Unauthorized');
-  const response = await fetch('/api/user/profile', {
+  const response = await fetch('http://localhost:8090/api/user/profile', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

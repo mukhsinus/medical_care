@@ -1,25 +1,85 @@
+// src/pages/Login.tsx (for reference, unchanged from previous response)
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useMutation } from '@tanstack/react-query';
 import { Layout } from '@/components/Layout';
 import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
-import { Mail, Lock, UserPlus } from 'lucide-react';
+import { Mail, Lock, UserPlus, AlertCircle } from 'lucide-react';
+
+const loginUser = async ({ email, password }: { email: string; password: string }) => {
+  const response = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Login failed');
+  }
+  const data = await response.json();
+  return data;
+};
+
+const signupUser = async ({ email, password }: { email: string; password: string }) => {
+  const response = await fetch('/api/auth/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Sign-up failed');
+  }
+  const data = await response.json();
+  return data;
+};
 
 const Login: React.FC = () => {
   const { locale, t } = useLanguage();
   const location = useLocation();
-  const [isLogin, setIsLogin] = useState(true); // Toggle between login and sign-up
+  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  const loginMutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+      localStorage.setItem('authToken', data.token);
+      setError(null);
+      navigate(`/${locale}/account`);
+    },
+    onError: (error: Error) => {
+      setError(error.message || t.login?.error || 'Invalid email or password');
+    },
+  });
+
+  const signupMutation = useMutation({
+    mutationFn: signupUser,
+    onSuccess: (data) => {
+      localStorage.setItem('authToken', data.token);
+      setError(null);
+      navigate(`/${locale}/account`);
+    },
+    onError: (error: Error) => {
+      setError(error.message || t.signup?.error || 'Sign-up failed');
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Placeholder for auth logic (e.g., API call)
-    console.log(isLogin ? 'Login' : 'Sign Up', { email, password });
+    setError(null);
+    if (isLogin) {
+      loginMutation.mutate({ email, password });
+    } else {
+      signupMutation.mutate({ email, password });
+    }
   };
 
   return (
@@ -53,6 +113,12 @@ const Login: React.FC = () => {
                     {t.signup?.button || 'Sign Up'}
                   </Button>
                 </div>
+                {error && (
+                  <div className="flex items-center gap-2 text-red-500 mb-4">
+                    <AlertCircle className="h-5 w-5" />
+                    <p className="text-sm">{error}</p>
+                  </div>
+                )}
                 <form onSubmit={handleSubmit}>
                   <div className="space-y-4">
                     <div>
@@ -69,6 +135,7 @@ const Login: React.FC = () => {
                           className="pl-10 bg-white/70"
                           placeholder={t.login?.email_placeholder || 'Enter your email'}
                           required
+                          disabled={loginMutation.isPending || signupMutation.isPending}
                         />
                       </div>
                     </div>
@@ -86,6 +153,7 @@ const Login: React.FC = () => {
                           className="pl-10 bg-white/70"
                           placeholder={t.login?.password_placeholder || 'Enter your password'}
                           required
+                          disabled={loginMutation.isPending || signupMutation.isPending}
                         />
                       </div>
                     </div>
@@ -103,9 +171,16 @@ const Login: React.FC = () => {
                       type="submit"
                       size="lg"
                       className="btn-primary w-full shadow-lg hover:shadow-xl"
+                      disabled={loginMutation.isPending || signupMutation.isPending}
                     >
-                      {isLogin ? t.login?.submit || 'Log In' : t.signup?.submit || 'Sign Up'}
-                      {!isLogin && <UserPlus className="ml-2 h-5 w-5" />}
+                      {loginMutation.isPending || signupMutation.isPending
+                        ? t.login?.loading || 'Loading...'
+                        : isLogin
+                        ? t.login?.submit || 'Log In'
+                        : t.signup?.submit || 'Sign Up'}
+                      {!isLogin && !loginMutation.isPending && !signupMutation.isPending && (
+                        <UserPlus className="ml-2 h-5 w-5" />
+                      )}
                     </Button>
                   </div>
                 </form>

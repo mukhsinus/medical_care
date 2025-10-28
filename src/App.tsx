@@ -18,6 +18,7 @@ import Basket from './pages/Basket';
 import Login from './pages/Login';
 import Account from './pages/Account'; // Add Account
 import NotFound from './pages/NotFound';
+import ForgotPassword from './pages/ForgotPassword';
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const App = () => (
                     <Route path={`/${locale}/basket`} element={<Basket />} />
                     <Route path={`/${locale}/login`} element={<Login />} />
                     <Route path={`/${locale}/account`} element={<Account />} />
+                    <Route path={`/${locale}/forgot-password`} element={<ForgotPassword />} />
                   </React.Fragment>
                 ))}
                 <Route path="*" element={<NotFound />} />

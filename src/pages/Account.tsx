@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'; // Added useQueryClient
 import { Layout } from '@/components/Layout';
 import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
@@ -10,26 +10,36 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { User, LogOut, Package, Edit } from 'lucide-react';
 
-// Placeholder API functions (replace with your auth service)
+// API functions using auth token from Login
 const fetchUserProfile = async () => {
-  // Example: Fetch from an API or auth service (e.g., Firebase, Supabase)
-  const response = await fetch('/api/user/profile'); // Adjust endpoint
+  const token = localStorage.getItem('authToken');
+  if (!token) throw new Error('Unauthorized');
+  const response = await fetch('/api/user/profile', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   if (!response.ok) throw new Error('Failed to fetch user profile');
   return response.json(); // { id: string, name: string, email: string }
 };
 
 const fetchUserOrders = async () => {
-  // Example: Fetch user orders
-  const response = await fetch('/api/user/orders'); // Adjust endpoint
+  const token = localStorage.getItem('authToken');
+  if (!token) throw new Error('Unauthorized');
+  const response = await fetch('/api/user/orders', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   if (!response.ok) throw new Error('Failed to fetch orders');
   return response.json(); // [{ id: string, date: string, total: number, status: string }, ...]
 };
 
 const updateUserProfile = async (data: { name: string }) => {
-  // Example: Update profile via API
+  const token = localStorage.getItem('authToken');
+  if (!token) throw new Error('Unauthorized');
   const response = await fetch('/api/user/profile', {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(data),
   });
   if (!response.ok) throw new Error('Failed to update profile');
@@ -37,8 +47,13 @@ const updateUserProfile = async (data: { name: string }) => {
 };
 
 const logoutUser = async () => {
-  // Example: Logout via API or auth service
-  const response = await fetch('/api/auth/logout', { method: 'POST' });
+  const token = localStorage.getItem('authToken');
+  if (!token) throw new Error('Unauthorized');
+  const response = await fetch('/api/auth/logout', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (response.ok) localStorage.removeItem('authToken');
   if (!response.ok) throw new Error('Failed to logout');
 };
 
@@ -49,6 +64,7 @@ const Account: React.FC = () => {
   const { locale, t } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient(); // Added for query invalidation
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState('');
 
@@ -72,7 +88,6 @@ const Account: React.FC = () => {
     mutationFn: updateUserProfile,
     onSuccess: () => {
       setIsEditing(false);
-      // Invalidate user profile query to refetch
       queryClient.invalidateQueries({ queryKey: ['userProfile'] });
     },
     onError: (error) => console.error('Profile update failed:', error),

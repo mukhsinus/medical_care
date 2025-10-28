@@ -12,7 +12,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Mail, Lock, UserPlus, AlertCircle, User, Phone, Eye, EyeOff } from 'lucide-react';
 
 const loginUser = async ({ nameOrEmail, password }: { nameOrEmail: string; password: string }) => {
-  const response = await fetch('/api/auth/login', {
+  const response = await fetch('http://localhost:8090/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ nameOrEmail, password }),
@@ -31,7 +31,7 @@ const signupUser = async ({
   phone,
   password,
 }: { name: string; email: string; phone?: string; password: string }) => {
-  const response = await fetch('/api/auth/signup', {
+  const response = await fetch('http://localhost:8090/api/auth/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, email, phone, password }),

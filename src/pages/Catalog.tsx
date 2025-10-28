@@ -24,7 +24,6 @@ import categoryLab from '@/assets/lab.png'
 
 const itemsImg = import.meta.glob('@/assets/items/*.{png,jpg,jpeg,webp}', { eager: true })
 const getImage = (filename: string) => {
-  // @ts-ignore
   return itemsImg[`/src/assets/items/${filename}`]?.default
 }
 

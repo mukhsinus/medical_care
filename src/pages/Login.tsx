@@ -91,7 +91,7 @@ const Login: React.FC = () => {
       />
       <section className="min-h-[calc(100svh-4rem)] py-12">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-bold glass-card rounded-2xl px-4 py-2 text-center mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold  rounded-2xl px-4 py-2 text-center mb-12">
             {isLogin ? t.login?.title || 'Login' : t.signup?.title || 'Sign Up'}
           </h1>
           <div className="max-w-md mx-auto">

@@ -6,8 +6,7 @@ import { Menu, X, ShoppingBasket, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { useCart } from '@/contexts/CartContext';
 
-import logo1x from '@/assets/logo-removebg-preview.png';
-import logo2x from '@/assets/logo-removebg-preview.png';
+import logo from '@/assets/logo-removebg-preview.png';
 
 export const Header = () => {
   const { locale, t } = useLanguage();
@@ -51,10 +50,9 @@ export const Header = () => {
             {/* ЛОГО */}
             <Link to={`/${locale}`} className="flex items-center">
               <img
-                src={logo1x}
-                srcSet={`${logo2x} 2x`}
+                src={logo}
                 alt="Medicare"
-                className="h-8 w-auto"
+                className="h-8 w-auto rounded-none"
                 loading="eager"
                 decoding="async"
               />

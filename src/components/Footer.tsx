@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 // ↓ импортируем тот же логотип
-import logo1x from '@/assets/logo.png';
-import logo2x from '@/assets/logo.png';
+import logo from '@/assets/logo-removebg-preview.png';
 
 export const Footer = () => {
   const { locale, t } = useLanguage();
@@ -16,10 +15,9 @@ export const Footer = () => {
             {/* Лого в футере */}
             <div className="flex items-center gap-2 mb-3">
               <img
-                src={logo1x}
-                srcSet={`${logo2x} 2x`}
+                src={logo}
                 alt="Medicare"
-                className="h-8 w-auto"
+                className="h-8 w-auto rounded-none"
                 loading="lazy"
                 decoding="async"
               />

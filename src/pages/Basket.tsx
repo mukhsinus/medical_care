@@ -43,7 +43,7 @@ const Basket: React.FC = () => {
       <section className="min-h-[calc(100svh-4rem)] py-12">
         <div className="container mx-auto px-4">
           <header className="flex justify-between items-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold glass-card rounded-2xl px-4 py-2">
+            <h1 className="text-3xl md:text-4xl font-bold rounded-2xl px-4 py-2">
               {t.basket?.title || 'Your Basket'}
             </h1>
             <div className="text-muted-foreground">

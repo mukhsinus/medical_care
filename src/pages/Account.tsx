@@ -12,50 +12,66 @@ import { User, LogOut, Package, Edit } from 'lucide-react';
 
 // API functions using auth token from Login
 const fetchUserProfile = async () => {
+  // если есть fallback token — используем Authorization
   const token = localStorage.getItem('authToken');
-  if (!token) throw new Error('Unauthorized');
-  const response = await fetch('/api/user/profile', {
-    headers: { Authorization: `Bearer ${token}` },
+  const headers: any = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const response = await fetch('http://localhost:8090/api/me', {
+    method: 'GET',
+    headers,
+    credentials: 'include', // если cookie есть — отправится
   });
-  if (!response.ok) throw new Error('Failed to fetch user profile');
-  return response.json(); // { id: string, name: string, email: string }
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch user profile');
+  }
+  return response.json();
 };
+
 
 const fetchUserOrders = async () => {
   const token = localStorage.getItem('authToken');
-  if (!token) throw new Error('Unauthorized');
+  const headers: any = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
   const response = await fetch('http://localhost:8090/api/user/orders', {
-    headers: { Authorization: `Bearer ${token}` },
+    method: 'GET',
+    headers,
+    credentials: 'include',
   });
   if (!response.ok) throw new Error('Failed to fetch orders');
-  return response.json(); // [{ id: string, date: string, total: number, status: string }, ...]
+  return response.json();
 };
 
 const updateUserProfile = async (data: { name: string }) => {
   const token = localStorage.getItem('authToken');
-  if (!token) throw new Error('Unauthorized');
+  const headers: any = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
   const response = await fetch('http://localhost:8090/api/user/profile', {
     method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
+    headers,
+    credentials: 'include',
     body: JSON.stringify(data),
   });
   if (!response.ok) throw new Error('Failed to update profile');
   return response.json();
 };
 
+
 const logoutUser = async () => {
-  const token = localStorage.getItem('authToken');
-  if (!token) throw new Error('Unauthorized');
-  const response = await fetch('/api/auth/logout', {
+  // call server logout to clear cookie
+  const response = await fetch('http://localhost:8090/api/auth/logout', {
     method: 'POST',
-    headers: { Authorization: `Bearer ${token}` },
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
   });
-  if (response.ok) localStorage.removeItem('authToken');
+  // also clear fallback token
+  localStorage.removeItem('authToken');
   if (!response.ok) throw new Error('Failed to logout');
 };
+
 
 const formatCurrency = (n: number) =>
   n.toLocaleString(undefined, { style: 'currency', currency: 'USD' });
@@ -141,7 +157,7 @@ const Account: React.FC = () => {
       />
       <section className="min-h-[calc(100svh-4rem)] py-12">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-bold glass-card rounded-2xl px-4 py-2 text-center mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold rounded-2xl px-4 py-2 text-center mb-12">
             {t.account?.title || 'Your Account'}
           </h1>
           <div className="max-w-2xl mx-auto grid gap-6">

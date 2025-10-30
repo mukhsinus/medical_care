@@ -11,19 +11,26 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { Mail, Lock, UserPlus, AlertCircle, User, Phone, Eye, EyeOff } from 'lucide-react';
 
+
 const loginUser = async ({ nameOrEmail, password }: { nameOrEmail: string; password: string }) => {
+  // отправляем поле identifier, чтобы бек точно распознал
+  const payload = { identifier: nameOrEmail, password };
+
   const response = await fetch('http://localhost:8090/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nameOrEmail, password }),
+    credentials: 'include', // важно: попытаемся принять httpOnly cookie
+    body: JSON.stringify(payload),
   });
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Login failed');
-  }
   const data = await response.json();
+  if (!response.ok) {
+    // если бек прислал ошибку — бросаем
+    throw new Error(data.message || 'Login failed');
+  }
+  // data: { user: {...}, token?: '...' }
   return data;
 };
+
 
 const signupUser = async ({
   name,
@@ -62,7 +69,11 @@ const Login: React.FC = () => {
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      localStorage.setItem('authToken', data.token);
+      // если бек вернул token в теле — сохраняем как fallback (dev)
+      if (data?.token) localStorage.setItem('authToken', data.token);
+      // иначе удаляем старый fallback, будем полагаться на httpOnly cookie
+      else localStorage.removeItem('authToken');
+
       setError(null);
       navigate(`/${locale}/account`);
     },

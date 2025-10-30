@@ -9,32 +9,72 @@ const authMiddleware = require('./middleware/auth');
 const app = express();
 const PORT = process.env.PORT || 8090;
 
+// === Middleware ===
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true,
-}));
+// --- Настройка CORS ---
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'http://localhost:8080',
+  'http://127.0.0.1:8080',
+  'http://localhost:5173'
+];
 
-app.use('/api/auth', authRoutes);
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // разрешаем запросы без Origin (например, Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      callback(new Error('CORS policy: Origin not allowed by backend.'));
+    },
+    credentials: true,
+  })
+);
 
-// Пример защищённого роута — вернёт инфу о пользователе
-app.get('/api/me', authMiddleware, async (req, res) => {
-  // req.userId выставляет middleware
-  const User = require('./models/User');
-  const user = await User.findById(req.userId).select('-password -resetPasswordToken -resetPasswordExpires');
-  if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
-  res.json({ user });
+
+
+// DEBUG logger — покажет все входящие запросы и тело
+app.use((req, res, next) => {
+  console.log('>>> REQ:', req.method, req.originalUrl, 'Content-Type:', req.headers['content-type']);
+  // body может быть пустым если парсер ещё не сработал или если request не содержит тело
+  console.log('>>> REQ BODY (before):', req.body);
+  next();
 });
 
+
+
+// --- Роуты ---
+app.use('/api/auth', authRoutes);
+
+// --- Пример защищённого роута ---
+app.get('/api/me', authMiddleware, async (req, res) => {
+  try {
+    const User = require('./models/User');
+    const user = await User.findById(req.userId).select('-password -resetPasswordToken -resetPasswordExpires');
+    if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
+    res.json({ user });
+  } catch (err) {
+    console.error('Ошибка /api/me:', err);
+    res.status(500).json({ message: 'Ошибка на сервере' });
+  }
+});
+
+// --- Запуск сервера ---
 async function start() {
   try {
-    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log('MongoDB connected');
-    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+    console.log('⏳ Подключаемся к MongoDB Atlas...');
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000, // быстро падает если не может подключиться
+    });
+    console.log('✅ MongoDB Atlas connected');
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
+      console.log(`🟢 Frontend allowed origin: ${process.env.FRONTEND_URL}`);
+    });
   } catch (err) {
-    console.error('Ошибка при подключении к БД', err);
+    console.error('❌ Ошибка при подключении к MongoDB:', err.message);
     process.exit(1);
   }
 }

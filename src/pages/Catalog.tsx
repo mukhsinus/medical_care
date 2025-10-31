@@ -693,12 +693,12 @@ export default function Catalog() {
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="grid grid-cols-2 gap-6 max-sm:gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {paginatedItems.map((item) => (
                     <Card
                       key={item.id}
                       className="overflow-hidden transition-shadow hover:shadow-lg group flex flex-col"
-                      style={{ height: '400px' }}
+                      style={{ minHeight: '370px', maxHeight: '400px' }}
                     >
                       <div className="relative aspect-square overflow-hidden bg-accent/20">
                         <img
@@ -717,7 +717,7 @@ export default function Catalog() {
 
                       <CardHeader
                         className="pb-2 pt-4 flex-1"
-                        style={{ minHeight: '80px', maxHeight: '110px' }}
+                        // style={{ minHeight: '80px', maxHeight: '125px' }}
                       >
                         <CardTitle
                           className="text-lg"
@@ -733,16 +733,16 @@ export default function Catalog() {
                         >
                           {getTranslatedField(item.descriptionKey)}
                         </CardDescription>
-                      </CardHeader>
-
-                      <CardContent className="pt-0 flex flex-col justify-end max-sm:h-[80px]">
-                        <div className="mb-3 flex items-center justify-between">
+                        <div className="mb-3">
                           <span className="text-l font-bold text-primary">
                             ${item.price.toFixed(2)}
                           </span>
                         </div>
+                      </CardHeader>
 
-                        <div className="flex gap-2">
+                      {/* <CardContent className="pt-0 flex flex-col justify-end max-sm:h-[80px]"> */}
+
+                        <div className="flex gap-2 mx-auto pt-0 my-2 sm:my-4">
                           {/* ---- OPEN QUANTITY MODAL ---- */}
                           <Button
                             className="flex-1 h-10 text-xs"
@@ -775,7 +775,7 @@ export default function Catalog() {
                             <span className="truncate">{t.catalog.contactCta}</span>
                           </Button>
                         </div>
-                      </CardContent>
+                      {/* </CardContent> */}
                     </Card>
                   ))}
                 </div>

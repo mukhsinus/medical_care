@@ -45,7 +45,7 @@ export default function Home() {
 
   const handleContactClick = (type: 'email' | 'telegram' | 'instagram') => {
     const links = {
-      email: 'medicareuz2023@gmail.com',
+      email: 'mailto:medicareuz2023@gmail.com',
       telegram: 'https://t.me/medicareuz',
       instagram: 'https://www.instagram.com/medicareuz',
     } as const;
@@ -197,93 +197,105 @@ export default function Home() {
           </p>
 
           {/* Контакты — grid: 2 колонки на мобилке, 4 на md+ */}
-          <div className="w-full max-w-lg md:max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-              {/* PHONE selector (в своей ячейке, parent relative для absolute меню) */}
-              <div className="relative col-span-1">
-                <button
-                  type="button"
-                  onClick={() => setPhoneMenuOpen((v) => !v)}
-                  aria-haspopup="menu"
-                  aria-expanded={phoneMenuOpen}
-                  className="w-full h-12 flex items-center justify-center gap-2 rounded-md bg-white/90 border border-input text-base font-medium shadow-sm hover:shadow-md transition"
-                >
-                  <Phone className="h-4 w-4 text-[hsl(200_90%_45%)]" />
-                  <span>{t.contacts.phoneLabel ?? 'Телефон'}</span>
-                  <span className="ml-1 text-xs text-muted-foreground">▾</span>
-                </button>
+          <div className="w-full max-w-lg md:max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            {/* PHONE SELECTOR */}
+            <div className="relative col-span-1">
+              <Button
+                // type="button"
+                variant='outline'
+                onClick={() => setPhoneMenuOpen((v) => !v)}
+                aria-haspopup="menu"
+                aria-expanded={phoneMenuOpen}
+                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium px-8 py-0"
+              >
+                {/* Icon */}
+                <Phone className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
 
-                {phoneMenuOpen && (
-                  <div
-                    role="menu"
-                    aria-label="Выберите номер"
-                    className="
-                      absolute z-50 bottom-full mb-2 left-1/2 -translate-x-1/2
-                      bg-white rounded-md shadow-lg border overflow-hidden
-                      inline-block whitespace-nowrap
-                      animate-in fade-in slide-in-from-bottom-2 duration-200
-                    "
+                {/* Text + ▾ in one container */}
+                <div className="flex flex-1 items-center justify-center gap-1">
+                  <span className="text-center">
+                    {t.contacts.phoneLabel ?? 'Телефон'}
+                  </span>
+                  <span className="text-xs text-muted-foreground">▾</span>
+                </div>
+              </Button>
+
+              {/* Dropdown Menu */}
+              {phoneMenuOpen && (
+                <div
+                  role="menu"
+                  aria-label="Выберите номер"
+                  className="
+                    absolute z-50 bottom-full mb-2 left-1/2 -translate-x-1/2
+                    bg-white rounded-md shadow-lg border overflow-hidden
+                    min-w-[160px] whitespace-nowrap
+                    animate-in fade-in slide-in-from-bottom-2 duration-200
+                  "
+                >
+                  <button
+                    role="menuitem"
+                    onClick={() => {
+                      window.location.href = 'tel:+998997013022'
+                      setPhoneMenuOpen(false)
+                    }}
+                    className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors text-sm"
                   >
-                    <button
-                      role="menuitem"
-                      onClick={() => (window.location.href = 'tel:+998997013022')}
-                      className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors"
-                    >
-                      +998997013022
-                    </button>
-                    <button
-                      role="menuitem"
-                      onClick={() => (window.location.href = 'tel:+998559013022')}
-                      className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors"
-                    >
-                      +998559013022
-                    </button>
-                  </div>
-                )}
-              </div>
+                    +998 99 701 3022
+                  </button>
+                  <button
+                    role="menuitem"
+                    onClick={() => {
+                      window.location.href = 'tel:+998559013022'
+                      setPhoneMenuOpen(false)
+                    }}
+                    className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors text-sm"
+                  >
+                    +998 55 901 3022
+                  </button>
+                </div>
+              )}
+            </div>
+            {/* TELEGRAM */}
+            <div className="col-span-1">
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => handleContactClick('telegram')}
+                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+              >
+                <Send className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+                <span className="flex-1 text-center">{t.contacts.telegram ?? 'Telegram'}</span>
+              </Button>
+            </div>
 
-              {/* Telegram */}
-              <div className="col-span-1">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={() => handleContactClick('telegram')}
-                  className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
-                >
-                  <Send className="h-5 w-5 text-[hsl(200_90%_45%)]" />
-                  <span>{t.contacts.telegram ?? 'Telegram'}</span>
-                </Button>
-              </div>
+            {/* INSTAGRAM */}
+            <div className="col-span-1">
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => handleContactClick('instagram')}
+                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+              >
+                <Camera className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+                <span className="flex-1 text-center">{t.contacts.instagram ?? 'Instagram'}</span>
+              </Button>
+            </div>
 
-              {/* Instagram */}
-              <div className="col-span-1">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={() => handleContactClick('instagram')}
-                  className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
-                >
-                  <Camera className="h-5 w-5 text-[hsl(200_90%_45%)]" />
-                  <span>{t.contacts.instagram ?? 'Instagram'}</span>
-                </Button>
-              </div>
-
-              {/* Email */}
-              <div className="col-span-1">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={() => handleContactClick('email')}
-                  className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
-                >
-                
-                  <Mail className="h-5 w-5 translate-x-[6px] md:translate-x-0 text-[hsl(200_90%_45%)]" />
-                  <span className="mx-auto">{t.contacts.email ?? 'Электронная почта'}</span>
-                
-                </Button>
-              </div>
+            {/* EMAIL */}
+            <div className="col-span-1">
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => handleContactClick('email')}
+                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+              >
+                <Mail className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+                <span className="flex-1 text-center">{t.contacts.email ?? 'Электронная почта'}</span>
+              </Button>
             </div>
           </div>
+        </div>
         </div>
       </section>
     </Layout>

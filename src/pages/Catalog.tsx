@@ -5,17 +5,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Layout } from '@/components/Layout'
 import { SEO } from '@/components/SEO'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Mail, Search, ChevronLeft, ShoppingBasket, X } from 'lucide-react'
+import { Search, ShoppingBasket } from 'lucide-react'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
 import { useCart } from '@/contexts/CartContext'
 import {
   Pagination,
@@ -35,7 +27,6 @@ import {
 import { Label } from '@/components/ui/label'
 import debounce from 'lodash.debounce'
 
-/** Category images (kept for compatibility) */
 import categoryInjection from '@/assets/category-injection.png'
 import categoryEquipment from '@/assets/category-equipment.png'
 import categorySurgery from '@/assets/category-surgery.png'
@@ -51,7 +42,7 @@ const getImage = (filename: string) => {
 }
 
 /* -------------------------------------------------------------
-   Catalog data – add `boxInfo` for each item (optional)
+   Catalog data
    ------------------------------------------------------------- */
 type CatalogItem = {
   id: number
@@ -60,8 +51,9 @@ type CatalogItem = {
   descriptionKey: string
   price: number
   image: string
-  boxInfo?: string
+  boxInfo?: string // e.g. "12 pcs per box"
 }
+
 
 const allItems: CatalogItem[] = [
   {
@@ -239,101 +231,105 @@ const categories = [
 ]
 
 /* -------------------------------------------------------------
-   QUANTITY MODAL (embedded – no extra file needed)
+   ITEM MODAL – Full info + Add to Cart (Fixed)
    ------------------------------------------------------------- */
-type QuantityModalProps = {
+type ItemModalProps = {
   open: boolean
   onOpenChange: (open: boolean) => void
-  item: {
-    id: number
-    name: string
-    price: number
-    image: string
-    boxInfo?: string
-  }
+  item: CatalogItem
+  getTranslatedField: (key: string) => string
 }
 
-function QuantityModal({ open, onOpenChange, item }: QuantityModalProps) {
+function ItemModal({ open, onOpenChange, item, getTranslatedField }: ItemModalProps) {
   const { addItem } = useCart()
-  const [qty, setQty] = useState(1)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const name = getTranslatedField(item.nameKey)
+  const desc = getTranslatedField(item.descriptionKey)
+
+  const minQty = item.boxInfo
+    ? parseInt(item.boxInfo.match(/(\d+)/)?.[1] || '1', 10)
+    : 1
+
+  const [qty, setQty] = useState(minQty)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value, 10)
-    if (!isNaN(val) && val >= 1) setQty(val)
+    if (!isNaN(val) && val >= minQty) setQty(val)
   }
 
-  const handleConfirm = () => {
+  const handleAdd = () => {
     addItem(
-      { id: item.id, name: item.name, price: item.price, image: item.image },
+      { id: item.id, name, price: item.price, image: item.image },
       qty
     )
     onOpenChange(false)
-    setQty(1)
+    setQty(minQty)
   }
 
   useEffect(() => {
-    if (open && inputRef.current) inputRef.current.select()
-  }, [open])
+    if (open) {
+      setQty(minQty)
+      setTimeout(() => inputRef.current?.select(), 100)
+    }
+  }, [open, minQty])
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-white">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <ShoppingBasket className="h-5 w-5" />
-            Add to Basket
+            {name}
           </DialogTitle>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-4 top-4"
-            onClick={() => onOpenChange(false)}
-          >
-            <X className="h-4 w-4" />
-          </Button>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
-          <div className="flex items-center gap-3">
+          <div className="flex gap-4">
             <img
               src={item.image}
-              alt={item.name}
-              className="h-16 w-16 rounded object-contain bg-accent/20"
+              alt={name}
+              className="h-24 w-24 rounded object-contain bg-gray-50"
             />
-            <div className="flex-1">
-              <p className="font-medium">{item.name}</p>
-              <p className="text-sm text-muted-foreground">
-                ${item.price.toFixed(2)} each
-              </p>
+            <div className="flex-1 space-y-2">
+              <p className="font-medium">{name}</p>
+              <p className="text-sm text-muted-foreground">{desc}</p>
+              {item.boxInfo && (
+                <p className="text-xs italic text-muted-foreground">
+                  {item.boxInfo} (min {minQty})
+                </p>
+              )}
             </div>
           </div>
 
-          {item.boxInfo && (
-            <p className="text-xs text-muted-foreground italic">
-              {item.boxInfo}
-            </p>
-          )}
+          <div className="flex items-center justify-between">
+            <span className="text-lg font-bold text-primary">
+              ${item.price.toFixed(2)} each
+            </span>
+          </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="quantity">Quantity (min. 1)</Label>
+            <Label htmlFor="qty">
+              Quantity (min {minQty})
+            </Label>
             <Input
-              id="quantity"
+              id="qty"
               ref={inputRef}
               type="number"
-              min={1}
+              min={minQty}
+              step={minQty}
               value={qty}
               onChange={handleChange}
-              className="w-24"
+              className="w-32"
             />
           </div>
         </div>
 
-        <DialogFooter className="flex gap-2 sm:justify-between">
+        <DialogFooter className="gap-2">
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button onClick={handleConfirm}>
+          <Button onClick={handleAdd}>
             Add {qty} {qty === 1 ? 'item' : 'items'}
           </Button>
         </DialogFooter>
@@ -341,13 +337,11 @@ function QuantityModal({ open, onOpenChange, item }: QuantityModalProps) {
     </Dialog>
   )
 }
-
 /* -------------------------------------------------------------
-   MAIN COMPONENT
+   MAIN CATALOG
    ------------------------------------------------------------- */
 export default function Catalog() {
   const { t } = useLanguage()
-  const { addItem } = useCart()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
@@ -358,17 +352,9 @@ export default function Catalog() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 16
 
-  /* ---------- Modal state ---------- */
   const [modalOpen, setModalOpen] = useState(false)
-  const [modalItem, setModalItem] = useState<{
-    id: number
-    name: string
-    price: number
-    image: string
-    boxInfo?: string
-  } | null>(null)
+  const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(null)
 
-  /* ---------- Helper to get translated field ---------- */
   const getTranslatedField = (key: string): string => {
     const keys = key.split('.')
     let value: any = t
@@ -379,7 +365,12 @@ export default function Catalog() {
     return typeof value === 'string' ? value : key
   }
 
-  /* ---------- Debounced filter handler ---------- */
+  const getCategoryName = (key: string) => {
+    if (key === 'all') return t.catalog.allItems
+    const data = t.categories[key as keyof typeof t.categories] as { name: string }
+    return data?.name ?? key
+  }
+
   const debouncedFilter = useCallback(
     debounce((cat: string, srch: string) => {
       filterItems(cat, srch)
@@ -387,7 +378,6 @@ export default function Catalog() {
     [t]
   )
 
-  /* ---------- sync URL → state ---------- */
   useEffect(() => {
     const cat = searchParams.get('category') ?? 'all'
     const srch = searchParams.get('search') ?? ''
@@ -396,7 +386,6 @@ export default function Catalog() {
     setActiveCategory(cat)
     setSearchTerm(srch)
     setCurrentPage(page)
-
     setLoading(true)
     setTimeout(() => {
       filterItems(cat, srch)
@@ -404,7 +393,6 @@ export default function Catalog() {
     }, 300)
   }, [searchParams, t])
 
-  /* ---------- filter logic ---------- */
   const filterItems = (cat: string, srch: string) => {
     let list = allItems
     if (cat !== 'all') list = list.filter((i) => i.category === cat)
@@ -421,14 +409,12 @@ export default function Catalog() {
     setFilteredItems(list)
   }
 
-  /* ---------- pagination slice ---------- */
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage)
   const paginatedItems = filteredItems.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
 
-  /* ---------- URL helpers ---------- */
   const updateUrl = (cat: string, srch: string, page: number = 1) => {
     const params = new URLSearchParams()
     if (cat !== 'all') params.set('category', cat)
@@ -468,25 +454,11 @@ export default function Catalog() {
     updateUrl(activeCategory, searchTerm, page)
   }
 
-  const handleContactClick = (item?: CatalogItem) => {
-    const subject = item
-      ? `Inquiry about ${getTranslatedField(item.nameKey)}`
-      : 'Catalog Inquiry'
-    window.open(
-      `mailto:info@medicare.uz?subject=${encodeURIComponent(subject)}`,
-      '_blank'
-    )
+  const openModal = (item: CatalogItem) => {
+    setSelectedItem(item)
+    setModalOpen(true)
   }
 
-  const getCategoryName = (key: string) => {
-    if (key === 'all') return t.catalog.allItems
-    const data = t.categories[key as keyof typeof t.categories] as {
-      name: string
-    }
-    return data?.name ?? key
-  }
-
-  /* ---------- loading UI ---------- */
   if (loading) {
     return (
       <Layout>
@@ -501,7 +473,6 @@ export default function Catalog() {
     )
   }
 
-  /* ---------- main UI ---------- */
   const visibleCategories = categories.filter((c) => c.key !== 'all')
 
   return (
@@ -514,34 +485,9 @@ export default function Catalog() {
 
       <section className="pb-16 pt-6 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="sr-only">
-            <h1>
-              {activeCategory === 'all'
-                ? t.catalog.title
-                : `${getCategoryName(activeCategory)} - ${t.catalog.title}`}
-            </h1>
-            <p>{t.catalog.subtitle}</p>
-          </div>
-
-          {/* MOBILE: "All" button */}
-          <div className="mb-3 md:hidden">
-            <button
-              type="button"
-              onClick={() => handleCategoryClick('all')}
-              className={`w-full text-left px-3 py-2 text-sm rounded-md transition
-                ${
-                  activeCategory === 'all'
-                    ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
-                    : 'border border-transparent text-slate-700 bg-white/0 hover:bg-slate-50'
-                }`}
-              aria-pressed={activeCategory === 'all'}
-            >
-              {t.catalog.allItems}
-            </button>
-          </div>
 
           {/* Search */}
-          <form onSubmit={handleSearchSubmit} className="mx-auto mb-3 max-w-md">
+          <form onSubmit={handleSearchSubmit} className="mx-auto mb-6 max-w-md">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -558,280 +504,168 @@ export default function Catalog() {
                   className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
                   onClick={handleClearSearch}
                 >
-                  <span className="sr-only">Clear</span>×
-                </Button>
+                  <span className="sr-only">Clear</span>×</Button>
               )}
             </div>
           </form>
 
-          {/* MOBILE: categories grid */}
-          <nav className="md:hidden mb-6 flex justify-center">
-            <ul className="grid grid-flow-col grid-rows-2 gap-4 justify-center">
+          {/* Desktop Categories */}
+          <nav className="hidden md:flex justify-center mb-10 gap-6 flex-wrap">
+            <button
+              onClick={() => handleCategoryClick('all')}
+              className={`px-4 py-2 text-sm font-medium transition-colors
+                ${activeCategory === 'all'
+                  ? 'text-sky-600 border-b-2 border-sky-600'
+                  : 'text-gray-600 hover:text-gray-900'
+                }`}
+            >
+              {t.catalog.allItems}
+            </button>
+            {visibleCategories.map((cat) => (
+              <button
+                key={cat.key}
+                onClick={() => handleCategoryClick(cat.key)}
+                className={`px-4 py-2 text-sm font-medium transition-colors
+                  ${activeCategory === cat.key
+                    ? 'text-sky-600 border-b-2 border-sky-600'
+                    : 'text-gray-600 hover:text-gray-900'
+                  }`}
+              >
+                {getCategoryName(cat.key)}
+              </button>
+            ))}
+          </nav>
+
+          {/* Mobile Categories */}
+          <div className="md:hidden mb-6 overflow-x-auto">
+            <div className="flex gap-3 px-4">
+              <button
+                onClick={() => handleCategoryClick('all')}
+                className={`px-3 py-1.5 text-xs rounded-full whitespace-nowrap
+                  ${activeCategory === 'all'
+                    ? 'bg-sky-100 text-sky-700'
+                    : 'bg-gray-100 text-gray-600'
+                  }`}
+              >
+                {t.catalog.allItems}
+              </button>
               {visibleCategories.map((cat) => (
-                <li key={cat.key} className="w-[110px] flex justify-center">
-                  <div className="rounded-md bg-white shadow-sm w-full h-full flex items-center justify-center">
-                    <button
-                      type="button"
-                      onClick={() => handleCategoryClick(cat.key)}
-                      className={`w-full text-center px-3 py-2 text-[0.65rem] leading-tight transition rounded-md my-auto
-                        ${
-                          activeCategory === cat.key
-                            ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
-                            : 'text-slate-700 hover:bg-slate-50'
-                        }`}
-                      aria-pressed={activeCategory === cat.key}
-                      title={getCategoryName(cat.key)}
-                    >
-                      {getCategoryName(cat.key)}
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* DESKTOP: categories */}
-          <nav className="hidden md:block mx-auto mb-10 max-w-7xl overflow-x-hidden">
-            <ul className="flex flex-wrap items-center gap-3 md:gap-5 w-full">
-              <li>
                 <button
-                  type="button"
-                  onClick={() => handleCategoryClick('all')}
-                  className={`px-2 md:px-3 py-1.5 text-sm md:text-base transition border-b-2
-                    ${
-                      activeCategory === 'all'
-                        ? 'border-sky-500 text-sky-700 font-semibold'
-                        : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
+                  key={cat.key}
+                  onClick={() => handleCategoryClick(cat.key)}
+                  className={`px-3 py-1.5 text-xs rounded-full whitespace-nowrap
+                    ${activeCategory === cat.key
+                      ? 'bg-sky-100 text-sky-700'
+                      : 'bg-gray-100 text-gray-600'
                     }`}
-                  aria-pressed={activeCategory === 'all'}
                 >
-                  {t.catalog.allItems}
+                  {getCategoryName(cat.key)}
                 </button>
-              </li>
-
-              {visibleCategories.map((cat, idx) => {
-                const mobileOrderMap: Record<string, number> = {
-                  injection: 2,
-                  lab: 3,
-                  surgery: 4,
-                  hygiene: 5,
-                  dressings: 6,
-                  equipment: 7,
-                }
-                const desktopOrderMap: Record<string, number> = {
-                  injection: 2,
-                  equipment: 3,
-                  surgery: 4,
-                  hygiene: 5,
-                  dressings: 6,
-                  lab: 7,
-                }
-
-                const mOrder = mobileOrderMap[cat.key] ?? idx + 2
-                const dOrder = desktopOrderMap[cat.key] ?? idx + 2
-                const orderClass = `order-${mOrder} md:order-${dOrder}`
-
-                return (
-                  <li key={cat.key} className={orderClass}>
-                    <button
-                      type="button"
-                      onClick={() => handleCategoryClick(cat.key)}
-                      className={`px-2 md:px-3 py-0.5 text-xs md:text-base transition border-b-2
-                        ${
-                          activeCategory === cat.key
-                            ? 'border-sky-500 text-sky-700 font-semibold'
-                            : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
-                        }`}
-                      aria-pressed={activeCategory === cat.key}
-                    >
-                      {getCategoryName(cat.key)}
-                    </button>
-                  </li>
-                )
-              })}
-            </ul>
-          </nav>
-
-          {/* PRODUCTS GRID */}
-          <div className="mb-12">
-            {filteredItems.length === 0 ? (
-              <div className="py-12 text-center">
-                <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-muted">
-                  <Search className="h-12 w-12 text-muted-foreground" />
-                </div>
-                <h3 className="mb-2 text-xl font-semibold">{t.catalog.noResults}</h3>
-                <p className="mb-6 text-muted-foreground">
-                  {searchTerm ? t.catalog.noSearchResults : t.catalog.noCategoryResults}
-                </p>
-                <Button
-                  onClick={() => {
-                    setSearchTerm('')
-                    handleCategoryClick('all')
-                  }}
-                >
-                  {t.catalog.clearFilters}
-                </Button>
-              </div>
-            ) : (
-              <>
-                <div className="mb-6 flex items-center justify-between">
-                  <div>
-                    <h2 className="text-2xl font-semibold">{t.catalog.products}</h2>
-                    <p className="text-sm text-muted-foreground">
-                      {filteredItems.length} {t.catalog.itemsFound}
-                    </p>
-                  </div>
-                  {activeCategory !== 'all' && (
-                    <Button
-                      variant="outline"
-                      onClick={() => handleCategoryClick('all')}
-                      className="gap-2"
-                    >
-                      <ChevronLeft className="h-4 w-4" />
-                      {t.catalog.showAll}
-                    </Button>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-2 gap-6 max-sm:gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {paginatedItems.map((item) => (
-                    <Card
-                      key={item.id}
-                      className="overflow-hidden transition-shadow hover:shadow-lg group flex flex-col"
-                      style={{ minHeight: '370px', maxHeight: '400px' }}
-                    >
-                      <div className="relative aspect-square overflow-hidden bg-accent/20">
-                        <img
-                          src={item.image}
-                          alt={getTranslatedField(item.nameKey)}
-                          className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-                          onError={(e) => {
-                            ;(e.currentTarget as HTMLImageElement).src =
-                              '/images/placeholder-product.jpg'
-                          }}
-                        />
-                        <Badge className="absolute right-2 top-2">
-                          {getCategoryName(item.category)}
-                        </Badge>
-                      </div>
-
-                      <CardHeader
-                        className="pb-2 pt-4 flex-1"
-                        // style={{ minHeight: '80px', maxHeight: '125px' }}
-                      >
-                        <CardTitle
-                          className="text-lg"
-                          style={{ height: '24px', overflow: 'hidden' }}
-                          title={getTranslatedField(item.nameKey)}
-                        >
-                          {getTranslatedField(item.nameKey)}
-                        </CardTitle>
-                        <CardDescription
-                          className="text-sm h-[24px] max-sm:h-[38px]"
-                          style={{ overflow: 'hidden' }}
-                          title={getTranslatedField(item.descriptionKey)}
-                        >
-                          {getTranslatedField(item.descriptionKey)}
-                        </CardDescription>
-                        <div className="mb-3">
-                          <span className="text-l font-bold text-primary">
-                            ${item.price.toFixed(2)}
-                          </span>
-                        </div>
-                      </CardHeader>
-
-                      {/* <CardContent className="pt-0 flex flex-col justify-end max-sm:h-[80px]"> */}
-
-                        <div className="flex gap-2 mx-auto pt-0 my-2 sm:my-4">
-                          {/* ---- OPEN QUANTITY MODAL ---- */}
-                          <Button
-                            className="flex-1 h-10 text-xs"
-                            onClick={() => {
-                              setModalItem({
-                                id: item.id,
-                                name: getTranslatedField(item.nameKey),
-                                price: item.price,
-                                image: item.image,
-                                boxInfo: item.boxInfo,
-                              })
-                              setModalOpen(true)
-                            }}
-                            title={t.catalog.addToBasket || 'Add'}
-                          >
-                            <ShoppingBasket className="h-6 w-6 flex-shrink-0" />
-                            <span className="truncate max-sm:hidden">
-                              {t.catalog.addToBasket || 'Add'}
-                            </span>
-                          </Button>
-
-                          {/* ---- CONTACT ---- */}
-                          <Button
-                            className="flex-1 h-10 text-xs"
-                            variant="outline"
-                            onClick={() => handleContactClick(item)}
-                            title={t.catalog.contactCta}
-                          >
-                            <Mail className="h-4 w-4 flex-shrink-0" />
-                            <span className="truncate">{t.catalog.contactCta}</span>
-                          </Button>
-                        </div>
-                      {/* </CardContent> */}
-                    </Card>
-                  ))}
-                </div>
-
-                {/* PAGINATION */}
-                {totalPages > 1 && (
-                  <div className="mt-10 flex justify-center">
-                    <Pagination>
-                      <PaginationContent>
-                        <PaginationItem>
-                          <PaginationPrevious
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
-                          />
-                        </PaginationItem>
-
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                          <PaginationItem key={page}>
-                            <PaginationLink
-                              onClick={() => handlePageChange(page)}
-                              isActive={currentPage === page}
-                            >
-                              {page}
-                            </PaginationLink>
-                          </PaginationItem>
-                        ))}
-
-                        <PaginationItem>
-                          <PaginationNext
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            className={currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}
-                          />
-                        </PaginationItem>
-                      </PaginationContent>
-                    </Pagination>
-                  </div>
-                )}
-              </>
-            )}
+              ))}
+            </div>
           </div>
 
-          {/* ---- QUANTITY MODAL ---- */}
-          {modalItem && (
-            <QuantityModal
-              open={modalOpen}
-              onOpenChange={(open) => {
-                setModalOpen(open)
-                if (!open) setModalItem(null)
-              }}
-              item={modalItem}
-            />
+          {/* PRODUCTS GRID – NO BACKGROUND, NO BADGE */}
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {paginatedItems.map((item) => {
+              const name = getTranslatedField(item.nameKey)
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => openModal(item)}
+                  className="group cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-100"
+                >
+                  {/* Image */}
+                  <div className="aspect-square mb-3 overflow-hidden rounded-lg bg-transparent">
+                    <img
+                      src={item.image}
+                      alt={name}
+                      className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                      onError={(e) => {
+                        ;(e.currentTarget as HTMLImageElement).src =
+                          '/images/placeholder-product.jpg'
+                      }}
+                    />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-medium text-sm line-clamp-2 mb-1" title={name}>
+                    {name}
+                  </h3>
+
+                  {/* Price + Basket Icon */}
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-primary">
+                      ${item.price.toFixed(2)}
+                    </span>
+                    <ShoppingBasket className="h-5 w-5 text-primary opacity-70 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* No Results */}
+          {filteredItems.length === 0 && (
+            <div className="py-16 text-center">
+              <Search className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+              <h3 className="text-lg font-medium mb-2">{t.catalog.noResults}</h3>
+              <p className="text-muted-foreground mb-4">
+                {searchTerm ? t.catalog.noSearchResults : t.catalog.noCategoryResults}
+              </p>
+              <Button onClick={() => { setSearchTerm(''); handleCategoryClick('all') }}>
+                {t.catalog.clearFilters}
+              </Button>
+            </div>
           )}
 
-          <div className="h-[var(--catalog-bottom-gap)]" aria-hidden />
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="mt-12 flex justify-center">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                    />
+                  </PaginationItem>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <PaginationItem key={page}>
+                      <PaginationLink
+                        onClick={() => handlePageChange(page)}
+                        isActive={currentPage === page}
+                        className="cursor-pointer"
+                      >
+                        {page}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
         </div>
       </section>
+
+      {/* MODAL */}
+      {selectedItem && (
+        <ItemModal
+          open={modalOpen}
+          onOpenChange={(open) => {
+            setModalOpen(open)
+            if (!open) setSelectedItem(null)
+          }}
+          item={selectedItem}
+          getTranslatedField={getTranslatedField}
+        />
+      )}
     </Layout>
   )
 }

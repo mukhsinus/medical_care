@@ -3,7 +3,8 @@ import { Layout } from '@/components/Layout';
 import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Clock, Package, ShieldCheck, Mail, MessageCircle, Send } from 'lucide-react';
+import { Clock, Package, ShieldCheck, Mail, Send, Phone, Camera } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import heroImage from '@/assets/hero-image.jpg';
@@ -28,11 +29,25 @@ const categories = [
 export default function Home() {
   const { locale, t } = useLanguage();
 
-  const handleContactClick = (type: 'email' | 'telegram' | 'whatsapp') => {
+  const [phoneMenuOpen, setPhoneMenuOpen] = useState(false);
+  const phoneMenuRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function onDocClick(e: MouseEvent) {
+      if (!phoneMenuRef.current) return;
+      if (!phoneMenuRef.current.contains(e.target as Node)) {
+        setPhoneMenuOpen(false);
+      }
+    }
+    document.addEventListener('click', onDocClick);
+    return () => document.removeEventListener('click', onDocClick);
+  }, []);
+
+  const handleContactClick = (type: 'email' | 'telegram' | 'instagram') => {
     const links = {
-      email: 'mailto:info@medicare.uz?subject=Price List Request',
-      telegram: 'https://t.me/medicare_uz',
-      whatsapp: 'https://wa.me/998901234567',
+      email: 'mailto:info@medicare.uz?subject=Contact',
+      telegram: 'https://t.me/medicareuz',
+      instagram: 'https://www.instagram.com/medicareuz',
     } as const;
     window.open(links[type], '_blank');
   };
@@ -73,14 +88,16 @@ export default function Home() {
                   <p className="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-xl">
                     {t.hero.subtitle}
                   </p>
+
+                  {/* Только почта в HERO */}
                   <div className="flex flex-wrap gap-4">
-                    <Button size="lg" onClick={() => handleContactClick('email')} className="btn-primary shadow-lg hover:shadow-xl">
+                    <Button
+                      size="lg"
+                      onClick={() => handleContactClick('email')}
+                      className="btn-primary shadow-lg hover:shadow-xl w-full sm:w-auto"
+                    >
                       <Mail className="mr-2 h-5 w-5" />
                       {t.hero.cta_primary}
-                    </Button>
-                    <Button size="lg" variant="outline" onClick={() => handleContactClick('telegram')} className="btn-outline">
-                      <Send className="mr-2 h-5 w-5" />
-                      {t.hero.cta_secondary}
                     </Button>
                   </div>
                 </div>
@@ -120,7 +137,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===================== CATEGORIES (фон только в этой секции, НЕ заходит под HERO) ===================== */}
+      {/* ===================== CATEGORIES ===================== */}
       <section
         className="
           catalog relative isolate min-h-[100svh] overflow-x-hidden
@@ -130,8 +147,7 @@ export default function Home() {
         style={{
           ['--catalog-full-bg-image' as any]: `url(${catalogImage})`,
           ['--catalog-image-opacity' as any]: '0.45',
-          ['--catalog-overlap' as any]: '0px',          // ⬅️ отключаем «заезд» вверх
-          // marginTop убираем полностью, чтобы фон каталога не лез под hero
+          ['--catalog-overlap' as any]: '0px',
         }}
       >
         <div className="container mx-auto px-4 pt-12 md:pt-16">
@@ -153,7 +169,7 @@ export default function Home() {
                       decoding="async"
                     />
                     <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-3 w-[90%] max-w-[200px] sm:w-auto">
-                      <div className="w-full text-center rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 flex items-end justify-center"> {/*  убрал glass panel */}
+                      <div className="w-full text-center rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 flex items-end justify-center">
                         <span className="text-[12px] md:text-sm font-semibold leading-tight">
                           {catData.name}
                         </span>
@@ -170,28 +186,101 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===================== CTA ===================== */}
+      {/* ===================== GET IN TOUCH (контакты) ===================== */}
       <section className="py-20 bg-gradient-to-r from-primary/10 via-primary/5 to-background">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             {t.contacts.getInTouch}
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            {t.hero.subtitle}
+            {t.contacts.text}
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button size="lg" onClick={() => handleContactClick('email')} className="btn-primary">
-              <Mail className="mr-2 h-5 w-5" />
-              {t.contacts.email}
-            </Button>
-            <Button size="lg" variant="outline" onClick={() => handleContactClick('telegram')} className="btn-outline">
-              <Send className="mr-2 h-5 w-5" />
-              {t.contacts.telegram}
-            </Button>
-            <Button size="lg" variant="outline" onClick={() => handleContactClick('whatsapp')} className="btn-outline">
-              <MessageCircle className="mr-2 h-5 w-5" />
-              {t.contacts.whatsapp}
-            </Button>
+
+          {/* Контакты — grid: 2 колонки на мобилке, 4 на md+ */}
+          <div className="w-full max-w-lg mx-auto">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {/* PHONE selector (в своей ячейке, parent relative для absolute меню) */}
+              <div className="relative col-span-1">
+                <button
+                  type="button"
+                  onClick={() => setPhoneMenuOpen((v) => !v)}
+                  aria-haspopup="menu"
+                  aria-expanded={phoneMenuOpen}
+                  className="w-full h-12 flex items-center justify-center gap-2 rounded-md bg-white/90 border border-input text-base font-medium shadow-sm hover:shadow-md transition"
+                >
+                  <Phone className="h-5 w-5 text-[hsl(200_90%_45%)]" />
+                  <span>{t.contacts.phoneLabel ?? 'Телефон'}</span>
+                  <span className="ml-1 text-xs text-muted-foreground">▾</span>
+                </button>
+
+                {phoneMenuOpen && (
+                  <div
+                    role="menu"
+                    aria-label="Выберите номер"
+                    className="
+                      absolute z-50 bottom-full mb-2 left-1/2 -translate-x-1/2
+                      bg-white rounded-md shadow-lg border overflow-hidden
+                      inline-block whitespace-nowrap
+                      animate-in fade-in slide-in-from-bottom-2 duration-200
+                    "
+                  >
+                    <button
+                      role="menuitem"
+                      onClick={() => (window.location.href = 'tel:+998997013022')}
+                      className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors"
+                    >
+                      +998997013022
+                    </button>
+                    <button
+                      role="menuitem"
+                      onClick={() => (window.location.href = 'tel:+998559013022')}
+                      className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors"
+                    >
+                      +998559013022
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Telegram */}
+              <div className="col-span-1">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => handleContactClick('telegram')}
+                  className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+                >
+                  <Send className="h-5 w-5" />
+                  <span>{t.contacts.telegram ?? 'Telegram'}</span>
+                </Button>
+              </div>
+
+              {/* Instagram */}
+              <div className="col-span-1">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => handleContactClick('instagram')}
+                  className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+                >
+                  <Camera className="h-5 w-5" />
+                  <span>{t.contacts.instagram ?? 'Instagram'}</span>
+                </Button>
+              </div>
+
+              {/* Email */}
+              <div className="col-span-1">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => handleContactClick('email')}
+                  className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+                >
+                  <Mail className="h-5 w-5" />
+                  <span>{t.contacts.email ?? 'Электронная почта'}</span>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>

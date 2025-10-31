@@ -74,7 +74,7 @@ const SelectContent = React.forwardRef<
       position={position}
       {...props}
     >
-      <SelectScrollUpButton />
+      <SelectScrollUp />
       <SelectPrimitive.Viewport
         className={cn(
           "p-1",

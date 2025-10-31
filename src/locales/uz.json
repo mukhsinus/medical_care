@@ -86,7 +86,7 @@
     "button": "Ro'yxatdan o'tish",
     "name": "Ism (yoki kompaniya nomi)",
     "name_placeholder": "Ismingizni yoki kompaniya nomini kiriting",
-    "email": "Elektron pochta",
+    "email": "Pochta",
     "email_placeholder": "Elektron pochta manzilingizni kiriting",
     "phone": "Telefon raqami",
     "phone_placeholder": "Telefon raqamingizni kiriting",
@@ -214,17 +214,19 @@
     }
   },
   "contacts": {
+    "text": "Bizning jamoamiz doimo yordam berishga tayyor. Mutaxassislarimiz bilan sizga qulay usulda bog‘laning — klinikangiz uchun eng maqbul yechimlarni tavsiya etamiz.",
+    "phoneLabel": "Telefon",
     "title": "Biz bilan bog'laning",
     "subtitle": "Bizning jamoamiz yordam berishga tayyor",
     "phone": "Telefon",
-    "email": "Elektron pochta",
+    "email": "Pochta",
     "address": "Manzil",
     "addressValue": "Toshkent, O'zbekiston",
     "hours": "Ish vaqti",
     "hoursValue": "Dush-Jum: 9:00 - 18:00",
     "getInTouch": "Bog'laning",
     "telegram": "Telegram",
-    "whatsapp": "WhatsApp"
+    "instagram": "Instagram"
   },
   "footer": {
     "description": "O'zbekistonda professional tibbiy buyumlar ulgurji etkazib beruvchisi",

@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-
-// ↓ импортируем тот же логотип
 import logo from '@/assets/logo-removebg-preview.png';
 
 export const Footer = () => {
@@ -12,7 +10,6 @@ export const Footer = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            {/* Лого в футере */}
             <div className="flex items-center gap-2 mb-3">
               <img
                 src={logo}
@@ -64,3 +61,5 @@ export const Footer = () => {
     </footer>
   );
 };
+
+export default Footer;

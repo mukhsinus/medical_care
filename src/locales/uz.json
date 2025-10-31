@@ -64,7 +64,7 @@
   "catalog": {
   "title": "Mahsulotlar katalogi",
   "subtitle": "Bizning keng qamrovli tibbiy jihozlar assortimentini o'rganing",
-  "contactCta": "Tafsilotlarni so'rash",
+  "contactCta": "Tafsilotlar",
   "allItems": "Barcha mahsulotlar",
   "loading": "Yuklanmoqda...",
   "noItems": "Mahsulotlar topilmadi.",
@@ -78,7 +78,7 @@
   "itemsFound": "Topilgan mahsulotlar",
   "showAll": "Barchasini ko'rsatish",
   "inquirie": "So'rov",
-  "addToBasket": "Savatchaga qo'shish"
+  "addToBasket": "Qo'shish"
 },"signup": {
     "error": "Ro'yxatdan o'tish muvaffaqiyatsiz bo'ldi",
     "password_mismatch": "Parollar mos kelmaydi",

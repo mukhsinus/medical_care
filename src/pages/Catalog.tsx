@@ -7,7 +7,7 @@ import { Layout } from '@/components/Layout'
 import { SEO } from '@/components/SEO'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Mail, Search, ChevronLeft } from 'lucide-react'
+import { Mail, Search, ChevronLeft, ShoppingBasket } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { useCart } from '@/contexts/CartContext'
@@ -233,70 +233,70 @@ export default function Catalog() {
             <p>{t.catalog.subtitle}</p>
           </div>
 
-{/* ===== MOBILE: "All" above search (visible only on small screens) ===== */}
-<div className="mb-3 md:hidden">
-  <button
-    type="button"
-    onClick={() => handleCategoryClick('all')}
-    className={`w-full text-left px-3 py-2 text-sm rounded-md transition
-      ${activeCategory === 'all'
-        ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
-        : 'border border-transparent text-slate-700 bg-white/0 hover:bg-slate-50'}`}
-    aria-pressed={activeCategory === 'all'}
-  >
-    {t.catalog.allItems}
-  </button>
-</div>
+          {/* ===== MOBILE: "All" above search (visible only on small screens) ===== */}
+          <div className="mb-3 md:hidden">
+            <button
+              type="button"
+              onClick={() => handleCategoryClick('all')}
+              className={`w-full text-left px-3 py-2 text-sm rounded-md transition
+                ${activeCategory === 'all'
+                  ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
+                  : 'border border-transparent text-slate-700 bg-white/0 hover:bg-slate-50'}`}
+              aria-pressed={activeCategory === 'all'}
+            >
+              {t.catalog.allItems}
+            </button>
+          </div>
 
-{/* ===== Search (unchanged position) ===== */}
-<form onSubmit={handleSearchSubmit} className="mx-auto mb-3 max-w-md">
-  <div className="relative">
-    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-    <Input
-      type="search"
-      placeholder={t.catalog.searchPlaceholder}
-      value={searchTerm}
-      onChange={handleSearchChange}
-      className="pl-10"
-    />
-    {searchTerm && (
-      <Button
-        variant="ghost"
-        size="sm"
-        className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
-        onClick={handleClearSearch}
-      >
-        <span className="sr-only">Clear</span>×
-      </Button>
-    )}
-  </div>
-</form>
+          {/* ===== Search (unchanged position) ===== */}
+          <form onSubmit={handleSearchSubmit} className="mx-auto mb-3 max-w-md">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder={t.catalog.searchPlaceholder}
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="pl-10"
+              />
+              {searchTerm && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
+                  onClick={handleClearSearch}
+                >
+                  <span className="sr-only">Clear</span>×
+                </Button>
+              )}
+            </div>
+          </form>
 
           {/* ===== MOBILE: categories grid (2 rows × scroll columns) with block background like "All" ===== */}
           <nav className="md:hidden mb-6 flex justify-center">
-  <ul className="grid grid-flow-col grid-rows-2 gap-4 justify-center">
-    {visibleCategories.map((cat) => (
-      <li key={cat.key} className="w-[110px] flex justify-center align-center">
-        <div className="rounded-md bg-white shadow-sm w-full h-full flex items-center justify-center">
-          <button
-            type="button"
-            onClick={() => handleCategoryClick(cat.key)}
-            className={`w-full text-center px-3 py-2 text-[0.65rem] leading-tight transition rounded-md my-[auto]
-              ${
-                activeCategory === cat.key
-                  ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
-                  : 'text-slate-700 hover:bg-slate-50'
-              }`}
-            aria-pressed={activeCategory === cat.key}
-            title={getCategoryName(cat.key)}
-          >
-            {getCategoryName(cat.key)}
-          </button>
-        </div>
-      </li>
-    ))}
-  </ul>
-</nav>
+            <ul className="grid grid-flow-col grid-rows-2 gap-4 justify-center">
+              {visibleCategories.map((cat) => (
+                <li key={cat.key} className="w-[110px] flex justify-center align-center">
+                  <div className="rounded-md bg-white shadow-sm w-full h-full flex items-center justify-center">
+                    <button
+                      type="button"
+                      onClick={() => handleCategoryClick(cat.key)}
+                      className={`w-full text-center px-3 py-2 text-[0.65rem] leading-tight transition rounded-md my-[auto]
+                        ${
+                          activeCategory === cat.key
+                            ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
+                            : 'text-slate-700 hover:bg-slate-50'
+                        }`}
+                      aria-pressed={activeCategory === cat.key}
+                      title={getCategoryName(cat.key)}
+                    >
+                      {getCategoryName(cat.key)}
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
 
           {/* ===== DESKTOP: keep original nav (hidden on mobile) ===== */}
@@ -420,46 +420,46 @@ export default function Catalog() {
                     <Badge className="absolute right-2 top-2">{getCategoryName(item.category)}</Badge>
                   </div>
 
-                  <CardHeader className="pb-2 pt-4 flex-1" style={{ minHeight: '100px' }}>
+                  <CardHeader className="pb-2 pt-4 flex-1" style={{ minHeight: '80px' , maxHeight: '110px' }}>
                     <CardTitle
-                      className="line-clamp-1 text-lg"
-                      style={{ height: '24px', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                      className="text-lg"
+                      style={{ height: '24px', overflow: 'hidden'}}
                       title={getTranslatedField(item.nameKey)} // Tooltip for accessibility
                     >
                       {getTranslatedField(item.nameKey)}
                     </CardTitle>
                     <CardDescription
-                      className="line-clamp-2 text-sm"
-                      style={{ height: '40px', overflow: 'hidden' }}
+                      className="text-sm h-[24px] max-sm:h-[38px]"
+                      style={{ overflow: 'hidden' }}
                       title={getTranslatedField(item.descriptionKey)} // Tooltip for accessibility
                     >
                       {getTranslatedField(item.descriptionKey)}
                     </CardDescription>
                   </CardHeader>
 
-                  <CardContent className="pt-0 flex flex-col justify-end" style={{ height: '100px' }}>
+                  <CardContent className="pt-0 flex flex-col justify-end max-sm:h-[80px]">
                     <div className="mb-3 flex items-center justify-between">
-                      <span className="text-2xl font-bold text-primary">
+                      <span className="text-l font-bold text-primary">
                         ${item.price.toFixed(2)}
                       </span>
                     </div>
                     <div className="flex gap-2">
                       <Button
                         className="flex-1 h-10 text-xs"
-                        style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                         onClick={() => addItem({ id: item.id, name: getTranslatedField(item.nameKey), price: item.price, image: item.image }, 1)}
-                        title={t.catalog.addToBasket || 'Add to basket'}
-                      >
-                        <span className="truncate">{t.catalog.addToBasket || 'Add to basket'}</span>
+                        title={t.catalog.addToBasket || 'Add'}
+                      > 
+                        <ShoppingBasket className="h-6 w-6 flex-shrink-0" />
+                        <span className="truncate max-sm:hidden">{t.catalog.addToBasket || 'Add'}</span>
                       </Button>
 
                       <Button
-                        className="h-10 text-xs w-36"
+                        className="flex-1 h-10 text-xs"
                         variant="outline"
                         onClick={() => handleContactClick(item)}
                         title={t.catalog.contactCta}
                       >
-                        <Mail className="mr-2 h-4 w-4 flex-shrink-0" />
+                        <Mail className="h-4 w-4 flex-shrink-0" />
                         <span className="truncate">{t.catalog.contactCta}</span>
                       </Button>
                     </div>

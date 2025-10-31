@@ -64,7 +64,7 @@
   "catalog": {
     "title": "Product Catalog",
     "subtitle": "Explore our comprehensive range of medical supplies",
-    "contactCta": "Request Details",
+    "contactCta": "Details",
     "allItems": "All Products",
     "loading": "Loading...",
     "noItems": "No products found.",
@@ -78,7 +78,7 @@
     "itemsFound": "Items found",
     "showAll": "Show All",
     "inquirie": "Inquirie",
-    "addToBasket": "Add to Basket"
+    "addToBasket": "Add"
   },
   "signup":{
     "error": "Sign Up Failed",

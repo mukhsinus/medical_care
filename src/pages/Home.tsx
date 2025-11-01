@@ -151,7 +151,7 @@ export default function Home() {
         }}
       >
         <div className="container mx-auto px-4 pt-12 md:pt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 glass-card rounded-2xl px-4 py-2 w-fit mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 glass-card rounded-xl px-4 py-2 w-full">
             {t.categories.title}
           </h2>
 
@@ -160,7 +160,7 @@ export default function Home() {
               const catData = t.categories[category.key as keyof typeof t.categories] as { name: string; desc: string };
               return (
                 <Link key={category.key} to={`/${locale}/catalog?category=${category.key}`}>
-                  <div className="h-full w-full group relative glass-card overflow-hidden rounded-2xl isolate aspect-square transition-transform duration-200 hover:scale-[1.01] active:scale-[.99] flex justify-center">
+                  <div className="h-full w-full group relative glass-card overflow-hidden rounded-xl isolate aspect-square transition-transform duration-200 hover:scale-[1.01] active:scale-[.99] flex justify-center">
                     <img
                       src={category.image}
                       alt={catData.name}

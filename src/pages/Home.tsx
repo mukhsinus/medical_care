@@ -7,7 +7,7 @@ import { Clock, Package, ShieldCheck, Mail, Send, Phone, Camera } from 'lucide-r
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import heroImage from '@/assets/hero-image.jpg';
+import heroImage from '@/assets/hero-image.webp';
 import catalogImage from '@/assets/catalog-image.webp';
 
 import categoryInjection from '@/assets/category-injection.png';

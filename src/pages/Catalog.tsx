@@ -254,14 +254,26 @@ function ItemModal({ open, onOpenChange, item, getTranslatedField }: ItemModalPr
   const [qty, setQty] = useState(minQty)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = parseInt(e.target.value, 10)
-    if (!isNaN(val) && val >= minQty) setQty(val)
+    const val = e.target.value === '' ? '' : parseInt(e.target.value, 10)
+    if (val === '' || (!isNaN(val) && val >= minQty)) {
+      setQty(val === '' ? '' : val)
+    }
   }
 
+  const handleBlur = () => {
+    if (!qty || qty < minQty) {
+      setQty(minQty)
+    }
+  }
+
+  const increment = () => setQty(prev => Math.max(minQty, (prev || minQty) + minQty))
+  const decrement = () => setQty(prev => Math.max(minQty, (prev || minQty) - minQty))
+
   const handleAdd = () => {
+    const finalQty = qty || minQty
     addItem(
       { id: item.id, name, price: item.price, image: item.image },
-      qty
+      finalQty
     )
     onOpenChange(false)
     setQty(minQty)
@@ -276,9 +288,11 @@ function ItemModal({ open, onOpenChange, item, getTranslatedField }: ItemModalPr
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md bg-white">
+      <DialogContent 
+        className="sm:max-w-md w-[90vw] max-w-[90vw] bg-white rounded-lg p-4 sm:p-6"
+      >
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2 text-lg">
             <ShoppingBasket className="h-5 w-5" />
             {name}
           </DialogTitle>
@@ -308,29 +322,66 @@ function ItemModal({ open, onOpenChange, item, getTranslatedField }: ItemModalPr
             </span>
           </div>
 
-          <div className="grid gap-2">
-            <Label htmlFor="qty">
-              Quantity (min {minQty})
-            </Label>
-            <Input
-              id="qty"
-              ref={inputRef}
-              type="number"
-              min={minQty}
-              step={minQty}
-              value={qty}
-              onChange={handleChange}
-              className="w-32"
-            />
-          </div>
+          {/* Custom Quantity Controls */}
+<div className="grid gap-2">
+  <Label htmlFor="qty">Quantity (min {minQty})</Label>
+
+  <div className="flex items-center gap-2">
+    {/*  –  */}
+    <Button
+      type="button"
+      variant="outline"
+      size="icon"
+      className="h-10 w-10 shrink-0"
+      onClick={() => setQty(prev => Math.max(minQty, (prev ?? minQty) - minQty))}
+    >
+      −
+    </Button>
+
+    {/*  INPUT  */}
+    <Input
+      id="qty"
+      ref={inputRef}
+      type="text"
+      inputMode="numeric"          // numeric keypad on mobile
+      pattern="[0-9]*"
+      value={qty}
+      placeholder={minQty.toString()}
+      className="w-24 text-center"
+      onChange={e => {
+        const raw = e.target.value.replace(/[^0-9]/g, '')   // keep only digits
+        setQty(raw === '' ? '' : Number(raw))
+      }}
+      onBlur={() => {
+        if (!qty || qty < minQty) setQty(minQty)
+      }}
+    />
+
+    {/*  +  */}
+    <Button
+      type="button"
+      variant="outline"
+      size="icon"
+      className="h-10 w-10 shrink-0"
+      onClick={() => setQty(prev => (prev ?? minQty) + minQty)}
+    >
+      +
+    </Button>
+  </div>
+
+  {/*  live warning  */}
+  {qty !== '' && qty < minQty && (
+    <p className="text-xs text-red-600">Minimum quantity is {minQty}</p>
+  )}
+</div>
         </div>
 
-        <DialogFooter className="gap-2">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+        <DialogFooter className="gap-2 flex-col sm:flex-row">
+          <Button variant="outline" onClick={() => onOpenChange(false)} className="w-full sm:w-auto">
             Cancel
           </Button>
-          <Button onClick={handleAdd}>
-            Add {qty} {qty === 1 ? 'item' : 'items'}
+          <Button onClick={handleAdd} className="w-full sm:w-auto">
+            Add {qty || minQty} {qty === 1 ? 'item' : 'items'}
           </Button>
         </DialogFooter>
       </DialogContent>

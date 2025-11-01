@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 import heroImage from '@/assets/hero-image.webp';
 import catalogImage from '@/assets/catalog-image.webp';
+import contactImage from '@/assets/contact-image.webp';
 
 import categoryInjection from '@/assets/category-injection.png';
 import categoryEquipment from '@/assets/category-equipment.png';
@@ -187,7 +188,14 @@ export default function Home() {
       </section>
 
       {/* ===================== GET IN TOUCH (контакты) ===================== */}
-      <section className="py-20 bg-gradient-to-r from-primary/10 via-primary/5 to-background">
+      <section
+        className="contact py-20 relative isolate"
+        style={{
+          ['--contact-full-bg-image' as any]: `url(${contactImage})`,
+          ['--contact-image-opacity' as any]: '1',
+          ['--contact-overlap' as any]: '0px',
+        }}
+      >
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             {t.contacts.getInTouch}

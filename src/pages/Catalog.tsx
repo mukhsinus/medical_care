@@ -588,8 +588,8 @@ export default function Catalog() {
           </form>
 
           {/* MOBILE: categories grid */}
-          <nav className="md:hidden mb-6 flex justify-center">
-            <ul className="grid grid-flow-col grid-rows-2 gap-4 justify-center">
+          <nav className="md:hidden mb-6 flex justify-center w-full">
+            <ul className="grid grid-flow-col grid-rows-2 justify-between gap-x-6 gap-y-3 w-full">
               {visibleCategories.map((cat) => (
                 <li key={cat.key} className="w-[110px] flex justify-center">
                   <div className="rounded-md bg-white shadow-sm w-full h-full flex items-center justify-center">
@@ -615,7 +615,7 @@ export default function Catalog() {
 
           {/* DESKTOP: categories */}
           <nav className="hidden md:block mx-auto mb-10 max-w-7xl overflow-x-hidden">
-            <ul className="flex flex-wrap items-center gap-3 md:gap-5 w-full">
+            <ul className="flex flex-wrap items-center gap-3 md:gap-5 w-auto mx-auto justify-center">
               <li>
                 <button
                   type="button"

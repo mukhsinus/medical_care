@@ -44,6 +44,27 @@
       "desc": "Essential laboratory supplies and consumables"
     }
   },
+  "cats":{
+    "Injection":{
+      "name":"Injection"
+    },
+    "Protection":{
+      "name":"Protection"
+    },
+    "Surgery":{
+      "name":"Surgery"
+    },
+    "Hygiene":{
+      "name":"Hygiene"
+    },
+    "Lab":{
+      "name":"Lab"
+    },
+    "Sterilization":{
+      "name":"Sterilization"
+    }
+
+  },
   "howWeWork": {
     "title": "How We Work",
     "step1": "Request quote",

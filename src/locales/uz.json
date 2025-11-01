@@ -43,6 +43,26 @@
       "name": "Sterilizatsiya vositalari",
       "desc": "Zarur laboratoriya buyumlari va sarflanadigan materiallar"
     }
+  },"cats":{
+    "Injection":{
+      "name":"In’yeksiya"
+    },
+    "Protection":{
+      "name":"Himoya"
+    },
+    "Surgery":{
+      "name":"Jarrohlik"
+    },
+    "Hygiene":{
+      "name":"Gigiyena"
+    },
+    "Lab":{
+      "name":"Laboratoriya"
+    },
+    "Sterilization":{
+      "name":"Sterilizatsiya"
+    }
+
   },
   "howWeWork": {
     "title": "Biz qanday ishlaymiz",

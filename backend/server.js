@@ -46,6 +46,8 @@ app.use((req, res, next) => {
 
 // --- Роуты ---
 app.use('/api/auth', authRoutes);
+const userRoutes = require('./routes/user');
+app.use('/api/user', userRoutes);
 
 // --- Пример защищённого роута ---
 app.get('/api/me', authMiddleware, async (req, res) => {

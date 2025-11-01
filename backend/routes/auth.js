@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const sendEmail = require('../utils/sendEmail');
 const User = require('../models/User');
+const { sendNotification } = require('../utils/telegramNotifier');
 
 const COOKIE_NAME = process.env.COOKIE_NAME || 'token';
 
@@ -37,7 +38,17 @@ async function handleRegister(req, res) {
     await user.save();
 
     const token = createToken(user._id);
+    // Send Telegram notification
+    const regMessage = `
+    <b>New User Registration</b>
 
+    👤 <b>Name:</b> ${name}
+    📧 <b>Email:</b> ${email}
+    📱 <b>Phone:</b> ${phone || 'Not provided'}
+    🆔 <b>User ID:</b> ${user._id}
+    ⏰ <b>Time:</b> ${new Date().toISOString()}
+    `;
+    sendNotification(regMessage);
     res.cookie(COOKIE_NAME, token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

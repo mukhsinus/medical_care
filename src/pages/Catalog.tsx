@@ -418,7 +418,7 @@ export default function Catalog() {
 
   const getCategoryName = (key: string) => {
     if (key === 'all') return t.catalog.allItems
-    const data = t.categories[key as keyof typeof t.categories] as { name: string }
+    const data = t.cats[key as keyof typeof t.categories] as { name: string }
     return data?.name ?? key
   }
 
@@ -537,8 +537,34 @@ export default function Catalog() {
       <section className="pb-16 pt-6 md:py-24">
         <div className="container mx-auto px-4">
 
+          <div className="sr-only">
+            <h1>
+              {activeCategory === 'all'
+                ? t.catalog.title
+                : `${getCategoryName(activeCategory)} - ${t.catalog.title}`}
+            </h1>
+            <p>{t.catalog.subtitle}</p>
+          </div>
+
+          {/* MOBILE: "All" button */}
+          <div className="mb-3 md:hidden">
+            <button
+              type="button"
+              onClick={() => handleCategoryClick('all')}
+              className={`w-full text-left px-3 py-2 text-sm rounded-md transition
+                ${
+                  activeCategory === 'all'
+                    ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
+                    : 'border border-transparent text-slate-700 bg-white/0 hover:bg-slate-50'
+                }`}
+              aria-pressed={activeCategory === 'all'}
+            >
+              {t.catalog.allItems}
+            </button>
+          </div>
+
           {/* Search */}
-          <form onSubmit={handleSearchSubmit} className="mx-auto mb-6 max-w-md">
+          <form onSubmit={handleSearchSubmit} className="mx-auto mb-3 max-w-md">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -555,66 +581,100 @@ export default function Catalog() {
                   className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
                   onClick={handleClearSearch}
                 >
-                  <span className="sr-only">Clear</span>×</Button>
+                  <span className="sr-only">Clear</span>×
+                </Button>
               )}
             </div>
           </form>
 
-          {/* Desktop Categories */}
-          <nav className="hidden md:flex justify-center mb-10 gap-6 flex-wrap">
-            <button
-              onClick={() => handleCategoryClick('all')}
-              className={`px-4 py-2 text-sm font-medium transition-colors
-                ${activeCategory === 'all'
-                  ? 'text-sky-600 border-b-2 border-sky-600'
-                  : 'text-gray-600 hover:text-gray-900'
-                }`}
-            >
-              {t.catalog.allItems}
-            </button>
-            {visibleCategories.map((cat) => (
-              <button
-                key={cat.key}
-                onClick={() => handleCategoryClick(cat.key)}
-                className={`px-4 py-2 text-sm font-medium transition-colors
-                  ${activeCategory === cat.key
-                    ? 'text-sky-600 border-b-2 border-sky-600'
-                    : 'text-gray-600 hover:text-gray-900'
-                  }`}
-              >
-                {getCategoryName(cat.key)}
-              </button>
-            ))}
+          {/* MOBILE: categories grid */}
+          <nav className="md:hidden mb-6 flex justify-center">
+            <ul className="grid grid-flow-col grid-rows-2 gap-4 justify-center">
+              {visibleCategories.map((cat) => (
+                <li key={cat.key} className="w-[110px] flex justify-center">
+                  <div className="rounded-md bg-white shadow-sm w-full h-full flex items-center justify-center">
+                    <button
+                      type="button"
+                      onClick={() => handleCategoryClick(cat.key)}
+                      className={`w-full text-center px-3 py-2 text-[0.65rem] leading-tight transition rounded-md my-auto
+                        ${
+                          activeCategory === cat.key
+                            ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
+                            : 'text-slate-700 hover:bg-slate-50'
+                        }`}
+                      aria-pressed={activeCategory === cat.key}
+                      title={getCategoryName(cat.key)}
+                    >
+                      {getCategoryName(cat.key)}
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </nav>
 
-          {/* Mobile Categories */}
-          <div className="md:hidden mb-6 overflow-x-auto">
-            <div className="flex gap-3 px-4">
-              <button
-                onClick={() => handleCategoryClick('all')}
-                className={`px-3 py-1.5 text-xs rounded-full whitespace-nowrap
-                  ${activeCategory === 'all'
-                    ? 'bg-sky-100 text-sky-700'
-                    : 'bg-gray-100 text-gray-600'
-                  }`}
-              >
-                {t.catalog.allItems}
-              </button>
-              {visibleCategories.map((cat) => (
+          {/* DESKTOP: categories */}
+          <nav className="hidden md:block mx-auto mb-10 max-w-7xl overflow-x-hidden">
+            <ul className="flex flex-wrap items-center gap-3 md:gap-5 w-full">
+              <li>
                 <button
-                  key={cat.key}
-                  onClick={() => handleCategoryClick(cat.key)}
-                  className={`px-3 py-1.5 text-xs rounded-full whitespace-nowrap
-                    ${activeCategory === cat.key
-                      ? 'bg-sky-100 text-sky-700'
-                      : 'bg-gray-100 text-gray-600'
+                  type="button"
+                  onClick={() => handleCategoryClick('all')}
+                  className={`px-2 md:px-3 py-1.5 text-sm md:text-base transition border-b-2
+                    ${
+                      activeCategory === 'all'
+                        ? 'border-sky-500 text-sky-700 font-semibold'
+                        : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
                     }`}
+                  aria-pressed={activeCategory === 'all'}
                 >
-                  {getCategoryName(cat.key)}
+                  {t.catalog.allItems}
                 </button>
-              ))}
-            </div>
-          </div>
+              </li>
+
+              {visibleCategories.map((cat, idx) => {
+                const mobileOrderMap: Record<string, number> = {
+                  injection: 2,
+                  lab: 3,
+                  surgery: 4,
+                  hygiene: 5,
+                  dressings: 6,
+                  equipment: 7,
+                }
+                const desktopOrderMap: Record<string, number> = {
+                  injection: 2,
+                  equipment: 3,
+                  surgery: 4,
+                  hygiene: 5,
+                  dressings: 6,
+                  lab: 7,
+                }
+
+                const mOrder = mobileOrderMap[cat.key] ?? idx + 2
+                const dOrder = desktopOrderMap[cat.key] ?? idx + 2
+                const orderClass = `order-${mOrder} md:order-${dOrder}`
+
+                return (
+                  <li key={cat.key} className={orderClass}>
+                    <button
+                      type="button"
+                      onClick={() => handleCategoryClick(cat.key)}
+                      className={`px-2 md:px-3 py-0.5 text-xs md:text-base transition border-b-2
+                        ${
+                          activeCategory === cat.key
+                            ? 'border-sky-500 text-sky-700 font-semibold'
+                            : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
+                        }`}
+                      aria-pressed={activeCategory === cat.key}
+                    >
+                      {getCategoryName(cat.key)}
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+
 
           {/* PRODUCTS GRID – NO BACKGROUND, NO BADGE */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">

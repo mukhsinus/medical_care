@@ -44,22 +44,22 @@
       "desc": "Необходимые лабораторные принадлежности и расходные материалы"
     }
   },"cats":{
-    "Injection":{
+    "injection":{
       "name":"Инъекционные"
     },
-    "Protection":{
+    "protection":{
       "name":"Защита"
     },
-    "Surgery":{
+    "surgery":{
       "name":"Хирургия"
     },
-    "Hygiene":{
+    "hygiene":{
       "name":"Гигиена"
     },
-    "Lab":{
+    "dressings":{
       "name":"Лаборатория"
     },
-    "Sterilization":{
+    "lab":{
       "name":"Стерилизация"
     }
 

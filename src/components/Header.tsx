@@ -13,7 +13,8 @@ export const Header = () => {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { totalItems } = useCart();
+  const { items } = useCart();
+  const uniqueItemsCount = items.length;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -63,7 +64,7 @@ export const Header = () => {
               <Link to={`/${locale}/basket`} className="relative">
                 <ShoppingBasket className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
-                  {totalItems}
+                  {uniqueItemsCount}
                 </span>
               </Link>
               <Link to={`/${locale}/login`}>
@@ -103,7 +104,7 @@ export const Header = () => {
               <Link to={`/${locale}/basket`} className="relative">
                 <ShoppingBasket className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
-                  {totalItems}
+                  {uniqueItemsCount}
                 </span>
               </Link>
               <Link to={`/${locale}/login`}>

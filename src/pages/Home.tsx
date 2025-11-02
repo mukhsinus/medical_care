@@ -70,7 +70,7 @@ export default function Home() {
           marginTop: 'calc(var(--hero-overlap) * -0.5)',
         }}
       >
-        <div className="hero-scene mx-2 md:mx-4 px-2 md:px-3">
+        <div className="container mx-auto px-4 pt-12 md:pt-16 lg:max-w-[1100px] xl:max-w-[1180px]">
           <div
             className="
               glass-panel w-full
@@ -150,29 +150,44 @@ export default function Home() {
           ['--catalog-overlap' as any]: '0px',
         }}
       >
-        <div className="container mx-auto px-4 pt-12 md:pt-16">
+        <div className="container mx-auto px-4 pt-12 md:pt-16 lg:max-w-[1100px] xl:max-w-[1180px]">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 glass-card rounded-xl px-4 py-2 w-full">
             {t.categories.title}
           </h2>
 
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-3 lg:gap-7">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-3 lg:gap-6">
             {categories.map((category) => {
               const catData = t.categories[category.key as keyof typeof t.categories] as { name: string; desc: string };
               return (
                 <Link key={category.key} to={`/${locale}/catalog?category=${category.key}`}>
-                  <div className="h-full w-full group relative glass-card overflow-hidden rounded-xl isolate aspect-square transition-transform duration-200 hover:scale-[1.01] active:scale-[.99] flex justify-center">
-                    <img
-                      src={category.image}
-                      alt={catData.name}
-                      className="z-content h-[65%] w-[70%] object-contain transition-transform duration-300 group-hover:scale-[0.95]"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-3 w-[90%] max-w-[200px] sm:w-auto">
+                  <div 
+                  className="
+                    h-full w-full group relative glass-card overflow-hidden rounded-xl isolate
+                    aspect-square lg:aspect-[4/3]
+                    transition-transform duration-200
+                    hover:scale-[1.01] active:scale-[.99]
+                    lg:hover:scale-100 lg:hover:-translate-y-0.5
+                    lg:hover:shadow-soft
+                    grid place-items-center
+                    
+                    ">
+                    <div className="w-full h-full p-4 md:p-6 lg:p-0 grid place-items-center">
+                      <img
+                        src={category.image}
+                        alt={catData.name}
+                        className="
+                          block object-contain
+                          max-w-[72%] max-h-[72%]
+                          lg:max-w-[58%] lg:max-h-[58%]
+                          "
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-3 w-[90%] max-w-[200px] sm:w-auto hidden">
                       <div className="w-full text-center rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 flex items-end justify-center">
-                        <span className="text-[12px] md:text-sm font-semibold leading-tight">
-                          {catData.name}
-                        </span>
+                        <span className="text-[12px] md:text-sm font-semibold leading-tight">{catData.name}</span>
                       </div>
                     </div>
                     <p className="sr-only">{catData.desc}</p>
@@ -181,7 +196,6 @@ export default function Home() {
               );
             })}
           </div>
-
           <div className="h-[var(--catalog-bottom-gap)]" aria-hidden />
         </div>
       </section>

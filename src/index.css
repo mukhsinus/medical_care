@@ -122,6 +122,8 @@
     --hero-overlap: 96px;
   }
 
+  .hero h1 {color: white;}
+
   /* Фото на всю ширину */
   .hero::before {
     content: "";
@@ -148,9 +150,7 @@
     width: 100vw;
     top: calc(var(--hero-overlap) * -1);
     bottom: 0;
-    background:
-      radial-gradient(900px 520px at 20% 20%, hsl(200 80% 96% / .30), transparent 60%),
-      linear-gradient(135deg, hsl(205 70% 98% / .20), hsl(200 60% 99% / .20));
+    background: none;
     z-index: 0;
     pointer-events: none;
   }
@@ -167,10 +167,21 @@
     background-image: var(--catalog-full-bg-image);
     background-size: cover;
     background-position: center 45%;
-    opacity: var(--catalog-image-opacity, .45);
+    opacity: 1;
     z-index: 0;
     pointer-events: none;
   }
+
+  .catalog .glass-card {
+    background: white !important;
+    border: 1px solid hsl(var(--border));
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  
+
+
 
   /* Обёртка под стеклянные панели */
   .hero-scene { position: relative; }
@@ -190,6 +201,10 @@
       inset 0 1px 0 hsl(0 0% 100% / .45);
     transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
   }
+
+
+  
+
 
   .nav-glass-blurred {
     backdrop-filter: blur(10px) saturate(120%);

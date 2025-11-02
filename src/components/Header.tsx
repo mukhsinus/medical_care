@@ -1,3 +1,4 @@
+// header.tsx — замените текущий файл на эту версию
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -21,7 +22,6 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Mobile nav items (excluding login)
   const mobileNavItems = [
     { path: `/${locale}`, label: t.nav.home },
     { path: `/${locale}/about`, label: t.nav.about },
@@ -29,7 +29,6 @@ export const Header = () => {
     { path: `/${locale}/contacts`, label: t.nav.contacts },
   ];
 
-  // Desktop nav items (including login)
   const desktopNavItems = [
     ...mobileNavItems,
     { path: `/${locale}/login`, label: t.nav.login },
@@ -42,11 +41,15 @@ export const Header = () => {
 
   return (
     <header className="sticky top-4 z-50">
-      {/* относительная обёртка — якорь для выпадающего меню */}
-      <div className="mx-4 md:mx-7 relative">
-        {/* стеклянная «плавающая» капсула */}
-        <div className={`nav-glass w-full ${isScrolled ? 'nav-glass--scrolled' : ''} mb-3 sm:mb-3 md:mb-0`}>
-          <div className="h-12 md:h-16 px-4 md:px-5 flex items-center justify-between">
+      {/* Используем ТУТ ту же контейнерную систему, что и в Home */}
+      <div className="container mx-auto px-4 lg:max-w-[1100px] xl:max-w-[1180px] relative">
+        {/* стеклянная «капсула» навбара — теперь будет ровно по ширине контейнера */}
+        <div
+          className={`nav-glass w-full lg:px-4 ${
+            isScrolled ? 'nav-glass--scrolled' : ''
+          } mb-3 sm:mb-3 md:mb-0`}
+        >
+          <div className="h-12 md:h-16 px-4 md:px-5 lg:px-4 flex items-center justify-between">
             {/* ЛОГО */}
             <Link to={`/${locale}`} className="flex items-center">
               <img
@@ -58,7 +61,7 @@ export const Header = () => {
               />
             </Link>
 
-            {/* Бургер, корзина и логин — мобилка */}
+            {/* Мобилка: бургер, корзина, логин */}
             <div className="flex items-center gap-2 md:hidden">
               <Link to={`/${locale}/basket`} className="relative">
                 <ShoppingBasket className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
@@ -113,10 +116,9 @@ export const Header = () => {
           </div>
         </div>
 
-        {/* Мобильное меню — выпадает ВНИЗ под капсулой */}
+        {/* Мобильное меню — выпадает вниз под капсулой (ширина мобилки как раньше) */}
         {isMobileMenuOpen && (
           <>
-            {/* кликабельная подложка для закрытия вне меню */}
             <div
               className="fixed inset-0 z-40 md:hidden"
               onClick={() => setIsMobileMenuOpen(false)}

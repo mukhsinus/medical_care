@@ -687,7 +687,7 @@ export default function Catalog() {
                   className="group cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-100"
                 >
                   {/* Image */}
-                  <div className="aspect-square mb-3 overflow-hidden rounded-lg bg-transparent">
+                  <div className="aspect-square mb-3 overflow-hidden border-2 border-primary bg-transparent">
                     <img
                       src={item.image}
                       alt={name}

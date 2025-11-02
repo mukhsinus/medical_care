@@ -62,7 +62,7 @@ export default function Home() {
         className="
           hero relative min-h-[100svh]
           [--hero-top-gap:5rem] md:[--hero-top-gap:6rem]
-          [--hero-bottom-gap:2.5rem] md:[--hero-bottom-gap:3rem] overflow-x-hidden
+          [--hero-bottom-gap:2.5rem] md:[--hero-bottom-gap:3rem] overflow-x-hidden w-full max-w-screen
         "
         style={{
           ['--hero-full-bg-image' as any]: `url(${heroImage})`,
@@ -71,22 +71,22 @@ export default function Home() {
           marginTop: 'calc(var(--hero-overlap) * -0.5)',
         }}
       >
-        <div className="hero-scene mx-2 md:mx-4 px-2 md:px-3">
+        <div className="hero-scene md:mx-4 px-2 md:px-3">
           <div
             className="
               glass-panel w-full
               mt-[var(--hero-top-gap)]
               min-h-[calc(100svh-var(--hero-top-gap)-var(--hero-bottom-gap))]
-              flex flex-col justify-center
+              flex flex-col justify-center overflow-x-hidden
             "
           >
             <div className="container mx-auto px-4">
               <div className="grid md:grid-cols-1 gap-12 items-center">
                 <div>
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight [text-wrap:balance]">
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl text-muted font-bold mb-6 leading-tight [text-wrap:balance]">
                     {t.hero.title}
                   </h1>
-                  <p className="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-xl">
+                  <p className="text-base md:text-xl text-primary-foreground mb-6 md:mb-8 max-w-xl">
                     {t.hero.subtitle}
                   </p>
 
@@ -189,7 +189,7 @@ export default function Home() {
 
       {/* ===================== GET IN TOUCH (контакты) ===================== */}
       <section
-        className="contact py-20 relative isolate"
+        className="contact py-20 relative isolate overflow-x-hidden"
         style={{
           ['--contact-full-bg-image' as any]: `url(${contactImage})`,
           ['--contact-image-opacity' as any]: '1',

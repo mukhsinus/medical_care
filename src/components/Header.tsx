@@ -16,13 +16,15 @@ export const Header = () => {
   const { items } = useCart();
   const uniqueItemsCount = items.length;
 
+  // Check if we're on the homepage (exact match)
+  const isHomePage = location.pathname === `/${locale}` || location.pathname === `/${locale}/`;
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Mobile nav items (excluding login)
   const mobileNavItems = [
     { path: `/${locale}`, label: t.nav.home },
     { path: `/${locale}/about`, label: t.nav.about },
@@ -30,7 +32,6 @@ export const Header = () => {
     { path: `/${locale}/contacts`, label: t.nav.contacts },
   ];
 
-  // Desktop nav items (including login)
   const desktopNavItems = [
     ...mobileNavItems,
     { path: `/${locale}/login`, label: t.nav.login },
@@ -41,14 +42,27 @@ export const Header = () => {
     return location.pathname.startsWith(path);
   };
 
+  // Dynamic classes based on page
+  const textColor = isHomePage ? 'text-white' : 'text-slate-700/80';
+  const hoverColor = isHomePage ? 'hover:text-white/80' : 'hover:text-slate-900';
+  const activeBg = isHomePage ? 'bg-white/90' : 'bg-white/70';
+  const inactiveBg = isHomePage ? 'hover:bg-white/10' : 'hover:bg-white/60';
+  const iconColor = isHomePage ? 'text-white' : 'text-slate-700/80';
+  const iconHover = isHomePage ? 'hover:text-white/80' : 'hover:text-slate-900';
+
   return (
     <header className="sticky top-4 z-50">
-      {/* относительная обёртка — якорь для выпадающего меню */}
       <div className="mx-4 md:mx-7 relative">
-        {/* стеклянная «плавающая» капсула */}
-        <div className={`nav-glass w-full ${isScrolled ? 'nav-glass--scrolled' : ''} mb-3 sm:mb-3 md:mb-0`}>
-          <div className="h-12 md:h-16 px-4 md:px-5 flex items-center justify-between">
-            {/* ЛОГО */}
+        {/* Glass capsule */}
+        <div
+          className={`
+            nav-glass w-full transition-all duration-300
+            ${isScrolled ? 'nav-glass--scrolled' : ''}
+            mb-3 sm:mb-3 md:mb-0
+          `}
+        >
+          <div className="h-12 md:h-16 px-4 md:px-5 flex items-center justify-between nav-glass-blurred">
+            {/* LOGO */}
             <Link to={`/${locale}`} className="flex items-center">
               <img
                 src={logo}
@@ -59,16 +73,16 @@ export const Header = () => {
               />
             </Link>
 
-            {/* Бургер, корзина и логин — мобилка */}
+            {/* Mobile: Burger + Icons */}
             <div className="flex items-center gap-2 md:hidden">
               <Link to={`/${locale}/basket`} className="relative">
-                <ShoppingBasket className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
+                <ShoppingBasket className={`h-5 w-5 ${iconColor} ${iconHover}`} />
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
                   {uniqueItemsCount}
                 </span>
               </Link>
               <Link to={`/${locale}/login`}>
-                <User className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
+                <User className={`h-5 w-5 ${iconColor} ${iconHover}`} />
               </Link>
               <Button
                 variant="ghost"
@@ -77,47 +91,51 @@ export const Header = () => {
                 aria-label="Toggle Menu"
                 onClick={() => setIsMobileMenuOpen((v) => !v)}
               >
-                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {isMobileMenuOpen ? (
+                  <X className={`h-5 w-5 ${iconColor}`} />
+                ) : (
+                  <Menu className={`h-5 w-5 ${iconColor}`} />
+                )}
               </Button>
             </div>
 
-            {/* Навигация — десктоп */}
-            <nav className="hidden md:flex items-center gap-1">
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-1 nav-glass-blurred">
               {desktopNavItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive(item.path)
-                      ? 'bg-white/70 text-slate-900'
-                      : 'text-slate-700/80 hover:text-slate-900 hover:bg-white/60'
-                  }`}
+                  className={`
+                    px-4 py-2 rounded-md text-sm font-medium transition-colors
+                    ${isActive(item.path) ? activeBg : inactiveBg}
+                    ${isActive(item.path) ? 'text-slate-900' : textColor}
+                    ${!isActive(item.path) && hoverColor}
+                  `}
                 >
                   {item.label}
                 </Link>
               ))}
             </nav>
 
-            {/* Переключатель языка и иконки — десктоп */}
+            {/* Desktop: Language + Icons */}
             <div className="hidden md:flex items-center gap-2">
               <LanguageSwitcher />
               <Link to={`/${locale}/basket`} className="relative">
-                <ShoppingBasket className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
+                <ShoppingBasket className={`h-5 w-5 ${iconColor} ${iconHover}`} />
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
                   {uniqueItemsCount}
                 </span>
               </Link>
               <Link to={`/${locale}/login`}>
-                <User className="h-5 w-5 text-slate-700/80 hover:text-slate-900" />
+                <User className={`h-5 w-5 ${iconColor} ${iconHover}`} />
               </Link>
             </div>
           </div>
         </div>
 
-        {/* Мобильное меню — выпадает ВНИЗ под капсулой */}
+        {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
           <>
-            {/* кликабельная подложка для закрытия вне меню */}
             <div
               className="fixed inset-0 z-40 md:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -131,11 +149,12 @@ export const Header = () => {
                       key={item.path}
                       to={item.path}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`block px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                        isActive(item.path)
-                          ? 'bg-white/70 text-slate-900'
-                          : 'text-slate-700/80 hover:text-slate-900 hover:bg-white/60'
-                      }`}
+                      className={`
+                        block px-4 py-2 rounded-md text-sm font-medium transition-colors
+                        ${isActive(item.path) ? activeBg : inactiveBg}
+                        ${isActive(item.path) ? 'text-slate-900' : textColor}
+                        ${!isActive(item.path) && hoverColor}
+                      `}
                     >
                       {item.label}
                     </Link>

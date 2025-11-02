@@ -418,7 +418,7 @@ export default function Catalog() {
 
   const getCategoryName = (key: string) => {
     if (key === 'all') return t.catalog.allItems
-    const data = t.cats[key as keyof typeof t.cats] as { name: string }
+    const data = t.cats[key as keyof typeof t.categories] as { name: string }
     return data?.name ?? key
   }
 

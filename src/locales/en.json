@@ -45,22 +45,22 @@
     }
   },
   "cats":{
-    "injection":{
+    "Injection":{
       "name":"Injection"
     },
-    "protection":{
+    "Protection":{
       "name":"Protection"
     },
-    "surgery":{
+    "Surgery":{
       "name":"Surgery"
     },
-    "hygiene":{
+    "Hygiene":{
       "name":"Hygiene"
     },
-    "dressings":{
+    "Lab":{
       "name":"Lab"
     },
-    "lab":{
+    "Sterilization":{
       "name":"Sterilization"
     }
 

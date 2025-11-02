@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import heroImage from '@/assets/hero-image.webp';
 import catalogImage from '@/assets/catalog-image.webp';
 
+
 import categoryInjection from '@/assets/category-injection.png';
 import categoryEquipment from '@/assets/category-equipment.png';
 import categorySurgery from '@/assets/category-surgery.png';
@@ -73,7 +74,7 @@ export default function Home() {
         <div className="container mx-auto px-4 pt-12 md:pt-16 lg:max-w-[1100px] xl:max-w-[1180px]">
           <div
             className="
-              glass-panel w-full rounded-xl
+              glass-panel glass-panel--hero w-full rounded-xl
               mt-[var(--hero-top-gap)]
               min-h-[calc(100svh-var(--hero-top-gap)-var(--hero-bottom-gap))]
               flex flex-col justify-center

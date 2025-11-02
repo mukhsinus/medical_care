@@ -154,7 +154,7 @@
     z-index: 0;
     pointer-events: none;
   }
-
+  
   /* ---- Catalog section bg ---- */
   .catalog::before {
     content: "";
@@ -179,10 +179,6 @@
     -webkit-backdrop-filter: none !important;
   }
 
-  
-
-
-
   /* Обёртка под стеклянные панели */
   .hero-scene { position: relative; }
 
@@ -201,9 +197,6 @@
       inset 0 1px 0 hsl(0 0% 100% / .45);
     transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
   }
-
-
-  
 
 
   .nav-glass-blurred {
@@ -231,7 +224,7 @@
   .glass-panel {
     position: relative;
     overflow: hidden;
-    background: hsl(0 0% 100% / .1);
+    background: transparent;
     border: 1px solid hsl(0 0% 100% / .60);
     backdrop-filter: saturate(170%) blur(14px);
     -webkit-backdrop-filter: saturate(170%) blur(14px);
@@ -249,16 +242,105 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-image: var(--panel-bg-image);
+    background-image: url("@/assets/glass-image.webp");
     background-size: cover;
     background-position: center;
-    opacity: .15;
+    opacity: .2;
     z-index: 0;
     pointer-events: none;
   }
 
-  /* Контент панели выше псевдофона */
   .glass-panel > * { position: relative; z-index: 1; }
+
+
+/* ========== Hero glass look — desktop only ========== */
+@media (min-width: 1024px) {
+  .glass-panel--hero {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    border-radius: 28px;
+    padding: clamp(48px, 5.6vw, 80px);
+    min-height: calc(100svh - var(--hero-top-gap) - var(--hero-bottom-gap));
+    box-shadow:
+      0 30px 60px -30px rgba(4,22,50,0.65),
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 10px 40px -20px rgba(20,80,160,0.12);
+    overflow: hidden;
+  }
+
+
+  .glass-panel--hero .glass-card {
+    background: rgba(6, 20, 44, 0.42);     /* плотная синяя/полупрозрачная основа */
+    opacity: 1;
+    border: 1px solid rgba(255, 255, 255, 0.08); /* светлая тонкая граница */
+    backdrop-filter: blur(6px) saturate(140%); /* меньше размытия — карточки чётче */
+    -webkit-backdrop-filter: blur(6px) saturate(140%);
+    box-shadow: 0 10px 30px -18px rgba(2,12,30,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
+    color: rgba(255,255,255,0.95); /* текст — светлый */
+  }
+
+  /* Иконки и заголовки карточек — ярче */
+  .glass-panel--hero .glass-card p,
+  .glass-panel--hero .glass-card .lucide {
+    color: rgba(255,255,255,0.96);
+  }
+
+  /* Если внутри карточки есть фон для иконки — делаем его чуть прозрачнее/светлее */
+  .glass-panel--hero .glass-card > * .p-3 {
+    background: rgba(255,255,255,0.06); /* тонкий фон под иконкой */
+  }
+
+  .glass-panel--hero .glass-card {
+    padding: 0.5rem;
+    border-radius: 1rem;
+  }
+
+  .glass-panel--hero h1 {
+    color: #fff;
+    font-size: clamp(36px, 4.6vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    text-shadow: 0 6px 30px rgba(2,10,30,0.55);
+  }
+
+  .glass-panel--hero p {
+    color: rgba(255,255,255,0.86);
+    text-shadow: 0 2px 12px rgba(2,10,30,0.45);
+  }
+
+  /* CTA — делаем чуть ярче и с лёгким glow */
+  .glass-panel--hero .btn-primary {
+    background: linear-gradient(180deg, hsl(200 90% 55%), hsl(200 85% 46%));
+    box-shadow: 0 12px 30px -10px rgba(10,110,210,0.28), 0 4px 12px rgba(6,18,40,0.12);
+  }
+
+  /* KPI карточки — более монохромные, чуть прозрачнее (как на референсе) */
+  .glass-panel--hero .glass-card {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 28px -18px rgba(4,22,50,0.6), inset 0 1px 0 rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.95);
+  }
+
+  .glass-panel--hero .glass-card p,
+  .glass-panel--hero .glass-card .lucide {
+    color: rgba(255,255,255,0.95);
+  }
+
+  /* optional subtle border glow around the panel (outer glow) */
+  .glass-panel--hero {
+    outline: 1px solid rgba(100,170,255,0.02);
+    box-shadow:
+      0 30px 80px -30px rgba(4,22,50,0.72),
+      0 2px 0 1px rgba(80,160,255,0.02),
+      inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+}
+
 
   /* Карточки поверх стекла (KPI) */
   .glass-card {
@@ -316,6 +398,9 @@
 
 /* =====================  MOBILE TWEAKS  ===================== */
 @media (max-width: 768px) {
+
+  .glass-panel::before { background-image: none; --panel-bg-opacity: 0; }
+
   .nav-glass { border-radius: 14px; }
 
   .glass-panel {

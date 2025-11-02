@@ -40,14 +40,14 @@ export const Header = () => {
   };
 
   return (
-    <header className="sticky top-4 z-50">
+    <header className="sticky top-2 z-50">
       {/* Используем ТУТ ту же контейнерную систему, что и в Home */}
       <div className="container mx-auto px-4 lg:max-w-[1100px] xl:max-w-[1180px] relative">
         {/* стеклянная «капсула» навбара — теперь будет ровно по ширине контейнера */}
         <div
           className={`nav-glass w-full lg:px-4 ${
             isScrolled ? 'nav-glass--scrolled' : ''
-          } mb-3 sm:mb-3 md:mb-0`}
+          } mb-3 sm:mb-3 md:mb-0 rounded-xl`}
         >
           <div className="h-12 md:h-16 px-4 md:px-5 lg:px-4 flex items-center justify-between">
             {/* ЛОГО */}

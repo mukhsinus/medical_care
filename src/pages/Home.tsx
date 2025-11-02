@@ -60,7 +60,7 @@ export default function Home() {
       <section
         className="
           hero relative min-h-[100svh]
-          [--hero-top-gap:5rem] md:[--hero-top-gap:6rem]
+          [--hero-top-gap:1.5rem] md:[--hero-top-gap:2.5rem]
           [--hero-bottom-gap:2.5rem] md:[--hero-bottom-gap:3rem] overflow-x-hidden
         "
         style={{
@@ -73,7 +73,7 @@ export default function Home() {
         <div className="container mx-auto px-4 pt-12 md:pt-16 lg:max-w-[1100px] xl:max-w-[1180px]">
           <div
             className="
-              glass-panel w-full
+              glass-panel w-full rounded-xl
               mt-[var(--hero-top-gap)]
               min-h-[calc(100svh-var(--hero-top-gap)-var(--hero-bottom-gap))]
               flex flex-col justify-center

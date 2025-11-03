@@ -60,7 +60,7 @@ export default function Home() {
       {/* ===================== HERO ===================== */}
       <section
         className="
-          hero relative min-h-[100svh] lg:min-h-[75svh]
+          hero relative min-h-[100svh] lg:min-h-[100svh]
           [--hero-top-gap:1.5rem] md:[--hero-top-gap:1.1rem]
           [--hero-bottom-gap:2.5rem] md:[--hero-bottom-gap:3rem] overflow-x-hidden
         "
@@ -76,7 +76,7 @@ export default function Home() {
             className="
               glass-panel glass-panel--hero w-full rounded-xl
               mt-[var(--hero-top-gap)]
-              min-h-[calc(100svh-var(--hero-top-gap)-var(--hero-bottom-gap))]
+              min-h-[calc(75svh-var(--hero-top-gap)-var(--hero-bottom-gap))]
               flex flex-col justify-center
             "
           >
@@ -85,6 +85,12 @@ export default function Home() {
                 <div>
                   <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight [text-wrap:balance]">
                     {t.hero.title}
+                    {/* Доп. короткая фраза только в русской версии и только на десктопе */}
+                    {locale === 'ru' && t.hero?.extra && (
+                      <span className="hidden lg:inline ml-3">
+                        {t.hero.extra}
+                      </span>
+                    )}               
                   </h1>
                   <p className="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-xl">
                     {t.hero.subtitle}
@@ -133,7 +139,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-
           <div className="h-[var(--hero-bottom-gap)]" aria-hidden />
         </div>
       </section>

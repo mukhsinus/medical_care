@@ -189,7 +189,9 @@
   .nav-glass {
     position: relative;
     overflow: hidden;
-    background: transparent;
+    background: hsl(0 0% 100% / 0.12);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
     border: 1px solid hsl(0 0% 100% / .4);
     border-radius: 1.25rem;
     box-shadow:
@@ -253,8 +255,47 @@
   .glass-panel > * { position: relative; z-index: 1; }
 
 
-/* ========== Hero glass look — desktop only ========== */
+
 @media (min-width: 1024px) {
+
+  .nav-glass nav a:empty::before {
+    display: none;
+    pointer-events: none;
+  }
+
+  .nav-glass nav a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    border-radius: 0.75rem;
+    z-index: 1;
+  }
+
+  /* псевдофон под каждой ссылкой: монохромный градиент + blur + inset highlight */
+  .nav-glass nav a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      180deg,
+      rgba(10,30,60,0.10) 0%,  /* верх — тонкий тёмный оттенок */
+      rgba(255,255,255,0.03) 100% /* низ — лёгкая подсветка */
+    );
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* не конфликтовать с уже существующей активной подсветкой */
+  .nav-glass nav a[aria-current="page"]::before,
+  .nav-glass nav a.active::before {
+    opacity: 0;
+  }  
+
   .glass-panel--hero {
     background: transparent;
     border: 1px solid rgba(255,255,255,0.18);
@@ -415,3 +456,4 @@
       linear-gradient(135deg, hsl(205 70% 97% / .92), hsl(200 60% 98% / .92));
   }
 }
+

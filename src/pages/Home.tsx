@@ -60,8 +60,8 @@ export default function Home() {
       {/* ===================== HERO ===================== */}
       <section
         className="
-          hero relative min-h-[100svh]
-          [--hero-top-gap:1.5rem] md:[--hero-top-gap:2.5rem]
+          hero relative min-h-[100svh] lg:min-h-[75svh]
+          [--hero-top-gap:1.5rem] md:[--hero-top-gap:1.1rem]
           [--hero-bottom-gap:2.5rem] md:[--hero-bottom-gap:3rem] overflow-x-hidden
         "
         style={{
@@ -152,7 +152,13 @@ export default function Home() {
         }}
       >
         <div className="container mx-auto px-4 pt-12 md:pt-16 lg:max-w-[1100px] xl:max-w-[1180px]">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 glass-card rounded-xl px-4 py-2 w-full">
+          <h2
+            className="
+              text-3xl md:text-4xl font-bold text-center mb-12
+              glass-card rounded-xl w-full
+              h-12 md:h-16 flex items-center justify-center
+            "
+          >
             {t.categories.title}
           </h2>
 

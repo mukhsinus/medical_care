@@ -1,4 +1,3 @@
-// header.tsx — замените текущий файл на эту версию
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -126,8 +125,9 @@ export const Header = () => {
               aria-hidden="true"
             />
             <div className="absolute left-0 right-0 top-full mt-2 z-50 md:hidden">
-              <div className="nav-glass overflow-hidden rounded-2xl">
-                <nav className="p-3 nav-glass-blurred">
+              <div className="container mx-auto px-4 lg:max-w-[1100px] xl:max-w-[1180px]">
+                <div className="nav-glass overflow-hidden rounded-2xl">
+                  <nav className="p-3 nav-glass-blurred">
                   {mobileNavItems.map((item) => (
                     <Link
                       key={item.path}
@@ -148,6 +148,7 @@ export const Header = () => {
                 </nav>
               </div>
             </div>
+          </div>
           </>
         )}
       </div>

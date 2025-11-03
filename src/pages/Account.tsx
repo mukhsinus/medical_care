@@ -10,6 +10,7 @@ import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useToast } from '@/components/ui/use-toast';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   User,
@@ -26,6 +27,20 @@ import {
   Plus,
   Minus,
 } from 'lucide-react';
+
+interface UserProfile {
+  _id: string;
+  name: string;
+  email: string;
+  phone?: string;
+}
+
+interface Order {
+  id: string;
+  date: string;
+  total: number;
+  status: string;
+}
 import {
   Dialog,
   DialogContent,
@@ -35,9 +50,9 @@ import {
 } from '@/components/ui/dialog';
 
 // API Functions
-const fetchUserProfile = async () => {
+const fetchUserProfile = async (): Promise<{ user: UserProfile }> => {
   const token = localStorage.getItem('authToken');
-  const headers: any = { 'Content-Type': 'application/json' };
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
   if (token) headers.Authorization = `Bearer ${token}`;
 
   const response = await fetch('http://localhost:8090/api/me', {
@@ -122,16 +137,18 @@ const Account: React.FC = () => {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwords, setPasswords] = useState({ current: '', new: '', confirm: '' });
 
+  const { toast } = useToast();
+
   // Fetch user profile
-  const { data: user, isLoading: userLoading, error: userError } = useQuery({
+  const { data, isLoading: userLoading, error: userError } = useQuery<{ user: UserProfile }>({
     queryKey: ['userProfile'],
     queryFn: fetchUserProfile,
     retry: 1,
-    onError: () => navigate(`/${locale}/login`),
   });
+  const user = data?.user;
 
   // Fetch orders
-  const { data: orders = [], isLoading: ordersLoading } = useQuery({
+  const { data: orders = [], isLoading: ordersLoading } = useQuery<Order[]>({
     queryKey: ['userOrders'],
     queryFn: fetchUserOrders,
     enabled: !!user,
@@ -167,9 +184,22 @@ const Account: React.FC = () => {
     }
   }, [user]);
 
-  const handleEditSubmit = (e: React.FormEvent) => {
+  const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    updateProfileMutation.mutate({ name, phone });
+    try {
+      await updateProfileMutation.mutateAsync({ name, phone });
+      toast({
+        title: "Profile Updated",
+        description: "Your information has been successfully updated.",
+      });
+    } catch (error) {
+      console.error('Profile update error:', error);
+      toast({
+        title: "Update Failed",
+        description: "There was a problem updating your profile. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handlePasswordSubmit = (e: React.FormEvent) => {

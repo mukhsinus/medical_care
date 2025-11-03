@@ -1,8 +1,16 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+
+// Debug: Print environment variables (without sensitive data)
+console.log('Environment Check:');
+console.log('PORT:', process.env.PORT);
+console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
+console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
+console.log('FRONTEND_URL:', process.env.FRONTEND_URL);
 const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middleware/auth');
 

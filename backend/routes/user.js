@@ -39,9 +39,6 @@ router.patch('/profile', async (req, res) => {
     user.name = name;
     user.phone = phone || user.phone;
     await user.save();
-    user.name = name;
-    user.phone = phone || user.phone;
-    await user.save();
 
     // Send Telegram notification
     const profileMessage = `
@@ -54,7 +51,15 @@ router.patch('/profile', async (req, res) => {
     `;
     sendNotification(profileMessage);
 
-    res.json({ user: { id: user._id, name: user.name, email: user.email, phone: user.phone } });
+    // Return the user object in the same shape as /api/me endpoint
+    res.json({
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone
+      }
+    });
   } catch (err) {
     console.error('PROFILE UPDATE ERROR:', err);
     res.status(500).json({ message: 'Error updating profile' });

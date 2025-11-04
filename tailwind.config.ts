@@ -10,6 +10,29 @@ const config: Config = {
     "./app/**/*.{ts,tsx,js,jsx}",
     "./index.css",
   ],
+
+  safelist: [
+    // конкретные классы, которые часто режут
+    "backdrop-blur",
+    "backdrop-blur-sm",
+    "backdrop-blur-md",
+    "backdrop-blur-lg",
+    "backdrop-blur-xl",
+    "backdrop-filter",
+    "container",
+    // крупные текстовые размеры (добавь свои если ещё есть)
+    "text-4xl","text-5xl","text-6xl","text-7xl","text-8xl",
+    "sm:text-5xl","md:text-6xl","lg:text-7xl",
+    // тени/скругления/фоны
+    "rounded-lg","rounded-xl","shadow-soft","shadow-card",
+    // шаблоны — покрывают динамические/арбитрарные классы
+    { pattern: /(text|sm:text|md:text|lg:text|leading|tracking|p|py|px|m|mx|my|w|h)-.*/ },
+    { pattern: /(backdrop-blur|bg|from|to|via|rounded|ring|shadow)-.*/ },
+    // покрыть arbitrary bg[...] (gradient, rgba)
+    { pattern: /bg-\[.*\]/ },
+    { pattern: /text-\[.*\]/ },
+  ],
+
   prefix: "",
   theme: {
     container: {

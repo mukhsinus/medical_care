@@ -5,6 +5,12 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    minify: false,           // временно — чтобы увидеть читаемый CSS
+    sourcemap: true,         // чтобы видеть связи с исходниками
+    cssCodeSplit: false,     // объединит CSS в 1 файл (легче искать)
+  },
+
   server: {
     host: "::",
     port: 8080,

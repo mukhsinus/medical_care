@@ -74,14 +74,18 @@
   }
 
   /* -------- Base Styles -------- */
-  * { @apply border-border; }
+  /* * { @apply border-border; } */
 
   body {
-    @apply text-[hsl(var(--foreground))] font-sans antialiased;
+    color: hsl(var(--foreground));
+    @apply font-sans antialiased;
     background: linear-gradient(135deg, hsl(200 60% 98%) 0%, hsl(210 60% 96%) 100%);
   }
 
-  h1, h2, h3, h4, h5 { @apply font-semibold tracking-tight text-[hsl(var(--foreground))]; }
+  h1, h2, h3, h4, h5 {
+    @apply font-semibold tracking-tight;
+    color: hsl(var(--foreground));
+  }
 
   img { @apply select-none rounded-2xl; }  /* shadow-card */
 
@@ -93,26 +97,31 @@
 @layer components {
   /* ---- Buttons ---- */
   .btn-primary {
-    @apply bg-[hsl(var(--primary))] text-white px-6 py-3 rounded-xl font-medium
-           shadow-soft transition-all hover:shadow-lg hover:bg-[hsl(200_90%_45%)];
+    background: hsl(var(--primary));
+    color: white;
+    @apply px-6 py-3 rounded-xl font-medium shadow-soft transition-all;
   }
 
   .btn-outline {
-    @apply border border-[hsl(var(--border))] text-[hsl(var(--primary))]
-           px-6 py-3 rounded-xl font-medium bg-white/70 backdrop-blur-sm
-           transition-all hover:bg-[hsl(var(--accent))]/60 hover:shadow-soft;
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--primary));
+    background: hsla(0, 0%, 100%, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    @apply px-6 py-3 rounded-xl font-medium transition-all hover:shadow-soft;
+  }
+
+  .btn-outline:hover {
+    background: hsl(var(--accent) / 0.6);
   }
 
   /* ---- Cards ---- */
   .card {
-    @apply bg-white/60 backdrop-blur-md border border-[hsl(var(--border))]
-           rounded-2xl shadow-card transition-all
-           hover:-translate-y-1 hover:shadow-soft;
-  }
-
-  .eyebrow {
-    @apply inline-block px-4 py-1.5 bg-[hsl(var(--accent))] text-[hsl(200_85%_35%)]
-           rounded-full text-sm font-medium mb-6 shadow-sm;
+    background: hsl(0 0% 100% / 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid hsl(var(--border));
+    @apply rounded-2xl shadow-card transition-all hover:-translate-y-1 hover:shadow-soft;
   }
 
   /* ---- Hero container (для фоновых слоёв) ---- */
@@ -254,7 +263,6 @@
   .glass-panel > * { position: relative; z-index: 1; }
 
 
-
 @media (min-width: 1024px) {
 
   .nav-glass nav a:empty::before {
@@ -309,7 +317,6 @@
       0 10px 40px -20px rgba(20,80,160,0.12);
     overflow: hidden;
   }
-
 
   .glass-panel--hero .glass-card {
     background: rgba(6, 20, 44, 0.42);     /* плотная синяя/полупрозрачная основа */
@@ -381,7 +388,6 @@
   }
 }
 
-
   /* Карточки поверх стекла (KPI) */
   .glass-card {
     background: hsl(0 0% 100% / .70);
@@ -396,15 +402,13 @@
   /* фолбэк без blur для nav */
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .nav-glass { background: hsl(0 0% 100% / .7); }
+  }}
+
+  /* ---- Fallback без blur для панелей/карточек ---- */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass-panel { background: hsl(0 0% 100% / .88); }
+    .glass-card  { background: hsl(0 0% 100% / .92); }
   }
-}
-
-
-/* ---- Fallback без blur для панелей/карточек ---- */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .glass-panel { background: hsl(0 0% 100% / .88); }
-  .glass-card  { background: hsl(0 0% 100% / .92); }
-}
 
 
 /* =====================  UTILITIES  ===================== */
@@ -435,7 +439,6 @@
   .scroll-smooth { scroll-behavior: smooth; }
 }
 
-
 /* =====================  MOBILE TWEAKS  ===================== */
 @media (max-width: 768px) {
 
@@ -455,4 +458,3 @@
       linear-gradient(135deg, hsl(205 70% 97% / .92), hsl(200 60% 98% / .92));
   }
 }
-

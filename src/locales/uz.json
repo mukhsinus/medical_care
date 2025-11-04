@@ -44,22 +44,22 @@
       "desc": "Zarur laboratoriya buyumlari va sarflanadigan materiallar"
     }
   },"cats":{
-    "Injection":{
+    "injection":{
       "name":"In’yeksiya"
     },
-    "Protection":{
+    "equipment":{
       "name":"Himoya"
     },
-    "Surgery":{
+    "surgery":{
       "name":"Jarrohlik"
     },
-    "Hygiene":{
+    "hygiene":{
       "name":"Gigiyena"
     },
-    "Lab":{
+    "dressings":{
       "name":"Laboratoriya"
     },
-    "Sterilization":{
+    "lab":{
       "name":"Sterilizatsiya"
     }
 

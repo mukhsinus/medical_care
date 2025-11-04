@@ -27,60 +27,59 @@ export default function About() {
               {t.about.mission}
             </p>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-            <div>
-              <img
-                src={warehouseImage}
-                alt="Medicare warehouse"
-                className="rounded-2xl shadow-xl w-full h-auto"
-                loading="lazy"
-              />
-            </div>
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <ShieldCheck className="h-6 w-6 text-primary" />
-                    </div>
-                    <CardTitle>{t.about.quality}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{t.about.qualityDesc}</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <Truck className="h-6 w-6 text-primary" />
-                    </div>
-                    <CardTitle>{t.about.logistics}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{t.about.logisticsDesc}</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <Award className="h-6 w-6 text-primary" />
-                    </div>
-                    <CardTitle>{t.about.certification}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{t.about.certificationDesc}</p>
-                </CardContent>
-              </Card>
-            </div>
+<div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+  <div className="flex flex-col h-full">
+    <img
+      src={warehouseImage}
+      alt="Medicare warehouse"
+      className="rounded-2xl shadow-xl w-full h-full object-cover"
+      loading="lazy"
+    />
+  </div>
+  <div className="flex flex-col space-y-4 h-full">
+    <Card className="flex-1">
+      <CardHeader>
+        <div className="flex items-center gap-4">
+          <div className="p-3 bg-primary/10 rounded-lg">
+            <ShieldCheck className="h-6 w-6 text-primary" />
           </div>
+          <CardTitle>{t.about.quality}</CardTitle>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">{t.about.qualityDesc}</p>
+      </CardContent>
+    </Card>
+
+    <Card className="flex-1">
+      <CardHeader>
+        <div className="flex items-center gap-4">
+          <div className="p-3 bg-primary/10 rounded-lg">
+            <Truck className="h-6 w-6 text-primary" />
+          </div>
+          <CardTitle>{t.about.logistics}</CardTitle>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">{t.about.logisticsDesc}</p>
+      </CardContent>
+    </Card>
+
+    <Card className="flex-1">
+      <CardHeader>
+        <div className="flex items-center gap-4">
+          <div className="p-3 bg-primary/10 rounded-lg">
+            <Award className="h-6 w-6 text-primary" />
+          </div>
+          <CardTitle>{t.about.certification}</CardTitle>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">{t.about.certificationDesc}</p>
+      </CardContent>
+    </Card>
+  </div>
+</div>
         </div>
       </section>
     </Layout>

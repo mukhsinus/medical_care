@@ -387,6 +387,11 @@
       inset 0 1px 0 rgba(255,255,255,0.04);
   }
 }
+/* 
+@media (min-width:1400px) { 
+  .container {
+    max-width: 1400px !important;
+} */
 
   /* Карточки поверх стекла (KPI) */
   .glass-card {

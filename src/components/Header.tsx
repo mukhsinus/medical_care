@@ -42,7 +42,7 @@ export const Header = () => {
   return (
     <header className="sticky top-2 z-50">
       {/* Используем ТУТ ту же контейнерную систему, что и в Home */}
-      <div className="container mx-auto px-4 lg:max-w-[1100px] xl:max-w-[1180px] relative">
+      <div className="container mx-auto px-4 relative">{ /* removedlg:max-w-[1100px] xl:max-w-[1180px] */}
         {/* стеклянная «капсула» навбара — теперь будет ровно по ширине контейнера */}
         <div
           className={`nav-glass w-full lg:px-4 ${

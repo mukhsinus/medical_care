@@ -71,7 +71,7 @@ export default function Home() {
           marginTop: 'calc(var(--hero-overlap) * -0.5)',
         }}
       >
-        <div className="container mx-auto px-4 pt-12 md:pt-16 lg:max-w-[1100px] xl:max-w-[1180px]">
+        <div className="mx-auto px-4 pt-12 md:pt-16 container">
           <div
             className="
               glass-panel glass-panel--hero w-full rounded-xl
@@ -80,7 +80,7 @@ export default function Home() {
               flex flex-col justify-center
             "
           >
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4">{ /* removedlg:max-w-[1100px] xl:max-w-[1180px] */}
               <div className="grid md:grid-cols-1 gap-12 items-center">
                 <div>
                   <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight [text-wrap:balance]">
@@ -156,7 +156,7 @@ export default function Home() {
           ['--catalog-overlap' as any]: '0px',
         }}
       >
-        <div className="container mx-auto px-4 pt-12 md:pt-16 lg:max-w-[1100px] xl:max-w-[1180px]">
+        <div className="container mx-auto px-4 pt-12 md:pt-16">{ /* removedlg:max-w-[1100px] xl:max-w-[1180px] */}
           <h2
             className="
               text-3xl md:text-4xl font-bold text-center mb-12

@@ -4,3 +4,13 @@
 
 [build.processing]
   skip_processing = true
+
+[build.processing.css]
+  bundle = false
+  minify = false
+  fingerprint = false
+
+[build.processing.js]
+  bundle = false
+  minify = false
+  fingerprint = false

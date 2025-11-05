@@ -79,7 +79,32 @@
     "logistics": "Professional logistika",
     "logisticsDesc": "Zamonaviy ombor ob'ektlari va O'zbekiston bo'ylab samarali yetkazib berish tarmog'i.",
     "certification": "Sertifikatlar",
-    "certificationDesc": "CE sertifikatlangan va ISO talablariga mos mahsulotlar to'liq hujjatlar bilan."
+    "certificationDesc": "CE sertifikatlangan va ISO talablariga mos mahsulotlar to'liq hujjatlar bilan.",
+    "journeyTitle": "Bizning yoʻlimiz",
+  "timeline": {
+    "founded": "Sifatli tibbiy taqsimot vizyoni bilan kompaniya tashkil etildi",
+    "expanded": "Butun mamlakat boʻylab logistika tarmogʻiga kengaytirildi",
+    "certified": "ISO 9001 va GMP sertifikatlari olindi",
+    "serving": "10 000 dan ortiq sogʻliqni saqlash provayderlariga xizmat koʻrsatmoqda"
+  },
+  "common": {
+  "viewLeadership": "Rahbariyat bilan tanishish",
+  "findLocation": "Ofis topish",
+  "scheduleCall": "Qoʻngʻiroq belgilash"
+},
+  "stats": {
+    "years": "15+",
+    "yearsLabel": "Mukammallik yillari",
+    "shipped": "500K+",
+    "shippedLabel": "Yetkazib berilgan mahsulotlar",
+    "satisfaction": "99.9%",
+    "satisfactionLabel": "Mijoz qoniqishi"
+  },
+  "teamTitle": "Mutaxassislar jamoamiz bilan tanishing",
+  "teamDesc": "150 dan ortiq fidoyi mutaxassislar tibbiy buyumlaringiz oʻz vaqtida yetib borishini ta'minlaydi.",
+  "ctaTitle": "Biz bilan hamkorlikka tayyormisiz?",
+  "ctaDesc": "Bugun bogʻlaning va tibbiy ehtiyojlaringizni qanday qoʻllab-quvvatlashimiz mumkinligini bilib oling."
+
   },
   "catalog": {
   "title": "Mahsulotlar katalogi",

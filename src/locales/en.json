@@ -80,8 +80,33 @@
     "logistics": "Professional Logistics",
     "logisticsDesc": "Modern warehouse facilities and efficient delivery network across Uzbekistan.",
     "certification": "Certifications",
-    "certificationDesc": "CE certified and ISO compliant products with full documentation."
+    "certificationDesc": "CE certified and ISO compliant products with full documentation.",
+    "journeyTitle": "Our Journey",
+  "timeline": {
+    "founded": "Company founded with a vision for quality healthcare distribution",
+    "expanded": "Expanded to nationwide logistics network",
+    "certified": "Achieved ISO 9001 & GMP certifications",
+    "serving": "Serving over 10,000 healthcare providers"
   },
+  "stats": {
+    "years": "15+",
+    "yearsLabel": "Years of Excellence",
+    "shipped": "500K+",
+    "shippedLabel": "Products Shipped",
+    "satisfaction": "99.9%",
+    "satisfactionLabel": "Customer Satisfaction"
+  },
+  "teamTitle": "Meet Our Expert Team",
+  "teamDesc": "Over 150 dedicated professionals ensuring your medical supplies arrive on time, every time.",
+  "ctaTitle": "Ready to Partner With Us?",
+  "ctaDesc": "Get in touch today and discover how we can support your healthcare needs."
+
+  },
+  "common":{
+  "viewLeadership": "View Leadership",
+  "findLocation": "Find a Location",
+  "scheduleCall": "Schedule a Call"
+},
   "catalog": {
     "title": "Product Catalog",
     "subtitle": "Explore our comprehensive range of medical supplies",

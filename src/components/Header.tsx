@@ -30,8 +30,7 @@ export const Header = () => {
   ];
 
   const desktopNavItems = [
-    ...mobileNavItems,
-    { path: `/${locale}/login`, label: t.nav.login },
+    ...mobileNavItems
   ];
 
   const isActive = (path: string) => {

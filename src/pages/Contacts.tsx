@@ -3,7 +3,7 @@ import { Layout } from '@/components/Layout';
 import { SEO } from '@/components/SEO';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Mail, Phone, MapPin, Clock, Send, MessageCircle, Camera } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, MessageCircle, Camera, Navigation } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 export default function Contacts() {
@@ -64,27 +64,84 @@ export default function Contacts() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-12">
-            {contactItems.map((item, index) => (
-              <Card
-                key={index}
-                className={`${item.action ? 'cursor-pointer hover:shadow-lg transition-shadow' : ''}`}
-                onClick={item.action}
-              >
-                <CardHeader>
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <item.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <CardTitle className="text-lg">{item.title}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-lg font-medium">{item.value}</p>
-                </CardContent>
-              </Card>
-            ))}
+<div className="max-w-5xl mx-auto mb-12">
+      {/* ONE CARD-LIKE CONTAINER – shared background */}
+      <div className="grid md:grid-cols-2 gap-0 overflow-hidden rounded-xl bg-card border shadow-lg">
+
+        {/* ────────────────────── LEFT: MAP ────────────────────── */}
+        <div className="relative h-96 md:h-full min-h-96 bg-muted/20">
+          {/* The iframe is the real map */}
+          <iframe
+            title="Our location"
+            className="absolute inset-0 w-full h-full border-0"
+            src="https://www.google.com/maps/embed?pb=YOUR_EMBED_URL"
+            allowFullScreen={false}
+            loading="lazy"
+            // ---- DISABLE ALL INTERACTIONS ----
+            style={{ pointerEvents: 'none' }}          // no clicks, drags, scrolls
+            referrerPolicy="no-referrer"
+            // Optional: hide Google UI controls
+            // (add &amp;disableDefaultUI=1 to the src URL if you want)
+          ></iframe>
+
+          {/* Subtle overlay to make it obvious the map is static */}
+          <div className="absolute inset-0 bg-black/5 pointer-events-none" />
+        </div>
+
+        {/* ───────────────────── RIGHT: ADDRESS + HOURS ───────────────────── */}
+        <div className="p-6 md:p-8 flex flex-col justify-center">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2.5 bg-primary/10 rounded-lg">
+              <MapPin className="h-5 w-5 text-primary" />
+            </div>
+            <h3 className="text-xl font-semibold">Visit Our Office</h3>
           </div>
+
+          <div className="space-y-5 text-muted-foreground">
+            <div>
+              <p className="text-lg font-medium text-foreground">
+                123 Business Avenue
+              </p>
+              <p>Suite 500, Downtown City, ST 12345</p>
+            </div>
+
+            <div>
+              <h4 className="flex items-center gap-2 font-semibold text-foreground mb-2">
+                <Clock className="h-4 w-4" />
+                Working Hours
+              </h4>
+              <ul className="space-y-1 text-sm">
+                <li>
+                  <span className="font-medium text-foreground">Mon–Fri:</span>{' '}
+                  9:00 AM – 6:00 PM
+                </li>
+                <li>
+                  <span className="font-medium text-foreground">Saturday:</span>{' '}
+                  10:00 AM – 4:00 PM
+                </li>
+                <li>
+                  <span className="font-medium text-foreground">Sunday:</span>{' '}
+                  Closed
+                </li>
+              </ul>
+            </div>
+
+            <div className="pt-3">
+              <Button asChild className="w-full md:w-auto">
+                <a
+                  href="https://maps.google.com?q=123+Business+Avenue"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Navigation className="mr-2 h-4 w-4" />
+                  Get Directions
+                </a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
           <div className="max-w-5xl mx-auto">
 

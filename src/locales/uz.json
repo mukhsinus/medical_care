@@ -271,8 +271,23 @@
     "hoursValue": "Dush-Jum: 9:00 - 18:00",
     "getInTouch": "Bog'laning",
     "telegram": "Telegram",
-    "instagram": "Instagram"
-  },
+    "instagram": "Instagram",
+    "visitOffice": "Ofisimizga tashrif buyuring",
+  "workingHours": "Ish vaqti",
+  "closed": "Dam olish kuni",
+  "getDirections": "Yoʻnalish olish",
+    "faqTitle": "Tez-tez soʻraladigan savollar",
+  "faq": {
+    "q1": "Yetkazib berish qancha vaqt oladi?",
+    "a1": "Standart: 1–3 ish kuni. Tezkor: Toshkent boʻylab oʻsha kuni.",
+    "q2": "Xalqaro yetkazib berish bormi?",
+    "a2": "Ha, MDH davlatlari va tanlangan xalqaro yoʻnalishlarga.",
+    "q3": "Buyurtmamni qanday kuzataman?",
+    "a3": "Joʻnatilgandan keyin SMS va email orqali kuzatuv havolasi keladi.",
+    "q4": "Qaytarish siyosati qanday?",
+    "a4": "Ochiqmagan mahsulotlar uchun 30 kun. Qoʻllab-quvvatlashga murojaat qiling."
+  }
+},
   "footer": {
     "description": "O'zbekistonda professional tibbiy buyumlar ulgurji etkazib beruvchisi",
     "legal": "Huquqiy ma'lumot",

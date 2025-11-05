@@ -76,7 +76,7 @@ export default function Home() {
             className="
               glass-panel glass-panel--hero w-full rounded-xl
               mt-[var(--hero-top-gap)]
-              min-h-[calc(75svh-var(--hero-top-gap)-var(--hero-bottom-gap))]
+              min-h-[calc(85svh-var(--hero-top-gap)-var(--hero-bottom-gap))]
               flex flex-col justify-center
             "
           >

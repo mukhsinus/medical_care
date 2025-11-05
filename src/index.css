@@ -447,7 +447,7 @@
   .nav-glass { border-radius: 14px; }
 
   .glass-panel {
-    min-height: 90svh;
+    min-height: 90dvh;
     border-radius: 16px;
     padding-block: clamp(18px, 3vw, 32px);
   }

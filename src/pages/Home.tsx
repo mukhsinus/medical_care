@@ -60,7 +60,7 @@ export default function Home() {
       {/* ===================== HERO ===================== */}
       <section
         className="
-          hero relative min-h-[100svh] lg:min-h-[100svh]
+          hero relative min-h-[100dvh] lg:min-h-[100dvh]
           [--hero-top-gap:1.5rem] md:[--hero-top-gap:1.1rem]
           [--hero-bottom-gap:2.5rem] md:[--hero-bottom-gap:3rem] overflow-x-hidden
         "
@@ -76,7 +76,7 @@ export default function Home() {
             className="
               glass-panel glass-panel--hero w-full rounded-xl
               mt-[var(--hero-top-gap)]
-              min-h-[calc(85svh-var(--hero-top-gap)-var(--hero-bottom-gap))]
+              min-h-[calc(85вdvh-var(--hero-top-gap)-var(--hero-bottom-gap))]
               flex flex-col justify-center
             "
           >

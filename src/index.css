@@ -318,6 +318,28 @@
     overflow: hidden;
   }
 
+
+  @supports (height: 95dvh) {
+    .hero .glass-panel--hero {
+      min-height: calc(95dvh - var(--hero-top-gap) - var(--hero-bottom-gap)) !important;
+    }
+  }
+
+  /* If dvh isn't supported, keep svh behavior but force override */
+  @supports not (height: 90dvh) {
+    .hero .glass-panel--hero {
+      min-height: calc(100svh - var(--hero-top-gap) - var(--hero-bottom-gap)) !important;
+    }
+  }
+
+  /* Extra fallback for very old browsers */
+  @supports not (height: 100svh) {
+    .hero .glass-panel--hero {
+      min-height: calc(100vh - var(--hero-top-gap) - var(--hero-bottom-gap)) !important;
+    }
+  }  
+
+
   .glass-panel--hero .glass-card {
     background: rgba(6, 20, 44, 0.42);     /* плотная синяя/полупрозрачная основа */
     opacity: 1;
@@ -458,4 +480,11 @@
       radial-gradient(520px 360px at 24% 22%, hsl(200 80% 96% / .92), transparent 58%),
       linear-gradient(135deg, hsl(205 70% 97% / .92), hsl(200 60% 98% / .92));
   }
+}
+
+
+
+@media (min-width: 1024px) and (max-height: 980px) {
+/* Prefer dvh when supported (fixes Safari / dynamic UI) */
+
 }

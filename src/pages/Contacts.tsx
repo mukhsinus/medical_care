@@ -147,7 +147,7 @@ export default function Contacts() {
 
           {/* CONTACT BUTTONS */}
           <div className="max-w-5xl mx-auto mb-16">
-            <Card className="bg-card border-2 p-6">
+            <Card className="bg-card border-2 py-6 px-4">
               <CardHeader>
                 <CardTitle className="text-center text-2xl">
                   {t.contacts.getInTouch}
@@ -162,7 +162,7 @@ export default function Contacts() {
                     onClick={() => setPhoneMenuOpen((v) => !v)}
                     aria-haspopup="menu"
                     aria-expanded={phoneMenuOpen}
-                    className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium px-8 py-0"
+                    className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium px-6 py-0"
                   >
                     {/* Icon */}
                     <Phone className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
@@ -218,7 +218,7 @@ export default function Contacts() {
                     size="lg"
                     variant="outline"
                     onClick={() => handleContactClick("telegram")}
-                    className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+                    className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium px-6 py-0"
                   >
                     <Send className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
                     <span className="flex-1 text-center">
@@ -233,7 +233,7 @@ export default function Contacts() {
                     size="lg"
                     variant="outline"
                     onClick={() => handleContactClick("instagram")}
-                    className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+                    className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium px-6 py-0"
                   >
                     <Camera className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
                     <span className="flex-1 text-center">
@@ -248,7 +248,7 @@ export default function Contacts() {
                     size="lg"
                     variant="outline"
                     onClick={() => handleContactClick("email")}
-                    className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+                    className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium px-6 py-0"
                   >
                     <Mail className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
                     <span className="flex-1 text-center">

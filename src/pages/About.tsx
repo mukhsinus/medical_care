@@ -1,31 +1,40 @@
-import { useLanguage } from '@/contexts/LanguageContext';
-import { Layout } from '@/components/Layout';
-import { SEO } from '@/components/SEO';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ShieldCheck, Truck, Award, Users, Clock, MapPin } from 'lucide-react';
-import warehouseImage from '@/assets/warehouse.jpg';
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ShieldCheck, Truck, Award, Users, MapPin, Phone } from "lucide-react";
+import warehouseImage from "@/assets/warehouse.jpg";
+import { useState } from "react";
 
 export default function About() {
   const { t } = useLanguage();
 
+  const [phoneMenuOpen, setPhoneMenuOpen] = useState(false);
   const cards = [
     { icon: ShieldCheck, title: t.about.quality, desc: t.about.qualityDesc },
     { icon: Truck, title: t.about.logistics, desc: t.about.logisticsDesc },
-    { icon: Award, title: t.about.certification, desc: t.about.certificationDesc },
+    {
+      icon: Award,
+      title: t.about.certification,
+      desc: t.about.certificationDesc,
+    },
   ];
 
   const stats = [
     { value: t.about.stats.years, label: t.about.stats.yearsLabel },
     { value: t.about.stats.shipped, label: t.about.stats.shippedLabel },
-    { value: t.about.stats.satisfaction, label: t.about.stats.satisfactionLabel },
+    {
+      value: t.about.stats.satisfaction,
+      label: t.about.stats.satisfactionLabel,
+    },
   ];
 
   const timeline = [
-    { year: '2008', event: t.about.timeline.founded },
-    { year: '2015', event: t.about.timeline.expanded },
-    { year: '2020', event: t.about.timeline.certified },
-    { year: '2024', event: t.about.timeline.serving },
+    { year: "2008", event: t.about.timeline.founded },
+    { year: "2015", event: t.about.timeline.expanded },
+    { year: "2020", event: t.about.timeline.certified },
+    { year: "2024", event: t.about.timeline.serving },
   ];
 
   return (
@@ -34,10 +43,11 @@ export default function About() {
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-
           {/* HERO TITLE */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.about.title}</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              {t.about.title}
+            </h1>
             <div className="h-1 w-24 bg-gradient-to-r from-primary to-primary/50 mx-auto rounded-full"></div>
           </div>
 
@@ -89,8 +99,13 @@ export default function About() {
           {/* STATS */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
             {stats.map((stat, i) => (
-              <div key={i} className="text-center p-6 rounded-xl bg-card border shadow-sm">
-                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">{stat.value}</div>
+              <div
+                key={i}
+                className="text-center p-6 rounded-xl bg-card border shadow-sm"
+              >
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
+                  {stat.value}
+                </div>
                 <p className="text-muted-foreground">{stat.label}</p>
               </div>
             ))}
@@ -98,12 +113,16 @@ export default function About() {
 
           {/* TIMELINE */}
           <div className="max-w-4xl mx-auto mb-20">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{t.about.journeyTitle}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+              {t.about.journeyTitle}
+            </h2>
             <div className="space-y-8">
               {timeline.map((m, i) => (
                 <div key={i} className="flex gap-4 items-start group">
                   <div className="flex-shrink-0 w-16 text-right">
-                    <span className="text-lg font-bold text-primary">{m.year}</span>
+                    <span className="text-lg font-bold text-primary">
+                      {m.year}
+                    </span>
                   </div>
                   <div className="flex-1 pl-6 border-l-2 border-primary/20 group-hover:border-primary/50 transition-colors">
                     <p className="text-foreground">{m.event}</p>
@@ -117,26 +136,143 @@ export default function About() {
           <div className="bg-muted/50 rounded-2xl p-8 md:p-12 text-center mb-20">
             <Users className="h-12 w-12 text-primary mx-auto mb-4" />
             <h3 className="text-2xl font-bold mb-3">{t.about.teamTitle}</h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto mb-6">{t.about.teamDesc}</p>
-            <Button variant="outline">{t.common.viewLeadership}</Button>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+              {t.about.teamDesc}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+              {/* Team Member 1 */}
+              <div className="bg-muted/50 rounded-2xl p-8 text-center hover:bg-muted/70 transition-all duration-300 group">
+                <div className="relative mb-6 mx-auto w-32 h-32">
+                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl group-hover:blur-xl transition-all duration-500"></div>
+                  <img
+                    src="https://images.unsplash.com/photo-1556157382-97eda2d9aa3b?w=400&h=400&fit=crop&crop=face"
+                    alt="Ahmet Yılmaz"
+                    className="relative w-full h-full rounded-full object-cover border-4 border-background shadow-2xl"
+                  />
+                </div>
+                <h4 className="text-xl font-bold mb-1">Ahmet Yılmaz</h4>
+                <p className="text-primary font-semibold mb-3">{t.about.ceo}</p>
+                <p className="text-muted-foreground text-sm">
+                  {t.about.ceoDesc}
+                </p>
+              </div>
+
+              {/* Team Member 2 */}
+              <div className="bg-muted/50 rounded-2xl p-8 text-center hover:bg-muted/70 transition-all duration-300 group">
+                <div className="relative mb-6 mx-auto w-32 h-32">
+                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl group-hover:blur-xl transition-all duration-500"></div>
+                  <img
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face"
+                    alt="Elif Kaya"
+                    className="relative w-full h-full rounded-full object-cover border-4 border-background shadow-2xl"
+                  />
+                </div>
+                <h4 className="text-xl font-bold mb-1">Elif Kaya</h4>
+                <p className="text-primary font-semibold mb-3">{t.about.cto}</p>
+                <p className="text-muted-foreground text-sm">
+                  {t.about.ctoDesc}
+                </p>
+              </div>
+
+              {/* Team Member 3 */}
+              <div className="bg-muted/50 rounded-2xl p-8 text-center hover:bg-muted/70 transition-all duration-300 group">
+                <div className="relative mb-6 mx-auto w-32 h-32">
+                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl group-hover:blur-xl transition-all duration-500"></div>
+                  <img
+                    src="https://images.unsplash.com/photo-1560250097-0b9350c73b68?w=400&h=400&fit=crop&crop=face"
+                    alt="Mehmet Demir"
+                    className="relative w-full h-full rounded-full object-cover border-4 border-background shadow-2xl"
+                  />
+                </div>
+                <h4 className="text-xl font-bold mb-1">Mehmet Demir</h4>
+                <p className="text-primary font-semibold mb-3">{t.about.cmo}</p>
+                <p className="text-muted-foreground text-sm">
+                  {t.about.cmoDesc}
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* CTA */}
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4">{t.about.ctaTitle}</h3>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">{t.about.ctaDesc}</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg">
+            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+              {t.about.ctaDesc}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button
+                size="lg"
+                className="w-[200px]"
+                onClick={() =>
+                  window.open(
+                    "https://www.google.com/maps/search/?api=1&query=41.3111,69.2401",
+                    "_blank"
+                  )
+                }
+              >
                 <MapPin className="mr-2 h-5 w-5" />
                 {t.common.findLocation}
               </Button>
-              <Button size="lg" variant="outline">
-                <Clock className="mr-2 h-5 w-5" />
-                {t.common.scheduleCall}
-              </Button>
+
+              <div>
+                <Button
+                  // type="button"
+                  size="lg"
+                  variant="outline"
+                  onClick={() => setPhoneMenuOpen((v) => !v)}
+                  aria-haspopup="menu"
+                  aria-expanded={phoneMenuOpen}
+                  className="w-full h-12 rounded-md w-[200px] border border-input flex items-center justify-center gap-2 text-base font-medium px-8 py-0"
+                >
+                  {/* Icon */}
+                  <Phone className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+
+                  {/* Text + ▾ in one container */}
+                  <div className="flex flex-1 items-center justify-center gap-1">
+                    <span className="text-center">
+                      {t.common.callUs}
+                    </span>
+                    <span className="text-xs text-muted-foreground">▾</span>
+                  </div>
+                </Button>
+
+                {/* Dropdown Menu */}
+                {phoneMenuOpen && (
+                  <div
+                    role="menu"
+                    aria-label="Выберите номер"
+                    className="
+                    absolute z-50 bottom-full mb-2 left-1/2 -translate-x-1/2
+                    bg-white rounded-md shadow-lg border overflow-hidden
+                    min-w-[160px] whitespace-nowrap
+                    animate-in fade-in slide-in-from-bottom-2 duration-200
+                  "
+                  >
+                    <button
+                      role="menuitem"
+                      onClick={() => {
+                        window.location.href = "tel:+998997013022";
+                        setPhoneMenuOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors text-sm"
+                    >
+                      +998 99 701 3022
+                    </button>
+                    <button
+                      role="menuitem"
+                      onClick={() => {
+                        window.location.href = "tel:+998559013022";
+                        setPhoneMenuOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors text-sm"
+                    >
+                      +998 55 901 3022
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-
         </div>
       </section>
     </Layout>

@@ -1,30 +1,37 @@
-import { useLanguage } from '@/contexts/LanguageContext';
-import { Layout } from '@/components/Layout';
-import { SEO } from '@/components/SEO';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Clock, Package, ShieldCheck, Mail, Send, Phone, Camera } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Clock,
+  Package,
+  ShieldCheck,
+  Mail,
+  Send,
+  Phone,
+  Camera,
+} from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import heroImage from '@/assets/hero-image.webp';
-import catalogImage from '@/assets/catalog-image.webp';
+import heroImage from "@/assets/hero-image.webp";
+import catalogImage from "@/assets/catalog-image.webp";
 
-
-import categoryInjection from '@/assets/category-injection.png';
-import categoryEquipment from '@/assets/category-equipment.png';
-import categorySurgery from '@/assets/category-surgery.png';
-import categoryHygiene from '@/assets/category-hygiene.png';
-import categoryDressings from '@/assets/sterilization.png';
-import categoryLab from '@/assets/lab.png';
+import categoryInjection from "@/assets/category-injection.png";
+import categoryEquipment from "@/assets/category-equipment.png";
+import categorySurgery from "@/assets/category-surgery.png";
+import categoryHygiene from "@/assets/category-hygiene.png";
+import categoryDressings from "@/assets/sterilization.png";
+import categoryLab from "@/assets/lab.png";
 
 const categories = [
-  { key: 'injection', image: categoryInjection },
-  { key: 'equipment', image: categoryEquipment },
-  { key: 'surgery', image: categorySurgery },
-  { key: 'hygiene', image: categoryHygiene },
-  { key: 'dressings', image: categoryDressings },
-  { key: 'lab', image: categoryLab },
+  { key: "injection", image: categoryInjection },
+  { key: "equipment", image: categoryEquipment },
+  { key: "surgery", image: categorySurgery },
+  { key: "hygiene", image: categoryHygiene },
+  { key: "dressings", image: categoryDressings },
+  { key: "lab", image: categoryLab },
 ];
 
 export default function Home() {
@@ -40,17 +47,17 @@ export default function Home() {
         setPhoneMenuOpen(false);
       }
     }
-    document.addEventListener('click', onDocClick);
-    return () => document.removeEventListener('click', onDocClick);
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
   }, []);
 
-  const handleContactClick = (type: 'email' | 'telegram' | 'instagram') => {
+  const handleContactClick = (type: "email" | "telegram" | "instagram") => {
     const links = {
-      email: 'mailto:medicareuz2023@gmail.com',
-      telegram: 'https://t.me/medicareuz',
-      instagram: 'https://www.instagram.com/medicareuz',
+      email: "mailto:medicareuz2023@gmail.com",
+      telegram: "https://t.me/medicareuz",
+      instagram: "https://www.instagram.com/medicareuz",
     } as const;
-    window.open(links[type], '_blank');
+    window.open(links[type], "_blank");
   };
 
   return (
@@ -66,10 +73,10 @@ export default function Home() {
           [--hero-bottom-gap:2.5rem] md:[--hero-bottom-gap:3rem] overflow-x-hidden
         "
         style={{
-          ['--hero-full-bg-image' as any]: `url(${heroImage})`,
-          ['--hero-image-opacity' as any]: '1',
-          ['--hero-overlap' as any]: '132px',
-          marginTop: 'calc(var(--hero-overlap) * -0.5)',
+          ["--hero-full-bg-image" as any]: `url(${heroImage})`,
+          ["--hero-image-opacity" as any]: "1",
+          ["--hero-overlap" as any]: "132px",
+          marginTop: "calc(var(--hero-overlap) * -0.5)",
         }}
       >
         <div className="mx-auto px-4 pt-12 md:pt-16 container">
@@ -82,17 +89,18 @@ export default function Home() {
               flex flex-col justify-center
             "
           >
-            <div className="container mx-auto px-4">{ /* removedlg:max-w-[1100px] xl:max-w-[1180px] */}
+            <div className="container mx-auto px-4">
+              {/* removedlg:max-w-[1100px] xl:max-w-[1180px] */}
               <div className="grid md:grid-cols-1 gap-12 items-center">
                 <div>
                   <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight [text-wrap:balance]">
                     {t.hero.title}
                     {/* Доп. короткая фраза только в русской версии и только на десктопе */}
-                    {locale === 'ru' && t.hero?.extra && (
+                    {locale === "ru" && t.hero?.extra && (
                       <span className="hidden lg:inline ml-3">
                         {t.hero.extra}
                       </span>
-                    )}               
+                    )}
                   </h1>
                   <p className="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-xl">
                     {t.hero.subtitle}
@@ -102,7 +110,7 @@ export default function Home() {
                   <div className="flex flex-wrap gap-4">
                     <Button
                       size="lg"
-                      onClick={() => handleContactClick('email')}
+                      onClick={() => handleContactClick("email")}
                       className="btn-primary shadow-lg hover:shadow-xl w-full sm:w-auto"
                     >
                       <Mail className="mr-2 h-5 w-5" />
@@ -153,12 +161,13 @@ export default function Home() {
           [--catalog-bottom-gap:2.5rem] md:[--catalog-bottom-gap:3rem]
         "
         style={{
-          ['--catalog-full-bg-image' as any]: `url(${catalogImage})`,
-          ['--catalog-image-opacity' as any]: '0.45',
-          ['--catalog-overlap' as any]: '0px',
+          ["--catalog-full-bg-image" as any]: `url(${catalogImage})`,
+          ["--catalog-image-opacity" as any]: "0.45",
+          ["--catalog-overlap" as any]: "0px",
         }}
       >
-        <div className="container mx-auto px-4 pt-12 md:pt-16">{ /* removedlg:max-w-[1100px] xl:max-w-[1180px] */}
+        <div className="container mx-auto px-4 pt-12 md:pt-16">
+          {/* removedlg:max-w-[1100px] xl:max-w-[1180px] */}
           <h2
             className="
               text-3xl md:text-4xl font-bold text-center mb-12
@@ -171,11 +180,16 @@ export default function Home() {
 
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-3 lg:gap-6">
             {categories.map((category) => {
-              const catData = t.categories[category.key as keyof typeof t.categories] as { name: string; desc: string };
+              const catData = t.categories[
+                category.key as keyof typeof t.categories
+              ] as { name: string; desc: string };
               return (
-                <Link key={category.key} to={`/${locale}/catalog?category=${category.key}`}>
-                  <div 
-                  className="
+                <Link
+                  key={category.key}
+                  to={`/${locale}/catalog?category=${category.key}`}
+                >
+                  <div
+                    className="
                     h-full w-full group relative glass-card overflow-hidden rounded-xl isolate
                     aspect-square lg:aspect-[4/3]
                     transition-transform duration-200
@@ -184,7 +198,8 @@ export default function Home() {
                     lg:hover:shadow-soft
                     grid place-items-center
                     
-                    ">
+                    "
+                  >
                     <div className="w-full h-full p-4 md:p-6 lg:p-0 grid place-items-center">
                       <img
                         src={category.image}
@@ -201,7 +216,9 @@ export default function Home() {
 
                     <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-3 w-[90%] max-w-[200px] sm:w-auto hidden">
                       <div className="w-full text-center rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 flex items-end justify-center">
-                        <span className="text-[12px] md:text-sm font-semibold leading-tight">{catData.name}</span>
+                        <span className="text-[12px] md:text-sm font-semibold leading-tight">
+                          {catData.name}
+                        </span>
                       </div>
                     </div>
                     <p className="sr-only">{catData.desc}</p>
@@ -226,104 +243,110 @@ export default function Home() {
 
           {/* Контакты — grid: 2 колонки на мобилке, 4 на md+ */}
           <div className="w-full max-w-lg md:max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {/* PHONE SELECTOR */}
-            <div className="relative col-span-1">
-              <Button
-                // type="button"
-                variant='outline'
-                onClick={() => setPhoneMenuOpen((v) => !v)}
-                aria-haspopup="menu"
-                aria-expanded={phoneMenuOpen}
-                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium px-8 py-0"
-              >
-                {/* Icon */}
-                <Phone className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {/* PHONE SELECTOR */}
+              <div className="relative col-span-1">
+                <Button
+                  // type="button"
+                  variant="outline"
+                  onClick={() => setPhoneMenuOpen((v) => !v)}
+                  aria-haspopup="menu"
+                  aria-expanded={phoneMenuOpen}
+                  className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium px-8 py-0"
+                >
+                  {/* Icon */}
+                  <Phone className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
 
-                {/* Text + ▾ in one container */}
-                <div className="flex flex-1 items-center justify-center gap-1">
-                  <span className="text-center">
-                    {t.contacts.phoneLabel ?? 'Телефон'}
-                  </span>
-                  <span className="text-xs text-muted-foreground">▾</span>
-                </div>
-              </Button>
+                  {/* Text + ▾ in one container */}
+                  <div className="flex flex-1 items-center justify-center gap-1">
+                    <span className="text-center">
+                      {t.contacts.phoneLabel ?? "Телефон"}
+                    </span>
+                    <span className="text-xs text-muted-foreground">▾</span>
+                  </div>
+                </Button>
 
-              {/* Dropdown Menu */}
-              {phoneMenuOpen && (
-                <div
-                  role="menu"
-                  aria-label="Выберите номер"
-                  className="
+                {/* Dropdown Menu */}
+                {phoneMenuOpen && (
+                  <div
+                    role="menu"
+                    aria-label="Выберите номер"
+                    className="
                     absolute z-50 bottom-full mb-2 left-1/2 -translate-x-1/2
                     bg-white rounded-md shadow-lg border overflow-hidden
                     min-w-[160px] whitespace-nowrap
                     animate-in fade-in slide-in-from-bottom-2 duration-200
                   "
+                  >
+                    <button
+                      role="menuitem"
+                      onClick={() => {
+                        window.location.href = "tel:+998997013022";
+                        setPhoneMenuOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors text-sm"
+                    >
+                      +998 99 701 3022
+                    </button>
+                    <button
+                      role="menuitem"
+                      onClick={() => {
+                        window.location.href = "tel:+998559013022";
+                        setPhoneMenuOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors text-sm"
+                    >
+                      +998 55 901 3022
+                    </button>
+                  </div>
+                )}
+              </div>
+              {/* TELEGRAM */}
+              <div className="col-span-1">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => handleContactClick("telegram")}
+                  className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
                 >
-                  <button
-                    role="menuitem"
-                    onClick={() => {
-                      window.location.href = 'tel:+998997013022'
-                      setPhoneMenuOpen(false)
-                    }}
-                    className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors text-sm"
-                  >
-                    +998 99 701 3022
-                  </button>
-                  <button
-                    role="menuitem"
-                    onClick={() => {
-                      window.location.href = 'tel:+998559013022'
-                      setPhoneMenuOpen(false)
-                    }}
-                    className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors text-sm"
-                  >
-                    +998 55 901 3022
-                  </button>
-                </div>
-              )}
-            </div>
-            {/* TELEGRAM */}
-            <div className="col-span-1">
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => handleContactClick('telegram')}
-                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
-              >
-                <Send className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
-                <span className="flex-1 text-center">{t.contacts.telegram ?? 'Telegram'}</span>
-              </Button>
-            </div>
+                  <Send className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+                  <span className="flex-1 text-center">
+                    {t.contacts.telegram ?? "Telegram"}
+                  </span>
+                </Button>
+              </div>
 
-            {/* INSTAGRAM */}
-            <div className="col-span-1">
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => handleContactClick('instagram')}
-                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
-              >
-                <Camera className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
-                <span className="flex-1 text-center">{t.contacts.instagram ?? 'Instagram'}</span>
-              </Button>
-            </div>
+              {/* INSTAGRAM */}
+              <div className="col-span-1">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => handleContactClick("instagram")}
+                  className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+                >
+                  <Camera className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+                  <span className="flex-1 text-center">
+                    {t.contacts.instagram ?? "Instagram"}
+                  </span>
+                </Button>
+              </div>
 
-            {/* EMAIL */}
-            <div className="col-span-1">
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => handleContactClick('email')}
-                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
-              >
-                <Mail className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
-                <span className="flex-1 text-center">{t.contacts.email ?? 'Электронная почта'}</span>
-              </Button>
+              {/* EMAIL */}
+              <div className="col-span-1">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => handleContactClick("email")}
+                  className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+                >
+                  <Mail className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+                  <span className="flex-1 text-center">
+                    {t.contacts.email ?? "Электронная почта"}
+                  </span>
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </section>
     </Layout>

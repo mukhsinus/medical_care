@@ -43,26 +43,26 @@
       "name": "Sterilizatsiya vositalari",
       "desc": "Zarur laboratoriya buyumlari va sarflanadigan materiallar"
     }
-  },"cats":{
-    "injection":{
-      "name":"In’yeksiya"
+  },
+  "cats": {
+    "injection": {
+      "name": "In’yeksiya"
     },
-    "equipment":{
-      "name":"Himoya"
+    "equipment": {
+      "name": "Himoya"
     },
-    "surgery":{
-      "name":"Jarrohlik"
+    "surgery": {
+      "name": "Jarrohlik"
     },
-    "hygiene":{
-      "name":"Gigiyena"
+    "hygiene": {
+      "name": "Gigiyena"
     },
-    "dressings":{
-      "name":"Laboratoriya"
+    "dressings": {
+      "name": "Laboratoriya"
     },
-    "lab":{
-      "name":"Sterilizatsiya"
+    "lab": {
+      "name": "Sterilizatsiya"
     }
-
   },
   "howWeWork": {
     "title": "Biz qanday ishlaymiz",
@@ -81,50 +81,57 @@
     "certification": "Sertifikatlar",
     "certificationDesc": "CE sertifikatlangan va ISO talablariga mos mahsulotlar to'liq hujjatlar bilan.",
     "journeyTitle": "Bizning yoʻlimiz",
-  "timeline": {
-    "founded": "Sifatli tibbiy taqsimot vizyoni bilan kompaniya tashkil etildi",
-    "expanded": "Butun mamlakat boʻylab logistika tarmogʻiga kengaytirildi",
-    "certified": "ISO 9001 va GMP sertifikatlari olindi",
-    "serving": "10 000 dan ortiq sogʻliqni saqlash provayderlariga xizmat koʻrsatmoqda"
-  },
-  "common": {
-  "viewLeadership": "Rahbariyat bilan tanishish",
-  "findLocation": "Ofis topish",
-  "scheduleCall": "Qoʻngʻiroq belgilash"
-},
-  "stats": {
-    "years": "15+",
-    "yearsLabel": "Mukammallik yillari",
-    "shipped": "500K+",
-    "shippedLabel": "Yetkazib berilgan mahsulotlar",
-    "satisfaction": "99.9%",
-    "satisfactionLabel": "Mijoz qoniqishi"
-  },
-  "teamTitle": "Mutaxassislar jamoamiz bilan tanishing",
-  "teamDesc": "150 dan ortiq fidoyi mutaxassislar tibbiy buyumlaringiz oʻz vaqtida yetib borishini ta'minlaydi.",
-  "ctaTitle": "Biz bilan hamkorlikka tayyormisiz?",
-  "ctaDesc": "Bugun bogʻlaning va tibbiy ehtiyojlaringizni qanday qoʻllab-quvvatlashimiz mumkinligini bilib oling."
-
+    "imageAlt": "Tibbiy buyumlar bilan toʻldirilgan omborxona",
+    "timeline": {
+      "founded": "Sifatli tibbiy taqsimot vizyoni bilan kompaniya tashkil etildi",
+      "expanded": "Butun mamlakat boʻylab logistika tarmogʻiga kengaytirildi",
+      "certified": "ISO 9001 va GMP sertifikatlari olindi",
+      "serving": "10 000 dan ortiq sogʻliqni saqlash provayderlariga xizmat koʻrsatmoqda"
+    },
+    "common": {
+      "viewLeadership": "Rahbariyat bilan tanishish",
+      "findLocation": "Ofis topish",
+      "callUs": "Qo'ng'iroq qiling"
+    },
+    "stats": {
+      "years": "15+",
+      "yearsLabel": "Mukammallik yillari",
+      "shipped": "500K+",
+      "shippedLabel": "Yetkazib berilgan mahsulotlar",
+      "satisfaction": "99.9%",
+      "satisfactionLabel": "Mijoz qoniqishi"
+    },
+    "teamTitle": "Mutaxassislar jamoamiz bilan tanishing",
+    "teamDesc": "150 dan ortiq fidoyi mutaxassislar tibbiy buyumlaringiz oʻz vaqtida yetib borishini ta'minlaydi.",
+    "ctaTitle": "Biz bilan hamkorlikka tayyormisiz?",
+    "ctaDesc": "Bugun bogʻlaning va tibbiy ehtiyojlaringizni qanday qoʻllab-quvvatlashimiz mumkinligini bilib oling.",
+    "ceo": "Asoschi va Bosh direktor",
+    "ceoDesc": "15+ yillik tajribaga ega bo‘lib, kompaniyamiz kelajagini belgilovchi ilhomlantiruvchi yetakchi.",
+    "cto": "Texnik direktor (CTO)",
+    "ctoDesc": "Mahsulotlarimizda eng zamonaviy ishlab chiqish va innovatsiyalarni boshqaruvchi texnik dahosi.",
+    "cmo": "Marketing bo‘yicha direktor (CMO)",
+    "cmoDesc": "Brendimizni global miqyosda kengaytiruvchi ijodiy strateg va marketing vizyoneri."
   },
   "catalog": {
-  "title": "Mahsulotlar katalogi",
-  "subtitle": "Bizning keng qamrovli tibbiy jihozlar assortimentini o'rganing",
-  "contactCta": "Ma’lumot",
-  "allItems": "Barcha mahsulotlar",
-  "loading": "Yuklanmoqda...",
-  "noItems": "Mahsulotlar topilmadi.",
-  "searchPlaceholder": "Mahsulotlarni qidiring...",
-  "categories": "Kategoriyalar",
-  "noResults": "Sizning qidiruvingiz uchun hech qanday natija topilmadi.",
-  "noSearchResults": "Qidiruv yoki filtrni o'zgartirib, kerakli narsani topishga harakat qiling.",
-  "noCategoryResults": "Ushbu kategoriyada mahsulotlar mavjud emas.",
-  "clearFilters": "Filtrlarni tozalash",
-  "products": "Mahsulotlar",
-  "itemsFound": "Topilgan mahsulotlar",
-  "showAll": "Barchasini ko'rsatish",
-  "inquirie": "So'rov",
-  "addToBasket": "Qo'shish"
-},"signup": {
+    "title": "Mahsulotlar katalogi",
+    "subtitle": "Bizning keng qamrovli tibbiy jihozlar assortimentini o'rganing",
+    "contactCta": "Ma’lumot",
+    "allItems": "Barcha mahsulotlar",
+    "loading": "Yuklanmoqda...",
+    "noItems": "Mahsulotlar topilmadi.",
+    "searchPlaceholder": "Mahsulotlarni qidiring...",
+    "categories": "Kategoriyalar",
+    "noResults": "Sizning qidiruvingiz uchun hech qanday natija topilmadi.",
+    "noSearchResults": "Qidiruv yoki filtrni o'zgartirib, kerakli narsani topishga harakat qiling.",
+    "noCategoryResults": "Ushbu kategoriyada mahsulotlar mavjud emas.",
+    "clearFilters": "Filtrlarni tozalash",
+    "products": "Mahsulotlar",
+    "itemsFound": "Topilgan mahsulotlar",
+    "showAll": "Barchasini ko'rsatish",
+    "inquirie": "So'rov",
+    "addToBasket": "Qo'shish"
+  },
+  "signup": {
     "error": "Ro'yxatdan o'tish muvaffaqiyatsiz bo'ldi",
     "password_mismatch": "Parollar mos kelmaydi",
     "title": "Ro'yxatdan o'tish",
@@ -174,6 +181,11 @@
   "account": {
     "title": "Sizning hisobingiz",
     "description": "Hisobingiz ma'lumotlarini boshqaring va buyurtmalaringizni ko'ring.",
+    "personalInfo": "Shaxsiy ma'lumotlar",
+    "basket": "Savat",
+    "phone": "Telefon",
+    "notProvided": "Ko'rsatilmagan",
+    "changePassword": "Parolni o'zgartirish",
     "name": "Ism",
     "name_placeholder": "Ismingizni kiriting",
     "save": "Saqlash",
@@ -185,77 +197,77 @@
     "view_all_orders": "Barcha buyurtmalarni ko'rish"
   },
   "items": {
-    "1": { 
-      "name": "Insulin shpritslari 1ml", 
-      "description": "Yuqori sifatli insulin shpritslari" 
+    "1": {
+      "name": "Insulin shpritslari 1ml",
+      "description": "Yuqori sifatli insulin shpritslari"
     },
-    "2": { 
-      "name": "Gipodermik ignalar 21G", 
-      "description": "Steril ignalar" 
+    "2": {
+      "name": "Gipodermik ignalar 21G",
+      "description": "Steril ignalar"
     },
-    "3": { 
-      "name": "IV kanulya 20G", 
-      "description": "Tomir ichiga kanulya" 
+    "3": {
+      "name": "IV kanulya 20G",
+      "description": "Tomir ichiga kanulya"
     },
-    "4": { 
-      "name": "Raqamli termometr", 
-      "description": "Aniq raqamli termometr" 
+    "4": {
+      "name": "Raqamli termometr",
+      "description": "Aniq raqamli termometr"
     },
-    "5": { 
-      "name": "Qon bosimi o'lchagich", 
-      "description": "Avtomatik monitor" 
+    "5": {
+      "name": "Qon bosimi o'lchagich",
+      "description": "Avtomatik monitor"
     },
-    "6": { 
-      "name": "Stetoskop Littmann", 
-      "description": "Premium kardiologik stetoskop" 
+    "6": {
+      "name": "Stetoskop Littmann",
+      "description": "Premium kardiologik stetoskop"
     },
-    "7": { 
-      "name": "Jarrohlik skalpeli #11", 
-      "description": "Aniq pichoq" 
+    "7": {
+      "name": "Jarrohlik skalpeli #11",
+      "description": "Aniq pichoq"
     },
-    "8": { 
-      "name": "Jarrohlik pensasi", 
-      "description": "Steril pensalar" 
+    "8": {
+      "name": "Jarrohlik pensasi",
+      "description": "Steril pensalar"
     },
-    "9": { 
-      "name": "Tikuv to'plami", 
-      "description": "To'liq tikuv to'plami" 
+    "9": {
+      "name": "Tikuv to'plami",
+      "description": "To'liq tikuv to'plami"
     },
-    "10": { 
-      "name": "Spirt 70% 500ml", 
-      "description": "Tibbiy dezinfeksiyalash vositasi" 
+    "10": {
+      "name": "Spirt 70% 500ml",
+      "description": "Tibbiy dezinfeksiyalash vositasi"
     },
-    "11": { 
-      "name": "Qo'l dezinfeksiyasi 100ml", 
-      "description": "Ko'chmas dezinfeksiya vositasi" 
+    "11": {
+      "name": "Qo'l dezinfeksiyasi 100ml",
+      "description": "Ko'chmas dezinfeksiya vositasi"
     },
-    "12": { 
-      "name": "Himoya to'plami", 
-      "description": "To'liq himoya to'plami" 
+    "12": {
+      "name": "Himoya to'plami",
+      "description": "To'liq himoya to'plami"
     },
-    "13": { 
-      "name": "Marli o'ramlar 10sm", 
-      "description": "Steril marli" 
+    "13": {
+      "name": "Marli o'ramlar 10sm",
+      "description": "Steril marli"
     },
-    "14": { 
-      "name": "Yopishqoq o'ramlar", 
-      "description": "Turli xil o'ramlar" 
+    "14": {
+      "name": "Yopishqoq o'ramlar",
+      "description": "Turli xil o'ramlar"
     },
-    "15": { 
-      "name": "Gidrokolloid povbandlar", 
-      "description": "Rivojlangan davolash" 
+    "15": {
+      "name": "Gidrokolloid povbandlar",
+      "description": "Rivojlangan davolash"
     },
-    "16": { 
-      "name": "Sinov naychalari 10ml", 
-      "description": "Shisha sinov naychalari" 
+    "16": {
+      "name": "Sinov naychalari 10ml",
+      "description": "Shisha sinov naychalari"
     },
-    "17": { 
-      "name": "Pippeta 1ml", 
-      "description": "Bir martalik pippeta" 
+    "17": {
+      "name": "Pippeta 1ml",
+      "description": "Bir martalik pippeta"
     },
-    "18": { 
-      "name": "Mikroskop shlyapalar", 
-      "description": "Oldindan tozalanadigan shlyapalar" 
+    "18": {
+      "name": "Mikroskop shlyapalar",
+      "description": "Oldindan tozalanadigan shlyapalar"
     }
   },
   "contacts": {
@@ -273,21 +285,21 @@
     "telegram": "Telegram",
     "instagram": "Instagram",
     "visitOffice": "Ofisimizga tashrif buyuring",
-  "workingHours": "Ish vaqti",
-  "closed": "Dam olish kuni",
-  "getDirections": "Yoʻnalish olish",
+    "workingHours": "Ish vaqti",
+    "closed": "Dam olish kuni",
+    "getDirections": "Yoʻnalish olish",
     "faqTitle": "Tez-tez soʻraladigan savollar",
-  "faq": {
-    "q1": "Yetkazib berish qancha vaqt oladi?",
-    "a1": "Standart: 1–3 ish kuni. Tezkor: Toshkent boʻylab oʻsha kuni.",
-    "q2": "Xalqaro yetkazib berish bormi?",
-    "a2": "Ha, MDH davlatlari va tanlangan xalqaro yoʻnalishlarga.",
-    "q3": "Buyurtmamni qanday kuzataman?",
-    "a3": "Joʻnatilgandan keyin SMS va email orqali kuzatuv havolasi keladi.",
-    "q4": "Qaytarish siyosati qanday?",
-    "a4": "Ochiqmagan mahsulotlar uchun 30 kun. Qoʻllab-quvvatlashga murojaat qiling."
-  }
-},
+    "faq": {
+      "q1": "Yetkazib berish qancha vaqt oladi?",
+      "a1": "Standart: 1–3 ish kuni. Tezkor: Toshkent boʻylab oʻsha kuni.",
+      "q2": "Xalqaro yetkazib berish bormi?",
+      "a2": "Ha, MDH davlatlari va tanlangan xalqaro yoʻnalishlarga.",
+      "q3": "Buyurtmamni qanday kuzataman?",
+      "a3": "Joʻnatilgandan keyin SMS va email orqali kuzatuv havolasi keladi.",
+      "q4": "Qaytarish siyosati qanday?",
+      "a4": "Ochiqmagan mahsulotlar uchun 30 kun. Qoʻllab-quvvatlashga murojaat qiling."
+    }
+  },
   "footer": {
     "description": "O'zbekistonda professional tibbiy buyumlar ulgurji etkazib beruvchisi",
     "legal": "Huquqiy ma'lumot",

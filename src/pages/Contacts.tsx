@@ -47,6 +47,13 @@ export default function Contacts() {
             <div className="grid md:grid-cols-2 gap-0 overflow-hidden rounded-xl bg-card border shadow-lg">
               {/* LEFT: MAP */}
               <div className="relative h-96 md:h-full min-h-96 bg-muted/20">
+              <a
+    href="https://www.google.com/maps/search/?api=1&query=41.3111,69.2401"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block absolute inset-0 z-10"
+    aria-label="Open location in Google Maps"
+  />
                 <iframe
                   title="Our location"
                   className="absolute inset-0 w-full h-full border-0"
@@ -98,55 +105,108 @@ export default function Contacts() {
 
           {/* CONTACT BUTTONS */}
           <div className="max-w-5xl mx-auto mb-16">
-            <Card className="bg-gradient-to-br from-accent/30 to-background border-2 p-6">
+            <Card className="bg-card border-2 p-6">
               <CardHeader>
                 <CardTitle className="text-center text-2xl">{t.contacts.getInTouch}</CardTitle>
               </CardHeader>
               <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                {/* PHONE DROPDOWN */}
-                <div className="relative">
-                  <Button
-                    variant="outline"
-                    onClick={() => setPhoneMenuOpen(v => !v)}
-                    className="w-full h-12 flex items-center justify-center gap-2"
-                  >
-                    <Phone className="h-5 w-5 text-primary" />
-                    <span>{t.contacts.phoneLabel}</span>
-                    <ChevronDown className="h-4 w-4 ml-auto" />
-                  </Button>
-                  {phoneMenuOpen && (
-                    <div className="absolute z-50 bottom-full mb-2 left-1/2 -translate-x-1/2 bg-card rounded-md shadow-lg border w-48">
-                      {['+998 99 701 3022', '+998 55 901 3022'].map(num => (
-                        <button
-                          key={num}
-                          onClick={() => { 
-                            window.location.href = `tel:${num.replace(/\s/g, '')}`; 
-                            setPhoneMenuOpen(false); 
-                          }}
-                          className="block w-full text-left px-4 py-3 hover:bg-accent/50 text-sm"
-                        >
-                          {num}
-                        </button>
-                      ))}
-                    </div>
-                  )}
+  {/* PHONE DROPDOWN */}
+            <div className="relative col-span-1">
+              <Button
+                // type="button"
+                variant='outline'
+                onClick={() => setPhoneMenuOpen((v) => !v)}
+                aria-haspopup="menu"
+                aria-expanded={phoneMenuOpen}
+                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium px-8 py-0"
+              >
+                {/* Icon */}
+                <Phone className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+
+                {/* Text + ▾ in one container */}
+                <div className="flex flex-1 items-center justify-center gap-1">
+                  <span className="text-center">
+                    {t.contacts.phoneLabel ?? 'Телефон'}
+                  </span>
+                  <span className="text-xs text-muted-foreground">▾</span>
                 </div>
+              </Button>
 
-                <Button variant="outline" onClick={() => handleContactClick('telegram')} className="h-12">
-                  <Send className="h-5 w-5 text-primary" />
-                  <span className="ml-2">{t.contacts.telegram}</span>
-                </Button>
+              {/* Dropdown Menu */}
+              {phoneMenuOpen && (
+                <div
+                  role="menu"
+                  aria-label="Выберите номер"
+                  className="
+                    absolute z-50 bottom-full mb-2 left-1/2 -translate-x-1/2
+                    bg-white rounded-md shadow-lg border overflow-hidden
+                    min-w-[160px] whitespace-nowrap
+                    animate-in fade-in slide-in-from-bottom-2 duration-200
+                  "
+                >
+                  <button
+                    role="menuitem"
+                    onClick={() => {
+                      window.location.href = 'tel:+998997013022'
+                      setPhoneMenuOpen(false)
+                    }}
+                    className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors text-sm"
+                  >
+                    +998 99 701 3022
+                  </button>
+                  <button
+                    role="menuitem"
+                    onClick={() => {
+                      window.location.href = 'tel:+998559013022'
+                      setPhoneMenuOpen(false)
+                    }}
+                    className="block w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors text-sm"
+                  >
+                    +998 55 901 3022
+                  </button>
+                </div>
+              )}
+            </div>
 
-                <Button variant="outline" onClick={() => handleContactClick('instagram')} className="h-12">
-                  <Camera className="h-5 w-5 text-primary" />
-                  <span className="ml-2">{t.contacts.instagram}</span>
-                </Button>
+  {/* TELEGRAM */}
+            <div className="col-span-1">
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => handleContactClick('telegram')}
+                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+              >
+                <Send className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+                <span className="flex-1 text-center">{t.contacts.telegram ?? 'Telegram'}</span>
+              </Button>
+            </div>
 
-                <Button variant="outline" onClick={() => handleContactClick('email')} className="h-12">
-                  <Mail className="h-5 w-5 text-primary" />
-                  <span className="ml-2">{t.contacts.email}</span>
-                </Button>
-              </div>
+  {/* INSTAGRAM */}
+            <div className="col-span-1">
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => handleContactClick('instagram')}
+                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+              >
+                <Camera className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+                <span className="flex-1 text-center">{t.contacts.instagram ?? 'Instagram'}</span>
+              </Button>
+            </div>
+
+  {/* EMAIL */}
+            <div className="col-span-1">
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => handleContactClick('email')}
+                className="w-full h-12 rounded-md border border-input flex items-center justify-center gap-2 text-base font-medium"
+              >
+                <Mail className="h-5 w-5 flex-shrink-0 text-[hsl(200_90%_45%)]" />
+                <span className="flex-1 text-center">{t.contacts.email ?? 'Электронная почта'}</span>
+              </Button>
+            </div>
+</div>
             </Card>
           </div>
 

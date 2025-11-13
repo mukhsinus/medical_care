@@ -1,33 +1,48 @@
+// backend/routes/user.js
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middleware/auth'); // Your auth.js middleware
+const auth = require('../middleware/auth');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+const Order = require('../models/Order'); // модель заказов
 const { sendNotification } = require('../utils/telegramNotifier');
 
-// All routes here are protected
-router.use(authMiddleware);
+// Все роуты защищены
+router.use(auth);
 
-// GET /api/user/orders (fetch user's orders)
-router.get('/orders', async (req, res) => {
+/**
+ * GET /api/user/me
+ * Вернуть профиль текущего пользователя
+ */
+router.get('/me', async (req, res) => {
   try {
-    const Order = require('../models/Order'); // Assuming Order model exists (see below)
-    const orders = await Order.find({ userId: req.userId }).sort({ createdAt: -1 });
-    res.json(orders);
-    const orderMessage = `
-    <b>New Order!</b>
-    👤 <b>From:</b> ${user.name} (${user.email})
-    💰 <b>Total:</b> $${order.total}
-    🆔 <b>Order ID:</b> ${order._id}
-    `;
-    sendNotification(orderMessage);
+    const user = await User.findById(req.userId).select('-password -resetPasswordToken -resetPasswordExpires');
+    if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
+    res.json({ user });
   } catch (err) {
-    console.error('ORDERS ERROR:', err);
-    res.status(500).json({ message: 'Error fetching orders' });
+    console.error('GET /me error:', err);
+    res.status(500).json({ message: 'Ошибка при получении профиля' });
   }
 });
 
-// PATCH /api/user/profile (update name/phone)
+/**
+ * GET /api/user/orders
+ * Вернуть список заказов текущего пользователя (новейшие первыми)
+ */
+router.get('/orders', async (req, res) => {
+  try {
+    const orders = await Order.find({ userId: req.userId }).sort({ createdAt: -1 });
+    res.json({ orders });
+  } catch (err) {
+    console.error('GET /orders error:', err);
+    res.status(500).json({ message: 'Ошибка при получении заказов' });
+  }
+});
+
+/**
+ * PATCH /api/user/profile
+ * Обновление профиля (name, phone)
+ */
 router.patch('/profile', async (req, res) => {
   try {
     const { name, phone } = req.body;
@@ -37,45 +52,53 @@ router.patch('/profile', async (req, res) => {
     if (!user) return res.status(404).json({ message: 'User not found' });
 
     user.name = name;
-    user.phone = phone || user.phone;
+    if (typeof phone !== 'undefined') user.phone = phone;
     await user.save();
 
-    // Send Telegram notification
-    const profileMessage = `
-    <b>Profile Updated</b>
+    // Telegram notification (неблокирующий)
+    try {
+      const profileMessage = `
+<b>Profile Updated</b>
 
-    👤 <b>User:</b> ${user.name} (${user.email})
-    📱 <b>New Phone:</b> ${user.phone || 'Not provided'}
-    🆔 <b>User ID:</b> ${req.userId}
-    ⏰ <b>Time:</b> ${new Date().toISOString()}
-    `;
-    sendNotification(profileMessage);
+👤 <b>User:</b> ${user.name} (${user.email})
+📱 <b>New Phone:</b> ${user.phone || 'Not provided'}
+🆔 <b>User ID:</b> ${req.userId}
+⏰ <b>Time:</b> ${new Date().toISOString()}
+`;
+      sendNotification(profileMessage);
+    } catch (e) {
+      console.error('Telegram notification failed (non-blocking):', e && e.message);
+    }
 
-    // Return the user object in the same shape as /api/me endpoint
-    res.json({
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone
-      }
-    });
+    const safeUser = {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone || ''
+    };
+
+    res.json({ user: safeUser });
   } catch (err) {
     console.error('PROFILE UPDATE ERROR:', err);
     res.status(500).json({ message: 'Error updating profile' });
   }
 });
 
-// PATCH /api/user/password (change password)
+/**
+ * PATCH /api/user/password
+ * Смена пароля: требуется currentPassword и newPassword
+ */
 router.patch('/password', async (req, res) => {
   try {
-    const { current, new: newPassword } = req.body;
-    if (!current || !newPassword) return res.status(400).json({ message: 'Current and new passwords required' });
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ message: 'Current and new passwords required' });
+    }
 
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    const matched = await bcrypt.compare(current, user.password);
+    const matched = await bcrypt.compare(currentPassword, user.password);
     if (!matched) return res.status(400).json({ message: 'Current password incorrect' });
 
     const salt = await bcrypt.genSalt(10);

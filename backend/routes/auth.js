@@ -1,3 +1,4 @@
+// backend/routes/auth.js
 const express = require('express');
 const router = express.Router();
 console.log('>> auth routes loaded')
@@ -6,20 +7,55 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const sendEmail = require('../utils/sendEmail');
 const User = require('../models/User');
+const RefreshToken = require('../models/RefreshToken');
 const { sendNotification } = require('../utils/telegramNotifier');
+const { v4: uuidv4 } = require('uuid');
 
-const COOKIE_NAME = process.env.COOKIE_NAME || 'token';
+const ACCESS_TTL = '15m'; // access token TTL
+const REFRESH_DAYS = 30; // refresh token lifetime in days
+const REFRESH_COOKIE_NAME = 'refreshToken';
+const COOKIE_NAME = process.env.COOKIE_NAME || 'token'; // legacy cookie, kept for compatibility
 
-// helper: создать JWT
-function createToken(userId) {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '7d' });
+// helper: создать access JWT
+function createAccessToken(userId) {
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: ACCESS_TTL });
 }
 
-/**
- * Регистрация (вынесена в функцию и подключена к /register и /signup)
- */
+// helper: создать и сохранить refresh token, выставить cookie
+async function createAndSendRefreshToken(res, user, req) {
+  const refreshValue = uuidv4() + '.' + crypto.randomBytes(32).toString('hex');
+  const expiresAt = new Date(Date.now() + REFRESH_DAYS * 24 * 60 * 60 * 1000);
+
+  await RefreshToken.create({
+    token: refreshValue,
+    userId: user._id,
+    ip: req.ip,
+    userAgent: req.get('User-Agent'),
+    expiresAt
+  });
+
+  res.cookie(REFRESH_COOKIE_NAME, refreshValue, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: REFRESH_DAYS * 24 * 60 * 60 * 1000
+  });
+}
+
+// helper: revoke refresh token (remove from DB + clear cookie)
+async function revokeRefreshToken(res, tokenValue) {
+  if (tokenValue) {
+    try {
+      await RefreshToken.deleteOne({ token: tokenValue });
+    } catch (e) {
+      console.error('Failed to delete refresh token:', e && e.message);
+    }
+  }
+  res.clearCookie(REFRESH_COOKIE_NAME);
+}
+
+// ===== Register (signup) =====
 async function handleRegister(req, res) {
-    console.log('handleRegister called with body:', req.body);
   try {
     const { name, email, phone, password } = req.body;
     if (!name || !email || !password) {
@@ -37,27 +73,37 @@ async function handleRegister(req, res) {
     const user = new User({ name, email, phone, password: hash });
     await user.save();
 
-    const token = createToken(user._id);
-    // Send Telegram notification
-    const regMessage = `
-    <b>New User Registration</b>
+    // create access token and refresh token
+    const accessToken = createAccessToken(user._id);
+    await createAndSendRefreshToken(res, user, req);
 
-    👤 <b>Name:</b> ${name}
-    📧 <b>Email:</b> ${email}
-    📱 <b>Phone:</b> ${phone || 'Not provided'}
-    🆔 <b>User ID:</b> ${user._id}
-    ⏰ <b>Time:</b> ${new Date().toISOString()}
-    `;
-    sendNotification(regMessage);
-    res.cookie(COOKIE_NAME, token, {
+    // non-blocking telegram
+    try {
+      const regMessage = `
+<b>New User Registration</b>
+
+👤 <b>Name:</b> ${name}
+📧 <b>Email:</b> ${email}
+📱 <b>Phone:</b> ${phone || 'Not provided'}
+🆔 <b>User ID:</b> ${user._id}
+⏰ <b>Time:</b> ${new Date().toISOString()}
+`;
+      sendNotification(regMessage);
+    } catch (e) {
+      console.error('Telegram notification failed (non-blocking):', e && e.message);
+    }
+
+    // keep legacy token cookie too (optional)
+    res.cookie(COOKIE_NAME, accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 дней
+      maxAge: 15 * 60 * 1000, // short-living cookie for access
     });
 
     return res.status(201).json({
-      user: { id: user._id, name: user.name, email: user.email, phone: user.phone }
+      token: accessToken,
+      user: { id: user._id, name: user.name, email: user.email, phone: user.phone || '' }
     });
   } catch (err) {
     console.error('REGISTER ERROR:', err);
@@ -65,53 +111,113 @@ async function handleRegister(req, res) {
   }
 }
 
-// подключаем оба пути (register и signup)
 router.post('/register', handleRegister);
 router.post('/signup', handleRegister);
 
-/**
- * LOGIN
- */
+// ===== Login =====
 router.post('/login', async (req, res) => {
   try {
-    const { identifier, password } = req.body; // identifier может быть именем или почтой
-    if (!identifier || !password) return res.status(400).json({ message: 'identifier и password обязательны' });
+    const { identifier, nameOrEmail, email, password } = req.body || {};
+    const loginId = (identifier || nameOrEmail || email || "").trim();
+    if (!loginId || !password) {
+      return res.status(400).json({ message: 'identifier и password обязательны' });
+    }
 
-    const user = await User.findOne({ $or: [{ email: identifier }, { name: identifier }] });
+    const user = await User.findOne({ $or: [{ email: loginId }, { name: loginId }] });
     if (!user) return res.status(400).json({ message: 'Неверные данные' });
 
     const matched = await bcrypt.compare(password, user.password);
     if (!matched) return res.status(400).json({ message: 'Неверные данные' });
 
-    const token = createToken(user._id);
+    // Create tokens
+    const accessToken = createAccessToken(user._id);
+    await createAndSendRefreshToken(res, user, req);
 
-    res.cookie(COOKIE_NAME, token, {
+    // set short access cookie (optional / compatibility)
+    res.cookie(COOKIE_NAME, accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 15 * 60 * 1000
     });
 
-    res.json({ user: { id: user._id, name: user.name, email: user.email, phone: user.phone } });
+    return res.json({
+      token: accessToken,
+      user: { id: user._id, name: user.name, email: user.email, phone: user.phone || '' }
+    });
   } catch (err) {
     console.error('LOGIN ERROR:', err);
     res.status(500).json({ message: 'Ошибка логина' });
   }
 });
 
-/**
- * LOGOUT
- */
-router.post('/logout', (req, res) => {
-  res.clearCookie(COOKIE_NAME, { httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production' });
-  res.json({ message: 'Вышли' });
+// ===== Refresh endpoint =====
+router.post('/refresh', async (req, res) => {
+  try {
+    const refreshFromCookie = req.cookies?.[REFRESH_COOKIE_NAME];
+    if (!refreshFromCookie) return res.status(401).json({ message: 'No refresh token' });
+
+    const stored = await RefreshToken.findOne({ token: refreshFromCookie });
+    if (!stored) {
+      // cookie present but not in DB => clear cookie
+      res.clearCookie(REFRESH_COOKIE_NAME);
+      return res.status(401).json({ message: 'Refresh token invalid' });
+    }
+
+    if (stored.expiresAt < new Date()) {
+      await RefreshToken.deleteOne({ token: refreshFromCookie });
+      res.clearCookie(REFRESH_COOKIE_NAME);
+      return res.status(401).json({ message: 'Refresh token expired' });
+    }
+
+    const user = await User.findById(stored.userId);
+    if (!user) {
+      await RefreshToken.deleteOne({ token: refreshFromCookie });
+      res.clearCookie(REFRESH_COOKIE_NAME);
+      return res.status(401).json({ message: 'User not found' });
+    }
+
+    // rotation: delete old refresh token and issue a new one
+    await RefreshToken.deleteOne({ token: refreshFromCookie });
+    await createAndSendRefreshToken(res, user, req);
+
+    const newAccess = createAccessToken(user._id);
+    // set short access cookie (optional)
+    res.cookie(COOKIE_NAME, newAccess, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 15 * 60 * 1000
+    });
+
+    return res.json({
+      token: newAccess,
+      user: { id: user._id, name: user.name, email: user.email, phone: user.phone || '' }
+    });
+  } catch (err) {
+    console.error('REFRESH ERROR:', err);
+    res.status(500).json({ message: 'Refresh failed' });
+  }
+});
+
+// ===== Logout =====
+router.post('/logout', async (req, res) => {
+  try {
+    const refreshFromCookie = req.cookies?.[REFRESH_COOKIE_NAME];
+    if (refreshFromCookie) {
+      await RefreshToken.deleteOne({ token: refreshFromCookie });
+    }
+    res.clearCookie(REFRESH_COOKIE_NAME);
+    res.clearCookie(COOKIE_NAME);
+    return res.json({ message: 'Logged out' });
+  } catch (err) {
+    console.error('LOGOUT ERROR:', err);
+    res.status(500).json({ message: 'Logout failed' });
+  }
 });
 
 /**
- * FORGOT PASSWORD
- * Примечание: если Mailtrap/SMTP глючит, можно временно
- * - закомментировать sendEmail(...) и вернуть resetUrl в JSON (DEV),
- * - либо заменить utils/sendEmail.js на логгер (консоль).
+ * FORGOT PASSWORD (unchanged behavior)
  */
 router.post('/forgot-password', async (req, res) => {
   try {
@@ -121,7 +227,6 @@ router.post('/forgot-password', async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: 'Пользователь с такой почтой не найден' });
 
-    // создаём токен (отправим в письме НЕ-хеш, а в БД сохраним хеш)
     const resetToken = crypto.randomBytes(32).toString('hex');
     const hashed = crypto.createHash('sha256').update(resetToken).digest('hex');
 
@@ -133,8 +238,6 @@ router.post('/forgot-password', async (req, res) => {
 
     const message = `Привет, ${user.name}!\n\nЧтобы сбросить пароль, перейди по ссылке:\n\n${resetUrl}\n\nЕсли ты не просил сброс — просто проигнорируй.`;
 
-    // Если Mailtrap/SMTP работает, используем sendEmail.
-    // Если нет — можно временно закомментировать следующую строку и вернуть resetUrl в ответе (DEV).
     await sendEmail({
       to: user.email,
       subject: 'Сброс пароля',
@@ -142,10 +245,6 @@ router.post('/forgot-password', async (req, res) => {
     });
 
     return res.json({ message: 'Письмо для сброса отправлено. Проверь почту.' });
-
-    // ======= DEV вариант (быстрое тестирование, без почты) =======
-    // return res.json({ message: 'DEV: reset link', resetUrl });
-    // ============================================================
   } catch (err) {
     console.error('FORGOT PASSWORD ERROR:', err);
     res.status(500).json({ message: 'Ошибка при запросе сброса пароля' });
@@ -153,7 +252,7 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 /**
- * RESET PASSWORD
+ * RESET PASSWORD (unchanged)
  */
 router.post('/reset-password', async (req, res) => {
   try {
@@ -175,16 +274,20 @@ router.post('/reset-password', async (req, res) => {
     user.resetPasswordExpires = undefined;
     await user.save();
 
-    // после сброса — можно сразу залогинить пользователя
-    const newToken = createToken(user._id);
-    res.cookie(COOKIE_NAME, newToken, {
+    const newAccess = createAccessToken(user._id);
+    await createAndSendRefreshToken(res, user, req);
+
+    res.cookie(COOKIE_NAME, newAccess, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 15 * 60 * 1000,
     });
 
-    res.json({ message: 'Пароль обновлён' });
+    return res.json({
+      token: newAccess,
+      message: 'Пароль обновлён'
+    });
   } catch (err) {
     console.error('RESET PASSWORD ERROR:', err);
     res.status(500).json({ message: 'Ошибка при сбросе пароля' });

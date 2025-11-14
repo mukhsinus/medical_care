@@ -194,7 +194,12 @@
     "logout": "Chiqish",
     "orders": "So'nggi buyurtmalar",
     "no_orders": "So'nggi buyurtmalar yo'q.",
-    "view_all_orders": "Barcha buyurtmalarni ko'rish"
+    "view_all_orders": "Barcha buyurtmalarni ko'rish",
+    "address": "Manzil",
+    "house": "Uy/Kvartira",
+    "street": "Ko'cha",
+    "city": "Shahar",
+    "zip": "Pochta indeksi"
   },
   "items": {
     "1": {

@@ -26,6 +26,7 @@ import {
   Trash2,
   Plus,
   Minus,
+  MapPin,
 } from "lucide-react";
 
 interface UserProfile {
@@ -33,6 +34,12 @@ interface UserProfile {
   name: string;
   email: string;
   phone?: string;
+  address?: {
+    house?: string;
+    street?: string;
+    city?: string;
+    zip?: string;
+  };
 }
 
 interface Order {
@@ -41,6 +48,7 @@ interface Order {
   total: number;
   status: string;
 }
+
 import {
   Dialog,
   DialogContent,
@@ -81,7 +89,16 @@ const fetchUserOrders = async () => {
   return response.json();
 };
 
-const updateUserProfile = async (data: { name: string; phone?: string }) => {
+const updateUserProfile = async (data: {
+  name: string;
+  phone?: string;
+  address?: {
+    house?: string;
+    city?: string;
+    street?: string;
+    zip?: string;
+  };
+}) => {
   const token = localStorage.getItem("authToken");
   const headers: any = { "Content-Type": "application/json" };
   if (token) headers.Authorization = `Bearer ${token}`;
@@ -92,7 +109,10 @@ const updateUserProfile = async (data: { name: string; phone?: string }) => {
     credentials: "include",
     body: JSON.stringify(data),
   });
-  if (!response.ok) throw new Error("Failed to update profile");
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(err.message || "Failed to update profile");
+  }
   return response.json();
 };
 
@@ -137,6 +157,10 @@ const Account: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [house, setHouse] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [zip, setZip] = useState("");
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwords, setPasswords] = useState({
     current: "",
@@ -159,11 +183,13 @@ const Account: React.FC = () => {
   const user = data?.user;
 
   // Fetch orders
-  const { data: orders = [], isLoading: ordersLoading } = useQuery<Order[]>({
+  const { data:ordersData={ orders : []}, isLoading: ordersLoading } = useQuery<{orders:Order[]}>({
     queryKey: ["userOrders"],
     queryFn: fetchUserOrders,
     enabled: !!user,
   });
+
+  const orders = ordersData.orders;
 
   // Mutations
   const updateProfileMutation = useMutation({
@@ -192,13 +218,21 @@ const Account: React.FC = () => {
     if (user) {
       setName(user.name || "");
       setPhone(user.phone || "");
+      setHouse(user.address?.house || "");
+      setStreet(user.address?.street || "");
+      setCity(user.address?.city || "");
+      setZip(user.address?.zip || "");
     }
   }, [user]);
 
   const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await updateProfileMutation.mutateAsync({ name, phone });
+      await updateProfileMutation.mutateAsync({
+        name,
+        phone,
+        address: { house, street, city, zip },
+      });
       toast({
         title: "Profile Updated",
         description: "Your information has been successfully updated.",
@@ -364,6 +398,32 @@ const Account: React.FC = () => {
                             placeholder="+998 99 123 45 67"
                           />
                         </div>
+                        <div className="space-y-2">
+                          <Label>{t.account?.address || "Address"}</Label>
+
+                          <div className="grid grid-cols-2 gap-2">
+                            <Input
+                              placeholder={t.account?.house || "House"}
+                              value={house}
+                              onChange={(e) => setStreet(e.target.value)}
+                            />
+                            <Input
+                              placeholder={t.account?.street || "Street"}
+                              value={street}
+                              onChange={(e) => setStreet(e.target.value)}
+                            />
+                            <Input
+                              placeholder={t.account?.city || "City"}
+                              value={city}
+                              onChange={(e) => setCity(e.target.value)}
+                            />
+                            <Input
+                              placeholder={t.account?.zip || "ZIP"}
+                              value={zip}
+                              onChange={(e) => setZip(e.target.value)}
+                            />
+                          </div>
+                        </div>
                         <div className="flex gap-3">
                           <Button
                             type="submit"
@@ -400,6 +460,26 @@ const Account: React.FC = () => {
                                 t.account?.notProvided ||
                                 "Not provided"}
                             </span>
+                          </div>
+                          <div className="flex items-start gap-3 text-lg">
+                            <MapPin className="h-5 w-5 text-muted-foreground mt-0.5" />
+                            <div>
+                              {user?.address?.street ? (
+                                <>
+                                  <div>{user.address.street}</div>
+                                  <div className="text-sm text-muted-foreground">
+                                    {user.address.city}
+                                    {user.address.zip
+                                      ? `, ${user.address.zip}`
+                                      : ""}
+                                  </div>
+                                </>
+                              ) : (
+                                <span className="text-muted-foreground">
+                                  {t.account?.notProvided || "Not provided"}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
 

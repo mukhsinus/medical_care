@@ -194,7 +194,12 @@
     "logout": "Log Out",
     "orders": "Recent Orders",
     "no_orders": "No recent orders.",
-    "view_all_orders": "View All Orders"
+    "view_all_orders": "View All Orders",
+    "address": "Address",
+    "house": "House/Apartment",
+    "street": "Street",
+    "city": "City",
+    "zip": "Postal Code"
   },
   "items": {
     "1": {

@@ -1,27 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Trash2, Plus, Minus } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { Layout } from '@/components/Layout';
+import { startPayment, PaymentProvider } from '@/api';
 
 const formatCurrency = (n: number) =>
   n.toLocaleString(undefined, { style: 'currency', currency: 'USD' });
 
 const Basket: React.FC = () => {
   const { locale, t } = useLanguage();
-  const { items, addItem, removeItem, updateQuantity, clearCart, totalPrice } =
+  const { items, removeItem, updateQuantity, clearCart, totalPrice } =
     useCart();
   const location = useLocation();
 
-  const handleIncrease = (item: { product: { id: string; name: string; price: number; image?: string }; quantity: number }) => {
+  const [isPaying, setIsPaying] = useState(false);
+
+  const handleIncrease = (item: {
+    product: { id: string; name: string; price: number; image?: string };
+    quantity: number;
+  }) => {
     updateQuantity(item.product.id, item.quantity + 1);
   };
 
-  const handleDecrease = (item: { product: { id: string; name: string; price: number; image?: string }; quantity: number }) => {
+  const handleDecrease = (item: {
+    product: { id: string; name: string; price: number; image?: string };
+    quantity: number;
+  }) => {
     if (item.quantity <= 1) {
       removeItem(item.product.id);
       return;
@@ -32,11 +40,46 @@ const Basket: React.FC = () => {
   const handleRemove = (id: string) => removeItem(id);
   const handleClear = () => clearCart();
 
+  const handleCheckout = async (provider: PaymentProvider) => {
+    try {
+      if (!items.length) return;
+      setIsPaying(true);
+
+      // Map cart items -> backend Order items
+      const payloadItems = items.map((item) => ({
+        productId: Number(item.product.id) || 0, // adapt later if your IDs are not numeric
+        name: item.product.name,
+        quantity: item.quantity,
+        price: item.product.price, // in whatever base; backend expects UZS
+      }));
+
+      const result = await startPayment({
+        items: payloadItems,
+        amount: totalPrice,
+        provider,
+      });
+
+      // For now backend returns a mock redirectUrl
+      window.location.href = result.paymentInitData.redirectUrl;
+    } catch (err) {
+      console.error(err);
+      alert(
+        t.basket?.payment_error ||
+          'Ошибка при создании заказа. Попробуйте ещё раз.'
+      );
+    } finally {
+      setIsPaying(false);
+    }
+  };
+
   return (
     <Layout>
       <SEO
         title={t.basket?.title || 'Your Basket'}
-        description={t.basket?.description || 'View and manage items in your shopping basket.'}
+        description={
+          t.basket?.description ||
+          'View and manage items in your shopping basket.'
+        }
         path={location.pathname}
       />
 
@@ -47,7 +90,10 @@ const Basket: React.FC = () => {
               {t.basket?.title || 'Your Basket'}
             </h1>
             <div className="text-muted-foreground">
-              {items.length} {items.length === 1 ? t.basket?.item : t.basket?.items || 'items'}
+              {items.length}{' '}
+              {items.length === 1
+                ? t.basket?.item
+                : t.basket?.items || 'items'}
             </div>
           </header>
 
@@ -56,7 +102,11 @@ const Basket: React.FC = () => {
               <p className="text-xl text-muted-foreground mb-6">
                 {t.basket?.empty || 'Your basket is empty.'}
               </p>
-              <Button asChild size="lg" className="btn-primary shadow-lg hover:shadow-xl">
+              <Button
+                asChild
+                size="lg"
+                className="btn-primary shadow-lg hover:shadow-xl"
+              >
                 <Link to={`/${locale}/catalog`}>
                   {t.basket?.shop || 'Go to shop'}
                 </Link>
@@ -81,11 +131,15 @@ const Basket: React.FC = () => {
                             decoding="async"
                           />
                         ) : (
-                          <span className="text-muted-foreground">No image</span>
+                          <span className="text-muted-foreground">
+                            No image
+                          </span>
                         )}
                       </div>
                       <div className="flex-1">
-                        <div className="font-semibold text-lg">{item.product.name}</div>
+                        <div className="font-semibold text-lg">
+                          {item.product.name}
+                        </div>
                         <div className="text-muted-foreground mt-1">
                           {formatCurrency(item.product.price)}
                         </div>
@@ -98,7 +152,9 @@ const Basket: React.FC = () => {
                           >
                             <Minus className="h-4 w-4" />
                           </Button>
-                          <span className="w-8 text-center">{item.quantity}</span>
+                          <span className="w-8 text-center">
+                            {item.quantity}
+                          </span>
                           <Button
                             variant="outline"
                             size="sm"
@@ -146,18 +202,39 @@ const Basket: React.FC = () => {
                 </div>
                 <div className="flex justify-between mt-4">
                   <span>{t.basket?.subtotal || 'Subtotal'}</span>
-                  <span className="font-bold">{formatCurrency(totalPrice)}</span>
+                  <span className="font-bold">
+                    {formatCurrency(totalPrice)}
+                  </span>
                 </div>
                 <div className="flex justify-between mt-2 text-muted-foreground">
                   <span>{t.basket?.shipping || 'Shipping'}</span>
-                  <span>{t.basket?.shipping_calc || 'Calculated at checkout'}</span>
+                  <span>
+                    {t.basket?.shipping_calc || 'Calculated at checkout'}
+                  </span>
                 </div>
-                <Button
-                  size="lg"
-                  className="btn-primary w-full mt-6 shadow-lg hover:shadow-xl"
-                >
-                  {t.basket?.checkout || 'Proceed to checkout'}
-                </Button>
+
+                {/* Checkout buttons */}
+                <div className="mt-6 space-y-3">
+                  <Button
+                    size="lg"
+                    className="btn-primary w-full shadow-lg hover:shadow-xl"
+                    disabled={isPaying}
+                    onClick={() => handleCheckout('payme')}
+                  >
+                    {isPaying
+                      ? t.basket?.processing || 'Processing...'
+                      : t.basket?.checkout_payme || 'Pay with Payme'}
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full"
+                    disabled={isPaying}
+                    onClick={() => handleCheckout('click')}
+                  >
+                    {t.basket?.checkout_click || 'Pay with Click'}
+                  </Button>
+                </div>
               </aside>
             </div>
           )}

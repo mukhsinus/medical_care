@@ -57,6 +57,8 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 
+import api, { startPayment } from "@/api";
+
 // API Functions
 const fetchUserProfile = async (): Promise<{ user: UserProfile }> => {
   const token = localStorage.getItem("authToken");
@@ -141,9 +143,10 @@ const logoutUser = async () => {
 };
 
 const formatCurrency = (n: number) =>
-  n.toLocaleString(undefined, { style: "currency", currency: "USD" });
+  n.toLocaleString(undefined, { style: "currency", currency: "UZS" });
 
 type Tab = "info" | "basket" | "orders";
+type PaymentProvider = "payme" | "click";
 
 const Account: React.FC = () => {
   const { locale, t } = useLanguage();
@@ -167,6 +170,7 @@ const Account: React.FC = () => {
     new: "",
     confirm: "",
   });
+  const [isPaying, setIsPaying] = useState(false);
 
   const { toast } = useToast();
 
@@ -183,11 +187,12 @@ const Account: React.FC = () => {
   const user = data?.user;
 
   // Fetch orders
-  const { data:ordersData={ orders : []}, isLoading: ordersLoading } = useQuery<{orders:Order[]}>({
-    queryKey: ["userOrders"],
-    queryFn: fetchUserOrders,
-    enabled: !!user,
-  });
+  const { data: ordersData = { orders: [] }, isLoading: ordersLoading } =
+    useQuery<{ orders: Order[] }>({
+      queryKey: ["userOrders"],
+      queryFn: fetchUserOrders,
+      enabled: !!user,
+    });
 
   const orders = ordersData.orders;
 
@@ -258,6 +263,38 @@ const Account: React.FC = () => {
       current: passwords.current,
       new: passwords.new,
     });
+  };
+  const handleCheckout = async (provider: PaymentProvider) => {
+    try {
+      if (!items.length) return;
+      setIsPaying(true);
+
+      const payloadItems = items.map((ci) => ({
+        productId: Number(ci.product.id) || 0, // backend expects Number
+        name: ci.product.name,
+        quantity: ci.quantity,
+        price: ci.product.price,
+      }));
+
+      const result = await startPayment({
+        items: payloadItems,
+        amount: totalPrice ?? 0,
+        provider,
+      });
+
+      window.location.href = result.paymentInitData.redirectUrl;
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: t.basket?.payment_error_title || "Payment Error",
+        description:
+          t.basket?.payment_error ||
+          "Ошибка при создании заказа. Попробуйте ещё раз.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsPaying(false);
+    }
   };
 
   if (userLoading) {
@@ -636,11 +673,28 @@ const Account: React.FC = () => {
                                 "Calculated at checkout"}
                             </span>
                           </div>
-                          <Button size="lg" className="w-full mt-6" asChild>
-                            <Link to={`/${locale}/checkout`}>
-                              {t.basket?.checkout || "Proceed to checkout"}
-                            </Link>
-                          </Button>
+
+                          <div className="mt-6 space-y-3">
+                            <Button
+                              size="lg"
+                              className="w-full btn-primary shadow-lg hover:shadow-xl"
+                              disabled={isPaying}
+                              onClick={() => handleCheckout("payme")}
+                            >
+                              {isPaying
+                                ? t.basket?.processing || "Processing..."
+                                : t.basket?.checkout_payme || "Pay with Payme"}
+                            </Button>
+                            <Button
+                              size="lg"
+                              variant="outline"
+                              className="w-full"
+                              disabled={isPaying}
+                              onClick={() => handleCheckout("click")}
+                            >
+                              {t.basket?.checkout_click || "Pay with Click"}
+                            </Button>
+                          </div>
                         </aside>
                       </div>
                     )}

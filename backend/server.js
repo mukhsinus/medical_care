@@ -37,6 +37,7 @@ app.get('/api/me', authMiddleware, async (req, res) => {
 // Routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+const paymentRoutes = require('./routes/payment');
 
 
 // Connect to MongoDB and start server
@@ -49,6 +50,7 @@ async function start() {
 
     app.use('/api/auth', authRoutes);
     app.use('/api/user', userRoutes);
+    app.use('/api/payment', paymentRoutes);
 
     // health
     app.get('/api/health', (req, res) => res.json({ ok: true, time: new Date() }));

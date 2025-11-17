@@ -214,7 +214,7 @@ export default function Home() {
                       />
                     </div>
 
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-3 w-[90%] max-w-[200px] sm:w-auto hidden">
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-3 w-[90%] max-w-[200px] sm:w-auto">
                       <div className="w-full text-center rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 flex items-end justify-center">
                         <span className="text-[12px] md:text-sm font-semibold leading-tight">
                           {catData.name}

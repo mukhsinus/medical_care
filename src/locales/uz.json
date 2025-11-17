@@ -176,7 +176,14 @@
     "subtotal": "Jami",
     "shipping": "Yetkazib berish",
     "shipping_calc": "To'lov vaqtida hisoblanadi",
-    "checkout": "To'lovga o'tish"
+    "checkout": "To'lovga o'tish",
+    "payment_error": "To'lov amalga oshmadi. Iltimos, qayta urinib ko'ring.",
+    "payment_error_title": "To'lov xatosi",
+    "checkout_title": "To'lov",
+    "checkout_desc": "Iltimos, buyurtma tafsilotlarini ko'rib chiqing va to'lov usulini tanlang.",
+    "processing": "Jarayon davom etmoqda...",
+    "checkout_payme": "Payme orqali to'lash",
+    "checkout_click": "Click orqali to'lash"
   },
   "account": {
     "title": "Sizning hisobingiz",

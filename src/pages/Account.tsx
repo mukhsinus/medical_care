@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { CheckoutDialog } from "@/components/CheckoutDialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   User,
@@ -157,6 +158,17 @@ const Account: React.FC = () => {
     useCart();
 
   const [activeTab, setActiveTab] = useState<Tab>("info");
+
+  // Add this helper function inside the component (same as in Basket page)
+  const handleQuantityChange = (id: string, delta: number) => {
+    const item = items.find((i) => i.product.id === id);
+    if (!item) return;
+    const newQty = item.quantity + delta;
+    if (newQty <= 0) removeItem(id);
+    else updateQuantity(id, newQty);
+  };
+
+  // And finally render the dialog at the bottom (after password modal) */}
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -551,241 +563,125 @@ const Account: React.FC = () => {
                 </Card>
               )}
 
-              {/* BASKET TAB WITH CHECKOUT POPUP */}
+              {/* BASKET TAB */}
               {activeTab === "basket" && (
-                <>
-                  <Card className="glass-card rounded-2xl">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <ShoppingBasket className="h-6 w-6 text-sky-500" />
-                        {t.basket?.title || "Your Basket"}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      {items.length === 0 ? (
-                        <div className="text-center py-8">
-                          <p className="text-xl text-muted-foreground mb-6">
-                            {t.basket?.empty || "Your basket is empty."}
-                          </p>
-                          <Button asChild size="lg">
-                            <Link to={`/${locale}/catalog`}>
-                              {t.basket?.shop || "Go to shop"}
-                            </Link>
-                          </Button>
-                        </div>
-                      ) : (
-                        <div className="grid md:grid-cols-[1fr_320px] gap-6">
-                          {/* Items list */}
-                          <section>
-                            <ul className="space-y-4">
-                              {items.map((ci) => {
-                                const product = ci.product;
-                                const qty = ci.quantity;
-
-                                return (
-                                  <li
-                                    key={String(product.id)}
-                                    className="glass-card rounded-2xl p-4 flex gap-4 items-center"
-                                  >
-                                    <div className="w-20 h-20 bg-[hsl(200_80%_94%)] rounded-lg flex items-center justify-center overflow-hidden">
-                                      {product.image ? (
-                                        <img
-                                          src={product.image}
-                                          alt={product.name}
-                                          className="w-full h-full object-cover"
-                                          loading="lazy"
-                                        />
-                                      ) : (
-                                        <span className="text-muted-foreground">
-                                          No image
-                                        </span>
-                                      )}
-                                    </div>
-                                    <div className="flex-1">
-                                      <div className="font-semibold text-lg">
-                                        {product.name}
-                                      </div>
-                                      <div className="text-muted-foreground mt-1">
-                                        {formatCurrency(product.price)}
-                                      </div>
-                                      <div className="flex items-center gap-2 mt-3">
-                                        <Button
-                                          variant="outline"
-                                          size="sm"
-                                          onClick={() => {
-                                            if (qty <= 1) {
-                                              removeItem(product.id);
-                                            } else {
-                                              updateQuantity(
-                                                product.id,
-                                                qty - 1
-                                              );
-                                            }
-                                          }}
-                                        >
-                                          <Minus className="h-4 w-4" />
-                                        </Button>
-                                        <span className="w-8 text-center">
-                                          {qty}
-                                        </span>
-                                        <Button
-                                          variant="outline"
-                                          size="sm"
-                                          onClick={() =>
-                                            updateQuantity(
-                                              product.id,
-                                              qty + 1
-                                            )
-                                          }
-                                        >
-                                          <Plus className="h-4 w-4" />
-                                        </Button>
-                                        <Button
-                                          variant="ghost"
-                                          size="sm"
-                                          onClick={() =>
-                                            removeItem(product.id)
-                                          }
-                                          className="text-red-500"
-                                        >
-                                          <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                      </div>
-                                    </div>
-                                    <div className="font-semibold">
-                                      {formatCurrency(product.price * qty)}
-                                    </div>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                            <div className="flex justify-between mt-6">
-                              <Button variant="outline" onClick={clearCart}>
-                                {t.basket?.clear || "Clear basket"}
-                              </Button>
-                              <Button asChild variant="outline">
-                                <Link to={`/${locale}/catalog`}>
-                                  {t.basket?.continue ||
-                                    "Continue shopping"}
-                                </Link>
-                              </Button>
-                            </div>
-                          </section>
-
-                          {/* Summary + open dialog */}
-                          <aside className="glass-card rounded-2xl p-6">
-                            <div className="text-sm text-muted-foreground">
-                              {t.basket?.summary || "Order summary"}
-                            </div>
-                            <div className="flex justify-between mt-4">
-                              <span>{t.basket?.subtotal || "Subtotal"}</span>
-                              <span className="font-bold">
-                                {formatCurrency(totalPrice ?? 0)}
-                              </span>
-                            </div>
-                            <div className="flex justify-between mt-2 text-muted-foreground">
-                              <span>{t.basket?.shipping || "Shipping"}</span>
-                              <span>
-                                {t.basket?.shipping_calc ||
-                                  "Calculated at checkout"}
-                              </span>
-                            </div>
-
-                            <Button
-                              size="lg"
-                              className="w-full btn-primary shadow-lg hover:shadow-xl mt-6"
-                              onClick={() => setIsCheckoutOpen(true)}
-                            >
-                              {t.basket?.checkout || "Proceed to checkout"}
-                            </Button>
-                          </aside>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-
-                  {/* Checkout popup */}
-                  <Dialog
-                    open={isCheckoutOpen}
-                    onOpenChange={setIsCheckoutOpen}
-                  >
-                    <DialogContent className="max-w-lg sm:max-w-xl">
-                      <DialogHeader>
-                        <DialogTitle>
-                          {t.basket?.checkout_title || "Confirm your order"}
-                        </DialogTitle>
-                        <DialogDescription>
-                          {t.basket?.checkout_desc ||
-                            "Please review your order details and choose a payment method."}
-                        </DialogDescription>
-                      </DialogHeader>
-
-                      <div className="mt-4 space-y-4 max-h-[60vh] overflow-y-auto">
-                        <div className="space-y-2">
-                          {items.map((item) => (
-                            <div
-                              key={item.product.id}
-                              className="flex justify-between gap-3 text-sm"
-                            >
-                              <div className="flex-1">
-                                <div className="font-medium">
-                                  {item.product.name}
-                                </div>
-                                <div className="text-muted-foreground">
-                                  {item.quantity} ×{" "}
-                                  {formatCurrency(item.product.price)}
-                                </div>
-                              </div>
-                              <div className="font-semibold">
-                                {formatCurrency(
-                                  item.product.price * item.quantity
-                                )}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="border-t pt-3 space-y-1 text-sm">
-                          <div className="flex justify-between">
-                            <span>{t.basket?.subtotal || "Subtotal"}</span>
-                            <span className="font-semibold">
-                              {formatCurrency(totalPrice ?? 0)}
-                            </span>
-                          </div>
-                          <div className="flex justify-between text-muted-foreground">
-                            <span>{t.basket?.shipping || "Shipping"}</span>
-                            <span>
-                              {t.basket?.shipping_calc ||
-                                "Calculated at checkout"}
-                            </span>
-                          </div>
-                        </div>
+                <Card className="glass-card rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <ShoppingBasket className="h-6 w-6 text-sky-500" />
+                      {t.basket?.title || "Your Basket"}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {items.length === 0 ? (
+                      <div className="text-center py-12">
+                        <p className="text-xl text-muted-foreground mb-6">
+                          {t.basket?.empty || "Your basket is empty."}
+                        </p>
+                        <Button asChild size="lg" className="btn-primary">
+                          <Link to={`/${locale}/catalog`}>
+                            {t.basket?.shop || "Go to shop"}
+                          </Link>
+                        </Button>
                       </div>
+                    ) : (
+                      <div className="grid md:grid-cols-[1fr_320px] gap-6">
+                        {/* Same item list as Basket page – you can even extract this too if you want */}
+                        <section>
+                          <ul className="space-y-4">
+                            {items.map((ci) => {
+                              const p = ci.product;
+                              return (
+                                <li
+                                  key={p.id}
+                                  className="glass-card rounded-2xl p-4 flex gap-4 items-center"
+                                >
+                                  <div className="w-20 h-20 bg-[hsl(200_80%_94%)] rounded-lg overflow-hidden">
+                                    {p.image ? (
+                                      <img
+                                        src={p.image}
+                                        alt={p.name}
+                                        className="w-full h-full object-cover"
+                                      />
+                                    ) : (
+                                      "No image"
+                                    )}
+                                  </div>
+                                  <div className="flex-1">
+                                    <div className="font-semibold text-lg">
+                                      {p.name}
+                                    </div>
+                                    <div className="text-muted-foreground">
+                                      {formatCurrency(p.price)}
+                                    </div>
+                                    <div className="flex items-center gap-2 mt-3">
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() =>
+                                          handleQuantityChange(p.id, -1)
+                                        }
+                                      >
+                                        <Minus className="h-4 w-4" />
+                                      </Button>
+                                      <span className="w-10 text-center">
+                                        {ci.quantity}
+                                      </span>
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() =>
+                                          handleQuantityChange(p.id, +1)
+                                        }
+                                      >
+                                        <Plus className="h-4 w-4" />
+                                      </Button>
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => removeItem(p.id)}
+                                        className="text-red-500"
+                                      >
+                                        <Trash2 className="h-4 w-4" />
+                                      </Button>
+                                    </div>
+                                  </div>
+                                  <div className="font-semibold text-lg">
+                                    {formatCurrency(p.price * ci.quantity)}
+                                  </div>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                          <div className="flex justify-between mt-6">
+                            <Button variant="outline" onClick={clearCart}>
+                              {t.basket?.clear || "Clear"}
+                            </Button>
+                            <Button asChild variant="outline">
+                              <Link to={`/${locale}/catalog`}>
+                                {t.basket?.continue || "Continue shopping"}
+                              </Link>
+                            </Button>
+                          </div>
+                        </section>
 
-                      <DialogFooter className="flex flex-col gap-3 sm:flex-row sm:justify-between">
-                        <Button
-                          size="lg"
-                          className="w-full sm:w-auto btn-primary"
-                          disabled={isPaying}
-                          onClick={() => handleCheckout("payme")}
-                        >
-                          {isPaying
-                            ? t.basket?.processing || "Processing..."
-                            : t.basket?.checkout_payme || "Pay with Payme"}
-                        </Button>
-                        <Button
-                          size="lg"
-                          variant="outline"
-                          className="w-full sm:w-auto"
-                          disabled={isPaying}
-                          onClick={() => handleCheckout("click")}
-                        >
-                          {t.basket?.checkout_click || "Pay with Click"}
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                </>
+                        <aside className="glass-card rounded-2xl p-6">
+                          <div className="text-lg font-bold flex justify-between">
+                            <span>{t.basket?.subtotal || "Subtotal"}</span>
+                            <span>{formatCurrency(totalPrice ?? 0)}</span>
+                          </div>
+                          <Button
+                            size="lg"
+                            className="w-full btn-primary shadow-lg hover:shadow-xl mt-6"
+                            onClick={() => setIsCheckoutOpen(true)}
+                          >
+                            {t.basket?.checkout || "Proceed to checkout"}
+                          </Button>
+                        </aside>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
               )}
 
               {/* ORDERS */}
@@ -916,6 +812,8 @@ const Account: React.FC = () => {
           </form>
         </DialogContent>
       </Dialog>
+
+      <CheckoutDialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen} />
     </Layout>
   );
 };

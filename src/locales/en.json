@@ -183,7 +183,8 @@
     "checkout_desc": "Please review your order details and choose a payment method.",
     "processing": "Processing...",
     "checkout_payme": "Pay with Payme",
-    "checkout_click": "Pay with Click"
+    "checkout_click": "Pay with Click",
+    "total": "Total"
   },
   "account": {
     "title": "Your Account",

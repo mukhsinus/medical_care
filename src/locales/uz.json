@@ -183,7 +183,8 @@
     "checkout_desc": "Iltimos, buyurtma tafsilotlarini ko'rib chiqing va to'lov usulini tanlang.",
     "processing": "Jarayon davom etmoqda...",
     "checkout_payme": "Payme orqali to'lash",
-    "checkout_click": "Click orqali to'lash"
+    "checkout_click": "Click orqali to'lash",
+    "total": "Jami"
   },
   "account": {
     "title": "Sizning hisobingiz",

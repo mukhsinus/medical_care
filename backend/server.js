@@ -50,7 +50,7 @@ async function start() {
 
     app.use('/api/auth', authRoutes);
     app.use('/api/user', userRoutes);
-    app.use('/api/payment', paymentRoutes);
+    app.use('/api/payments', paymentRoutes);
 
     // health
     app.get('/api/health', (req, res) => res.json({ ok: true, time: new Date() }));

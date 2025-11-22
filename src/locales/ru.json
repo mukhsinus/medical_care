@@ -184,7 +184,8 @@
     "checkout_desc": "Пожалуйста, проверьте детали вашего заказа и выберите способ оплаты.",
     "processing": "Обработка...",
     "checkout_payme": "Оплатить через Payme",
-    "checkout_click": "Оплатить через Click"
+    "checkout_click": "Оплатить через Click",
+    "total": "Итого"
   },
   "account": {
     "title": "Ваш аккаунт",

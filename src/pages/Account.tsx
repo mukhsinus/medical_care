@@ -593,71 +593,76 @@ const Account: React.FC = () => {
                               const p = ci.product;
                               return (
                                 <li
-  key={p.id}
-  className="glass-card rounded-2xl p-4 flex gap-4"
->
-  {/* IMAGE */}
-  <div className="w-20 h-20 bg-[hsl(200_80%_94%)] rounded-lg overflow-hidden shrink-0">
-    {p.image ? (
-      <img
-        src={p.image}
-        alt={p.name}
-        className="w-full h-full object-cover"
-      />
-    ) : (
-      "No image"
-    )}
-  </div>
+                                  key={p.id}
+                                  className="glass-card rounded-2xl p-4 flex gap-4"
+                                >
+                                  {/* IMAGE */}
+                                  <div className="w-20 h-20 bg-[hsl(200_80%_94%)] rounded-lg overflow-hidden shrink-0">
+                                    {p.image ? (
+                                      <img
+                                        src={p.image}
+                                        alt={p.name}
+                                        className="w-full h-full object-cover"
+                                      />
+                                    ) : (
+                                      "No image"
+                                    )}
+                                  </div>
 
-  {/* RIGHT BLOCK */}
-  <div className="flex-1 min-w-0 flex flex-col gap-2">
-    {/* PRODUCT NAME */}
-    <div className="font-semibold text-lg break-words">
-      {p.name}
-    </div>
+                                  {/* RIGHT BLOCK */}
+                                  <div className="flex-1 min-w-0 flex flex-col gap-2">
+                                    {/* PRODUCT NAME */}
+                                    <div className="font-semibold text-lg break-words">
+                                      {p.name}
+                                    </div>
 
-    {/* UNIT PRICE */}
-    <div className="text-muted-foreground">
-      {formatCurrency(p.price)}
-    </div>
+                                    {/* UNIT PRICE */}
+                                    <div className="text-muted-foreground">
+                                      {formatCurrency(p.price)}
+                                    </div>
 
-    {/* QUANTITY + TOTAL PRICE left aligned */}
-    <div className="flex items-center gap-3 flex-wrap mt-2">
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => handleQuantityChange(p.id, -1)}
-      >
-        <Minus className="h-4 w-4" />
-      </Button>
+                                    {/* QUANTITY + TOTAL PRICE left aligned */}
+                                    <div className="flex items-center gap-3 flex-wrap mt-2">
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() =>
+                                          handleQuantityChange(p.id, -1)
+                                        }
+                                      >
+                                        <Minus className="h-4 w-4" />
+                                      </Button>
 
-      <span className="w-10 text-center">{ci.quantity}</span>
+                                      <span className="w-10 text-center">
+                                        {ci.quantity}
+                                      </span>
 
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => handleQuantityChange(p.id, +1)}
-      >
-        <Plus className="h-4 w-4" />
-      </Button>
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() =>
+                                          handleQuantityChange(p.id, +1)
+                                        }
+                                      >
+                                        <Plus className="h-4 w-4" />
+                                      </Button>
 
-      <Button
-        variant="ghost"
-        size="sm"
-        className="text-red-500"
-        onClick={() => removeItem(p.id)}
-      >
-        <Trash2 className="h-4 w-4" />
-      </Button>
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className="text-red-500"
+                                        onClick={() => removeItem(p.id)}
+                                      >
+                                        <Trash2 className="h-4 w-4" />
+                                      </Button>
 
-      {/* TOTAL PRICE */}
-      <div className="font-semibold text-lg">
-        {formatCurrency(p.price * ci.quantity)}
-      </div>
-    </div>
-  </div>
-</li>
-
+                                      {/* TOTAL PRICE */}
+                                      <div className="font-semibold text-lg">
+                                        {formatCurrency(p.price * ci.quantity)}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
                               );
                             })}
                           </ul>
@@ -677,6 +682,15 @@ const Account: React.FC = () => {
                           <div className="text-lg font-bold flex justify-between">
                             <span>{t.basket?.subtotal || "Subtotal"}</span>
                             <span>{formatCurrency(totalPrice ?? 0)}</span>
+                          </div>
+                          <div className="flex justify-between mt-2 text-muted-foreground">
+                            <span className="flex-1 text-left">
+                              {t.basket?.shipping || "Shipping"}
+                            </span>
+                            <span className="flex-1 text-right">
+                              {t.basket?.shipping_calc ||
+                                "Calculated at checkout"}
+                            </span>
                           </div>
                           <Button
                             size="lg"

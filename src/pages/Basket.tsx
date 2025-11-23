@@ -156,8 +156,8 @@ const Basket: React.FC = () => {
                   <span>{formatCurrency(totalPrice)}</span>
                 </div>
                 <div className="flex justify-between mt-2 text-muted-foreground">
-                  <span>{t.basket?.shipping || "Shipping"}</span>
-                  <span>
+                  <span className="flex-1 text-left">{t.basket?.shipping || "Shipping"}</span>
+                  <span className="flex-1 text-right">
                     {t.basket?.shipping_calc || "Calculated at checkout"}
                   </span>
                 </div>

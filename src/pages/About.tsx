@@ -214,9 +214,9 @@ export default function About() {
                 {t.common.findLocation}
               </Button>
 
-              <div>
+              <div className="relative">
                 <Button
-                  // type="button"
+                  type="button"
                   size="lg"
                   variant="outline"
                   onClick={() => setPhoneMenuOpen((v) => !v)}

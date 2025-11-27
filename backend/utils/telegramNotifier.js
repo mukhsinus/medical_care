@@ -5,6 +5,7 @@ const BotAdmin = require('../models/BotAdmin');
 const BotSession = require('../models/BotSession');
 const User = require('../models/User');
 const Order = require('../models/Order');
+const BotChannel = require('../models/BotChannel');
 
 const loginStates = new Map();
 
@@ -33,21 +34,41 @@ bot.getMe()
 /* --------------------------------------------------------------
    NOTIFICATION (public function)
    -------------------------------------------------------------- */
+/* --------------------------------------------------------------
+   NOTIFICATION (public function)
+   -------------------------------------------------------------- */
 async function sendNotification(message, options = {}) {
   try {
-    const sessions = await BotSession.find({ expiresAt: { $gt: Date.now() } });
-    if (!sessions.length) {
-      console.log('No active admin sessions.');
+    const now = Date.now();
+
+    const [sessions, channels] = await Promise.all([
+      BotSession.find({ expiresAt: { $gt: now } }),
+      BotChannel.find(),
+    ]);
+
+    // unique chat IDs (private admins + groups)
+    const targetIds = new Set([
+      ...sessions.map((s) => s.chatId),
+      ...channels.map((c) => c.chatId),
+    ]);
+
+    if (!targetIds.size) {
+      console.log('No active admin sessions or subscribed groups.');
       return;
     }
-    for (const s of sessions) {
-      await bot.sendMessage(s.chatId, message, { parse_mode: 'HTML', ...options });
-      console.log(`Sent to ${s.chatId}`);
+
+    for (const chatId of targetIds) {
+      await bot.sendMessage(chatId, message, {
+        parse_mode: 'HTML',
+        ...options,
+      });
+      console.log(`Sent to ${chatId}`);
     }
   } catch (err) {
     console.error('Telegram send error:', err.message);
   }
 }
+
 
 /* --------------------------------------------------------------
    /login
@@ -229,6 +250,68 @@ Time: <b>${new Date().toLocaleString()}</b>
 });
 
 /* --------------------------------------------------------------
+   /setgroup  — subscribe a group for notifications
+   -------------------------------------------------------------- */
+bot.onText(/\/setgroup/, async (msg) => {
+  const chatId = msg.chat.id.toString();
+  const chatType = msg.chat.type;
+
+  // This must be run INSIDE the group
+  if (chatType !== 'group' && chatType !== 'supergroup') {
+    return bot.sendMessage(
+      chatId,
+      'Use /setgroup *inside the group* where you want to receive order notifications.',
+      { parse_mode: 'Markdown' }
+    );
+  }
+
+  try {
+    await BotChannel.findOneAndUpdate(
+      { chatId },
+      {
+        chatId,
+        type: chatType,
+        title: msg.chat.title || '',
+      },
+      { upsert: true, new: true }
+    );
+
+    bot.sendMessage(
+      chatId,
+      '✅ This group is now subscribed to order notifications.',
+    );
+    console.log('Group subscribed for notifications:', chatId, msg.chat.title);
+  } catch (err) {
+    console.error('Error saving group subscription:', err);
+    bot.sendMessage(chatId, '❌ Could not subscribe this group. Try again later.');
+  }
+});
+/* --------------------------------------------------------------
+   /unsetgroup — unsubscribe group from notifications
+   -------------------------------------------------------------- */
+bot.onText(/\/unsetgroup/, async (msg) => {
+  const chatId = msg.chat.id.toString();
+  const chatType = msg.chat.type;
+
+  if (chatType !== 'group' && chatType !== 'supergroup') {
+    return bot.sendMessage(
+      chatId,
+      'Use /unsetgroup *inside the group* you want to unsubscribe.',
+      { parse_mode: 'Markdown' }
+    );
+  }
+
+  const deleted = await BotChannel.findOneAndDelete({ chatId });
+  bot.sendMessage(
+    chatId,
+    deleted
+      ? '✅ This group will no longer receive order notifications.'
+      : 'This group was not subscribed.'
+  );
+});
+
+
+/* --------------------------------------------------------------
    /help
    -------------------------------------------------------------- */
 bot.onText(/\/help/, (msg) => {
@@ -256,6 +339,8 @@ bot.setMyCommands([
   { command: '/clients', description: 'Show 5 latest users' },
   { command: '/orders', description: 'Show 5 latest orders' },
   { command: '/stats', description: 'Show totals' },
+  { command: '/setgroup', description: 'Subscribe this group to notifications' }, 
+  { command: '/unsetgroup', description: 'Unsubscribe this group from notifications' },
   { command: '/help', description: 'Show help' },
 ]);
 

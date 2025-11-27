@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import { useEffect, useState, useCallback, useRef } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useLanguage } from '@/contexts/LanguageContext'
-import { Layout } from '@/components/Layout'
-import { SEO } from '@/components/SEO'
-import { Button } from '@/components/ui/button'
-import { Search, ShoppingBasket } from 'lucide-react'
-import { Input } from '@/components/ui/input'
-import { useCart } from '@/contexts/CartContext'
+import { useEffect, useState, useCallback, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
+import { Button } from "@/components/ui/button";
+import { Search, ShoppingBasket } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { useCart } from "@/contexts/CartContext";
 import {
   Pagination,
   PaginationContent,
@@ -16,281 +16,159 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/pagination'
+} from "@/components/ui/pagination";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from '@/components/ui/dialog'
-import { Label } from '@/components/ui/label'
-import debounce from 'lodash.debounce'
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import debounce from "lodash.debounce";
 
-import categoryInjection from '@/assets/category-injection.png'
-import categoryEquipment from '@/assets/category-equipment.png'
-import categorySurgery from '@/assets/category-surgery.png'
-import categoryhygiene from '@/assets/category-hygiene.png'
-import categoryDressings from '@/assets/sterilization.png'
-import categoryLab from '@/assets/lab.png'
+import {
+  allItems,
+  categories,
+  type CatalogItem,
+  getImageSources,
+} from "@/data/CatalogData";
 
-const itemsImg = import.meta.glob('@/assets/items/*.{png,jpg,jpeg,webp}', {
-  eager: true,
-})
-const getImage = (filename: string) => {
-  return itemsImg[`/src/assets/items/${filename}`]?.default
+/* -------------------------------------------------------------
+   <picture> with AVIF → WebP → fallback
+   ------------------------------------------------------------- */
+
+type ItemPictureProps = {
+  basename: string;
+  alt: string;
+  className?: string;
+  imgClassName?: string;
+};
+
+function ItemPicture({
+  basename,
+  alt,
+  className,
+  imgClassName,
+}: ItemPictureProps) {
+  const { avif, webp, fallback } = getImageSources(basename);
+
+  return (
+    <picture className={className}>
+      {avif && <source srcSet={avif} type="image/avif" />}
+      {webp && <source srcSet={webp} type="image/webp" />}
+      <img src={fallback} alt={alt} className={imgClassName} loading="lazy" />
+    </picture>
+  );
 }
 
 /* -------------------------------------------------------------
-   Catalog data
+   ITEM MODAL – Full info + Add to Cart
    ------------------------------------------------------------- */
-type CatalogItem = {
-  id: number
-  category: string
-  nameKey: string
-  descriptionKey: string
-  price: number
-  image: string
-  boxInfo?: string // e.g. "12 pcs per box"
-}
 
-
-const allItems: CatalogItem[] = [
-  {
-    id: 1,
-    category: 'injection',
-    nameKey: 'items.1.name',
-    descriptionKey: 'items.1.description',
-    price: 2.5,
-    image: getImage('insulin-syringe.webp'),
-    boxInfo: '12 pcs per box',
-  },
-  {
-    id: 2,
-    category: 'injection',
-    nameKey: 'items.2.name',
-    descriptionKey: 'items.2.description',
-    price: 0.8,
-    image: getImage('hypodemic_21.webp'),
-    boxInfo: '50 pcs per box',
-  },
-  {
-    id: 3,
-    category: 'injection',
-    nameKey: 'items.3.name',
-    descriptionKey: 'items.3.description',
-    price: 1.2,
-    image: getImage('cannula_20.png'),
-    boxInfo: '100 pcs per box',
-  },
-  {
-    id: 4,
-    category: 'equipment',
-    nameKey: 'items.4.name',
-    descriptionKey: 'items.4.description',
-    price: 15,
-    image: getImage('dig_thermometer.webp'),
-    boxInfo: '1 pc per box',
-  },
-  {
-    id: 5,
-    category: 'equipment',
-    nameKey: 'items.5.name',
-    descriptionKey: 'items.5.description',
-    price: 45,
-    image: getImage('blood-pressure.png'),
-    boxInfo: '1 pc per box',
-  },
-  {
-    id: 6,
-    category: 'equipment',
-    nameKey: 'items.6.name',
-    descriptionKey: 'items.6.description',
-    price: 120,
-    image: getImage('stethoscope.png'),
-    boxInfo: '1 pc per box',
-  },
-  {
-    id: 7,
-    category: 'surgery',
-    nameKey: 'items.7.name',
-    descriptionKey: 'items.7.description',
-    price: 3.5,
-    image: getImage('scalpel-11.png'),
-    boxInfo: '10 pcs per box',
-  },
-  {
-    id: 8,
-    category: 'surgery',
-    nameKey: 'items.8.name',
-    descriptionKey: 'items.8.description',
-    price: 8,
-    image: getImage('forceps.webp'),
-    boxInfo: '5 pcs per box',
-  },
-  {
-    id: 9,
-    category: 'surgery',
-    nameKey: 'items.9.name',
-    descriptionKey: 'items.9.description',
-    price: 12,
-    image: getImage('suture.webp'),
-    boxInfo: '24 pcs per box',
-  },
-  {
-    id: 10,
-    category: 'hygiene',
-    nameKey: 'items.10.name',
-    descriptionKey: 'items.10.description',
-    price: 5,
-    image: getImage('alcohol.png'),
-    boxInfo: '500 ml per bottle',
-  },
-  {
-    id: 11,
-    category: 'hygiene',
-    nameKey: 'items.11.name',
-    descriptionKey: 'items.11.description',
-    price: 3.2,
-    image: getImage('sanitizer.png'),
-    boxInfo: '100 ml per bottle',
-  },
-  {
-    id: 12,
-    category: 'hygiene',
-    nameKey: 'items.12.name',
-    descriptionKey: 'items.12.description',
-    price: 25,
-    image: getImage('ppe.png'),
-    boxInfo: '50 pcs per box',
-  },
-  {
-    id: 13,
-    category: 'dressings',
-    nameKey: 'items.13.name',
-    descriptionKey: 'items.13.description',
-    price: 4.5,
-    image: getImage('gauze.png'),
-    boxInfo: '100 pcs per box',
-  },
-  {
-    id: 14,
-    category: 'dressings',
-    nameKey: 'items.14.name',
-    descriptionKey: 'items.14.description',
-    price: 2,
-    image: getImage('adhesive.png'),
-    boxInfo: '200 pcs per box',
-  },
-  {
-    id: 15,
-    category: 'dressings',
-    nameKey: 'items.15.name',
-    descriptionKey: 'items.15.description',
-    price: 18,
-    image: getImage('hydrocolloid.png'),
-    boxInfo: '10 pcs per box',
-  },
-  {
-    id: 16,
-    category: 'lab',
-    nameKey: 'items.16.name',
-    descriptionKey: 'items.16.description',
-    price: 1.5,
-    image: getImage('test-tube.webp'),
-    boxInfo: '100 pcs per box',
-  },
-  {
-    id: 17,
-    category: 'lab',
-    nameKey: 'items.17.name',
-    descriptionKey: 'items.17.description',
-    price: 0.3,
-    image: getImage('pipette.webp'),
-    boxInfo: '1000 pcs per box',
-  },
-  {
-    id: 18,
-    category: 'lab',
-    nameKey: 'items.18.name',
-    descriptionKey: 'items.18.description',
-    price: 6,
-    image: getImage('slides.png'),
-    boxInfo: '72 pcs per box',
-  },
-]
-
-const categories = [
-  { key: 'all', name: 'All Products', icon: 'Package' },
-  { key: 'injection', image: categoryInjection },
-  { key: 'equipment', image: categoryEquipment },
-  { key: 'surgery', image: categorySurgery },
-  { key: 'hygiene', image: categoryhygiene },
-  { key: 'dressings', image: categoryDressings },
-  { key: 'lab', image: categoryLab },
-]
-
-/* -------------------------------------------------------------
-   ITEM MODAL – Full info + Add to Cart (Fixed)
-   ------------------------------------------------------------- */
 type ItemModalProps = {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  item: CatalogItem
-  getTranslatedField: (key: string) => string
-}
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  item: CatalogItem;
+  getTranslatedField: (key: string) => string;
+  onAddedToCart: (itemId: number) => void;
+};
 
-function ItemModal({ open, onOpenChange, item, getTranslatedField }: ItemModalProps) {
-  const { addItem } = useCart()
-  const inputRef = useRef<HTMLInputElement>(null)
+function ItemModal({
+  open,
+  onOpenChange,
+  item,
+  getTranslatedField,
+  onAddedToCart,
+}: ItemModalProps) {
+  const { addItem } = useCart();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const name = getTranslatedField(item.nameKey)
-  const desc = getTranslatedField(item.descriptionKey)
+  const name = getTranslatedField(item.nameKey);
+  const desc = getTranslatedField(item.descriptionKey);
 
   const minQty = item.boxInfo
-    ? parseInt(item.boxInfo.match(/(\d+)/)?.[1] || '1', 10)
-    : 1
+    ? parseInt(item.boxInfo.match(/(\d+)/)?.[1] || "1", 10)
+    : 1;
 
-  const [qty, setQty] = useState(minQty)
+  const [qty, setQty] = useState<number | "">(minQty);
+
+  const basenames = item.imageBases?.length
+    ? item.imageBases
+    : [item.imageBase];
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  const [selectedColorKey, setSelectedColorKey] = useState<string | null>(
+    item.colors?.[0] ?? null
+  );
+  const [selectedSizeKey, setSelectedSizeKey] = useState<string | null>(
+    item.sizes?.[0] ?? null
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value === '' ? '' : parseInt(e.target.value, 10)
-    if (val === '' || (!isNaN(val) && val >= minQty)) {
-      setQty(val === '' ? '' : val)
-    }
-  }
+    const raw = e.target.value.replace(/[^0-9]/g, "");
+    setQty(raw === "" ? "" : Number(raw));
+  };
 
   const handleBlur = () => {
     if (!qty || qty < minQty) {
-      setQty(minQty)
+      setQty(minQty);
     }
-  }
+  };
 
-  const increment = () => setQty(prev => Math.max(minQty, (prev || minQty) + minQty))
-  const decrement = () => setQty(prev => Math.max(minQty, (prev || minQty) - minQty))
+  const increment = () =>
+    setQty((prev) => (prev === "" ? minQty + minQty : prev + minQty));
+
+  const decrement = () =>
+    setQty((prev) => {
+      if (prev === "") return minQty;
+      return Math.max(minQty, prev - minQty);
+    });
 
   const handleAdd = () => {
-    const finalQty = qty || minQty
+    const finalQty = qty || minQty;
+
+    // Variant labels (translated)
+    const details: string[] = [];
+    if (selectedColorKey) details.push(getTranslatedField(selectedColorKey));
+    if (selectedSizeKey) details.push(getTranslatedField(selectedSizeKey));
+
+    let displayName = name;
+    if (details.length) {
+      displayName = `${name} (${details.join(", ")})`;
+    }
+
+    const { fallback: mainImage } = getImageSources(basenames[0]);
+
     addItem(
-      { id: item.id, name, price: item.price, image: item.image },
+      {
+        id: item.id,
+        name: displayName,
+        price: item.price,
+        image: mainImage,
+      },
       finalQty
-    )
-    onOpenChange(false)
-    setQty(minQty)
-  }
+    );
+
+    onAddedToCart(item.id);
+    onOpenChange(false);
+    setQty(minQty);
+  };
 
   useEffect(() => {
     if (open) {
-      setQty(minQty)
-      setTimeout(() => inputRef.current?.select(), 100)
+      setQty(minQty);
+      setActiveImageIndex(0);
+      setSelectedColorKey(item.colors?.[0] ?? null);
+      setSelectedSizeKey(item.sizes?.[0] ?? null);
+
+      setTimeout(() => inputRef.current?.select(), 100);
     }
-  }, [open, minQty])
+  }, [open, minQty, item.colors, item.sizes]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent 
-        className="sm:max-w-md w-[90vw] max-w-[90vw] bg-white rounded-lg p-4 sm:p-6"
-      >
+      <DialogContent className="sm:max-w-md w-[90vw] max-w-[90vw] bg-white rounded-lg p-4 sm:p-6">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-lg">
             <ShoppingBasket className="h-5 w-5" />
@@ -299,13 +177,36 @@ function ItemModal({ open, onOpenChange, item, getTranslatedField }: ItemModalPr
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
-          <div className="flex gap-4">
-            <img
-              src={item.image}
-              alt={name}
-              className="h-24 w-24 rounded object-contain bg-gray-50"
-            />
-            <div className="flex-1 space-y-2">
+          {/* IMAGE + DOTS INSIDE MODAL */}
+          <div className="flex flex-col gap-3">
+            <div className="relative h-40 w-full overflow-hidden rounded bg-gray-50 flex items-center justify-center">
+              <ItemPicture
+                basename={basenames[activeImageIndex]}
+                alt={name}
+                className="max-h-full max-w-full flex items-center justify-center"
+                imgClassName="max-h-full max-w-full object-contain"
+              />
+
+              {basenames.length > 1 && (
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                  {basenames.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveImageIndex(idx)}
+                      className={`h-1.5 w-1.5 rounded-full transition ${
+                        idx === activeImageIndex
+                          ? "bg-primary"
+                          : "bg-primary/30"
+                      }`}
+                      aria-label={`Show image ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-2">
               <p className="font-medium">{name}</p>
               <p className="text-sm text-muted-foreground">{desc}</p>
               {item.boxInfo && (
@@ -322,198 +223,254 @@ function ItemModal({ open, onOpenChange, item, getTranslatedField }: ItemModalPr
             </span>
           </div>
 
-          {/* Custom Quantity Controls */}
-<div className="grid gap-2">
-  <Label htmlFor="qty">Quantity (min {minQty})</Label>
+          {/* COLORS (translated) */}
+          {item.colors && item.colors.length > 0 && (
+            <div className="space-y-1">
+              <Label>Color</Label>
+              <div className="flex flex-wrap gap-1.5">
+                {item.colors.map((colorKey) => {
+                  const label = getTranslatedField(colorKey);
+                  return (
+                    <button
+                      key={colorKey}
+                      type="button"
+                      onClick={() => setSelectedColorKey(colorKey)}
+                      className={`px-2 py-1 text-xs rounded-full border transition ${
+                        selectedColorKey === colorKey
+                          ? "bg-primary text-white border-primary"
+                          : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
-  <div className="flex items-center gap-2">
-    {/*  –  */}
-    <Button
-      type="button"
-      variant="outline"
-      size="icon"
-      className="h-10 w-10 shrink-0"
-      onClick={() => setQty(prev => Math.max(minQty, (prev ?? minQty) - minQty))}
-    >
-      −
-    </Button>
+          {/* SIZES (translated) */}
+          {item.sizes && item.sizes.length > 0 && (
+            <div className="space-y-1">
+              <Label>Size</Label>
+              <div className="flex flex-wrap gap-1.5">
+                {item.sizes.map((sizeKey) => {
+                  const label = getTranslatedField(sizeKey);
+                  return (
+                    <button
+                      key={sizeKey}
+                      type="button"
+                      onClick={() => setSelectedSizeKey(sizeKey)}
+                      className={`px-2 py-1 text-xs rounded-full border transition ${
+                        selectedSizeKey === sizeKey
+                          ? "bg-primary text-white border-primary"
+                          : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
-    {/*  INPUT  */}
-    <Input
-      id="qty"
-      ref={inputRef}
-      type="text"
-      inputMode="numeric"          // numeric keypad on mobile
-      pattern="[0-9]*"
-      value={qty}
-      placeholder={minQty.toString()}
-      className="w-24 text-center"
-      onChange={e => {
-        const raw = e.target.value.replace(/[^0-9]/g, '')   // keep only digits
-        setQty(raw === '' ? '' : Number(raw))
-      }}
-      onBlur={() => {
-        if (!qty || qty < minQty) setQty(minQty)
-      }}
-    />
+          {/* QUANTITY */}
+          <div className="grid gap-2">
+            <Label htmlFor="qty">Quantity (min {minQty})</Label>
 
-    {/*  +  */}
-    <Button
-      type="button"
-      variant="outline"
-      size="icon"
-      className="h-10 w-10 shrink-0"
-      onClick={() => setQty(prev => (prev ?? minQty) + minQty)}
-    >
-      +
-    </Button>
-  </div>
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="h-10 w-10 shrink-0"
+                onClick={decrement}
+              >
+                −
+              </Button>
 
-  {/*  live warning  */}
-  {qty !== '' && qty < minQty && (
-    <p className="text-xs text-red-600">Minimum quantity is {minQty}</p>
-  )}
-</div>
+              <Input
+                id="qty"
+                ref={inputRef}
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={qty}
+                placeholder={minQty.toString()}
+                className="w-24 text-center"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="h-10 w-10 shrink-0"
+                onClick={increment}
+              >
+                +
+              </Button>
+            </div>
+
+            {qty !== "" && qty < minQty && (
+              <p className="text-xs text-red-600">
+                Minimum quantity is {minQty}
+              </p>
+            )}
+          </div>
         </div>
 
         <DialogFooter className="gap-2 flex-col sm:flex-row">
-          <Button variant="outline" onClick={() => onOpenChange(false)} className="w-full sm:w-auto">
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            className="w-full sm:w-auto"
+          >
             Cancel
           </Button>
           <Button onClick={handleAdd} className="w-full sm:w-auto">
-            Add {qty || minQty} {qty === 1 ? 'item' : 'items'}
+            Add {qty || minQty} {qty === 1 ? "item" : "items"}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
+
 /* -------------------------------------------------------------
    MAIN CATALOG
    ------------------------------------------------------------- */
+
 export default function Catalog() {
-  const { t } = useLanguage()
-  const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
+  const { t } = useLanguage();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const [activeCategory, setActiveCategory] = useState('all')
-  const [searchTerm, setSearchTerm] = useState('')
-  const [filteredItems, setFilteredItems] = useState<CatalogItem[]>([])
-  const [loading, setLoading] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 16
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredItems, setFilteredItems] = useState<CatalogItem[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 16;
 
-  const [modalOpen, setModalOpen] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(null)
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(null);
+  const [recentlyAddedId, setRecentlyAddedId] = useState<number | null>(null);
 
   const getTranslatedField = (key: string): string => {
-    const keys = key.split('.')
-    let value: any = t
+    const keys = key.split(".");
+    let value: any = t;
     for (const k of keys) {
-      value = value?.[k]
-      if (!value) return key
+      value = value?.[k];
+      if (!value) return key;
     }
-    return typeof value === 'string' ? value : key
-  }
+    return typeof value === "string" ? value : key;
+  };
 
   const getCategoryName = (key: string) => {
-    if (key === 'all') return t.catalog.allItems
-    const data = t.cats[key as keyof typeof t.categories] as { name: string }
-    return data?.name ?? key
-  }
-
-  const debouncedFilter = useCallback(
-    debounce((cat: string, srch: string) => {
-      filterItems(cat, srch)
-    }, 300),
-    [t]
-  )
-
-  useEffect(() => {
-    const cat = searchParams.get('category') ?? 'all'
-    const srch = searchParams.get('search') ?? ''
-    const page = parseInt(searchParams.get('page') ?? '1') || 1
-
-    setActiveCategory(cat)
-    setSearchTerm(srch)
-    setCurrentPage(page)
-    setLoading(true)
-    setTimeout(() => {
-      filterItems(cat, srch)
-      setLoading(false)
-    }, 300)
-  }, [searchParams, t])
+    if (key === "all") return t.catalog.allItems;
+    const data = (t as any)?.cats?.[key] as { name?: string } | undefined;
+    return data?.name ?? key;
+  };
 
   const filterItems = (cat: string, srch: string) => {
-    let list = allItems
-    if (cat !== 'all') list = list.filter((i) => i.category === cat)
+    let list = allItems;
+    if (cat !== "all") list = list.filter((i) => i.category === cat);
     if (srch.trim()) {
       list = list.filter((i) => {
-        const name = getTranslatedField(i.nameKey)
-        const desc = getTranslatedField(i.descriptionKey)
+        const name = getTranslatedField(i.nameKey);
+        const desc = getTranslatedField(i.descriptionKey);
         return (
           name.toLowerCase().includes(srch.toLowerCase()) ||
           desc.toLowerCase().includes(srch.toLowerCase())
-        )
-      })
+        );
+      });
     }
-    setFilteredItems(list)
-  }
+    setFilteredItems(list);
+  };
 
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage)
+  const debouncedFilter = useCallback(
+    debounce((cat: string, srch: string) => {
+      filterItems(cat, srch);
+    }, 300),
+    [t]
+  );
+
+  useEffect(() => {
+    const cat = searchParams.get("category") ?? "all";
+    const srch = searchParams.get("search") ?? "";
+    const page = parseInt(searchParams.get("page") ?? "1") || 1;
+
+    setActiveCategory(cat);
+    setSearchTerm(srch);
+    setCurrentPage(page);
+    setLoading(true);
+    setTimeout(() => {
+      filterItems(cat, srch);
+      setLoading(false);
+    }, 300);
+  }, [searchParams, t]);
+
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const paginatedItems = filteredItems.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
-  )
+  );
 
   const updateUrl = (cat: string, srch: string, page: number = 1) => {
-    const params = new URLSearchParams()
-    if (cat !== 'all') params.set('category', cat)
-    if (srch.trim()) params.set('search', srch)
-    if (page > 1) params.set('page', page.toString())
-    navigate(`?${params.toString()}`, { replace: true })
-  }
+    const params = new URLSearchParams();
+    if (cat !== "all") params.set("category", cat);
+    if (srch.trim()) params.set("search", srch);
+    if (page > 1) params.set("page", page.toString());
+    navigate(`?${params.toString()}`, { replace: true });
+  };
 
   const handleCategoryClick = (cat: string) => {
-    setActiveCategory(cat)
-    setCurrentPage(1)
-    updateUrl(cat, searchTerm, 1)
-    filterItems(cat, searchTerm)
-  }
+    setActiveCategory(cat);
+    setCurrentPage(1);
+    updateUrl(cat, searchTerm, 1);
+    filterItems(cat, searchTerm);
+  };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value
-    setSearchTerm(val)
-    setCurrentPage(1)
-    debouncedFilter(activeCategory, val)
-  }
+    const val = e.target.value;
+    setSearchTerm(val);
+    setCurrentPage(1);
+    debouncedFilter(activeCategory, val);
+  };
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    updateUrl(activeCategory, searchTerm, 1)
-  }
+    e.preventDefault();
+    updateUrl(activeCategory, searchTerm, 1);
+  };
 
   const handleClearSearch = () => {
-    setSearchTerm('')
-    setCurrentPage(1)
-    updateUrl(activeCategory, '', 1)
-    filterItems(activeCategory, '')
-  }
+    setSearchTerm("");
+    setCurrentPage(1);
+    updateUrl(activeCategory, "", 1);
+    filterItems(activeCategory, "");
+  };
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-    updateUrl(activeCategory, searchTerm, page)
-  }
+    setCurrentPage(page);
+    updateUrl(activeCategory, searchTerm, page);
+  };
 
   const openModal = (item: CatalogItem) => {
-    setSelectedItem(item)
-    setModalOpen(true)
-  }
+    setSelectedItem(item);
+    setModalOpen(true);
+  };
 
   if (loading) {
     return (
       <Layout>
-        <SEO title={t.catalog.title} description={t.catalog.subtitle} path="/catalog" />
+        <SEO
+          title={t.catalog.title}
+          description={t.catalog.subtitle}
+          path="/catalog"
+        />
         <div className="flex min-h-screen items-center justify-center">
           <div className="text-center">
             <div className="mx-auto mb-4 h-32 w-32 animate-spin rounded-full border-b-2 border-primary" />
@@ -521,10 +478,10 @@ export default function Catalog() {
           </div>
         </div>
       </Layout>
-    )
+    );
   }
 
-  const visibleCategories = categories.filter((c) => c.key !== 'all')
+  const visibleCategories = categories.filter((c) => c.key !== "all");
 
   return (
     <Layout>
@@ -536,10 +493,9 @@ export default function Catalog() {
 
       <section className="pb-16 pt-6 md:py-24">
         <div className="container mx-auto px-4">
-
           <div className="sr-only">
             <h1>
-              {activeCategory === 'all'
+              {activeCategory === "all"
                 ? t.catalog.title
                 : `${getCategoryName(activeCategory)} - ${t.catalog.title}`}
             </h1>
@@ -550,14 +506,14 @@ export default function Catalog() {
           <div className="mb-3 md:hidden">
             <button
               type="button"
-              onClick={() => handleCategoryClick('all')}
+              onClick={() => handleCategoryClick("all")}
               className={`w-full text-left px-3 py-2 text-sm rounded-md transition
                 ${
-                  activeCategory === 'all'
-                    ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
-                    : 'border border-transparent text-slate-700 bg-white/0 hover:bg-slate-50'
+                  activeCategory === "all"
+                    ? "border-b-2 border-sky-500 text-sky-700 font-semibold"
+                    : "border border-transparent text-slate-700 bg-white/0 hover:bg-slate-50"
                 }`}
-              aria-pressed={activeCategory === 'all'}
+              aria-pressed={activeCategory === "all"}
             >
               {t.catalog.allItems}
             </button>
@@ -599,8 +555,8 @@ export default function Catalog() {
                       className={`w-full text-center px-3 py-2 text-[0.65rem] leading-tight transition rounded-md my-auto
                         ${
                           activeCategory === cat.key
-                            ? 'border-b-2 border-sky-500 text-sky-700 font-semibold'
-                            : 'text-slate-700 hover:bg-slate-50'
+                            ? "border-b-2 border-sky-500 text-sky-700 font-semibold"
+                            : "text-slate-700 hover:bg-slate-50"
                         }`}
                       aria-pressed={activeCategory === cat.key}
                       title={getCategoryName(cat.key)}
@@ -619,14 +575,14 @@ export default function Catalog() {
               <li>
                 <button
                   type="button"
-                  onClick={() => handleCategoryClick('all')}
+                  onClick={() => handleCategoryClick("all")}
                   className={`px-2 md:px-3 py-1.5 text-sm md:text-base transition border-b-2
                     ${
-                      activeCategory === 'all'
-                        ? 'border-sky-500 text-sky-700 font-semibold'
-                        : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
+                      activeCategory === "all"
+                        ? "border-sky-500 text-sky-700 font-semibold"
+                        : "border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300"
                     }`}
-                  aria-pressed={activeCategory === 'all'}
+                  aria-pressed={activeCategory === "all"}
                 >
                   {t.catalog.allItems}
                 </button>
@@ -640,7 +596,7 @@ export default function Catalog() {
                   hygiene: 5,
                   dressings: 6,
                   equipment: 7,
-                }
+                };
                 const desktopOrderMap: Record<string, number> = {
                   injection: 2,
                   equipment: 3,
@@ -648,11 +604,11 @@ export default function Catalog() {
                   hygiene: 5,
                   dressings: 6,
                   lab: 7,
-                }
+                };
 
-                const mOrder = mobileOrderMap[cat.key] ?? idx + 2
-                const dOrder = desktopOrderMap[cat.key] ?? idx + 2
-                const orderClass = `order-${mOrder} md:order-${dOrder}`
+                const mOrder = mobileOrderMap[cat.key] ?? idx + 2;
+                const dOrder = desktopOrderMap[cat.key] ?? idx + 2;
+                const orderClass = `order-${mOrder} md:order-${dOrder}`;
 
                 return (
                   <li key={cat.key} className={orderClass}>
@@ -662,57 +618,139 @@ export default function Catalog() {
                       className={`px-2 md:px-3 py-0.5 text-xs md:text-base transition border-b-2
                         ${
                           activeCategory === cat.key
-                            ? 'border-sky-500 text-sky-700 font-semibold'
-                            : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
+                            ? "border-sky-500 text-sky-700 font-semibold"
+                            : "border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300"
                         }`}
                       aria-pressed={activeCategory === cat.key}
                     >
                       {getCategoryName(cat.key)}
                     </button>
                   </li>
-                )
+                );
               })}
             </ul>
           </nav>
 
-
-          {/* PRODUCTS GRID – NO BACKGROUND, NO BADGE */}
+          {/* PRODUCTS GRID */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {paginatedItems.map((item) => {
-              const name = getTranslatedField(item.nameKey)
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => openModal(item)}
-                  className="group cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-100"
-                >
-                  {/* Image */}
-                  <div className="aspect-square mb-3 overflow-hidden border-2 border-primary bg-transparent">
-                    <img
-                      src={item.image}
-                      alt={name}
-                      className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-                      onError={(e) => {
-                        ;(e.currentTarget as HTMLImageElement).src =
-                          '/images/placeholder-product.jpg'
-                      }}
-                    />
-                  </div>
+              const name = getTranslatedField(item.nameKey);
+              const basenames = item.imageBases?.length
+                ? item.imageBases
+                : [item.imageBase];
 
-                  {/* Title */}
-                  <h3 className="font-medium text-sm line-clamp-2 mb-1" title={name}>
-                    {name}
-                  </h3>
+              const Card = () => {
+                const [imgIndex, setImgIndex] = useState(0);
+                const isAdded = recentlyAddedId === item.id;
 
-                  {/* Price + Basket Icon */}
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-primary">
-                      ${item.price.toFixed(2)}
-                    </span>
-                    <ShoppingBasket className="h-5 w-5 text-primary opacity-70 group-hover:opacity-100 transition-opacity" />
+                const handleDotClick = (
+                  e: React.MouseEvent<HTMLButtonElement>,
+                  idx: number
+                ) => {
+                  e.stopPropagation();
+                  setImgIndex(idx);
+                };
+
+                return (
+                  <div
+                    onClick={() => openModal(item)}
+                    className="group cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-100"
+                  >
+                    <div className="relative aspect-square mb-3 overflow-hidden border-2 border-primary bg-transparent">
+                      {/* Added badge */}
+                      {isAdded && (
+                        <div className="absolute top-2 left-2 z-10 rounded-full bg-emerald-500/90 px-2 py-0.5 text-[10px] font-semibold text-white flex items-center gap-1">
+                          <span>✓</span> <span>Added</span>
+                        </div>
+                      )}
+
+                      {/* Image */}
+                      <ItemPicture
+                        basename={basenames[imgIndex]}
+                        alt={name}
+                        className="h-full w-full"
+                        imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
+                      />
+
+                      {/* Image dots */}
+                      {basenames.length > 1 && (
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                          {basenames.map((_, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={(e) => handleDotClick(e, idx)}
+                              className={`h-1.5 w-1.5 rounded-full transition ${
+                                idx === imgIndex
+                                  ? "bg-primary"
+                                  : "bg-primary/30 group-hover:bg-primary/50"
+                              }`}
+                              aria-label={`Show image ${idx + 1}`}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Title */}
+                    <h3
+                      className="font-medium text-sm line-clamp-2 mb-1"
+                      title={name}
+                    >
+                      {name}
+                    </h3>
+
+                    {/* VARIANT PREVIEW: colors / sizes (translated) */}
+                    {(item.colors?.length || item.sizes?.length) && (
+                      <div className="mb-1 flex flex-wrap gap-1">
+                        {item.colors?.slice(0, 3).map((colorKey) => (
+                          <span
+                            key={colorKey}
+                            className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[10px] text-slate-700"
+                          >
+                            {getTranslatedField(colorKey)}
+                          </span>
+                        ))}
+                        {item.colors && item.colors.length > 3 && (
+                          <span className="text-[10px] text-muted-foreground">
+                            +{item.colors.length - 3}
+                          </span>
+                        )}
+
+                        {item.sizes?.slice(0, 2).map((sizeKey) => (
+                          <span
+                            key={sizeKey}
+                            className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] text-slate-800"
+                          >
+                            {getTranslatedField(sizeKey)}
+                          </span>
+                        ))}
+                        {item.sizes && item.sizes.length > 2 && (
+                          <span className="text-[10px] text-muted-foreground">
+                            +{item.sizes.length - 2}
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Price + Basket Icon */}
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-primary">
+                        ${item.price.toFixed(2)}
+                      </span>
+                      <ShoppingBasket
+                        className={`h-5 w-5 text-primary transition-opacity ${
+                          recentlyAddedId === item.id
+                            ? "opacity-100"
+                            : "opacity-70 group-hover:opacity-100"
+                        }`}
+                      />
+                    </div>
                   </div>
-                </div>
-              )
+                );
+              };
+
+              return <Card key={item.id} />;
             })}
           </div>
 
@@ -720,11 +758,20 @@ export default function Catalog() {
           {filteredItems.length === 0 && (
             <div className="py-16 text-center">
               <Search className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-              <h3 className="text-lg font-medium mb-2">{t.catalog.noResults}</h3>
+              <h3 className="text-lg font-medium mb-2">
+                {t.catalog.noResults}
+              </h3>
               <p className="text-muted-foreground mb-4">
-                {searchTerm ? t.catalog.noSearchResults : t.catalog.noCategoryResults}
+                {searchTerm
+                  ? t.catalog.noSearchResults
+                  : t.catalog.noCategoryResults}
               </p>
-              <Button onClick={() => { setSearchTerm(''); handleCategoryClick('all') }}>
+              <Button
+                onClick={() => {
+                  setSearchTerm("");
+                  handleCategoryClick("all");
+                }}
+              >
                 {t.catalog.clearFilters}
               </Button>
             </div>
@@ -738,24 +785,34 @@ export default function Catalog() {
                   <PaginationItem>
                     <PaginationPrevious
                       onClick={() => handlePageChange(currentPage - 1)}
-                      className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                      className={
+                        currentPage === 1
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
                     />
                   </PaginationItem>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <PaginationItem key={page}>
-                      <PaginationLink
-                        onClick={() => handlePageChange(page)}
-                        isActive={currentPage === page}
-                        className="cursor-pointer"
-                      >
-                        {page}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          onClick={() => handlePageChange(page)}
+                          isActive={currentPage === page}
+                          className="cursor-pointer"
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    )
+                  )}
                   <PaginationItem>
                     <PaginationNext
                       onClick={() => handlePageChange(currentPage + 1)}
-                      className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                      className={
+                        currentPage === totalPages
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
                     />
                   </PaginationItem>
                 </PaginationContent>
@@ -770,13 +827,19 @@ export default function Catalog() {
         <ItemModal
           open={modalOpen}
           onOpenChange={(open) => {
-            setModalOpen(open)
-            if (!open) setSelectedItem(null)
+            setModalOpen(open);
+            if (!open) setSelectedItem(null);
           }}
           item={selectedItem}
           getTranslatedField={getTranslatedField}
+          onAddedToCart={(id) => {
+            setRecentlyAddedId(id);
+            setTimeout(() => {
+              setRecentlyAddedId((prev) => (prev === id ? null : prev));
+            }, 2500);
+          }}
         />
       )}
     </Layout>
-  )
+  );
 }

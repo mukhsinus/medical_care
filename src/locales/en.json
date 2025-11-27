@@ -211,10 +211,10 @@
   },
   "items": {
     "1": {
-      "name": "Insulin Syringes 1ml",
+      "name": "Unigloves",
       "description": "High-quality insulin syringes"
     },
-    "2": { "name": "Hypodermic Needles 21G", "description": "Sterile needles" },
+    "2": { "name": "Adras gloves", "description": "Sterile needles" },
     "3": { "name": "IV Cannula 20G", "description": "Intravenous cannula" },
     "4": {
       "name": "Digital Thermometer",

@@ -209,47 +209,6 @@
     "city": "City",
     "zip": "Postal Code"
   },
-  "items": {
-    "1": {
-      "name": "Unigloves",
-      "description": "High-quality insulin syringes"
-    },
-    "2": { "name": "Adras gloves", "description": "Sterile needles" },
-    "3": { "name": "IV Cannula 20G", "description": "Intravenous cannula" },
-    "4": {
-      "name": "Digital Thermometer",
-      "description": "Accurate digital thermometer"
-    },
-    "5": {
-      "name": "Blood Pressure Monitor",
-      "description": "Automatic monitor"
-    },
-    "6": {
-      "name": "Stethoscope Littmann",
-      "description": "Premium cardiology stethoscope"
-    },
-    "7": { "name": "Surgical Scalpel #11", "description": "Precision blade" },
-    "8": { "name": "Surgical Forceps", "description": "Sterile forceps" },
-    "9": { "name": "Suture Kit", "description": "Complete suture kit" },
-    "10": {
-      "name": "Alcohol 70% 500ml",
-      "description": "Medical disinfectant"
-    },
-    "11": {
-      "name": "Hand Sanitizer 100ml",
-      "description": "Portable sanitizer"
-    },
-    "12": { "name": "PPE Kit", "description": "Full protective kit" },
-    "13": { "name": "Gauze Bandages 10cm", "description": "Sterile gauze" },
-    "14": { "name": "Adhesive Bandages", "description": "Assorted bandages" },
-    "15": {
-      "name": "Hydrocolloid Dressings",
-      "description": "Advanced healing"
-    },
-    "16": { "name": "Test Tubes 10ml", "description": "Glass test tubes" },
-    "17": { "name": "Pipettes 1ml", "description": "Disposable pipettes" },
-    "18": { "name": "Microscope Slides", "description": "Pre-cleaned slides" }
-  },
   "contacts": {
     "text": "Our team is always ready to help. Contact our specialists in the way that’s most convenient for you — we’ll suggest the best solutions for your clinic.",
     "title": "Contact Us",
@@ -307,5 +266,87 @@
       "liability": "Limitation of Liability",
       "liabilityText": "Medicare strives to provide accurate product information but does not guarantee absolute accuracy."
     }
+  },
+  "variants": {
+    "colors": {
+      "blue": "Blue",
+      "green": "Green",
+      "white": "White",
+      "yellow": "Yellow",
+      "red": "Red",
+      "black": "Black",
+      "purple": "Purple"
+    },
+    "sizes": {
+      "1ml": "1 ml",
+      "2ml": "2 ml",
+      "5ml": "5 ml",
+      "10ml": "10 ml",
+      "20ml": "20 ml",
+      "50ml": "50 ml",
+      "100ml": "100 ml",
+      "500ml": "500 ml",
+      "1000ml": "1000 ml",
+      "xs": "XS",
+      "s": "S",
+      "m": "M",
+      "l": "L",
+      "xl": "XL"
+    }
+  },
+  "items": {
+    "1": {
+      "name": "Unigloves",
+      "description": "Non-sterile, nitrile, non-powdered, textured, ambidextrous, single-use examination gloves."
+    },
+    "2": { "name": "Adras gloves", "description": "Single-use gloves" },
+    "3": { "name": "Clinic Clean Face Masks", "description": "Disposable face masks" },
+    "4": {
+      "name": "Clinic Clean Face Masks",
+      "description": "Three-layer disposable medical mask"
+    },
+    "5": {
+      "name": "Face Maks",
+      "description": "Disposable face masks"
+    },
+    "6": {
+      "name": "Unipack Sterilization Flat Roll",
+      "description": "Sterilization flat roll"
+    },
+    "7": { "name": "Nest Med Tech Drape", "description": "Disposable surgixal drape" },
+    "8": { "name": "Dentafill Surgical Gloves", "description": "Single-use sterile surgical gloves made from rubber latex" },
+    "9": { "name": "Surgical Gown", "description": "Disposable surgical gown" },
+    "10": {
+      "name": "Hygiene United Surgical Gown",
+      "description": "Disposable surgical gown"
+    },
+    "11": {
+      "name": "Nest Med Tech Nest-Dent",
+      "description": "Disposable sterile dental kit"
+    },
+    "12": { "name": "Wego IV system", "description": "Intravenous infusion system" },
+    "13": { "name": "Uniset IV system", "description": "Disposable IV infusion set with needle" },
+    "14": { "name": "IV system", "description": "Disposable IV infusion set with needle" },
+    "15": {
+      "name": "Syringe, 50ml",
+      "description": "Disposable syringe with needle, 50ml"
+    },
+    "16": { "name": "Medco Syringe, 50ml", "description": "Disposable syringe with needle, 1ml" },
+    "17": { "name": "Syringe", "description": "Disposable syringe with needle" },
+    "18": { "name": "Syringe", "description": "Disposable syringe with needle" },
+    "19": { "name": "MFA Syringe", "description": "Disposable syringe with needle" },
+    "20": { "name": "DLAB Pipettor", "description": "MicroPette plus autoclave pipettor" },
+    "21": { "name": "Medco Syringe, 50ml", "description": "Disposable syringe with needle, 50ml" },
+    "22": { "name": "Medco Syringe, 50ml", "description": "Disposable syringe with needle, 50ml" },
+    "23": { "name": "Medco Syringe, 50ml", "description": "Disposable syringe with needle, 50ml" },
+    "24": { "name": "Medco Syringe, 50ml", "description": "Disposable syringe with needle, 50ml" },
+    "25": { "name": "Medco Syringe, 50ml", "description": "Disposable syringe with needle, 50ml" },
+    "26": { "name": "Medco Syringe, 50ml", "description": "Disposable syringe with needle, 50ml" },
+    "27": { "name": "Medco Syringe, 50ml", "description": "Disposable syringe with needle, 50ml" },
+    "28": { "name": "Medco Syringe, 50ml", "description": "Disposable syringe with needle, 50ml" },
+    "29": { "name": "Medco Syringe, 50ml", "description": "Disposable syringe with needle, 50ml" },
+    "30": { "name": "Insulin Syringe", "description": "Insulin Syringe with needle" },
+    "31": { "name": "Antiseptic Wipe", "description": "Antiseptic alcohol wipes" },
+    "32": { "name": "Improvacuter Multi-sample Needles", "description": "Disposable multi-sample blood collection needles"}
   }
 }

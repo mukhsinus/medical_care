@@ -209,80 +209,6 @@
     "city": "Shahar",
     "zip": "Pochta indeksi"
   },
-  "items": {
-    "1": {
-      "name": "Insulin shpritslari 1ml",
-      "description": "Yuqori sifatli insulin shpritslari"
-    },
-    "2": {
-      "name": "Gipodermik ignalar 21G",
-      "description": "Steril ignalar"
-    },
-    "3": {
-      "name": "IV kanulya 20G",
-      "description": "Tomir ichiga kanulya"
-    },
-    "4": {
-      "name": "Raqamli termometr",
-      "description": "Aniq raqamli termometr"
-    },
-    "5": {
-      "name": "Qon bosimi o'lchagich",
-      "description": "Avtomatik monitor"
-    },
-    "6": {
-      "name": "Stetoskop Littmann",
-      "description": "Premium kardiologik stetoskop"
-    },
-    "7": {
-      "name": "Jarrohlik skalpeli #11",
-      "description": "Aniq pichoq"
-    },
-    "8": {
-      "name": "Jarrohlik pensasi",
-      "description": "Steril pensalar"
-    },
-    "9": {
-      "name": "Tikuv to'plami",
-      "description": "To'liq tikuv to'plami"
-    },
-    "10": {
-      "name": "Spirt 70% 500ml",
-      "description": "Tibbiy dezinfeksiyalash vositasi"
-    },
-    "11": {
-      "name": "Qo'l dezinfeksiyasi 100ml",
-      "description": "Ko'chmas dezinfeksiya vositasi"
-    },
-    "12": {
-      "name": "Himoya to'plami",
-      "description": "To'liq himoya to'plami"
-    },
-    "13": {
-      "name": "Marli o'ramlar 10sm",
-      "description": "Steril marli"
-    },
-    "14": {
-      "name": "Yopishqoq o'ramlar",
-      "description": "Turli xil o'ramlar"
-    },
-    "15": {
-      "name": "Gidrokolloid povbandlar",
-      "description": "Rivojlangan davolash"
-    },
-    "16": {
-      "name": "Sinov naychalari 10ml",
-      "description": "Shisha sinov naychalari"
-    },
-    "17": {
-      "name": "Pippeta 1ml",
-      "description": "Bir martalik pippeta"
-    },
-    "18": {
-      "name": "Mikroskop shlyapalar",
-      "description": "Oldindan tozalanadigan shlyapalar"
-    }
-  },
   "contacts": {
     "text": "Bizning jamoamiz doimo yordam berishga tayyor. Mutaxassislarimiz bilan sizga qulay usulda bog‘laning — klinikangiz uchun eng maqbul yechimlarni tavsiya etamiz.",
     "phoneLabel": "Telefon",
@@ -339,6 +265,154 @@
       "ordersText": "Barcha buyurtmalar mavjudligi va tasdiqlanishiga bog'liq. Yetkazib berish muddatlari taxminiy.",
       "liability": "Javobgarlikni cheklash",
       "liabilityText": "Medicare to'g'ri mahsulot ma'lumotini taqdim etishga intiladi, ammo mutlaq aniqlikni kafolatlamaydi."
+    }
+  },
+  "variants": {
+    "colors": {
+      "white": "Oq",
+      "blue": "Ko'k",
+      "green": "Yashil",
+      "yellow": "Sariq",
+      "red": "Qizil",
+      "pink": "Pushti",
+      "purple": "Binafsha",
+      "black": "Qora"
+    },
+    "sizes": {
+      "s": "S",
+      "m": "M",
+      "l": "L",
+      "xl": "XL"
+    }
+  },
+  "items": {
+    "1": {
+      "name": "Unigloves",
+      "description": "Nosteril, nitril, kukunsiz, teksturali, ikki qo‘llaniladigan, bir martalik ko‘ruv qo‘lqoplari."
+    },
+    "2": {
+      "name": "Adras qo‘lqoplari",
+      "description": "Bir martalik qo‘lqoplar"
+    },
+    "3": {
+      "name": "Clinic Clean Face Masks",
+      "description": "Bir martalik tibbiy niqoblar"
+    },
+    "4": {
+      "name": "Clinic Clean Face Masks",
+      "description": "Uch qatlamli bir martalik tibbiy niqob"
+    },
+    "5": {
+      "name": "Yuz niqobi",
+      "description": "Bir martalik tibbiy niqoblar"
+    },
+    "6": {
+      "name": "Unipack Sterilization Flat Roll",
+      "description": "Sterilizatsiya uchun tekis rulon"
+    },
+    "7": {
+      "name": "Nest Med Tech Drape",
+      "description": "Bir martalik jarrohlik yopqichi"
+    },
+    "8": {
+      "name": "Dentafill Surgical Gloves",
+      "description": "Bir martalik steril lateks jarrohlik qo‘lqoplari"
+    },
+    "9": {
+      "name": "Jarrohlik xalat",
+      "description": "Bir martalik jarrohlik xalat"
+    },
+    "10": {
+      "name": "Hygiene United Surgical Gown",
+      "description": "Bir martalik jarrohlik xalat"
+    },
+    "11": {
+      "name": "Nest Med Tech Nest-Dent",
+      "description": "Bir martalik steril stomatologik to‘plam"
+    },
+    "12": {
+      "name": "Wego IV system",
+      "description": "Tomchilatuvchi IV tizimi"
+    },
+    "13": {
+      "name": "Uniset IV system",
+      "description": "Ignali bir martalik IV tomchilatuvchi tizim"
+    },
+    "14": {
+      "name": "IV system",
+      "description": "Ignali bir martalik IV tomchilatuvchi tizim"
+    },
+    "15": {
+      "name": "Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 50 ml"
+    },
+    "16": {
+      "name": "Medco Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 1 ml"
+    },
+    "17": {
+      "name": "Shprits",
+      "description": "Igna bilan bir martalik shprits"
+    },
+    "18": {
+      "name": "Shprits",
+      "description": "Igna bilan bir martalik shprits"
+    },
+    "19": {
+      "name": "MFA Shprits",
+      "description": "Igna bilan bir martalik shprits"
+    },
+    "20": {
+      "name": "DLAB Pipettor",
+      "description": "MicroPette Plus avtoklav qilinadigan pipetka"
+    },
+    "21": {
+      "name": "Medco Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 50 ml"
+    },
+    "22": {
+      "name": "Medco Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 50 ml"
+    },
+    "23": {
+      "name": "Medco Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 50 ml"
+    },
+    "24": {
+      "name": "Medco Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 50 ml"
+    },
+    "25": {
+      "name": "Medco Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 50 ml"
+    },
+    "26": {
+      "name": "Medco Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 50 ml"
+    },
+    "27": {
+      "name": "Medco Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 50 ml"
+    },
+    "28": {
+      "name": "Medco Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 50 ml"
+    },
+    "29": {
+      "name": "Medco Shprits, 50ml",
+      "description": "Igna bilan bir martalik shprits, 50 ml"
+    },
+    "30": {
+      "name": "Insulin Shprits",
+      "description": "Igna bilan insulin shprits"
+    },
+    "31": {
+      "name": "Antiseptik salfetka",
+      "description": "Spirtli antiseptik salfetkalar"
+    },
+    "32": {
+      "name": "Improvacuter multi-ignalar",
+      "description": "Qon olish uchun bir martalik ko‘p namuna ignalari"
     }
   }
 }

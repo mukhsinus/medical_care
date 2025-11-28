@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from "react";
+import {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Layout } from "@/components/Layout";
@@ -16,6 +22,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationEllipsis,
 } from "@/components/ui/pagination";
 import {
   Dialog,
@@ -96,6 +103,7 @@ function ItemModal({
   const basenames = item.imageBases?.length
     ? item.imageBases
     : [item.imageBase];
+
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   const [selectedColorKey, setSelectedColorKey] = useState<string | null>(
@@ -104,6 +112,53 @@ function ItemModal({
   const [selectedSizeKey, setSelectedSizeKey] = useState<string | null>(
     item.sizes?.[0] ?? null
   );
+
+  // Swipe handling for modal image
+  const touchStartX = useRef<number | null>(null);
+  const isSwiping = useRef(false);
+  const lastDeltaX = useRef(0);
+
+  const handleModalTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = e.touches[0].clientX;
+    isSwiping.current = false;
+    lastDeltaX.current = 0;
+  };
+
+  const handleModalTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null) return;
+    const deltaX = e.touches[0].clientX - touchStartX.current;
+    lastDeltaX.current = deltaX;
+    if (Math.abs(deltaX) > 15) {
+      isSwiping.current = true;
+    }
+  };
+
+  const handleModalTouchEnd = () => {
+    if (!isSwiping.current) {
+      touchStartX.current = null;
+      lastDeltaX.current = 0;
+      return;
+    }
+
+    const dx = lastDeltaX.current;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) {
+        // swipe left → next
+        setActiveImageIndex((prev) =>
+          prev === basenames.length - 1 ? 0 : prev + 1
+        );
+      } else {
+        // swipe right → prev
+        setActiveImageIndex((prev) =>
+          prev === 0 ? basenames.length - 1 : prev - 1
+        );
+      }
+    }
+
+    touchStartX.current = null;
+    lastDeltaX.current = 0;
+    isSwiping.current = false;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value.replace(/[^0-9]/g, "");
@@ -140,11 +195,15 @@ function ItemModal({
 
     const { fallback: mainImage } = getImageSources(basenames[0]);
 
+    // Compute price according to selected size (if provided in data)
+    const displayedPrice =
+      (selectedSizeKey && item.sizePrices?.[selectedSizeKey]) || item.price;
+
     addItem(
       {
         id: item.id,
         name: displayName,
-        price: item.price,
+        price: displayedPrice,
         image: mainImage,
       },
       finalQty
@@ -179,7 +238,12 @@ function ItemModal({
         <div className="grid gap-4 py-4">
           {/* IMAGE + DOTS INSIDE MODAL */}
           <div className="flex flex-col gap-3">
-            <div className="relative h-40 w-full overflow-hidden rounded bg-gray-50 flex items-center justify-center">
+            <div
+              className="relative h-40 w-full overflow-hidden rounded bg-gray-50 flex items-center justify-center"
+              onTouchStart={handleModalTouchStart}
+              onTouchMove={handleModalTouchMove}
+              onTouchEnd={handleModalTouchEnd}
+            >
               <ItemPicture
                 basename={basenames[activeImageIndex]}
                 alt={name}
@@ -219,7 +283,12 @@ function ItemModal({
 
           <div className="flex items-center justify-between">
             <span className="text-lg font-bold text-primary">
-              ${item.price.toFixed(2)} each
+              $
+              {(
+                (selectedSizeKey && item.sizePrices?.[selectedSizeKey]) ||
+                item.price
+              ).toFixed(2)}{" "}
+              each
             </span>
           </div>
 
@@ -340,6 +409,250 @@ function ItemModal({
 }
 
 /* -------------------------------------------------------------
+   PRODUCT CARD (Grid item) – extracted + optimized
+   ------------------------------------------------------------- */
+
+type CatalogCardProps = {
+  item: CatalogItem;
+  name: string;
+  basenames: string[];
+  isRecentlyAdded: boolean;
+  getTranslatedField: (key: string) => string;
+  onOpenModal: (item: CatalogItem) => void;
+};
+
+function CatalogCard({
+  item,
+  name,
+  basenames,
+  isRecentlyAdded,
+  getTranslatedField,
+  onOpenModal,
+}: CatalogCardProps) {
+  const [imgIndex, setImgIndex] = useState(0);
+
+  const touchStartX = useRef<number | null>(null);
+  const isSwiping = useRef(false);
+  const lastDeltaX = useRef(0);
+
+  const handleDotClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    idx: number
+  ) => {
+    e.stopPropagation();
+    setImgIndex(idx);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = e.touches[0].clientX;
+    isSwiping.current = false;
+    lastDeltaX.current = 0;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null) return;
+    const deltaX = e.touches[0].clientX - touchStartX.current;
+    lastDeltaX.current = deltaX;
+    if (Math.abs(deltaX) > 15) {
+      isSwiping.current = true;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!isSwiping.current) {
+      touchStartX.current = null;
+      lastDeltaX.current = 0;
+      return;
+    }
+
+    const dx = lastDeltaX.current;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) {
+        // swipe left → next image
+        setImgIndex((prev) =>
+          prev === basenames.length - 1 ? 0 : prev + 1
+        );
+      } else {
+        // swipe right → prev image
+        setImgIndex((prev) =>
+          prev === 0 ? basenames.length - 1 : prev - 1
+        );
+      }
+    }
+
+    touchStartX.current = null;
+    lastDeltaX.current = 0;
+    isSwiping.current = false;
+  };
+
+  const handleClickCard = () => {
+    if (isSwiping.current) {
+      // Prevent opening modal when user was swiping
+      return;
+    }
+    onOpenModal(item);
+  };
+
+  return (
+    <div
+      onClick={handleClickCard}
+      className="group cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-100"
+    >
+      <div
+        className="relative aspect-square mb-3 overflow-hidden border-2 border-primary bg-transparent"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {/* Added badge */}
+        {isRecentlyAdded && (
+          <div className="absolute top-2 left-2 z-10 rounded-full bg-emerald-500/90 px-2 py-0.5 text-[10px] font-semibold text-white flex items-center gap-1">
+            <span>✓</span> <span>Added</span>
+          </div>
+        )}
+
+        {/* Image */}
+        <ItemPicture
+          basename={basenames[imgIndex]}
+          alt={name}
+          className="h-full w-full"
+          imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
+        />
+
+        {/* Image dots */}
+        {basenames.length > 1 && (
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {basenames.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={(e) => handleDotClick(e, idx)}
+                className={`h-1.5 w-1.5 rounded-full transition ${
+                  idx === imgIndex
+                    ? "bg-primary"
+                    : "bg-primary/30 group-hover:bg-primary/50"
+                }`}
+                aria-label={`Show image ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Title */}
+      <h3
+        className="font-medium text-sm line-clamp-2 mb-1"
+        title={name}
+      >
+        {name}
+      </h3>
+
+      {/* VARIANT PREVIEW: colors / sizes (translated) */}
+      {(item.colors?.length || item.sizes?.length) && (
+        <div className="mb-1 flex flex-wrap gap-1">
+          {item.colors?.slice(0, 3).map((colorKey) => (
+            <span
+              key={colorKey}
+              className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[10px] text-slate-700"
+            >
+              {getTranslatedField(colorKey)}
+            </span>
+          ))}
+          {item.colors && item.colors.length > 3 && (
+            <span className="text-[10px] text-muted-foreground">
+              +{item.colors.length - 3}
+            </span>
+          )}
+
+          {item.sizes?.slice(0, 2).map((sizeKey) => (
+            <span
+              key={sizeKey}
+              className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] text-slate-800"
+            >
+              {getTranslatedField(sizeKey)}
+            </span>
+          ))}
+          {item.sizes && item.sizes.length > 2 && (
+            <span className="text-[10px] text-muted-foreground">
+              +{item.sizes.length - 2}
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Price + Basket Icon */}
+      <div className="flex items-center justify-between">
+        <span className="font-bold text-primary">
+          {item.sizePrices
+            ? `from $${Math.min(
+                ...Object.values(item.sizePrices)
+              ).toFixed(2)}`
+            : `$${item.price.toFixed(2)}`}
+        </span>
+        <ShoppingBasket
+          className={`h-5 w-5 text-primary transition-opacity ${
+            isRecentlyAdded
+              ? "opacity-100"
+              : "opacity-70 group-hover:opacity-100"
+          }`}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------
+   PAGINATION UTIL – compact page list with ellipsis
+   ------------------------------------------------------------- */
+
+function getPageList(
+  currentPage: number,
+  totalPages: number
+): (number | "dots")[] {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+
+  const pages: (number | "dots")[] = [];
+
+  const add = (p: number | "dots") => pages.push(p);
+
+  const first = 1;
+  const last = totalPages;
+
+  if (currentPage <= 4) {
+    // 1 2 3 4 5 ... N
+    add(1);
+    add(2);
+    add(3);
+    add(4);
+    add(5);
+    add("dots");
+    add(last);
+  } else if (currentPage >= totalPages - 3) {
+    // 1 ... N-4 N-3 N-2 N-1 N
+    add(first);
+    add("dots");
+    add(last - 4);
+    add(last - 3);
+    add(last - 2);
+    add(last - 1);
+    add(last);
+  } else {
+    // 1 ... P-1 P P+1 ... N
+    add(first);
+    add("dots");
+    add(currentPage - 1);
+    add(currentPage);
+    add(currentPage + 1);
+    add("dots");
+    add(last);
+  }
+
+  return pages;
+}
+
+/* -------------------------------------------------------------
    MAIN CATALOG
    ------------------------------------------------------------- */
 
@@ -356,8 +669,12 @@ export default function Catalog() {
   const itemsPerPage = 16;
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(null);
-  const [recentlyAddedId, setRecentlyAddedId] = useState<number | null>(null);
+  const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(
+    null
+  );
+  const [recentlyAddedId, setRecentlyAddedId] = useState<number | null>(
+    null
+  );
 
   const getTranslatedField = (key: string): string => {
     const keys = key.split(".");
@@ -379,12 +696,13 @@ export default function Catalog() {
     let list = allItems;
     if (cat !== "all") list = list.filter((i) => i.category === cat);
     if (srch.trim()) {
+      const lower = srch.toLowerCase();
       list = list.filter((i) => {
         const name = getTranslatedField(i.nameKey);
         const desc = getTranslatedField(i.descriptionKey);
         return (
-          name.toLowerCase().includes(srch.toLowerCase()) ||
-          desc.toLowerCase().includes(srch.toLowerCase())
+          name.toLowerCase().includes(lower) ||
+          desc.toLowerCase().includes(lower)
         );
       });
     }
@@ -407,16 +725,27 @@ export default function Catalog() {
     setSearchTerm(srch);
     setCurrentPage(page);
     setLoading(true);
-    setTimeout(() => {
+
+    const timeout = setTimeout(() => {
       filterItems(cat, srch);
       setLoading(false);
     }, 300);
+
+    return () => clearTimeout(timeout);
   }, [searchParams, t]);
 
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-  const paginatedItems = filteredItems.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+  const totalPages = useMemo(
+    () => Math.ceil(filteredItems.length / itemsPerPage) || 1,
+    [filteredItems.length, itemsPerPage]
+  );
+
+  const paginatedItems = useMemo(
+    () =>
+      filteredItems.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      ),
+    [filteredItems, currentPage, itemsPerPage]
   );
 
   const updateUrl = (cat: string, srch: string, page: number = 1) => {
@@ -454,8 +783,10 @@ export default function Catalog() {
   };
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    updateUrl(activeCategory, searchTerm, page);
+    const clamped = Math.max(1, Math.min(totalPages, page));
+    if (clamped === currentPage) return;
+    setCurrentPage(clamped);
+    updateUrl(activeCategory, searchTerm, clamped);
   };
 
   const openModal = (item: CatalogItem) => {
@@ -481,6 +812,7 @@ export default function Catalog() {
     );
   }
 
+  // Not a hook → safe after the `if (loading)` return
   const visibleCategories = categories.filter((c) => c.key !== "all");
 
   return (
@@ -520,7 +852,10 @@ export default function Catalog() {
           </div>
 
           {/* Search */}
-          <form onSubmit={handleSearchSubmit} className="mx-auto mb-3 max-w-md">
+          <form
+            onSubmit={handleSearchSubmit}
+            className="mx-auto mb-3 max-w-md"
+          >
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -534,6 +869,7 @@ export default function Catalog() {
                 <Button
                   variant="ghost"
                   size="sm"
+                  type="button"
                   className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
                   onClick={handleClearSearch}
                 >
@@ -639,118 +975,17 @@ export default function Catalog() {
                 ? item.imageBases
                 : [item.imageBase];
 
-              const Card = () => {
-                const [imgIndex, setImgIndex] = useState(0);
-                const isAdded = recentlyAddedId === item.id;
-
-                const handleDotClick = (
-                  e: React.MouseEvent<HTMLButtonElement>,
-                  idx: number
-                ) => {
-                  e.stopPropagation();
-                  setImgIndex(idx);
-                };
-
-                return (
-                  <div
-                    onClick={() => openModal(item)}
-                    className="group cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-100"
-                  >
-                    <div className="relative aspect-square mb-3 overflow-hidden border-2 border-primary bg-transparent">
-                      {/* Added badge */}
-                      {isAdded && (
-                        <div className="absolute top-2 left-2 z-10 rounded-full bg-emerald-500/90 px-2 py-0.5 text-[10px] font-semibold text-white flex items-center gap-1">
-                          <span>✓</span> <span>Added</span>
-                        </div>
-                      )}
-
-                      {/* Image */}
-                      <ItemPicture
-                        basename={basenames[imgIndex]}
-                        alt={name}
-                        className="h-full w-full"
-                        imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
-                      />
-
-                      {/* Image dots */}
-                      {basenames.length > 1 && (
-                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-                          {basenames.map((_, idx) => (
-                            <button
-                              key={idx}
-                              type="button"
-                              onClick={(e) => handleDotClick(e, idx)}
-                              className={`h-1.5 w-1.5 rounded-full transition ${
-                                idx === imgIndex
-                                  ? "bg-primary"
-                                  : "bg-primary/30 group-hover:bg-primary/50"
-                              }`}
-                              aria-label={`Show image ${idx + 1}`}
-                            />
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Title */}
-                    <h3
-                      className="font-medium text-sm line-clamp-2 mb-1"
-                      title={name}
-                    >
-                      {name}
-                    </h3>
-
-                    {/* VARIANT PREVIEW: colors / sizes (translated) */}
-                    {(item.colors?.length || item.sizes?.length) && (
-                      <div className="mb-1 flex flex-wrap gap-1">
-                        {item.colors?.slice(0, 3).map((colorKey) => (
-                          <span
-                            key={colorKey}
-                            className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[10px] text-slate-700"
-                          >
-                            {getTranslatedField(colorKey)}
-                          </span>
-                        ))}
-                        {item.colors && item.colors.length > 3 && (
-                          <span className="text-[10px] text-muted-foreground">
-                            +{item.colors.length - 3}
-                          </span>
-                        )}
-
-                        {item.sizes?.slice(0, 2).map((sizeKey) => (
-                          <span
-                            key={sizeKey}
-                            className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] text-slate-800"
-                          >
-                            {getTranslatedField(sizeKey)}
-                          </span>
-                        ))}
-                        {item.sizes && item.sizes.length > 2 && (
-                          <span className="text-[10px] text-muted-foreground">
-                            +{item.sizes.length - 2}
-                          </span>
-                        )}
-                      </div>
-                    )}
-
-                    {/* Price + Basket Icon */}
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-primary">
-                        ${item.price.toFixed(2)}
-                      </span>
-                      <ShoppingBasket
-                        className={`h-5 w-5 text-primary transition-opacity ${
-                          recentlyAddedId === item.id
-                            ? "opacity-100"
-                            : "opacity-70 group-hover:opacity-100"
-                        }`}
-                      />
-                    </div>
-                  </div>
-                );
-              };
-
-              return <Card key={item.id} />;
+              return (
+                <CatalogCard
+                  key={item.id}
+                  item={item}
+                  name={name}
+                  basenames={basenames}
+                  isRecentlyAdded={recentlyAddedId === item.id}
+                  getTranslatedField={getTranslatedField}
+                  onOpenModal={openModal}
+                />
+              );
             })}
           </div>
 
@@ -778,10 +1013,10 @@ export default function Catalog() {
           )}
 
           {/* Pagination */}
-          {totalPages > 1 && (
+          {filteredItems.length > 0 && totalPages > 1 && (
             <div className="mt-12 flex justify-center">
               <Pagination>
-                <PaginationContent>
+                <PaginationContent className="flex flex-wrap gap-1">
                   <PaginationItem>
                     <PaginationPrevious
                       onClick={() => handlePageChange(currentPage - 1)}
@@ -792,19 +1027,25 @@ export default function Catalog() {
                       }
                     />
                   </PaginationItem>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                    (page) => (
-                      <PaginationItem key={page}>
-                        <PaginationLink
-                          onClick={() => handlePageChange(page)}
-                          isActive={currentPage === page}
-                          className="cursor-pointer"
-                        >
-                          {page}
-                        </PaginationLink>
+
+                  {getPageList(currentPage, totalPages).map(
+                    (page, index) => (
+                      <PaginationItem key={`${page}-${index}`}>
+                        {page === "dots" ? (
+                          <PaginationEllipsis />
+                        ) : (
+                          <PaginationLink
+                            onClick={() => handlePageChange(page)}
+                            isActive={currentPage === page}
+                            className="cursor-pointer"
+                          >
+                            {page}
+                          </PaginationLink>
+                        )}
                       </PaginationItem>
                     )
                   )}
+
                   <PaginationItem>
                     <PaginationNext
                       onClick={() => handlePageChange(currentPage + 1)}

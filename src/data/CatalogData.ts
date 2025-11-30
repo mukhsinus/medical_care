@@ -464,15 +464,7 @@ export const allItems: CatalogItem[] = [
     nameKey: "items.35.name",
     descriptionKey: "items.35.description",
     price: 20,
-    imageBase: "DSC01163",
-    imageBases: [
-      "DSC01163",
-      "DSC01165",
-      "DSC01167",
-      "DSC01169",
-      "DSC01174",
-      "DSC01179",
-    ],
+    imageBase: "DSC02336",
     boxInfo: "1 pc per box",
   },
   {
@@ -540,8 +532,8 @@ export const allItems: CatalogItem[] = [
     nameKey: "items.42.name",
     descriptionKey: "items.42.description",
     price: 20,
-    imageBase: "DSC01298",
-    imageBases: ["DSC01298", "DSC01299"],
+    imageBase: "DSC02341",
+    imageBases: ["DSC02341", "DSC02340"],
     boxInfo: "1 pc per box",
   },
   {
@@ -551,7 +543,13 @@ export const allItems: CatalogItem[] = [
     descriptionKey: "items.43.description",
     price: 20,
     imageBase: "DSC01303",
-    imageBases: ["DSC01303", "DSC01328", "DSC01334", "DSC0139", "DSC01315"],
+    imageBases: ["DSC01303", "DSC01328", "DSC01334", "DSC01339", "DSC01315"],
+    colors: [
+      "variants.colors.orange",
+      "variants.colors.blue",
+      "variants.colors.yellow",
+      "variants.colors.black",
+    ],
     boxInfo: "1 pc per box",
   },
   {
@@ -562,6 +560,16 @@ export const allItems: CatalogItem[] = [
     price: 20,
     imageBase: "DSC01354",
     imageBases: ["DSC01354", "DSC01371", "DSC01381"],
+    sizes: [
+      "variants.sizes.1l",
+      "variants.sizes.4l",
+      "variants.sizes.5l",
+    ],
+    sizePrices: {
+      "variants.sizes.1l": 20,
+      "variants.sizes.4l": 25,
+      "variants.sizes.5l": 30,
+    },
     boxInfo: "1 pc per box",
   },
   {
@@ -686,7 +694,15 @@ export const allItems: CatalogItem[] = [
     descriptionKey: "items.57.description",
     price: 20,
     imageBase: "DSC01665",
-    imageBases: ["DSC01665", "DSC01668"],
+    imageBases: ["DSC01665", "DSC01727"],
+    sizes: [
+      "variants.sizes.15b10cm",
+      "variants.sizes.2p5b10cm",
+    ],
+    sizePrices: {
+      "variants.sizes.15b10cm": 20,
+      "variants.sizes.2p5b10cm": 25,
+    },
     boxInfo: "1 pc per box",
   },
   {
@@ -727,6 +743,13 @@ export const allItems: CatalogItem[] = [
     price: 20,
     imageBase: "DSC01699",
     imageBases: ["DSC01699", "DSC01704", "DSC01716", "DSC01718", "DSC01721"],
+    colors: [
+      "variants.colors.black",
+      "variants.colors.purple",
+      "variants.colors.green",
+      "variants.colors.pink",
+      "variants.colors.blue",
+    ],
     boxInfo: "1 pc per box",
   },
   {
@@ -745,7 +768,7 @@ export const allItems: CatalogItem[] = [
     nameKey: "items.63.name",
     descriptionKey: "items.63.description",
     price: 20,
-    imageBase: "DSC01727",
+    imageBase: "DSC02339",
     boxInfo: "1 pc per box",
   },
   {
@@ -834,21 +857,12 @@ export const allItems: CatalogItem[] = [
     boxInfo: "1 pc per box",
   },
   {
-    id: 72,
-    category: "lab",
-    nameKey: "items.72.name",
-    descriptionKey: "items.72.description",
-    price: 20,
-    imageBase: "DSC01773",
-    boxInfo: "1 pc per box",
-  },
-  {
     id: 73,
     category: "lab",
     nameKey: "items.73.name",
     descriptionKey: "items.73.description",
     price: 20,
-    imageBase: "DSC01775",
+    imageBase: "DSC01773",
     boxInfo: "1 pc per box",
   },
   {
@@ -857,7 +871,7 @@ export const allItems: CatalogItem[] = [
     nameKey: "items.74.name",
     descriptionKey: "items.74.description",
     price: 20,
-    imageBase: "DSC01776",
+    imageBase: "DSC01775",
     boxInfo: "1 pc per box",
   },
   {
@@ -875,7 +889,7 @@ export const allItems: CatalogItem[] = [
     nameKey: "items.76.name",
     descriptionKey: "items.76.description",
     price: 20,
-    imageBase: "DSC01779",
+    imageBase: "DSC01776",
     boxInfo: "1 pc per box",
   },
   {
@@ -895,6 +909,11 @@ export const allItems: CatalogItem[] = [
     price: 20,
     imageBase: "DSC01781",
     imageBases: ["DSC01781", "DSC01783", "DSC01784", "DSC01786"],
+    colors: [
+      "variants.colors.pink",
+      "variants.colors.white",
+      "variants.colors.blue",
+    ],
     boxInfo: "1 pc per box",
   },
   {
@@ -903,7 +922,8 @@ export const allItems: CatalogItem[] = [
     nameKey: "items.79.name",
     descriptionKey: "items.79.description",
     price: 20,
-    imageBase: "DSC01778",
+    imageBase: "DSC02289",
+    imageBases: ["DSC02289", "DSC02292"],
     boxInfo: "1 pc per box",
   },
   {
@@ -1624,44 +1644,6 @@ export const allItems: CatalogItem[] = [
     price: 20,
     imageBase: "DSC02280",
     imageBases: ["DSC02280", "DSC02282"],
-    boxInfo: "1 pc per box",
-  },
-  {
-    id: 153,
-    category: "lab",
-    nameKey: "items.153.name",
-    descriptionKey: "items.153.description",
-    price: 20,
-    imageBase: "DSC02289",
-    imageBases: ["DSC02289", "DSC02292"],
-    boxInfo: "1 pc per box",
-  },
-  {
-    id: 154,
-    category: "lab",
-    nameKey: "items.154.name",
-    descriptionKey: "items.154.description",
-    price: 20,
-    imageBase: "DSC02336",
-    boxInfo: "1 pc per box",
-  },
-  {
-    id: 155,
-    category: "lab",
-    nameKey: "items.155.name",
-    descriptionKey: "items.155.description",
-    price: 20,
-    imageBase: "DSC02339",
-    boxInfo: "1 pc per box",
-  },
-  {
-    id: 156,
-    category: "lab",
-    nameKey: "items.156.name",
-    descriptionKey: "items.156.description",
-    price: 20,
-    imageBase: "DSC02341",
-    imageBases: ["DSC02341", "DSC02340"],
     boxInfo: "1 pc per box",
   }
 ];

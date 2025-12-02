@@ -357,12 +357,12 @@
     "66": { "name": "Shisha qopqoq", "description": "Mikroskop uchun 24×24 mm" },
     "67": { "name": "KD-Fix IV kateter", "description": "IV kateter 0.9×25 mm (22G)" },
     "68": { "name": "Unitest-steam 132/20 (ichki)", "description": "Ichki bug‘ sterilizatsiya indikatori 4-sinf" },
-    "69": { "name": "Terilan 132/20 (ichki)", "description": "Ichki bug‘ sterilizatsiya indikatori 5-sinf" },
+    "69": { "name": "Unitest-steam 132/20 (tashqi)", "description": "Tashqi bug‘ sterilizatsiya indikatori 4-sinf" },
     "70": { "name": "Unitest-steam 134/5", "description": "Universal bug‘ sterilizatsiya indikatori 4-sinf" },
-    "71": { "name": "Unitest-steam 132/20 (tashqi)", "description": "Tashqi bug‘ sterilizatsiya indikatori 4-sinf" },
-    "72": { "name": "Terilan 132/20 (tashqi)", "description": "Tashqi bug‘ sterilizatsiya indikatori 4-sinf" },
-    "73": { "name": "Terilan 180/60 (ichki)", "description": "Ichki quruq issiq sterilizatsiya indikatori 5-sinf" },
-    "74": { "name": "Terilan 180/60 (tashqi)", "description": "Tashqi quruq issiq sterilizatsiya indikatori 5-sinf" },
+    "71": { "name": "Sterilan 132/20 (ichki)", "description": "Ichki bug‘ sterilizatsiya indikatori 5-sinf" },
+    "72": { "name": "Sterilan 132/20 (tashqi)", "description": "Tashqi bug‘ sterilizatsiya indikatori 4-sinf" },
+    "73": { "name": "Sterilan 180/60 (ichki)", "description": "Ichki quruq issiq sterilizatsiya indikatori 5-sinf" },
+    "74": { "name": "Sterilan 180/60 (tashqi)", "description": "Tashqi quruq issiq sterilizatsiya indikatori 5-sinf" },
     "75": { "name": "Vinar Steritest 132/20", "description": "Bug‘ sterilizatsiya indikatori" },
     "76": { "name": "Vinar MedIS 132/20", "description": "Bug‘ sterilizatsiya indikatori" },
     "77": { "name": "Vinar MedIS 180/60", "description": "Quruq issiq sterilizatsiya indikatori" },
@@ -371,10 +371,6 @@
     "80": { "name": "Qo‘ltiq osti termometri", "description": "Klinik qo‘ltiq osti termometri" },
     "81": { "name": "Bir martalik skalpellar", "description": "Himoya qopqog‘i bilan premium bir martalik skalpellar" },
     "82": { "name": "Tibbiy oliviya", "description": "Bir martalik tibbiy oliviya" },
-    "83": { "name": "Irrigatsiya kanulasi", "description": "Yuvish uchun kanula" },
-    "84": { "name": "Sentifuga naychalari", "description": "RNase/DNase free sentrifuga naychalari, 1.5 ml" },
-    "85": { "name": "", "description": "" },
-    "86": { "name": "", "description": "" },
-    "87": { "name": "", "description": "" }
+    "83": { "name": "Irrigatsiya kanulasi", "description": "Yuvish uchun kanula" }
   }
 }

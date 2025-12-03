@@ -599,10 +599,10 @@ const CatalogCard = memo(
         <div className="flex items-center justify-between">
           <span className="font-bold text-primary">
             {item.sizePrices
-              ? `from $${Math.min(
+              ? `from UZS ${Math.min(
                   ...Object.values(item.sizePrices)
                 ).toFixed(2)}`
-              : `$${item.price.toFixed(2)}`}
+              : `UZS ${item.price.toFixed(2)}`}
           </span>
           <ShoppingBasket
             className={`h-5 w-5 text-primary transition-opacity ${

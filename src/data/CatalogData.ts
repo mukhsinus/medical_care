@@ -177,7 +177,7 @@ export const allItems: CatalogItem[] = [
       "variants.sizes.55b200",
       "variants.sizes.75b200",
       "variants.sizes.100b200",
-      "variants.sizes.150200",
+      "variants.sizes.150b200",
       "variants.sizes.200b200",
       "variants.sizes.250b200",
       "variants.sizes.300b200",

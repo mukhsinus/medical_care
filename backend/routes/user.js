@@ -17,7 +17,7 @@ router.use(auth);
 router.get("/me", async (req, res) => {
   try {
     const user = await User.findById(req.userId).select(
-      "-password -resetPasswordToken -resetPasswordExpires"
+      "-password -resetPasswordToken -resetPasswordExpires +address"
     );
     if (!user)
       return res.status(404).json({ message: "Пользователь не найден" });
@@ -51,6 +51,11 @@ router.get("/orders", async (req, res) => {
 router.patch("/profile", async (req, res) => {
   try {
     const { name, phone, address } = req.body;
+    console.log("PATCH /profile received:");
+    console.log("  req.userId:", req.userId);
+    console.log("  name:", name);
+    console.log("  phone:", phone);
+    console.log("  address:", JSON.stringify(address, null, 2));
 
     // Валидация
     if (!name) return res.status(400).json({ message: "Name is required" });
@@ -62,12 +67,16 @@ router.patch("/profile", async (req, res) => {
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ message: "User not found" });
 
+    console.log("Found user before update:", { _id: user._id, address: user.address });
+
     // Обновляем только переданные поля
     user.name = name;
     if (typeof phone !== "undefined") user.phone = phone || null;
 
     if (address) {
       user.address = user.address || {};
+      if (typeof address.house !== "undefined")
+        user.address.house = address.house || null;
       if (typeof address.street !== "undefined")
         user.address.street = address.street || null;
       if (typeof address.city !== "undefined")
@@ -76,28 +85,10 @@ router.patch("/profile", async (req, res) => {
         user.address.zip = address.zip || null;
     }
 
+    console.log("User before save:", { _id: user._id, address: user.address });
+
     await user.save();
-
-    // Telegram notification
-    try {
-      const addr = user.address
-        ? `${user.address.street || ""}, ${user.address.city || ""} ${
-            user.address.zip || ""
-          }`.trim()
-        : "Not provided";
-      const profileMessage = `
-<b>Profile Updated</b>
-
-User: ${user.name} (${user.email})
-Phone: ${user.phone || "Not provided"}
-Address: ${addr}
-User ID: ${req.userId}
-Time: ${new Date().toISOString()}
-`;
-      sendNotification(profileMessage);
-    } catch (e) {
-      console.error("Telegram notification failed (non-blocking):", e?.message);
-    }
+    console.log("User after save:", { _id: user._id, address: user.address });
 
     // Безопасный ответ (без пароля)
     const safeUser = {

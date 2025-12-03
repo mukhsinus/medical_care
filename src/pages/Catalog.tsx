@@ -6,6 +6,7 @@ import {
   useCallback,
   useRef,
   useMemo,
+  memo,
 } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -50,6 +51,7 @@ type ItemPictureProps = {
   alt: string;
   className?: string;
   imgClassName?: string;
+  loading?: "lazy" | "eager";
 };
 
 function ItemPicture({
@@ -57,14 +59,24 @@ function ItemPicture({
   alt,
   className,
   imgClassName,
+  loading = "lazy",
 }: ItemPictureProps) {
-  const { avif, webp, fallback } = getImageSources(basename);
+  const { avif, webp, fallback } = useMemo(
+    () => getImageSources(basename),
+    [basename]
+  );
 
   return (
     <picture className={className}>
       {avif && <source srcSet={avif} type="image/avif" />}
       {webp && <source srcSet={webp} type="image/webp" />}
-      <img src={fallback} alt={alt} className={imgClassName} loading="lazy" />
+      <img
+        src={fallback}
+        alt={alt}
+        className={imgClassName}
+        loading={loading}
+        decoding="async"
+      />
     </picture>
   );
 }
@@ -203,6 +215,7 @@ function ItemModal({
       {
         id: item.id,
         name: displayName,
+        description: desc,
         price: displayedPrice,
         image: mainImage,
       },
@@ -249,6 +262,7 @@ function ItemModal({
                 alt={name}
                 className="max-h-full max-w-full flex items-center justify-center"
                 imgClassName="max-h-full max-w-full object-contain"
+                loading="eager"
               />
 
               {basenames.length > 1 && (
@@ -419,187 +433,199 @@ type CatalogCardProps = {
   isRecentlyAdded: boolean;
   getTranslatedField: (key: string) => string;
   onOpenModal: (item: CatalogItem) => void;
+  isLcp?: boolean;
 };
 
-function CatalogCard({
-  item,
-  name,
-  basenames,
-  isRecentlyAdded,
-  getTranslatedField,
-  onOpenModal,
-}: CatalogCardProps) {
-  const [imgIndex, setImgIndex] = useState(0);
+const CatalogCard = memo(
+  function CatalogCard({
+    item,
+    name,
+    basenames,
+    isRecentlyAdded,
+    getTranslatedField,
+    onOpenModal,
+    isLcp = false,
+  }: CatalogCardProps) {
+    const [imgIndex, setImgIndex] = useState(0);
 
-  const touchStartX = useRef<number | null>(null);
-  const isSwiping = useRef(false);
-  const lastDeltaX = useRef(0);
+    const touchStartX = useRef<number | null>(null);
+    const isSwiping = useRef(false);
+    const lastDeltaX = useRef(0);
 
-  const handleDotClick = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    idx: number
-  ) => {
-    e.stopPropagation();
-    setImgIndex(idx);
-  };
+    const handleDotClick = (
+      e: React.MouseEvent<HTMLButtonElement>,
+      idx: number
+    ) => {
+      e.stopPropagation();
+      setImgIndex(idx);
+    };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    touchStartX.current = e.touches[0].clientX;
-    isSwiping.current = false;
-    lastDeltaX.current = 0;
-  };
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+      touchStartX.current = e.touches[0].clientX;
+      isSwiping.current = false;
+      lastDeltaX.current = 0;
+    };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (touchStartX.current === null) return;
-    const deltaX = e.touches[0].clientX - touchStartX.current;
-    lastDeltaX.current = deltaX;
-    if (Math.abs(deltaX) > 15) {
-      isSwiping.current = true;
-    }
-  };
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+      if (touchStartX.current === null) return;
+      const deltaX = e.touches[0].clientX - touchStartX.current;
+      lastDeltaX.current = deltaX;
+      if (Math.abs(deltaX) > 15) {
+        isSwiping.current = true;
+      }
+    };
 
-  const handleTouchEnd = () => {
-    if (!isSwiping.current) {
+    const handleTouchEnd = () => {
+      if (!isSwiping.current) {
+        touchStartX.current = null;
+        lastDeltaX.current = 0;
+        return;
+      }
+
+      const dx = lastDeltaX.current;
+      if (Math.abs(dx) > 40) {
+        if (dx < 0) {
+          // swipe left → next image
+          setImgIndex((prev) =>
+            prev === basenames.length - 1 ? 0 : prev + 1
+          );
+        } else {
+          // swipe right → prev image
+          setImgIndex((prev) =>
+            prev === 0 ? basenames.length - 1 : prev - 1
+          );
+        }
+      }
+
       touchStartX.current = null;
       lastDeltaX.current = 0;
-      return;
-    }
+      isSwiping.current = false;
+    };
 
-    const dx = lastDeltaX.current;
-    if (Math.abs(dx) > 40) {
-      if (dx < 0) {
-        // swipe left → next image
-        setImgIndex((prev) =>
-          prev === basenames.length - 1 ? 0 : prev + 1
-        );
-      } else {
-        // swipe right → prev image
-        setImgIndex((prev) =>
-          prev === 0 ? basenames.length - 1 : prev - 1
-        );
+    const handleClickCard = () => {
+      if (isSwiping.current) {
+        // Prevent opening modal when user was swiping
+        return;
       }
-    }
+      onOpenModal(item);
+    };
 
-    touchStartX.current = null;
-    lastDeltaX.current = 0;
-    isSwiping.current = false;
-  };
-
-  const handleClickCard = () => {
-    if (isSwiping.current) {
-      // Prevent opening modal when user was swiping
-      return;
-    }
-    onOpenModal(item);
-  };
-
-  return (
-    <div
-      onClick={handleClickCard}
-      className="group cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-100"
-    >
+    return (
       <div
-        className="relative aspect-square mb-3 overflow-hidden border-2 border-primary bg-transparent"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
+        onClick={handleClickCard}
+        className="group cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-100 [content-visibility:auto] [contain-intrinsic-size:320px_320px]"
       >
-        {/* Added badge */}
-        {isRecentlyAdded && (
-          <div className="absolute top-2 left-2 z-10 rounded-full bg-emerald-500/90 px-2 py-0.5 text-[10px] font-semibold text-white flex items-center gap-1">
-            <span>✓</span> <span>Added</span>
-          </div>
-        )}
-
-        {/* Image */}
-        <ItemPicture
-          basename={basenames[imgIndex]}
-          alt={name}
-          className="h-full w-full"
-          imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
-        />
-
-        {/* Image dots */}
-        {basenames.length > 1 && (
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-            {basenames.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={(e) => handleDotClick(e, idx)}
-                className={`h-1.5 w-1.5 rounded-full transition ${
-                  idx === imgIndex
-                    ? "bg-primary"
-                    : "bg-primary/30 group-hover:bg-primary/50"
-                }`}
-                aria-label={`Show image ${idx + 1}`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Title */}
-      <h3
-        className="font-medium text-sm line-clamp-2 mb-1"
-        title={name}
-      >
-        {name}
-      </h3>
-
-      {/* VARIANT PREVIEW: colors / sizes (translated) */}
-      {(item.colors?.length || item.sizes?.length) && (
-        <div className="mb-1 flex flex-wrap gap-1">
-          {item.colors?.slice(0, 3).map((colorKey) => (
-            <span
-              key={colorKey}
-              className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[10px] text-slate-700"
-            >
-              {getTranslatedField(colorKey)}
-            </span>
-          ))}
-          {item.colors && item.colors.length > 3 && (
-            <span className="text-[10px] text-muted-foreground">
-              +{item.colors.length - 3}
-            </span>
+        <div
+          className="relative aspect-square mb-3 overflow-hidden border-2 border-primary bg-transparent"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Added badge */}
+          {isRecentlyAdded && (
+            <div className="absolute top-2 left-2 z-10 rounded-full bg-emerald-500/90 px-2 py-0.5 text-[10px] font-semibold text-white flex items-center gap-1">
+              <span>✓</span> <span>Added</span>
+            </div>
           )}
 
-          {item.sizes?.slice(0, 2).map((sizeKey) => (
-            <span
-              key={sizeKey}
-              className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] text-slate-800"
-            >
-              {getTranslatedField(sizeKey)}
-            </span>
-          ))}
-          {item.sizes && item.sizes.length > 2 && (
-            <span className="text-[10px] text-muted-foreground">
-              +{item.sizes.length - 2}
-            </span>
+          {/* Image */}
+          <ItemPicture
+            basename={basenames[imgIndex]}
+            alt={name}
+            className="h-full w-full"
+            imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
+            loading={isLcp ? "eager" : "lazy"}
+          />
+
+          {/* Image dots */}
+          {basenames.length > 1 && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+              {basenames.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={(e) => handleDotClick(e, idx)}
+                  className={`h-1.5 w-1.5 rounded-full transition ${
+                    idx === imgIndex
+                      ? "bg-primary"
+                      : "bg-primary/30 group-hover:bg-primary/50"
+                  }`}
+                  aria-label={`Show image ${idx + 1}`}
+                />
+              ))}
+            </div>
           )}
         </div>
-      )}
 
-      {/* Price + Basket Icon */}
-      <div className="flex items-center justify-between">
-        <span className="font-bold text-primary">
-          {item.sizePrices
-            ? `from $${Math.min(
-                ...Object.values(item.sizePrices)
-              ).toFixed(2)}`
-            : `$${item.price.toFixed(2)}`}
-        </span>
-        <ShoppingBasket
-          className={`h-5 w-5 text-primary transition-opacity ${
-            isRecentlyAdded
-              ? "opacity-100"
-              : "opacity-70 group-hover:opacity-100"
-          }`}
-        />
+        {/* Title */}
+        <h3 className="font-medium text-sm line-clamp-2 mb-1" title={name}>
+          {name}
+        </h3>
+
+        {/* VARIANT PREVIEW: colors / sizes (translated) */}
+        {(item.colors?.length || item.sizes?.length) && (
+          <div className="mb-1 flex flex-wrap gap-1">
+            {item.colors?.slice(0, 3).map((colorKey) => (
+              <span
+                key={colorKey}
+                className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[10px] text-slate-700"
+              >
+                {getTranslatedField(colorKey)}
+              </span>
+            ))}
+            {item.colors && item.colors.length > 3 && (
+              <span className="text-[10px] text-muted-foreground">
+                +{item.colors.length - 3}
+              </span>
+            )}
+
+            {item.sizes?.slice(0, 2).map((sizeKey) => (
+              <span
+                key={sizeKey}
+                className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] text-slate-800"
+              >
+                {getTranslatedField(sizeKey)}
+              </span>
+            ))}
+            {item.sizes && item.sizes.length > 2 && (
+              <span className="text-[10px] text-muted-foreground">
+                +{item.sizes.length - 2}
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Price + Basket Icon */}
+        <div className="flex items-center justify-between">
+          <span className="font-bold text-primary">
+            {item.sizePrices
+              ? `from $${Math.min(
+                  ...Object.values(item.sizePrices)
+                ).toFixed(2)}`
+              : `$${item.price.toFixed(2)}`}
+          </span>
+          <ShoppingBasket
+            className={`h-5 w-5 text-primary transition-opacity ${
+              isRecentlyAdded
+                ? "opacity-100"
+                : "opacity-70 group-hover:opacity-100"
+            }`}
+          />
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  },
+  (prev, next) => {
+    // Re-render only when the relevant props change
+    if (prev.item.id !== next.item.id) return false;
+    if (prev.isRecentlyAdded !== next.isRecentlyAdded) return false;
+    if (prev.name !== next.name) return false;
+    if ((prev.basenames?.length ?? 0) !== (next.basenames?.length ?? 0))
+      return false;
+    if ((prev.isLcp ?? false) !== (next.isLcp ?? false)) return false;
+    return true;
+  }
+);
 
 /* -------------------------------------------------------------
    PAGINATION UTIL – compact page list with ellipsis
@@ -653,6 +679,28 @@ function getPageList(
 }
 
 /* -------------------------------------------------------------
+   CATEGORY ORDER MAPS (moved out of render)
+   ------------------------------------------------------------- */
+
+const MOBILE_ORDER_MAP: Record<string, number> = {
+  injection: 2,
+  lab: 3,
+  surgery: 4,
+  hygiene: 5,
+  dressings: 6,
+  equipment: 7,
+};
+
+const DESKTOP_ORDER_MAP: Record<string, number> = {
+  injection: 2,
+  equipment: 3,
+  surgery: 4,
+  hygiene: 5,
+  dressings: 6,
+  lab: 7,
+};
+
+/* -------------------------------------------------------------
    MAIN CATALOG
    ------------------------------------------------------------- */
 
@@ -669,22 +717,37 @@ export default function Catalog() {
   const itemsPerPage = 16;
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(
-    null
-  );
-  const [recentlyAddedId, setRecentlyAddedId] = useState<number | null>(
-    null
-  );
+  const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(null);
+  const [recentlyAddedId, setRecentlyAddedId] = useState<number | null>(null);
+  // translation cache to avoid repeated key.split and deep traversal
+  const translationCache = useRef<Map<string, string>>(new Map());
 
-  const getTranslatedField = (key: string): string => {
-    const keys = key.split(".");
-    let value: any = t;
-    for (const k of keys) {
-      value = value?.[k];
-      if (!value) return key;
-    }
-    return typeof value === "string" ? value : key;
-  };
+  useEffect(() => {
+    // clear cache when translations object changes
+    translationCache.current = new Map();
+  }, [t]);
+
+  const getTranslatedField = useCallback(
+    (key: string): string => {
+      const cached = translationCache.current.get(key);
+      if (cached) return cached;
+
+      const keys = key.split(".");
+      let value: any = t;
+      for (const k of keys) {
+        value = value?.[k];
+        if (!value) {
+          translationCache.current.set(key, key);
+          return key;
+        }
+      }
+
+      const out = typeof value === "string" ? value : key;
+      translationCache.current.set(key, out);
+      return out;
+    },
+    [t]
+  );
 
   const getCategoryName = (key: string) => {
     if (key === "all") return t.catalog.allItems;
@@ -760,7 +823,7 @@ export default function Catalog() {
     setActiveCategory(cat);
     setCurrentPage(1);
     updateUrl(cat, searchTerm, 1);
-    filterItems(cat, searchTerm);
+    // filtering will be handled by the effect based on URL
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -779,7 +842,7 @@ export default function Catalog() {
     setSearchTerm("");
     setCurrentPage(1);
     updateUrl(activeCategory, "", 1);
-    filterItems(activeCategory, "");
+    // filtering will be handled by the effect based on URL
   };
 
   const handlePageChange = (page: number) => {
@@ -852,10 +915,7 @@ export default function Catalog() {
           </div>
 
           {/* Search */}
-          <form
-            onSubmit={handleSearchSubmit}
-            className="mx-auto mb-3 max-w-md"
-          >
+          <form onSubmit={handleSearchSubmit} className="mx-auto mb-3 max-w-md">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -925,25 +985,8 @@ export default function Catalog() {
               </li>
 
               {visibleCategories.map((cat, idx) => {
-                const mobileOrderMap: Record<string, number> = {
-                  injection: 2,
-                  lab: 3,
-                  surgery: 4,
-                  hygiene: 5,
-                  dressings: 6,
-                  equipment: 7,
-                };
-                const desktopOrderMap: Record<string, number> = {
-                  injection: 2,
-                  equipment: 3,
-                  surgery: 4,
-                  hygiene: 5,
-                  dressings: 6,
-                  lab: 7,
-                };
-
-                const mOrder = mobileOrderMap[cat.key] ?? idx + 2;
-                const dOrder = desktopOrderMap[cat.key] ?? idx + 2;
+                const mOrder = MOBILE_ORDER_MAP[cat.key] ?? idx + 2;
+                const dOrder = DESKTOP_ORDER_MAP[cat.key] ?? idx + 2;
                 const orderClass = `order-${mOrder} md:order-${dOrder}`;
 
                 return (
@@ -969,11 +1012,13 @@ export default function Catalog() {
 
           {/* PRODUCTS GRID */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {paginatedItems.map((item) => {
+            {paginatedItems.map((item, idx) => {
               const name = getTranslatedField(item.nameKey);
               const basenames = item.imageBases?.length
                 ? item.imageBases
                 : [item.imageBase];
+
+              const isLcp = currentPage === 1 && idx === 0;
 
               return (
                 <CatalogCard
@@ -984,6 +1029,7 @@ export default function Catalog() {
                   isRecentlyAdded={recentlyAddedId === item.id}
                   getTranslatedField={getTranslatedField}
                   onOpenModal={openModal}
+                  isLcp={isLcp}
                 />
               );
             })}

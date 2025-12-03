@@ -16,6 +16,7 @@ const orderSchema = new mongoose.Schema(
           required: true,
         },
         name: { type: String, required: true },
+        description: { type: String }, // add description
         quantity: { type: Number, required: true },
         price: { type: Number, required: true }, // price at purchase time
       },

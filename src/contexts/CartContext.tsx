@@ -12,6 +12,7 @@ type ID = string | number;
 export type Product = {
   id: ID;
   name: string;
+  description?: string; // Product description
   price: number;
   image?: string; // Optional fields for common product properties
   sku?: string;

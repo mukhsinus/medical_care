@@ -56,7 +56,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-  DialogDescription,
 } from "@/components/ui/dialog";
 
 import api, { startPayment } from "@/api";
@@ -94,6 +93,7 @@ const fetchUserOrders = async () => {
 
 const updateUserProfile = async (data: {
   name: string;
+  email: string;
   phone?: string;
   address?: {
     house?: string;
@@ -113,8 +113,14 @@ const updateUserProfile = async (data: {
     body: JSON.stringify(data),
   });
   if (!response.ok) {
-    const err = await response.json();
-    throw new Error(err.message || "Failed to update profile");
+    let errMsg = "Failed to update profile";
+    try {
+      const err = await response.json();
+      if (err?.message) errMsg = err.message;
+    } catch {
+      // ignore JSON parse error
+    }
+    throw new Error(errMsg);
   }
   return response.json();
 };
@@ -130,7 +136,16 @@ const changePassword = async (data: { current: string; new: string }) => {
     credentials: "include",
     body: JSON.stringify(data),
   });
-  if (!response.ok) throw new Error("Failed to change password");
+  if (!response.ok) {
+    let errMsg = "Failed to change password";
+    try {
+      const err = await response.json();
+      if (err?.message) errMsg = err.message;
+    } catch {
+      // ignore
+    }
+    throw new Error(errMsg);
+  }
   return response.json();
 };
 
@@ -159,7 +174,6 @@ const Account: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<Tab>("info");
 
-  // Add this helper function inside the component (same as in Basket page)
   const handleQuantityChange = (id: string, delta: number) => {
     const item = items.find((i) => i.product.id === id);
     if (!item) return;
@@ -168,14 +182,16 @@ const Account: React.FC = () => {
     else updateQuantity(id, newQty);
   };
 
-  // And finally render the dialog at the bottom (after password modal) */}
   const [isEditing, setIsEditing] = useState(false);
+
   const [name, setName] = useState("");
+  const [email, setEmail] = useState(""); // NEW: editable email
   const [phone, setPhone] = useState("");
   const [house, setHouse] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
+
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwords, setPasswords] = useState({
     current: "",
@@ -215,6 +231,22 @@ const Account: React.FC = () => {
     onSuccess: () => {
       setIsEditing(false);
       queryClient.invalidateQueries({ queryKey: ["userProfile"] });
+      toast({
+        title: t.account?.profile_updated_title || "Profile Updated",
+        description:
+          t.account?.profile_updated_desc ||
+          "Your information has been successfully updated.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: t.account?.profile_update_error_title || "Update Failed",
+        description:
+          error?.message ||
+          t.account?.profile_update_error_desc ||
+          "There was a problem updating your profile. Please try again.",
+        variant: "destructive",
+      });
     },
   });
 
@@ -223,6 +255,22 @@ const Account: React.FC = () => {
     onSuccess: () => {
       setShowPasswordModal(false);
       setPasswords({ current: "", new: "", confirm: "" });
+      toast({
+        title: t.account?.password_changed_title || "Password updated",
+        description:
+          t.account?.password_changed_desc ||
+          "Your password has been successfully changed.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: t.account?.password_change_error_title || "Error",
+        description:
+          error?.message ||
+          t.account?.password_change_error_desc ||
+          "Could not change password.",
+        variant: "destructive",
+      });
     },
   });
 
@@ -235,6 +283,7 @@ const Account: React.FC = () => {
   useEffect(() => {
     if (user) {
       setName(user.name || "");
+      setEmail(user.email || "");
       setPhone(user.phone || "");
       setHouse(user.address?.house || "");
       setStreet(user.address?.street || "");
@@ -243,33 +292,32 @@ const Account: React.FC = () => {
     }
   }, [user]);
 
-  const handleEditSubmit = async (e: React.FormEvent) => {
+  const handleEditSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await updateProfileMutation.mutateAsync({
-        name,
-        phone,
-        address: { house, street, city, zip },
-      });
-      toast({
-        title: "Profile Updated",
-        description: "Your information has been successfully updated.",
-      });
-    } catch (error) {
-      console.error("Profile update error:", error);
-      toast({
-        title: "Update Failed",
-        description:
-          "There was a problem updating your profile. Please try again.",
-        variant: "destructive",
-      });
-    }
+
+    updateProfileMutation.mutate({
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone.trim() || undefined,
+      address: {
+        house: house.trim() || undefined,
+        street: street.trim() || undefined,
+        city: city.trim() || undefined,
+        zip: zip.trim() || undefined,
+      },
+    });
   };
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (passwords.new !== passwords.confirm) {
-      alert("New passwords do not match");
+      toast({
+        title: t.account?.password_mismatch_title || "Passwords don't match",
+        description:
+          t.account?.password_mismatch_desc ||
+          "New password and confirmation must be the same.",
+        variant: "destructive",
+      });
       return;
     }
     changePasswordMutation.mutate({
@@ -443,6 +491,20 @@ const Account: React.FC = () => {
                             placeholder="John Doe"
                           />
                         </div>
+
+                        <div>
+                          <Label htmlFor="edit-email">
+                            {t.account?.email || "Email"}
+                          </Label>
+                          <Input
+                            id="edit-email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="you@example.com"
+                          />
+                        </div>
+
                         <div>
                           <Label htmlFor="edit-phone">
                             {t.account?.phone || "Phone"}
@@ -454,6 +516,7 @@ const Account: React.FC = () => {
                             placeholder="+998 99 123 45 67"
                           />
                         </div>
+
                         <div className="space-y-2">
                           <Label>{t.account?.address || "Address"}</Label>
 
@@ -480,6 +543,7 @@ const Account: React.FC = () => {
                             />
                           </div>
                         </div>
+
                         <div className="flex gap-3">
                           <Button
                             type="submit"
@@ -492,7 +556,19 @@ const Account: React.FC = () => {
                             type="button"
                             variant="outline"
                             className="flex-1"
-                            onClick={() => setIsEditing(false)}
+                            onClick={() => {
+                              setIsEditing(false);
+                              if (user) {
+                                // reset to server values
+                                setName(user.name || "");
+                                setEmail(user.email || "");
+                                setPhone(user.phone || "");
+                                setHouse(user.address?.house || "");
+                                setStreet(user.address?.street || "");
+                                setCity(user.address?.city || "");
+                                setZip(user.address?.zip || "");
+                              }
+                            }}
                           >
                             {t.account?.cancel || "Cancel"}
                           </Button>
@@ -520,12 +596,18 @@ const Account: React.FC = () => {
                           <div className="flex items-start gap-3 text-lg">
                             <MapPin className="h-5 w-5 text-muted-foreground mt-0.5" />
                             <div>
-                              {user?.address?.street ? (
+                              {user?.address?.street || user?.address?.house ? (
                                 <>
-                                  <div>{user.address.street}</div>
+                                  <div>
+                                    {user?.address?.house
+                                      ? `${user.address.house}, ${
+                                          user.address.street || ""
+                                        }`
+                                      : user?.address?.street}
+                                  </div>
                                   <div className="text-sm text-muted-foreground">
-                                    {user.address.city}
-                                    {user.address.zip
+                                    {user?.address?.city}
+                                    {user?.address?.zip
                                       ? `, ${user.address.zip}`
                                       : ""}
                                   </div>
@@ -586,7 +668,6 @@ const Account: React.FC = () => {
                       </div>
                     ) : (
                       <div className="grid md:grid-cols-[1fr_320px] gap-6">
-                        {/* Same item list as Basket page – you can even extract this too if you want */}
                         <section>
                           <ul className="space-y-4">
                             {items.map((ci) => {
@@ -696,6 +777,7 @@ const Account: React.FC = () => {
                             size="lg"
                             className="w-full btn-primary shadow-lg hover:shadow-xl mt-6"
                             onClick={() => setIsCheckoutOpen(true)}
+                            disabled={isPaying}
                           >
                             {t.basket?.checkout || "Proceed to checkout"}
                           </Button>
@@ -835,7 +917,12 @@ const Account: React.FC = () => {
         </DialogContent>
       </Dialog>
 
-      <CheckoutDialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen} />
+      <CheckoutDialog
+        open={isCheckoutOpen}
+        onOpenChange={setIsCheckoutOpen}
+        onPay={handleCheckout}
+        isPaying={isPaying}
+      />
     </Layout>
   );
 };

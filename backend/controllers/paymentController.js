@@ -1,5 +1,7 @@
 // controllers/paymentController.js
 const Order = require("../models/Order");
+const User = require("../models/User");
+const { sendNotification } = require("../utils/telegramNotifier");
 
 exports.createOrderAndInitPayment = async (req, res) => {
   console.log('PAYMENT BODY:', req.body);
@@ -39,6 +41,8 @@ exports.createOrderAndInitPayment = async (req, res) => {
         ip: req.ip,
       },
     });
+
+    console.log("Order created:", order._id);
 
     // 2) Build redirect URL / init data (for now just a placeholder)
     const backendBase = process.env.BACKEND_URL || "http://localhost:8090";
@@ -89,6 +93,51 @@ exports.paymeCallback = async (req, res) => {
     order.providerTransactionId = transactionId;
     await order.save();
 
+    // Send Telegram notification on successful payment
+    try {
+      const user = await User.findById(order.userId);
+      if (user) {
+        const itemsList = order.items
+          .map(
+            (item) =>
+              `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
+                item.price * item.quantity
+              ).toLocaleString("uz-UZ")} UZS`
+          )
+          .join("\n");
+
+        const addr = user.address
+          ? `${user.address.house ? user.address.house + ", " : ""}${
+              user.address.street || ""
+            }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
+          : "Not provided";
+
+        const orderMessage = `
+<b>🛒 New Order Placed</b>
+
+<b>Order ID:</b> ${order._id}
+<b>Payment Status:</b> ✅ Paid
+<b>Provider:</b> ${order.paymentProvider}
+
+<b>Customer:</b>
+• Name: ${user.name}
+• Email: ${user.email}
+• Phone: ${user.phone || "Not provided"}
+• Address: ${addr}
+
+<b>Products:</b>
+${itemsList}
+
+<b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
+
+<b>Time:</b> ${new Date().toISOString()}
+`;
+        sendNotification(orderMessage);
+      }
+    } catch (e) {
+      console.error("Telegram notification failed (non-blocking):", e?.message);
+    }
+
     return res.json({ result: "success" }); // TODO: real Payme format
   } catch (err) {
     console.error("paymeCallback error:", err);
@@ -123,6 +172,51 @@ exports.clickCallback = async (req, res) => {
       order.paymentStatus = "paid";
       order.providerTransactionId = clickTransId;
       await order.save();
+
+      // Send Telegram notification on successful payment
+      try {
+        const user = await User.findById(order.userId);
+        if (user) {
+          const itemsList = order.items
+            .map(
+              (item) =>
+                `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
+                  item.price * item.quantity
+                ).toLocaleString("uz-UZ")} UZS`
+            )
+            .join("\n");
+
+          const addr = user.address
+            ? `${user.address.house ? user.address.house + ", " : ""}${
+                user.address.street || ""
+              }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
+            : "Not provided";
+
+          const orderMessage = `
+<b>🛒 New Order Placed</b>
+
+<b>Order ID:</b> ${order._id}
+<b>Payment Status:</b> ✅ Paid
+<b>Provider:</b> ${order.paymentProvider}
+
+<b>Customer:</b>
+• Name: ${user.name}
+• Email: ${user.email}
+• Phone: ${user.phone || "Not provided"}
+• Address: ${addr}
+
+<b>Products:</b>
+${itemsList}
+
+<b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
+
+<b>Time:</b> ${new Date().toISOString()}
+`;
+          sendNotification(orderMessage);
+        }
+      } catch (e) {
+        console.error("Telegram notification failed (non-blocking):", e?.message);
+      }
 
       return res.json({
         error: 0,

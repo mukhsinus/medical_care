@@ -240,7 +240,7 @@ function ItemModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md w-[90vw] max-w-[90vw] bg-white rounded-lg p-4 sm:p-6">
+      <DialogContent className="sm:max-w-md w-[90vw] max-w-[90vw] bg-white rounded-lg p-4 sm:p-6 max-h-[90vh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-lg">
             <ShoppingBasket className="h-5 w-5" />
@@ -248,7 +248,7 @@ function ItemModal({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-4 py-4 overflow-y-auto flex-1">
           {/* IMAGE + DOTS INSIDE MODAL */}
           <div className="flex flex-col gap-3">
             <div
@@ -310,7 +310,7 @@ function ItemModal({
           {item.colors && item.colors.length > 0 && (
             <div className="space-y-1">
               <Label>Color</Label>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
                 {item.colors.map((colorKey) => {
                   const label = getTranslatedField(colorKey);
                   return (
@@ -318,7 +318,7 @@ function ItemModal({
                       key={colorKey}
                       type="button"
                       onClick={() => setSelectedColorKey(colorKey)}
-                      className={`px-2 py-1 text-xs rounded-full border transition ${
+                      className={`px-2 py-1 text-xs rounded-full border transition whitespace-nowrap ${
                         selectedColorKey === colorKey
                           ? "bg-primary text-white border-primary"
                           : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
@@ -336,7 +336,7 @@ function ItemModal({
           {item.sizes && item.sizes.length > 0 && (
             <div className="space-y-1">
               <Label>Size</Label>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
                 {item.sizes.map((sizeKey) => {
                   const label = getTranslatedField(sizeKey);
                   return (
@@ -344,7 +344,7 @@ function ItemModal({
                       key={sizeKey}
                       type="button"
                       onClick={() => setSelectedSizeKey(sizeKey)}
-                      className={`px-2 py-1 text-xs rounded-full border transition ${
+                      className={`px-2 py-1 text-xs rounded-full border transition whitespace-nowrap ${
                         selectedSizeKey === sizeKey
                           ? "bg-primary text-white border-primary"
                           : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"

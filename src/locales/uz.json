@@ -269,47 +269,148 @@
   },
   "variants": {
     "colors": {
-      "white": "Oq",
-      "blue": "Ko'k",
+      "blue": "Ko‘k",
       "green": "Yashil",
+      "white": "Oq",
       "yellow": "Sariq",
-      "red": "Qizil",
       "pink": "Pushti",
-      "purple": "Binafsha",
+      "red": "Qizil",
       "black": "Qora",
-      "blueBlack": "Ko'k-Qora",
-      "redBlack": "Qizil-Qora",
-      "yellowBlack": "Sariq-Qora"
+      "orange": "To‘q sariq",
+      "purple": "Siyohrang",
+      "blueBlack": "Ko‘k-qora",
+      "redBlack": "Qizil-qora",
+      "yellowBlack": "Sariq-qora",
+      "lightBlue": "Och ko‘k",
+      "lightPink": "Och pushti"
     },
+
     "sizes": {
+      "1ml": "1 ml",
+      "2ml": "2 ml",
+      "2p5ml": "2.5 ml",
+      "5ml": "5 ml",
+      "10ml": "10 ml",
+      "20ml": "20 ml",
+      "50ml": "50 ml",
+      "100ml": "100 ml",
+      "500ml": "500 ml",
+      "1000ml": "1000 ml",
+      "1l": "1 litr",
+      "2l": "2 litr",
+      "3l": "3 litr",
+      "4l": "4 litr",
+      "4p5l": "4.5 litr",
+      "5l": "5 litr",
+      "6l": "6 litr",
+      "xs": "XS",
       "s": "S",
       "m": "M",
       "l": "L",
-      "xl": "XL"
+      "xl": "XL",
+      "50b200": "50mm x 200m",
+      "55b200": "55mm x 200m",
+      "75b200": "75mm x 200m",
+      "100b200": "100mm x 200m",
+      "150b200": "150mm x 200m",
+      "200b200": "200mm x 200m",
+      "250b200": "250mm x 200m",
+      "300b200": "300mm x 200m",
+      "350b200": "350mm x 200m",
+      "400b200": "400mm x 200m",
+      "450b200": "450mm x 200m",
+      "500b200": "500mm x 200m",
+      "25g": "25 gr/m²",
+      "35g": "35 gr/m²",
+      "45g": "45 gr/m²",
+      "6fr": "6 Fr/Ch",
+      "8fr": "8 Fr/Ch",
+      "10fr": "10 Fr/Ch",
+      "12fr": "12 Fr/Ch",
+      "14fr": "14 Fr/Ch",
+      "16fr": "16 Fr/Ch",
+      "18fr": "18 Fr/Ch",
+      "600pc": "Qutida 600 dona",
+      "1000pc": "Qutida 1000 dona"
     }
   },
+
   "items": {
-    "1": { "name": "Unigloves", "description": "Nosteril, nitiril, kukunsiz, teksturali, ikki qo‘lga mos bir martalik ko‘rik qo‘lqoplari." },
-    "2": { "name": "Adras qo‘lqoplari", "description": "Bir martalik qo‘lqoplar" },
-    "3": { "name": "Clinic Clean niqoblari", "description": "Bir martalik tibbiy niqoblar" },
-    "4": { "name": "Clinic Clean niqoblari", "description": "Uch qatlamli bir martalik tibbiy niqob" },
+    "1": {
+      "name": "Unigloves",
+      "description": "Steril emas, nitril, kukunsiz, teksturali, ikki qo‘lga mos, bir martalik ko‘rik qo‘lqoplari."
+    },
+    "2": {
+      "name": "Adras qo‘lqoplari",
+      "description": "Bir martalik qo‘lqoplar"
+    },
+    "3": {
+      "name": "Clinic Clean niqoblari",
+      "description": "Bir martalik niqoblar"
+    },
+    "4": {
+      "name": "Clinic Clean niqoblari",
+      "description": "Uch qatlamli tibbiy niqob, bir martalik"
+    },
     "5": { "name": "Face Maks", "description": "Bir martalik niqoblar" },
-    "6": { "name": "Unipack sterilizatsiya ruloni", "description": "Sterilizatsiya uchun tekis rulon" },
-    "7": { "name": "Nest Med Tech jarrohlik yopqichi", "description": "Bir martalik jarrohlik yopqichi" },
-    "8": { "name": "Dentafill jarrohlik qo‘lqoplari", "description": "Bir martalik steril lateks jarrohlik qo‘lqoplari" },
-    "9": { "name": "Jarrohlik xalat", "description": "Bir martalik jarrohlik xalat" },
-    "10": { "name": "Hygiene United jarrohlik xalat", "description": "Bir martalik jarrohlik xalat" },
-    "11": { "name": "Nest Med Tech Nest-Dent", "description": "Bir martalik steril stomatologik to‘plam" },
-    "12": { "name": "Wego IV tizimi", "description": "Tomir ichiga yuborish tizimi" },
-    "13": { "name": "Uniset IV tizimi", "description": "Ignali bir martalik IV infuziya tizimi" },
-    "14": { "name": "IV tizim", "description": "Bir martalik ignali infuziya tizimi" },
-    "15": { "name": "Shprits 50 ml", "description": "Bir martalik ignali shprits, 50 ml" },
-    "16": { "name": "Medco shprits 50 ml", "description": "Bir martalik ignali shprits, 1 ml" },
-    "17": { "name": "Shprits", "description": "Bir martalik ignali shprits" },
-    "18": { "name": "Shprits", "description": "Bir martalik ignali shprits" },
-    "19": { "name": "MFA shprits", "description": "Bir martalik ignali shprits" },
-    "20": { "name": "DLAB pipetkasi", "description": "Autoklavlanadigan MicroPette Plus pipetkasi" },
-    "21": { "name": "", "description": "" },
+    "6": {
+      "name": "Unipack sterilizatsiya roli",
+      "description": "Sterilizatsiya uchun rolik shaklidagi qadoqlash materiali"
+    },
+    "7": {
+      "name": "Nest Med Tech Drape",
+      "description": "Bir martalik jarrohlik yopqichi"
+    },
+    "8": {
+      "name": "Dentafill jarrohlik qo‘lqoplari",
+      "description": "Lateksdan tayyorlangan steril jarrohlik qo‘lqoplari"
+    },
+    "9": {
+      "name": "Jarrohlik xalat",
+      "description": "Bir martalik jarrohlik xalat"
+    },
+    "10": {
+      "name": "Hygiene United jarrohlik xalat",
+      "description": "Bir martalik jarrohlik xalat"
+    },
+    "11": {
+      "name": "Nest-Dent stomatologik to‘plam",
+      "description": "Steril stomatologik to‘plam"
+    },
+    "12": {
+      "name": "Wego IV tizimi",
+      "description": "Vena ichiga infuziya tizimi"
+    },
+    "13": {
+      "name": "Uniset IV tizimi",
+      "description": "Ignali infuziya tizimi, bir martalik"
+    },
+    "14": {
+      "name": "IV tizimi",
+      "description": "Ignali infuziya tizimi, bir martalik"
+    },
+    "15": {
+      "name": "Shprits 50ml",
+      "description": "Ignali bir martalik shprits, 50ml"
+    },
+    "16": {
+      "name": "Medco shprits, 50ml",
+      "description": "Ignali bir martalik shprits, 1ml"
+    },
+    "17": { "name": "Shprits", "description": "Ignali bir martalik shprits" },
+    "18": { "name": "Shprits", "description": "Ignali bir martalik shprits" },
+    "19": {
+      "name": "MFA shprits",
+      "description": "Ignali bir martalik shprits"
+    },
+    "20": {
+      "name": "DLAB Pipettor",
+      "description": "Avtoklavlanadigan MicroPette pipetkasi"
+    },
+    "21": {
+      "name": "Gastrik zond",
+      "description": "Ovqat hazm yo‘liga qo‘yiladigan zond"
+    },
     "22": { "name": "", "description": "" },
     "23": { "name": "", "description": "" },
     "24": { "name": "", "description": "" },
@@ -318,59 +419,442 @@
     "27": { "name": "", "description": "" },
     "28": { "name": "", "description": "" },
     "29": { "name": "", "description": "" },
-    "30": { "name": "Insulin shprits", "description": "Ignali insulin shprits" },
-    "31": { "name": "Antiseptik salfetka", "description": "Spirtli antiseptik salfetkalar" },
-    "32": { "name": "Improvacuter ko‘p namuna ignalari", "description": "Bir martalik ko‘p namuna qon olish ignalari" },
-    "33": { "name": "Qon olish ignasi", "description": "22G × 38 mm ko‘p namuna ignasi" },
-    "34": { "name": "Ginekologik zond", "description": "Bir martalik ginekologik zond" },
-    "35": { "name": "Berocath Foley kateteri", "description": "Lateks ballonli Foley kateteri" },
-    "36": { "name": "Ginekologik zond", "description": "Bir martalik ginekologik zond" },
-    "37": { "name": "Nest-Pack jarrohlik to‘plami", "description": "Xalat, baxila, bosh qopqog‘i, niqob" },
-    "38": { "name": "Health Line insulin shprits 1 ml", "description": "Bir martalik insulin shprits, 1 ml" },
+    "30": {
+      "name": "Insulin shpritsi",
+      "description": "Ignali insulin shprits"
+    },
+    "31": {
+      "name": "Antiseptik salfetka",
+      "description": "Spirtli antiseptik salfetkalar"
+    },
+    "32": {
+      "name": "Improvacuter ko‘p namuna ignalari",
+      "description": "Qon olish uchun ko‘p martalik ushlagichli ignalar"
+    },
+    "33": { "name": "Qon olish ignasi", "description": "Ko‘p namuna ignasi" },
+    "34": {
+      "name": "Ginekologik sampler",
+      "description": "Bir martalik ginekologik namunagich"
+    },
+    "35": {
+      "name": "Berocath Foley kateteri",
+      "description": "Lateks Foley ballonli kateter"
+    },
+    "36": {
+      "name": "Ginekologik sampler",
+      "description": "Bir martalik ginekologik namunagich"
+    },
+    "37": {
+      "name": "Nest-Pack jarrohlik to‘plami",
+      "description": "Xalat, bahil, qalpoqcha, niqobdan iborat jarrohlik to‘plami"
+    },
+    "38": {
+      "name": "Health Line insulin shprits, 1ml",
+      "description": "Bir martalik insulin shprits, 1ml"
+    },
     "39": { "name": "", "description": "" },
-    "40": { "name": "Jarrohlik to‘ri", "description": "Polipropilen monofilament steril jarrohlik to‘ri" },
-    "41": { "name": "ProLite Composite", "description": "Ikki qatlamli qisman so‘riladigan to‘r" },
+    "40": {
+      "name": "Jarrohlik to‘ri",
+      "description": "Polipropilen monofilament steril jarrohlik to‘ri"
+    },
+    "41": {
+      "name": "ProLite Composite",
+      "description": "Ikki qatlamli, qisman so‘riladigan to‘r"
+    },
     "42": { "name": "", "description": "" },
-    "43": { "name": "KD-FLY venoz to‘plami", "description": "Qanotli infuzion tizim (butterfly)" },
-    "44": { "name": "Chiqindi konteyneri", "description": "Tibbiy chiqindilar konteyneri" },
+    "43": {
+      "name": "KD-FLY qanotli infuziya to‘plami",
+      "description": "Qanotli igna - skalp vena ignasi"
+    },
+    "44": {
+      "name": "Tibbiy chiqindi konteyneri",
+      "description": "Klinik chiqindilar uchun konteyner"
+    },
     "45": { "name": "", "description": "" },
-    "46": { "name": "Zogear paxta rulonchalari", "description": "100% paxtadan, 10×38 mm" },
-    "47": { "name": "LDH-kanula", "description": "Yapon po‘latidan LDH-kanula, bir martalik" },
-    "48": { "name": "Zogear so‘lak so‘rgichlari", "description": "Slyuna ejektorlari" },
-    "49": { "name": "Siydik xaltalari", "description": "Bir martalik steril siydik xaltasi, 200 ml" },
-    "50": { "name": "Namuna olish paxtasi", "description": "Namuna olish uchun paxta-tampon" },
-    "51": { "name": "Lateks jgut", "description": "Lateks jgut" },
-    "52": { "name": "", "description": "" },
-    "53": { "name": "Berotape kateter fiksatori", "description": "IV kateterni mahkamlash uchun" },
-    "54": { "name": "Own Aid bolalar plastiri", "description": "Bolalar gigiyenik plastirlari" },
-    "55": { "name": "LDH EKG lenta", "description": "EKG lentasi 110 mm × 10 m" },
-    "56": { "name": "Medik Plast qanotli kateter", "description": "Inʼyeksiya portli qanotli IV kateter" },
-    "57": { "name": "Medik Plast elastik plastir", "description": "Nosteril, elastik tibbiy plastir 15 sm × 10 m" },
+    "46": {
+      "name": "Zogear stomatologik paxta roliklari",
+      "description": "100% sof paxtadan, 10x38mm"
+    },
+    "47": {
+      "name": "LDH-kanyula",
+      "description": "Yapon zanglamas po‘lat LDH bir martalik kanyula"
+    },
+    "48": {
+      "name": "Zogear tupurik ejektorlari",
+      "description": "Tupurik ejektorlari"
+    },
+    "49": {
+      "name": "Siydik xaltalari",
+      "description": "Steril bir martalik siydik xaltasi, 200ml"
+    },
+    "50": {
+      "name": "Namuna olish tamponi",
+      "description": "Tibbiy namuna olish uchun tampon"
+    },
+    "51": { "name": "Lateks turniket", "description": "Lateks turniket" },
+    "52": {
+      "name": "Kindik qisqichi",
+      "description": "Steril kindik qisqichi"
+    },
+    "53": {
+      "name": "Berotape IV fiksatsiya",
+      "description": "Kateterni mahkamlash uchun lenta"
+    },
+    "54": {
+      "name": "Own Aid bolalar plastirlari",
+      "description": "Bolalar uchun gigiyenik plastirlar"
+    },
+    "55": {
+      "name": "LDH EKG lentalari",
+      "description": "EKG lentalari, 110mm x 10m"
+    },
+    "56": {
+      "name": "Medik Plast qanotli IV kateter",
+      "description": "Inyektsiya portli qanotli IV kateter"
+    },
+    "57": {
+      "name": "Medik Plast tibbiy yopishqoq lenta",
+      "description": "Nosteril elastik tibbiy yopishqoq lenta, 15cm x 10m"
+    },
     "58": { "name": "", "description": "" },
-    "59": { "name": "One Aid nafas oluvchi plastir", "description": "Nafas oluvchi gigiyenik plastir 10×15 sm" },
-    "60": { "name": "Own Aid nafas oluvchi plastir", "description": "Nafas oluvchi PVC plastir 2.5×500 sm" },
-    "61": { "name": "Gigiyenik salfetka", "description": "Gigiyenik salfetka 33×45 sm" },
-    "62": { "name": "Adutor qon bosimi o‘lchagichi", "description": "Tonometr" },
-    "63": { "name": "Finflex plastir", "description": "To‘qimasiz plastir 10 sm × 20 m" },
-    "64": { "name": "Own Aid plastir", "description": "Nafas oluvchi gigiyenik plastir 19×72 mm" },
-    "65": { "name": "Own Aid plastir", "description": "PVC asosidagi nafas oluvchi plastir" },
-    "66": { "name": "Shisha qopqoq", "description": "Mikroskop uchun 24×24 mm" },
-    "67": { "name": "KD-Fix IV kateter", "description": "IV kateter 0.9×25 mm (22G)" },
-    "68": { "name": "Unitest-steam 132/20 (ichki)", "description": "Ichki bug‘ sterilizatsiya indikatori 4-sinf" },
-    "69": { "name": "Unitest-steam 132/20 (tashqi)", "description": "Tashqi bug‘ sterilizatsiya indikatori 4-sinf" },
-    "70": { "name": "Unitest-steam 134/5", "description": "Universal bug‘ sterilizatsiya indikatori 4-sinf" },
-    "71": { "name": "Sterilan 132/20 (ichki)", "description": "Ichki bug‘ sterilizatsiya indikatori 5-sinf" },
-    "72": { "name": "Sterilan 132/20 (tashqi)", "description": "Tashqi bug‘ sterilizatsiya indikatori 4-sinf" },
-    "73": { "name": "Sterilan 180/60 (ichki)", "description": "Ichki quruq issiq sterilizatsiya indikatori 5-sinf" },
-    "74": { "name": "Sterilan 180/60 (tashqi)", "description": "Tashqi quruq issiq sterilizatsiya indikatori 5-sinf" },
-    "75": { "name": "Vinar Steritest 132/20", "description": "Bug‘ sterilizatsiya indikatori" },
-    "76": { "name": "Vinar MedIS 132/20", "description": "Bug‘ sterilizatsiya indikatori" },
-    "77": { "name": "Vinar MedIS 180/60", "description": "Quruq issiq sterilizatsiya indikatori" },
-    "78": { "name": "Face Mask", "description": "Bir martalik niqoblar" },
-    "79": { "name": "Aiqura infraqizil termometr", "description": "Peshona uchun infraqizil termometr" },
-    "80": { "name": "Qo‘ltiq osti termometri", "description": "Klinik qo‘ltiq osti termometri" },
-    "81": { "name": "Bir martalik skalpellar", "description": "Himoya qopqog‘i bilan premium bir martalik skalpellar" },
-    "82": { "name": "Tibbiy oliviya", "description": "Bir martalik tibbiy oliviya" },
-    "83": { "name": "Irrigatsiya kanulasi", "description": "Yuvish uchun kanula" }
+    "59": {
+      "name": "One Aid nafas oluvchi plastirlar",
+      "description": "Nafas oluvchi gigiyenik plastirlar, 10x15cm"
+    },
+    "60": {
+      "name": "Own Aid nafas oluvchi plastirlar",
+      "description": "Nafas oluvchi plastir, 2.5x500cm"
+    },
+    "61": {
+      "name": "Gigiyenik salfetka",
+      "description": "Gigiyenik salfetka, 33x45cm"
+    },
+    "62": {
+      "name": "Adutor qon bosimi apparati",
+      "description": "Qon bosimi o‘lchagich"
+    },
+    "63": {
+      "name": "Finflex plastir",
+      "description": "To‘qimasiz plastir, 10cm x 20m"
+    },
+    "64": {
+      "name": "Own Aid plastir",
+      "description": "Nafas oluvchi gigiyenik plastir, 19x72mm"
+    },
+    "65": {
+      "name": "Own Aid plastir",
+      "description": "PVC asosidagi nafas oluvchi plastir"
+    },
+    "66": {
+      "name": "Mikroskop oynachasi",
+      "description": "Mikroskop uchun oynacha"
+    },
+    "67": {
+      "name": "KD-Fix IV kateter",
+      "description": "IV kateter, 0.9x25mm (22G)"
+    },
+    "68": {
+      "name": "Unitest ichki bug‘ indikatori 132/20",
+      "description": "Ichki bug‘ sterilizatsiya indikatori, sariq-qora, 4-sinf"
+    },
+    "69": {
+      "name": "Unitest tashqi bug‘ indikatori 132/20",
+      "description": "Tashqi bug‘ sterilizatsiya indikatori, pushti-qora, 4-sinf"
+    },
+    "70": {
+      "name": "Unitest universal bug‘ indikatori 134/5",
+      "description": "Universal bug‘ indikatori, ko‘k-qora, 4-sinf"
+    },
+    "71": {
+      "name": "Sterilan ichki indikator lentalari 132/20",
+      "description": "Ichki bug‘ sterilizatsiya indikatori, 5-sinf"
+    },
+    "72": {
+      "name": "Sterilan tashqi indikator lentalari 132/20",
+      "description": "Tashqi bug‘ sterilizatsiya indikatori, 4-sinf"
+    },
+    "73": {
+      "name": "Sterilan issiq havo ichki indikatorlari 180/60",
+      "description": "Ichki issiq havo sterilizatsiya indikatori, 5-sinf"
+    },
+    "74": {
+      "name": "Sterilan issiq havo tashqi indikatorlari 180/60",
+      "description": "Tashqi issiq havo sterilizatsiya indikatori, 5-sinf"
+    },
+    "75": {
+      "name": "Vinar Steritest 132/20",
+      "description": "Bug‘ sterilizatsiya indikatori"
+    },
+    "76": {
+      "name": "Vinar MedIS 132/20",
+      "description": "Bug‘ sterilizatsiya indikatori"
+    },
+    "77": {
+      "name": "Vinar MedIS 180/60",
+      "description": "Issiq havo sterilizatsiya indikatori"
+    },
+    "78": { "name": "Niqob", "description": "Bir martalik niqoblar" },
+    "79": {
+      "name": "Aiqura infraqizil termometr",
+      "description": "Peshona uchun infraqizil termometr"
+    },
+    "80": {
+      "name": "Qo‘ltiq termometri",
+      "description": "Klinik qo‘ltiq termometr"
+    },
+    "81": {
+      "name": "Jarrohlik skalpellari",
+      "description": "Himoya qopqog‘i bilan premium skalpellar"
+    },
+    "82": {
+      "name": "Tibbiy oliviya",
+      "description": "Bir martalik tibbiy oliviya"
+    },
+    "83": {
+      "name": "Irrigatsiya kanyulasi",
+      "description": "Irrigatsiya uchun kanyula"
+    },
+    "84": {
+      "name": "Sentrifuga naychalari",
+      "description": "RNaza & DNaza dan xoli, 1.5ml"
+    },
+    "85": {
+      "name": "Nasal Cannuka Universal",
+      "description": "Universal burun kanülası"
+    },
+    "86": { "name": "Bir martalik igna", "description": "Bir martalik igna" },
+    "87": {
+      "name": "Po‘lat skalpel pichoqlari",
+      "description": "Uglerod po‘latidan skalpel pichoqlari"
+    },
+    "88": {
+      "name": "Gastrik zond",
+      "description": "Bir martalik gastrik zond, 1200mm"
+    },
+    "89": {
+      "name": "LDH burun kanyulasi",
+      "description": "Universal burun kanyulasi"
+    },
+    "90": {
+      "name": "Jarrohlik po‘lat pichoqlar",
+      "description": "Uglerodli po‘lat skalpel pichoqlari"
+    },
+    "91": {
+      "name": "Tashqi termoplastik shina (o‘rta o‘lcham)",
+      "description": "O‘rta o‘lchamli termoplastik shina"
+    },
+    "92": {
+      "name": "Rustmomed igna ushlagichi",
+      "description": "Ignani ushlab turuvchi asbob"
+    },
+    "93": {
+      "name": "Dispenser butilka",
+      "description": "Plastik dispenser idish"
+    },
+    "94": {
+      "name": "Romsons EKG elektrolyudi",
+      "description": "EKG uchun elektrolyud, 45x42mm"
+    },
+    "95": {
+      "name": "Health Line Nelaton kateteri",
+      "description": "Steril Nelaton kateteri"
+    },
+    "96": {
+      "name": "Wego shprits",
+      "description": "Steril bir martalik inyektsiya shprits"
+    },
+    "97": {
+      "name": "Dismed tibbiy spatula",
+      "description": "Steril bir martalik spatula"
+    },
+    "98": { "name": "Bir martalik igna", "description": "Bir martalik igna" },
+    "99": {
+      "name": "Otoskop spekulumi",
+      "description": "Bir martalik otoskop spekulumi"
+    },
+    "100": {
+      "name": "Steril namuna tamponi",
+      "description": "Transport naychali steril tampon"
+    },
+    "101": {
+      "name": "Elektrojarrohlik koagulyatsiya qalami",
+      "description": "Elektrojarrohlik koagulyatsiya qalami"
+    },
+    "102": {
+      "name": "Azopyram C-GTM",
+      "description": "Sterilizatsiya oldi tozaligi nazorati uchun reaktivlar to‘plami"
+    },
+    "103": {
+      "name": "Romsons Foley kateteri",
+      "description": "Tabiiy lateksdan Foley kateter"
+    },
+    "104": {
+      "name": "Medik Plast Foley kateteri",
+      "description": "Tabiiy lateksdan Foley kateter"
+    },
+    "105": {
+      "name": "Antiseptin 0.5l yuzalar uchun",
+      "description": "Yuzalar uchun 0.5l antiseptik (A daraja)"
+    },
+    "106": {
+      "name": "Antibakterial vosita extra",
+      "description": "Sterilizatsiya oldidan asboblarni qayta ishlash uchun"
+    },
+    "107": {
+      "name": "Antiseptin OP 0.5l teri uchun",
+      "description": "Teri uchun antiseptik (B brend)"
+    },
+    "108": {
+      "name": "Septa Dez",
+      "description": "Asboblarni sterilizatsiya oldidan qayta ishlash uchun 1 litr vosita"
+    },
+    "109": {
+      "name": "DS-1 0.5l kontsentrat",
+      "description": "Dezinfeksiya va sterilizatsiya vositasi"
+    },
+    "110": {
+      "name": "Pakion plazma kimyoviy indikatori",
+      "description": "Plazma sterilizatsiya indikatori"
+    },
+    "111": {
+      "name": "Maximed fenolftalein 100ml",
+      "description": "Fenolftalein, 100ml"
+    },
+    "112": { "name": "Mikroskop shishachalari", "description": "" },
+    "113": { "name": "Bir martalik qalpoqchalar", "description": "" },
+    "114": { "name": "", "description": "" },
+    "115": { "name": "Bir martalik qalpoqchalar", "description": "" },
+    "116": { "name": "", "description": "" },
+    "117": {
+      "name": "Biomateriallar uchun idish",
+      "description": "Plastik qopqoqli 100ml biomaterial yig‘ish idishi"
+    },
+    "118": {
+      "name": "Baxtteks-farm dokasi",
+      "description": "Tibbiy oqartirilgan paxta dokasi"
+    },
+    "119": {
+      "name": "Baxtteks-farm paxta",
+      "description": "Nosteril gigiyenik tibbiy paxta"
+    },
+    "120": {
+      "name": "Apexfly bint-plastir",
+      "description": "Tibbiy bint-plastir"
+    },
+    "121": {
+      "name": "Baxtteks-farm nosteril doka",
+      "description": "Nosteril tibbiy paxta dokasi"
+    },
+    "122": {
+      "name": "Cotton-Club paxta",
+      "description": "Nosteril gigiyenik paxta"
+    },
+    "123": {
+      "name": "Cotton-Club paxta sharlari",
+      "description": "Nosteril paxta sharlari"
+    },
+    "124": {
+      "name": "Baxtteks-farm steril doka salfetkalari",
+      "description": "Steril doka salfetkalar, 45x29cm"
+    },
+    "125": {
+      "name": "Sarbonteks steril doka salfetkalari",
+      "description": "Steril doka salfetkalari"
+    },
+    "126": {
+      "name": "Sarbonteks paxta",
+      "description": "Nosteril gigiyenik paxta"
+    },
+    "127": {
+      "name": "Sarbonteks doka",
+      "description": "Nosteril gigiyenik doka"
+    },
+    "128": {
+      "name": "Sarbonteks doka",
+      "description": "Steril gigiyenik doka"
+    },
+    "129": {
+      "name": "Asilbek doka",
+      "description": "Nosteril gigiyenik doka, 5m x 84cm"
+    },
+    "130": {
+      "name": "Sarbonteks doka",
+      "description": "Tibbiy gigiyenik doka"
+    },
+    "131": {
+      "name": "Baxtteks-farm steril doka",
+      "description": "Steril Baxtteks dokasi"
+    },
+    "132": {
+      "name": "Baxtteks-farm steril doka salfetkalari",
+      "description": "Steril doka salfetkalari, 16x14cm"
+    },
+    "133": { "name": "", "description": "" },
+    "134": { "name": "", "description": "" },
+    "135": { "name": "", "description": "" },
+    "136": { "name": "", "description": "" },
+    "137": { "name": "", "description": "" },
+    "138": {
+      "name": "Pakion sterilizatsiya qopchasi",
+      "description": "O‘z-o‘zidan yopiladigan sterilizatsiya qopchasi"
+    },
+    "139": {
+      "name": "UKM ginekologik to‘plam",
+      "description": "Ginekologik to‘plam"
+    },
+    "140": {
+      "name": "UKM KUSKO oynasi",
+      "description": "Kusko ginekologik oynasi"
+    },
+    "141": {
+      "name": "Health Line KUSKO oynasi",
+      "description": "Kusko ginekologik oynasi"
+    },
+    "142": {
+      "name": "Finflex jarrohlik qo‘lqoplari",
+      "description": "Lateksdan steril jarrohlik qo‘lqoplari"
+    },
+    "143": {
+      "name": "Health Line shprits",
+      "description": "Steril bir martalik shprits"
+    },
+    "144": {
+      "name": "Westcom shprits",
+      "description": "Steril bir martalik shprits"
+    },
+    "145": { "name": "", "description": "" },
+    "146": { "name": "", "description": "" },
+    "147": {
+      "name": "PGA jarrohlik ipi",
+      "description": "Poliglikol kislotali so‘riladigan jarrohlik ipi"
+    },
+    "148": {
+      "name": "Medik Plast endotraxeal trubkasi",
+      "description": "Endotraxeal trubka"
+    },
+    "149": {
+      "name": "Qizil qopqoqli vakuum naycha",
+      "description": "Koagulyatsiya aktivatori bilan"
+    },
+    "150": {
+      "name": "Yashil qopqoqli vakuum naycha",
+      "description": "Litiy heparinli"
+    },
+    "151": {
+      "name": "Sariq qopqoqli vakuum naycha",
+      "description": "Gel va koagulyatsiya aktivatori bilan"
+    },
+    "152": {
+      "name": "Binafsha qopqoqli EDTA K3 vakuum naycha",
+      "description": "13x75 mm, 3 ml"
+    },
+    "153": {
+      "name": "Ko‘k qopqoqli 3.2% natriy sitratli vakuum naycha",
+      "description": ""
+    },
+    "154": {
+      "name": "Katgut jarrohlik ipi",
+      "description": "So‘riladigan jarrohlik ipi"
+    }
   }
 }

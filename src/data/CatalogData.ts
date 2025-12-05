@@ -6,28 +6,20 @@ import categoryHygiene from "@/assets/category-hygiene.png";
 import categoryDressings from "@/assets/sterilization.png";
 import categoryLab from "@/assets/lab.png";
 
-/* -----------------------------
-   Types
-   ----------------------------- */
 
 export type CatalogItem = {
   id: number;
   category: string;
   nameKey: string;
   descriptionKey: string;
-  price: number;
+  price?: number;
 
-  // main "basename" (no extension)
   imageBase: string;
 
-  // optional additional images (also basenames)
   imageBases?: string[];
 
-  // these are *translation keys* now (e.g. "variants.colors.blue")
   colors?: string[];
   sizes?: string[];
-  // optional explicit prices per size (keys match `sizes` entries)
-  // if provided, these are absolute prices (not modifiers)
   sizePrices?: Record<string, number>;
   boxInfo?: string;
 };
@@ -38,9 +30,6 @@ export type ImageSources = {
   fallback: string;
 };
 
-/* -----------------------------
-   Helpers for item images
-   ----------------------------- */
 
 const itemsImg = import.meta.glob(
   "@/assets/items/**/**.{png,jpg,jpeg,webp,avif}",
@@ -2021,9 +2010,6 @@ export const allItems: CatalogItem[] = [
   },
 ];
 
-/* -----------------------------
-   Categories config
-   ----------------------------- */
 
 export const categories = [
   { key: "all", name: "All Products", icon: "Package" },

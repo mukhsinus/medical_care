@@ -6,6 +6,7 @@ const {
   createOrderAndInitPayment,
   paymeCallback,
   clickCallback,
+  uzumCallback,
 } = require('../controllers/paymentController');
 
 const authMiddleware = require('../middleware/auth');
@@ -18,5 +19,8 @@ router.post('/payme/callback', paymeCallback);
 
 // Click will call this URL (configure in Click merchant cabinet later)
 router.post('/click/callback', clickCallback);
+
+// Uzum Bank will call this URL (configure in Uzum merchant cabinet later)
+router.post('/uzum/callback', uzumCallback);
 
 module.exports = router;

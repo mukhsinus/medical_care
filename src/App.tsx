@@ -19,6 +19,7 @@ import Login from './pages/Login';
 import Account from './pages/Account';
 import NotFound from './pages/NotFound';
 import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 import api, { setAccessToken, clearAccessToken } from './api'; // must exist
 
@@ -151,6 +152,7 @@ function AppRoutes() {
           <Route path={`/${locale}/basket`} element={<Basket />} />
           <Route path={`/${locale}/login`} element={<Login />} />
           <Route path={`/${locale}/forgot-password`} element={<ForgotPassword />} />
+          <Route path={`/${locale}/reset-password`} element={<ResetPassword />} />
 
           {/* Protected account route */}
           <Route

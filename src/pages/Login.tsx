@@ -208,6 +208,14 @@ const Login: React.FC = () => {
                             </Button>
                           </div>
                         </div>
+                        <div className="text-right">
+                          <Link
+                            to={`/${locale}/forgot-password`}
+                            className="text-sm text-primary hover:underline"
+                          >
+                            {t.login?.forgot_password || 'Forgot password?'}
+                          </Link>
+                        </div>
                       </>
                     ) : (
                       <>

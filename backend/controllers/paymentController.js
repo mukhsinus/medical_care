@@ -7,9 +7,9 @@ exports.createOrderAndInitPayment = async (req, res) => {
   console.log('PAYMENT BODY:', req.body);
   console.log('👉 userId from auth:', req.userId);
   try {
-    const { items, amount, provider } = req.body; // provider: 'payme' or 'click'
+    const { items, amount, provider } = req.body; // provider: 'payme', 'click', or 'uzum'
 
-    if (!["payme", "click"].includes(provider)) {
+    if (!["payme", "click", "uzum"].includes(provider)) {
       return res.status(400).json({ message: "Invalid payment provider" });
     }
 
@@ -53,10 +53,14 @@ exports.createOrderAndInitPayment = async (req, res) => {
       paymentInitData = {
         redirectUrl: `${backendBase}/mock/payme-gateway?orderId=${order._id}`,
       };
-    } else {
-      // provider === 'click'
+    } else if (provider === "click") {
       paymentInitData = {
         redirectUrl: `${backendBase}/mock/click-gateway?orderId=${order._id}`,
+      };
+    } else {
+      // provider === 'uzum'
+      paymentInitData = {
+        redirectUrl: `${backendBase}/mock/uzum-gateway?orderId=${order._id}`,
       };
     }
 
@@ -228,6 +232,81 @@ ${itemsList}
     return res.json({ error: -1, error_note: "Unknown action" });
   } catch (err) {
     console.error("clickCallback error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+// UZUM BANK CALLBACK (skeleton)
+exports.uzumCallback = async (req, res) => {
+  try {
+    const payload = req.body;
+
+    const orderId = payload?.orderId; // adjust to real Uzum field name
+    const transactionId = payload?.transactionId;
+    const status = payload?.status; // adjust to real Uzum status field
+
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    // TODO: verify Uzum signature, amount, etc.
+    if (status === "success" || status === "paid") {
+      order.paymentStatus = "paid";
+      order.providerTransactionId = transactionId;
+      await order.save();
+
+      // Send Telegram notification on successful payment
+      try {
+        const user = await User.findById(order.userId);
+        if (user) {
+          const itemsList = order.items
+            .map(
+              (item) =>
+                `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
+                  item.price * item.quantity
+                ).toLocaleString("uz-UZ")} UZS`
+            )
+            .join("\n");
+
+          const addr = user.address
+            ? `${user.address.house ? user.address.house + ", " : ""}${
+                user.address.street || ""
+              }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
+            : "Not provided";
+
+          const orderMessage = `
+<b>🛒 New Order Placed</b>
+
+<b>Order ID:</b> ${order._id}
+<b>Payment Status:</b> ✅ Paid
+<b>Provider:</b> ${order.paymentProvider}
+
+<b>Customer:</b>
+• Name: ${user.name}
+• Email: ${user.email}
+• Phone: ${user.phone || "Not provided"}
+• Address: ${addr}
+
+<b>Products:</b>
+${itemsList}
+
+<b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
+
+<b>Time:</b> ${new Date().toISOString()}
+`;
+          sendNotification(orderMessage);
+        }
+      } catch (e) {
+        console.error("Telegram notification failed (non-blocking):", e?.message);
+      }
+
+      return res.json({ success: true, message: "Payment confirmed" });
+    }
+
+    return res.json({ success: false, message: "Payment not confirmed" });
+  } catch (err) {
+    console.error("uzumCallback error:", err);
     res.status(500).json({ error: "Server error" });
   }
 };

@@ -221,6 +221,15 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
           >
             {isPaying || externalIsPaying ? "Processing..." : "Pay with Click"}
           </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="w-full sm:w-auto"
+            disabled={isPaying || externalIsPaying}
+            onClick={() => handleCheckout("uzum")}
+          >
+            {isPaying || externalIsPaying ? "Processing..." : "Pay with Uzum"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

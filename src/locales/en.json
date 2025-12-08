@@ -289,6 +289,8 @@
       "2ml": "2 ml",
       "2p5ml": "2.5ml",
       "5ml": "5 ml",
+      "6ml": "6 ml",
+      "8p5ml": "8.5 ml",
       "10ml": "10 ml",
       "20ml": "20 ml",
       "50ml": "50 ml",
@@ -509,5 +511,37 @@
     "152": { "name": "Vacuum blood collection tubes with EDTA K3, purple cap, 13x75 mm, 3 ml", "description": "" },
     "153": { "name": "Vacuum blood collection tubes with 3.2% sodium citrate, blue cap", "description": "" },
     "154": { "name": "Surgical absorbable sutures with needles: Catgut", "description": "" }
+  },
+  "forgot_password": {
+    "title": "Forgot Password",
+    "description": "Enter your email address and we'll send you a link to reset your password.",
+    "email_label": "Email Address",
+    "email_placeholder": "Enter your email",
+    "submit_button": "Send Reset Link",
+    "error": "Please enter a valid email",
+    "success_title": "Check Your Email",
+    "success_message": "We've sent a password reset link to your email address. Please check your inbox and follow the instructions."
+  },
+  "reset_password": {
+    "title": "Reset Password",
+    "description": "Enter your new password below.",
+    "new_password": "New Password",
+    "password_placeholder": "Enter new password",
+    "confirm_password": "Confirm Password",
+    "confirm_password_placeholder": "Confirm new password",
+    "submit_button": "Reset Password",
+    "error": "Please fill in all fields",
+    "password_mismatch": "Passwords do not match",
+    "password_too_short": "Password must be at least 6 characters",
+    "invalid_link": "Invalid Reset Link",
+    "invalid_link_message": "This password reset link is invalid or has expired. Please request a new one.",
+    "request_new_link": "Request New Link",
+    "success_title": "Password Reset Successfully",
+    "success_message": "Your password has been reset successfully. Redirecting to your account..."
+  },
+  "common": {
+    "back": "Back",
+    "back_to_login": "Back to Login",
+    "loading": "Loading..."
   }
 }

@@ -31,6 +31,154 @@ bot.getMe()
   .then((info) => console.log(`Bot connected as @${info.username}`))
   .catch((err) => console.error('Bot connection error:', err.message));
 
+// Supported languages and translations
+const SUPPORTED_LANGS = ['en', 'ru', 'uz'];
+
+const i18n = {
+  en: {
+    already_logged_in: 'You are already logged in.',
+    enter_username: 'Please enter your *username*:',
+    invalid_username: 'Invalid username. Use /login to try again.',
+    enter_password: 'Please enter your *password*:',
+    invalid_password: 'Invalid password. Use /login to try again.',
+    logged_in: (username) => `Logged in as *${username}*.\nYou will now receive client notifications.`,
+    login_error: 'Something went wrong. Use /login again.',
+    logout_ok: 'Logged out. No more notifications.',
+    logout_not_logged: 'You are not logged in.',
+    login_required: 'Please /login first.',
+    no_users: 'No users yet.',
+    recent_clients_title: '<b>Recent Clients</b>',
+    name: 'Name',
+    email: 'Email',
+    phone: 'Phone',
+    registered: 'Registered',
+    no_orders: 'No orders yet.',
+    latest_orders_title: '<b>Latest Orders</b>',
+    order: 'Order',
+    user: 'User',
+    total: 'Total',
+    status: 'Status',
+    time: 'Time',
+    stats_title: '<b>MedShop Admin Stats</b>',
+    users_count: 'Users',
+    orders_count: 'Orders',
+    setgroup_place: 'Use /setgroup *inside the group* where you want to receive order notifications.',
+    setgroup_ok: '✅ This group is now subscribed to order notifications.',
+    setgroup_fail: '❌ Could not subscribe this group. Try again later.',
+    unsetgroup_place: 'Use /unsetgroup *inside the group* you want to unsubscribe.',
+    unsetgroup_ok: '✅ This group will no longer receive order notifications.',
+    unsetgroup_not: 'This group was not subscribed.',
+    help: `<b>MedShop Admin Bot</b>\n\n<b>Commands</b>\n/login – start login\n/logout – stop notifications\n/clients – last 5 users\n/orders – last 5 orders\n/stats – totals\n/setgroup – subscribe group\n/unsetgroup – unsubscribe group\n/help – this message`,
+    lang_prompt: 'Send /lang en, /lang ru or /lang uz to change bot language.',
+    lang_set: (lang) => `Language set to ${lang.toUpperCase()}.`,
+    lang_invalid: 'Unsupported language. Use en, ru, or uz.',
+  },
+  ru: {
+    already_logged_in: 'Вы уже вошли.',
+    enter_username: 'Введите *логин*:',
+    invalid_username: 'Неверный логин. Используйте /login чтобы попробовать снова.',
+    enter_password: 'Введите *пароль*:',
+    invalid_password: 'Неверный пароль. Используйте /login чтобы попробовать снова.',
+    logged_in: (username) => `Вы вошли как *${username}*.\nТеперь будете получать уведомления.`,
+    login_error: 'Ошибка. Попробуйте /login ещё раз.',
+    logout_ok: 'Вы вышли. Уведомления отключены.',
+    logout_not_logged: 'Вы не вошли.',
+    login_required: 'Пожалуйста, сначала выполните /login.',
+    no_users: 'Пока нет пользователей.',
+    recent_clients_title: '<b>Последние клиенты</b>',
+    name: 'Имя',
+    email: 'Почта',
+    phone: 'Телефон',
+    registered: 'Регистрация',
+    no_orders: 'Заказов пока нет.',
+    latest_orders_title: '<b>Последние заказы</b>',
+    order: 'Заказ',
+    user: 'Клиент',
+    total: 'Сумма',
+    status: 'Статус',
+    time: 'Время',
+    stats_title: '<b>Статистика MedShop</b>',
+    users_count: 'Пользователи',
+    orders_count: 'Заказы',
+    setgroup_place: 'Используйте /setgroup *внутри группы*, где нужны уведомления.',
+    setgroup_ok: '✅ Группа подписана на уведомления.',
+    setgroup_fail: '❌ Не удалось подписать группу. Попробуйте позже.',
+    unsetgroup_place: 'Используйте /unsetgroup *внутри группы*, которую нужно отписать.',
+    unsetgroup_ok: '✅ Группа отписана от уведомлений.',
+    unsetgroup_not: 'Эта группа не была подписана.',
+    help: `<b>MedShop Admin Bot</b>\n\n<b>Команды</b>\n/login – войти\n/logout – выйти\n/clients – последние 5 пользователей\n/orders – последние 5 заказов\n/stats – итоги\n/setgroup – подписать группу\n/unsetgroup – отписать группу\n/help – помощь`,
+    lang_prompt: 'Отправьте /lang en, /lang ru или /lang uz чтобы сменить язык.',
+    lang_set: (lang) => `Язык сменён на ${lang.toUpperCase()}.`,
+    lang_invalid: 'Неподдерживаемый язык. Доступны en, ru, uz.',
+  },
+  uz: {
+    already_logged_in: 'Siz allaqachon tizimga kirdingiz.',
+    enter_username: '*Login* kiriting:',
+    invalid_username: 'Login noto\'g\'ri. /login buyrug\'i bilan yana urinib ko\'ring.',
+    enter_password: '*Parol* kiriting:',
+    invalid_password: 'Parol noto\'g\'ri. /login buyrug\'i bilan yana urinib ko\'ring.',
+    logged_in: (username) => `*${username}* sifatida tizimga kirdingiz.\nEndi bildirishnomalarni olasiz.`,
+    login_error: 'Xatolik yuz berdi. /login buyrug\'i bilan qayta urinib ko\'ring.',
+    logout_ok: 'Chiqdingiz. Bildirishnomalar o\'chirildi.',
+    logout_not_logged: 'Siz tizimga kirmagansiz.',
+    login_required: 'Iltimos, avval /login buyrug\'ini bajaring.',
+    no_users: 'Hozircha foydalanuvchilar yo\'q.',
+    recent_clients_title: '<b>So\'nggi mijozlar</b>',
+    name: 'Ism',
+    email: 'Email',
+    phone: 'Telefon',
+    registered: 'Ro\'yxatdan o\'tgan',
+    no_orders: 'Hozircha buyurtmalar yo\'q.',
+    latest_orders_title: '<b>So\'nggi buyurtmalar</b>',
+    order: 'Buyurtma',
+    user: 'Mijoz',
+    total: 'Summasi',
+    status: 'Holati',
+    time: 'Vaqt',
+    stats_title: '<b>MedShop statistikasi</b>',
+    users_count: 'Foydalanuvchilar',
+    orders_count: 'Buyurtmalar',
+    setgroup_place: '/setgroup buyrug\'ini *guruh ichida* yuboring.',
+    setgroup_ok: '✅ Guruhga bildirishnomalar ulashdi.',
+    setgroup_fail: '❌ Guruhni ulab bo\'lmadi. Keyinroq urinib ko\'ring.',
+    unsetgroup_place: '/unsetgroup buyrug\'ini *guruh ichida* yuboring.',
+    unsetgroup_ok: '✅ Guruh bildirishnomalardan uzildi.',
+    unsetgroup_not: 'Bu guruh oldin ulanmadi.',
+    help: `<b>MedShop Admin Bot</b>\n\n<b>Buyruqlar</b>\n/login – kirish\n/logout – chiqish\n/clients – oxirgi 5 foydalanuvchi\n/orders – oxirgi 5 buyurtma\n/stats – umumiy statistika\n/setgroup – guruhni ulash\n/unsetgroup – guruhni uzish\n/help – yordam`,
+    lang_prompt: '/lang en, /lang ru yoki /lang uz buyrug\'i bilan tilni o\'zgartiring.',
+    lang_set: (lang) => `Til ${lang.toUpperCase()} ga o\'zgartirildi.`,
+    lang_invalid: 'Til qo\'llab-quvvatlanmaydi. en, ru yoki uz tanlang.',
+  },
+};
+
+const t = (lang, key, ...args) => {
+  const value = i18n[lang]?.[key] ?? i18n.en[key];
+  if (typeof value === 'function') return value(...args);
+  return value || key;
+};
+
+async function getLang(chatId) {
+  const ls = loginStates.get(chatId);
+  if (ls?.lang && SUPPORTED_LANGS.includes(ls.lang)) return ls.lang;
+  const session = await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } });
+  return session?.lang || 'en';
+}
+
+async function ensureSession(chatId, adminId, langHint) {
+  const existing = await BotSession.findOne({ chatId });
+  const lang = langHint || existing?.lang || 'en';
+  return BotSession.findOneAndUpdate(
+    { chatId },
+    {
+      chatId,
+      adminId,
+      lang,
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    },
+    { upsert: true, new: true }
+  );
+}
+
 /* --------------------------------------------------------------
    NOTIFICATION (public function)
    -------------------------------------------------------------- */
@@ -75,13 +223,14 @@ async function sendNotification(message, options = {}) {
    -------------------------------------------------------------- */
 bot.onText(/\/login/, async (msg) => {
   const chatId = msg.chat.id.toString();
+  const lang = await getLang(chatId);
 
   // Already logged in?
   const existing = await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } });
-  if (existing) return bot.sendMessage(chatId, 'You are already logged in.');
+  if (existing) return bot.sendMessage(chatId, t(lang, 'already_logged_in'));
 
-  loginStates.set(chatId, { state: LOGIN_STATES.WAITING_USERNAME });
-  bot.sendMessage(chatId, 'Please enter your *username*:', { parse_mode: 'Markdown' });
+  loginStates.set(chatId, { state: LOGIN_STATES.WAITING_USERNAME, lang });
+  bot.sendMessage(chatId, t(lang, 'enter_username'), { parse_mode: 'Markdown' });
 });
 
 /* --------------------------------------------------------------
@@ -100,23 +249,26 @@ bot.on('message', async (msg) => {
   try {
     switch (state.state) {
       case LOGIN_STATES.WAITING_USERNAME: {
+        const lang = await getLang(chatId);
         console.log('Login attempt with username:', text);
         const admin = await BotAdmin.findOne({ username: text });
         console.log('Found admin:', admin ? 'yes' : 'no');
         if (!admin) {
           loginStates.delete(chatId);
-          return bot.sendMessage(chatId, 'Invalid username. Use /login to try again.');
+          return bot.sendMessage(chatId, t(lang, 'invalid_username'));
         }
 
         loginStates.set(chatId, {
           state: LOGIN_STATES.WAITING_PASSWORD,
           username: text,
           adminId: admin._id,
+          lang,
         });
-        return bot.sendMessage(chatId, 'Please enter your *password*:', { parse_mode: 'Markdown' });
+        return bot.sendMessage(chatId, t(lang, 'enter_password'), { parse_mode: 'Markdown' });
       }
 
       case LOGIN_STATES.WAITING_PASSWORD: {
+        const lang = await getLang(chatId);
         console.log('Password attempt for username:', state.username);
         console.log('Password length:', text.length, 'Password chars:', text.split('').map(c => c.charCodeAt(0)));
         const admin = await BotAdmin.findOne({ username: state.username });
@@ -129,24 +281,16 @@ bot.on('message', async (msg) => {
         console.log('Password match:', match ? 'yes' : 'no');
         if (!match) {
           loginStates.delete(chatId);
-          return bot.sendMessage(chatId, 'Invalid password. Use /login to try again.');
+          return bot.sendMessage(chatId, t(lang, 'invalid_password'));
         }
 
         // Create / refresh session (7 days)
-        await BotSession.findOneAndUpdate(
-          { chatId },
-          {
-            chatId,
-            adminId: state.adminId,
-            expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000,
-          },
-          { upsert: true, new: true }
-        );
+        await ensureSession(chatId, state.adminId, lang);
 
         loginStates.delete(chatId);
         return bot.sendMessage(
           chatId,
-          `Logged in as *${state.username}*.\nYou will now receive client notifications.`,
+          t(lang, 'logged_in', state.username),
           { parse_mode: 'Markdown' }
         );
       }
@@ -154,7 +298,8 @@ bot.on('message', async (msg) => {
   } catch (err) {
     console.error('Login error:', err);
     loginStates.delete(chatId);
-    bot.sendMessage(chatId, 'Something went wrong. Use /login again.');
+    const lang = await getLang(chatId);
+    bot.sendMessage(chatId, t(lang, 'login_error'));
   }
 });
 
@@ -163,8 +308,40 @@ bot.on('message', async (msg) => {
    -------------------------------------------------------------- */
 bot.onText(/\/logout/, async (msg) => {
   const chatId = msg.chat.id.toString();
+  const lang = await getLang(chatId);
   const deleted = await BotSession.findOneAndDelete({ chatId });
-  bot.sendMessage(chatId, deleted ? 'Logged out. No more notifications.' : 'You are not logged in.');
+  bot.sendMessage(chatId, deleted ? t(lang, 'logout_ok') : t(lang, 'logout_not_logged'));
+});
+
+/* --------------------------------------------------------------
+   /lang <code>
+   -------------------------------------------------------------- */
+bot.onText(/^\/lang\s*(\w+)?/, async (msg, match) => {
+  const chatId = msg.chat.id.toString();
+  const requested = (match?.[1] || '').toLowerCase();
+  if (!requested) {
+    const lang = await getLang(chatId);
+    return bot.sendMessage(chatId, t(lang, 'lang_prompt'));
+  }
+
+  if (!SUPPORTED_LANGS.includes(requested)) {
+    const lang = await getLang(chatId);
+    return bot.sendMessage(chatId, t(lang, 'lang_invalid'));
+  }
+
+  const session = await BotSession.findOneAndUpdate(
+    { chatId },
+    { lang: requested },
+    { new: true }
+  );
+
+  // If no session exists (not logged in), store preference temporarily
+  if (!session) {
+    loginStates.set(chatId, { state: LOGIN_STATES.WAITING_USERNAME, lang: requested });
+  }
+
+  const lang = await getLang(chatId);
+  return bot.sendMessage(chatId, t(lang, 'lang_set', requested));
 });
 
 /* --------------------------------------------------------------
@@ -172,8 +349,9 @@ bot.onText(/\/logout/, async (msg) => {
    -------------------------------------------------------------- */
 bot.onText(/\/clients/, async (msg) => {
   const chatId = msg.chat.id.toString();
+  const lang = await getLang(chatId);
   if (!(await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } }))) {
-    return bot.sendMessage(chatId, 'Please /login first.');
+    return bot.sendMessage(chatId, t(lang, 'login_required'));
   }
 
   const users = await User.find()
@@ -181,15 +359,15 @@ bot.onText(/\/clients/, async (msg) => {
     .limit(5)
     .select('name email phone createdAt');
 
-  if (!users.length) return bot.sendMessage(chatId, 'No users yet.');
+  if (!users.length) return bot.sendMessage(chatId, t(lang, 'no_users'));
 
-  let txt = '<b>Recent Clients</b>\n\n';
+  let txt = `${t(lang, 'recent_clients_title')}\n\n`;
   users.forEach((u) => {
     txt += `
-Name: <b>${u.name}</b>
-Email: <b>${u.email}</b>
-Phone: <b>${u.phone || 'N/A'}</b>
-Registered: <b>${new Date(u.createdAt).toLocaleString()}</b>
+${t(lang, 'name')}: <b>${u.name}</b>
+${t(lang, 'email')}: <b>${u.email}</b>
+${t(lang, 'phone')}: <b>${u.phone || 'N/A'}</b>
+${t(lang, 'registered')}: <b>${new Date(u.createdAt).toLocaleString()}</b>
 \n`;
   });
   bot.sendMessage(chatId, txt, { parse_mode: 'HTML' });
@@ -200,8 +378,9 @@ Registered: <b>${new Date(u.createdAt).toLocaleString()}</b>
    -------------------------------------------------------------- */
 bot.onText(/\/orders/, async (msg) => {
   const chatId = msg.chat.id.toString();
+  const lang = await getLang(chatId);
   if (!(await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } }))) {
-    return bot.sendMessage(chatId, 'Please /login first.');
+    return bot.sendMessage(chatId, t(lang, 'login_required'));
   }
 
   const orders = await Order.find()
@@ -209,16 +388,16 @@ bot.onText(/\/orders/, async (msg) => {
     .sort({ createdAt: -1 })
     .limit(5);
 
-  if (!orders.length) return bot.sendMessage(chatId, 'No orders yet.');
+  if (!orders.length) return bot.sendMessage(chatId, t(lang, 'no_orders'));
 
-  let txt = '<b>Latest Orders</b>\n\n';
+  let txt = `${t(lang, 'latest_orders_title')}\n\n`;
   orders.forEach((o) => {
     txt += `
-Order #<code>${o._id}</code>
-User: <b>${o.userId?.name || 'N/A'}</b> (${o.userId?.email || ''})
-Total: <b>$${o.total.toFixed(2)}</b>
-Status: <b>${o.status}</b>
-Time: <b>${new Date(o.createdAt).toLocaleString()}</b>
+${t(lang, 'order')} #<code>${o._id}</code>
+${t(lang, 'user')}: <b>${o.userId?.name || 'N/A'}</b> (${o.userId?.email || ''})
+${t(lang, 'total')}: <b>$${o.total.toFixed(2)}</b>
+${t(lang, 'status')}: <b>${o.status}</b>
+${t(lang, 'time')}: <b>${new Date(o.createdAt).toLocaleString()}</b>
 ------
 `;
   });
@@ -230,8 +409,9 @@ Time: <b>${new Date(o.createdAt).toLocaleString()}</b>
    -------------------------------------------------------------- */
 bot.onText(/\/stats/, async (msg) => {
   const chatId = msg.chat.id.toString();
+  const lang = await getLang(chatId);
   if (!(await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } }))) {
-    return bot.sendMessage(chatId, 'Please /login first.');
+    return bot.sendMessage(chatId, t(lang, 'login_required'));
   }
 
   const [userCount, orderCount] = await Promise.all([
@@ -240,11 +420,11 @@ bot.onText(/\/stats/, async (msg) => {
   ]);
 
   const txt = `
-<b>MedShop Admin Stats</b>
+${t(lang, 'stats_title')}
 
-Users: <b>${userCount}</b>
-Orders: <b>${orderCount}</b>
-Time: <b>${new Date().toLocaleString()}</b>
+${t(lang, 'users_count')}: <b>${userCount}</b>
+${t(lang, 'orders_count')}: <b>${orderCount}</b>
+${t(lang, 'time')}: <b>${new Date().toLocaleString()}</b>
 `;
   bot.sendMessage(chatId, txt, { parse_mode: 'HTML' });
 });
@@ -255,12 +435,13 @@ Time: <b>${new Date().toLocaleString()}</b>
 bot.onText(/\/setgroup/, async (msg) => {
   const chatId = msg.chat.id.toString();
   const chatType = msg.chat.type;
+  const lang = await getLang(chatId);
 
   // This must be run INSIDE the group
   if (chatType !== 'group' && chatType !== 'supergroup') {
     return bot.sendMessage(
       chatId,
-      'Use /setgroup *inside the group* where you want to receive order notifications.',
+      t(lang, 'setgroup_place'),
       { parse_mode: 'Markdown' }
     );
   }
@@ -278,12 +459,12 @@ bot.onText(/\/setgroup/, async (msg) => {
 
     bot.sendMessage(
       chatId,
-      '✅ This group is now subscribed to order notifications.',
+      t(lang, 'setgroup_ok'),
     );
     console.log('Group subscribed for notifications:', chatId, msg.chat.title);
   } catch (err) {
     console.error('Error saving group subscription:', err);
-    bot.sendMessage(chatId, '❌ Could not subscribe this group. Try again later.');
+    bot.sendMessage(chatId, t(lang, 'setgroup_fail'));
   }
 });
 /* --------------------------------------------------------------
@@ -292,11 +473,12 @@ bot.onText(/\/setgroup/, async (msg) => {
 bot.onText(/\/unsetgroup/, async (msg) => {
   const chatId = msg.chat.id.toString();
   const chatType = msg.chat.type;
+  const lang = await getLang(chatId);
 
   if (chatType !== 'group' && chatType !== 'supergroup') {
     return bot.sendMessage(
       chatId,
-      'Use /unsetgroup *inside the group* you want to unsubscribe.',
+      t(lang, 'unsetgroup_place'),
       { parse_mode: 'Markdown' }
     );
   }
@@ -305,8 +487,8 @@ bot.onText(/\/unsetgroup/, async (msg) => {
   bot.sendMessage(
     chatId,
     deleted
-      ? '✅ This group will no longer receive order notifications.'
-      : 'This group was not subscribed.'
+      ? t(lang, 'unsetgroup_ok')
+      : t(lang, 'unsetgroup_not')
   );
 });
 
@@ -316,18 +498,9 @@ bot.onText(/\/unsetgroup/, async (msg) => {
    -------------------------------------------------------------- */
 bot.onText(/\/help/, (msg) => {
   const chatId = msg.chat.id.toString();
-  const help = `
-<b>MedShop Admin Bot</b>
-
-<b>Commands</b>
-/login – start login
-/logout – stop notifications
-/clients – last 5 users
-/orders – last 5 orders
-/stats – totals
-/help – this message
-`;
-  bot.sendMessage(chatId, help, { parse_mode: 'HTML' });
+  getLang(chatId).then((lang) => {
+    bot.sendMessage(chatId, t(lang, 'help'), { parse_mode: 'HTML' });
+  });
 });
 
 /* --------------------------------------------------------------
@@ -341,6 +514,7 @@ bot.setMyCommands([
   { command: '/stats', description: 'Show totals' },
   { command: '/setgroup', description: 'Subscribe this group to notifications' }, 
   { command: '/unsetgroup', description: 'Unsubscribe this group from notifications' },
+   { command: '/lang', description: 'Change bot language (en/ru/uz)' },
   { command: '/help', description: 'Show help' },
 ]);
 

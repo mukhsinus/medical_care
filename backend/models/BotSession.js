@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const botSessionSchema = new mongoose.Schema({
   chatId: { type: String, required: true, unique: true },
   adminId: { type: mongoose.Schema.Types.ObjectId, ref: 'BotAdmin', required: true },
+  lang: { type: String, enum: ['en', 'ru', 'uz'], default: 'en' },
   createdAt: { type: Date, default: Date.now },
   expiresAt: { type: Date, default: () => Date.now() + 7 * 24 * 60 * 60 * 1000 }, // 7 days
 });

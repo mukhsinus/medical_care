@@ -1,6 +1,7 @@
 // controllers/paymentController.js
 const Order = require("../models/Order");
 const User = require("../models/User");
+const crypto = require("crypto");
 const { sendNotification } = require("../utils/telegramNotifier");
 
 exports.createOrderAndInitPayment = async (req, res) => {
@@ -188,6 +189,42 @@ exports.clickCallback = async (req, res) => {
     console.log('Order ID:', merchantTransId);
     console.log('Amount:', amount);
 
+    // VERIFY SIGNATURE (CRITICAL SECURITY CHECK)
+    const SECRET_KEY = process.env.CLICK_SECRET_KEY;
+    if (!SECRET_KEY) {
+      console.error('CLICK_SECRET_KEY not configured');
+      return res.json({ error: -1, error_note: "Configuration error" });
+    }
+
+    let expectedSignString;
+    if (action === 0) {
+      // Prepare: md5(click_trans_id + service_id + SECRET_KEY + merchant_trans_id + amount + action + sign_time)
+      expectedSignString = crypto
+        .createHash('md5')
+        .update(`${clickTransId}${serviceId}${SECRET_KEY}${merchantTransId}${amount}${action}${signTime}`)
+        .digest('hex');
+    } else if (action === 1) {
+      // Complete: md5(click_trans_id + service_id + SECRET_KEY + merchant_trans_id + merchant_prepare_id + amount + action + sign_time)
+      expectedSignString = crypto
+        .createHash('md5')
+        .update(`${clickTransId}${serviceId}${SECRET_KEY}${merchantTransId}${merchantPrepareId}${amount}${action}${signTime}`)
+        .digest('hex');
+    }
+
+    if (signString !== expectedSignString) {
+      console.error('INVALID SIGNATURE!');
+      console.error('Expected:', expectedSignString);
+      console.error('Received:', signString);
+      const response = {
+        error: -1,
+        error_note: "SIGN CHECK FAILED",
+      };
+      console.log('Response:', JSON.stringify(response, null, 2));
+      return res.json(response);
+    }
+
+    console.log('✅ Signature verified successfully');
+
     const order = await Order.findById(merchantTransId);
     if (!order) {
       console.error('Order not found:', merchantTransId);
@@ -244,15 +281,27 @@ exports.clickCallback = async (req, res) => {
       // Check if already paid
       if (order.paymentStatus === 'paid') {
         console.log('Order already completed');
-        const response = {
-          error: 0,
-          error_note: "Success",
-          click_trans_id: clickTransId,
-          merchant_trans_id: merchantTransId,
-          merchant_confirm_id: order._id,
-        };
-        console.log('Response:', JSON.stringify(response, null, 2));
-        return res.json(response);
+        // Check if same click_trans_id was used for this payment
+        if (order.providerTransactionId === String(clickTransId)) {
+          console.log('Same transaction ID - idempotent response');
+          const response = {
+            error: 0,
+            error_note: "Success",
+            click_trans_id: clickTransId,
+            merchant_trans_id: merchantTransId,
+            merchant_confirm_id: order._id,
+          };
+          console.log('Response:', JSON.stringify(response, null, 2));
+          return res.json(response);
+        } else {
+          console.error('Order already paid with different transaction ID');
+          const response = {
+            error: -4,
+            error_note: "Order already paid",
+          };
+          console.log('Response:', JSON.stringify(response, null, 2));
+          return res.json(response);
+        }
       }
 
       // If Click reports error

@@ -54,9 +54,19 @@ exports.createOrderAndInitPayment = async (req, res) => {
         redirectUrl: `${backendBase}/mock/payme-gateway?orderId=${order._id}`,
       };
     } else if (provider === "click") {
-      paymentInitData = {
-        redirectUrl: `${backendBase}/mock/click-gateway?orderId=${order._id}`,
-      };
+      const clickServiceId = process.env.CLICK_SERVICE_ID;
+      const clickMerchantId = process.env.CLICK_MERCHANT_ID;
+      // Click payment URL format: https://my.click.uz/services/pay?service_id=SERVICE_ID&merchant_id=MERCHANT_ID&amount=AMOUNT&transaction_param=ORDER_ID
+      const testMode = process.env.CLICK_TEST_MODE === 'true';
+      if (testMode) {
+        paymentInitData = {
+          redirectUrl: `${backendBase}/mock/click-gateway?orderId=${order._id}`,
+        };
+      } else {
+        paymentInitData = {
+          redirectUrl: `https://my.click.uz/services/pay?service_id=${clickServiceId}&merchant_id=${clickMerchantId}&amount=${Math.round(amount)}&transaction_param=${order._id}`,
+        };
+      }
     } else {
       // provider === 'uzum'
       paymentInitData = {
@@ -149,33 +159,118 @@ ${itemsList}
   }
 };
 
-// CLICK CALLBACK (skeleton)
+// CLICK CALLBACK - SHOP API integration
+// Documentation: https://docs.click.uz/click-api-request
 exports.clickCallback = async (req, res) => {
+  const requestTime = new Date().toISOString();
+  console.log('\n=== CLICK CALLBACK REQUEST ===' );
+  console.log('Time:', requestTime);
+  console.log('Body:', JSON.stringify(req.body, null, 2));
+  console.log('Headers:', JSON.stringify(req.headers, null, 2));
+  
   try {
     const payload = req.body;
 
-    const orderId = payload?.merchant_trans_id; // usually your order id
+    // Click SHOP API parameters
     const clickTransId = payload?.click_trans_id;
+    const serviceId = payload?.service_id;
+    const clickPaydocId = payload?.click_paydoc_id;
+    const merchantTransId = payload?.merchant_trans_id; // our order ID
+    const merchantPrepareId = payload?.merchant_prepare_id;
+    const amount = payload?.amount;
     const action = payload?.action; // 0=prepare, 1=complete
+    const error = payload?.error;
+    const errorNote = payload?.error_note;
+    const signTime = payload?.sign_time;
+    const signString = payload?.sign_string;
 
-    const order = await Order.findById(orderId);
+    console.log('Action:', action, '(0=prepare, 1=complete)');
+    console.log('Order ID:', merchantTransId);
+    console.log('Amount:', amount);
+
+    const order = await Order.findById(merchantTransId);
     if (!order) {
-      return res.status(404).json({ error: "Order not found" });
+      console.error('Order not found:', merchantTransId);
+      const response = {
+        error: -5,
+        error_note: "Order not found",
+      };
+      console.log('Response:', JSON.stringify(response, null, 2));
+      return res.json(response);
     }
 
+    // Action 0: PREPARE - validate order
     if (action === 0) {
-      // prepare – validate amount etc.
-      return res.json({
+      console.log('PREPARE request for order:', order._id);
+      
+      // Check if order is already paid
+      if (order.paymentStatus === 'paid') {
+        console.error('Order already paid');
+        const response = {
+          error: -4,
+          error_note: "Order already paid",
+        };
+        console.log('Response:', JSON.stringify(response, null, 2));
+        return res.json(response);
+      }
+
+      // Validate amount (Click sends amount in UZS without decimals)
+      if (Math.round(order.amount) !== Math.round(amount)) {
+        console.error('Amount mismatch. Expected:', order.amount, 'Received:', amount);
+        const response = {
+          error: -2,
+          error_note: "Invalid amount",
+        };
+        console.log('Response:', JSON.stringify(response, null, 2));
+        return res.json(response);
+      }
+
+      // Success - order is ready for payment
+      const response = {
         error: 0,
         error_note: "Success",
-        merchant_trans_id: orderId,
-      });
+        click_trans_id: clickTransId,
+        merchant_trans_id: merchantTransId,
+        merchant_prepare_id: order._id,
+      };
+      console.log('PREPARE Success. Response:', JSON.stringify(response, null, 2));
+      return res.json(response);
     }
 
+    // Action 1: COMPLETE - finalize payment
     if (action === 1) {
+      console.log('COMPLETE request for order:', order._id);
+      
+      // Check if already paid
+      if (order.paymentStatus === 'paid') {
+        console.log('Order already completed');
+        const response = {
+          error: 0,
+          error_note: "Success",
+          click_trans_id: clickTransId,
+          merchant_trans_id: merchantTransId,
+          merchant_confirm_id: order._id,
+        };
+        console.log('Response:', JSON.stringify(response, null, 2));
+        return res.json(response);
+      }
+
+      // If Click reports error
+      if (error && error < 0) {
+        console.error('Click reported error:', error, errorNote);
+        const response = {
+          error: -9,
+          error_note: `Payment error: ${errorNote}`,
+        };
+        console.log('Response:', JSON.stringify(response, null, 2));
+        return res.json(response);
+      }
+
+      // Mark as paid
       order.paymentStatus = "paid";
       order.providerTransactionId = clickTransId;
       await order.save();
+      console.log('Order marked as paid:', order._id);
 
       // Send Telegram notification on successful payment
       try {
@@ -202,6 +297,7 @@ exports.clickCallback = async (req, res) => {
 <b>Order ID:</b> ${order._id}
 <b>Payment Status:</b> ✅ Paid
 <b>Provider:</b> ${order.paymentProvider}
+<b>Click Trans ID:</b> ${clickTransId}
 
 <b>Customer:</b>
 • Name: ${user.name}
@@ -222,17 +318,29 @@ ${itemsList}
         console.error("Telegram notification failed (non-blocking):", e?.message);
       }
 
-      return res.json({
+      const response = {
         error: 0,
         error_note: "Success",
-        merchant_trans_id: orderId,
-      });
+        click_trans_id: clickTransId,
+        merchant_trans_id: merchantTransId,
+        merchant_confirm_id: order._id,
+      };
+      console.log('COMPLETE Success. Response:', JSON.stringify(response, null, 2));
+      console.log('=== END CLICK CALLBACK ===\n');
+      return res.json(response);
     }
 
-    return res.json({ error: -1, error_note: "Unknown action" });
+    // Unknown action
+    console.error('Unknown action:', action);
+    const response = { error: -3, error_note: "Action not found" };
+    console.log('Response:', JSON.stringify(response, null, 2));
+    return res.json(response);
   } catch (err) {
     console.error("clickCallback error:", err);
-    res.status(500).json({ error: "Server error" });
+    const response = { error: -9, error_note: "System error" };
+    console.log('Error Response:', JSON.stringify(response, null, 2));
+    console.log('=== END CLICK CALLBACK (ERROR) ===\n');
+    res.json(response);
   }
 };
 

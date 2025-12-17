@@ -29,7 +29,7 @@ const orderSchema = new mongoose.Schema(
     // Payment Details
     paymentProvider: {
       type: String,
-      enum: ["payme", "click"],
+      enum: ["payme", "click", "uzum"],
       required: true,
     },
 

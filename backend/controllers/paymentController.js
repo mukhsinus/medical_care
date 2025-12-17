@@ -163,6 +163,8 @@ ${itemsList}
 // CLICK CALLBACK - SHOP API integration
 // Documentation: https://docs.click.uz/click-api-request
 exports.clickCallback = async (req, res) => {
+  const isTest = process.env.CLICK_TEST_MODE === 'true';
+
   const requestTime = new Date().toISOString();
   console.log('\n=== CLICK CALLBACK REQUEST ===' );
   console.log('Time:', requestTime);
@@ -190,40 +192,49 @@ exports.clickCallback = async (req, res) => {
     console.log('Amount:', amount);
 
     // VERIFY SIGNATURE (CRITICAL SECURITY CHECK)
-    const SECRET_KEY = process.env.CLICK_SECRET_KEY;
-    if (!SECRET_KEY) {
-      console.error('CLICK_SECRET_KEY not configured');
-      return res.json({ error: -1, error_note: "Configuration error" });
-    }
+    if (!isTest) {
+      const SECRET_KEY = process.env.CLICK_SECRET_KEY;
+      if (!SECRET_KEY) {
+        console.error('CLICK_SECRET_KEY not configured');
+        return res.json({ error: -1, error_note: "Configuration error" });
+      }
 
-    let expectedSignString;
-    if (action === 0) {
-      // Prepare: md5(click_trans_id + service_id + SECRET_KEY + merchant_trans_id + amount + action + sign_time)
-      expectedSignString = crypto
-        .createHash('md5')
-        .update(`${clickTransId}${serviceId}${SECRET_KEY}${merchantTransId}${amount}${action}${signTime}`)
-        .digest('hex');
-    } else if (action === 1) {
-      // Complete: md5(click_trans_id + service_id + SECRET_KEY + merchant_trans_id + merchant_prepare_id + amount + action + sign_time)
-      expectedSignString = crypto
-        .createHash('md5')
-        .update(`${clickTransId}${serviceId}${SECRET_KEY}${merchantTransId}${merchantPrepareId}${amount}${action}${signTime}`)
-        .digest('hex');
-    }
+      let expectedSignString;
 
-    if (signString !== expectedSignString) {
-      console.error('INVALID SIGNATURE!');
-      console.error('Expected:', expectedSignString);
-      console.error('Received:', signString);
-      const response = {
-        error: -1,
-        error_note: "SIGN CHECK FAILED",
-      };
-      console.log('Response:', JSON.stringify(response, null, 2));
-      return res.json(response);
-    }
+      if (action === 0) {
+        // Prepare
+        expectedSignString = crypto
+          .createHash('md5')
+          .update(
+            `${clickTransId}${serviceId}${SECRET_KEY}${merchantTransId}${amount}${action}${signTime}`
+          )
+          .digest('hex');
+      } 
+      else if (action === 1) {
+        // Complete
+        expectedSignString = crypto
+          .createHash('md5')
+          .update(
+            `${clickTransId}${serviceId}${SECRET_KEY}${merchantTransId}${merchantPrepareId}${amount}${action}${signTime}`
+          )
+          .digest('hex');
+      }
 
-    console.log('✅ Signature verified successfully');
+      if (signString !== expectedSignString) {
+        console.error('INVALID SIGNATURE!');
+        console.error('Expected:', expectedSignString);
+        console.error('Received:', signString);
+
+        return res.json({
+          error: -1,
+          error_note: "SIGN CHECK FAILED",
+        });
+      }
+
+      console.log('✅ Signature verified successfully');
+    } else {
+      console.log('⚠️ CLICK TEST MODE: signature verification skipped');
+    }
 
     const order = await Order.findById(merchantTransId);
     if (!order) {

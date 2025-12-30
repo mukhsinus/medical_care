@@ -361,20 +361,20 @@
       "description": "Sterilization kraft roll is a high-quality packaging material designed to protect medical instruments during and after the sterilization process.Made from dense medical-grade cellulose, it provides a reliable microbial barrier and is compatible with steam, hot air, and EO gas sterilization. Its long roll format makes it ideal for high-volume use in clinics, dental centers, and sterilization departments."
     },
     "7": {
-      "name": "Nest Med Tech Drape",
-      "description": "Disposable surgical drape"
+      "name": "Sterile surgical drape",
+      "description": "Sterile surgical drape 200×160 cm,designed to provide a protected and sterile surgical field. The higher-density nonwoven fabric offers enhanced fluid resistance and reliable contamination control throughout medical procedures."
     },
     "8": {
       "name": "Dentafill Surgical Gloves",
       "description": "Single-use sterile surgical gloves made from rubber latex"
     },
     "9": {
-      "name": "Surgical Gown",
-      "description": "Sterile surgical kit (gown g/m², mask, cap, shoe covers) is designed to create a protective barrier during surgical procedures. The kit ensures full sterility, reduces infection risks, and provides comfort for medical personnel."
+      "name": "Sterile surgical gown",
+      "description": "Sterile surgical gown is designed to protect medical staff during surgeries and procedures. The lightweight, breathable nonwoven material provides comfort while maintaining an effective barrier against biological contaminants."
     },
     "10": {
-      "name": "Hygiene United Surgical Gown",
-      "description": "Disposable surgical gown"
+      "name": "UKM sterile surgical gown",
+      "description": "UKM sterile surgical gown, density 35 g/m² is designed to provide a protective barrier during surgeries and medical procedures. The lightweight yet durable material ensures comfort during long use and protects against biological contamination."
     },
     "11": {
       "name": "Sterile dental kit for single use \"NEST-DENT\"",
@@ -475,8 +475,8 @@
       "description": "Gynecologic sampler for single use"
     },
     "37": {
-      "name": "Nest-Pack Surgical Kit",
-      "description": "Surgical kit, containing gown, shoe covers, head cap, mask"
+      "name": "Sterile Surgical Kit",
+      "description": "Sterile surgical kit (gown , mask, cap, shoe covers) is designed to create a protective barrier during surgical procedures. The kit ensures full sterility, reduces infection risks, and provides comfort for medical personnel."
     },
     "38": {
       "name": "Health Line Insulin Syringe, 1ml",
@@ -624,8 +624,8 @@
       "description": "“Sterilan” external indicators for dry heat sterilization 180°C / 60 min (1000 pcs) are designed for labeling sterilization packs prior to processing. The indicator changes color after exposure to the required temperature and time, confirming that the package has undergone a full dry heat sterilization cycle."
     },
     "75": {
-      "name": "Sterilization indicator “STERITEST-Vl” 132/20",
-      "description": "Sterilization indicator “STERITEST-Vl”, 1000 pcs, with logbook — a monitoring set for dry-heat sterilization that includes both indicators and a registration log. The indicator provides a clear color change when exposure conditions are met, while the logbook ensures proper documentation of each sterilization cycle."
+      "name": "“STERITEST-P-132/20-02” sterilization indicators",
+      "description": "“STERITEST-P-132/20-02” sterilization indicators (1000 pcs) with logbook are designed for internal monitoring of steam sterilization processes. Each indicator reacts only when the required exposure of 132°C for 20 minutes is achieved, confirming proper heat penetration. The included logbook allows accurate tracking and documentation of every sterilization cycle."
     },
     "76": {
       "name": "MedIS-132/20-1 sterilization indicator",
@@ -690,8 +690,8 @@
       "description": "Needle Holder with Safety Cover.This holder is designed for secure attachment and stabilization of needles during vacuum blood collection. The integrated safety cover helps protect healthcare workers from accidental needle-stick injuries and ensures safe disposal. It provides strong grip and seamless compatibility with standard vacuum needles and tubes"
     },
     "93": {
-      "name": "Dispenser bottle",
-      "description": "Plastic dispenser bottle"
+      "name": "Ultrasound Gel “Akugel”, 5 kg canister",
+      "description": "Ultrasound Gel “Akugel”, 5 kg canister — a professional contact gel designed for high-quality ultrasound diagnostics. It ensures excellent acoustic transmission, enhances visualization of tissues, and provides stable, clear imaging. The large 5 kg container is ideal for clinics and high-volume diagnostic centers."
     },
     "94": {
       "name": "Romsons ECG electrolude",
@@ -910,7 +910,51 @@
       "description": "Blue Pipette Tips, 1000 µl, Eppendorf/Universal Type, Polypropylene, 500 pcs/pack.Premium-quality disposable pipette tips designed for accurate handling of large liquid volumes. Compatible with most Eppendorf and universal-style pipettes. Made from pure polypropylene to ensure smooth liquid uptake and consistent dispensing without dripping."
     },
     "157": {
-      "name": "Surgical non-absorbable sutures with needles: Nylon",
+      "name": "Indicator Logbook",
+      "description": "Indicator Logbook is a specialized record used to document the results of sterilization and disinfection monitoring. It includes entries for chemical and biological indicators, cycle dates, batch numbers, responsible personnel, and the final assessment of processing quality. The logbook ensures transparency, traceability, and compliance with hygiene standards."
+    },
+    "158": {
+      "name": "“Intest-P-134/5-02” sterilization indicators",
+      "description": "“Intest-P-134/5-02” sterilization indicators (500 pcs) are internal monitoring tools designed for steam sterilization cycles. They verify whether the required exposure of 134°C for 5 minutes has been achieved inside the pack by producing a clear color change once the correct conditions are met."
+    },
+    "159": {
+      "name": "Disposable surgical gown made of nonwoven material",
+      "description": "Disposable surgical gown made of nonwoven material, density 37 g/m² is designed to protect medical staff during surgeries and procedures. The lightweight, durable, and breathable fabric provides comfort and reduces the risk of contamination."
+    },
+    "160": {
+      "name": "UKM sterile surgical kit",
+      "description": "UKM sterile surgical kit (gown 35 g/m², mask, bouffant cap, shoe covers) provides a protective barrier during surgical and medical procedures. The kit ensures hygiene, reduces infection risk, and offers comfort for medical staff."
+    },
+    "161": {
+      "name": "UKM sterile surgical drape",
+      "description": "UKM sterile surgical drape is designed to establish a protected and sterile surgical field. The dense nonwoven fabric provides reliable resistance to fluids and contamination while maintaining user comfort."
+    },
+    "162": {
+      "name": "Butterfly Blood Collection Needle for Vacuum Tubes",
+      "description": "Butterfly Blood Collection Needle for Vacuum Tubes (22G / 23G, 3/4\") This butterfly-style needle ensures comfortable and controlled venous access, especially for small or sensitive veins. Soft flexible wings provide a stable grip, improving precision during blood collection. Fully compatible with vacuum collection systems."
+    },
+    "163": {
+      "name": "1.5 ml Microtubes with EDTA K3 Coating for Hematology Analyzers",
+      "description": "1.5 ml Microtubes with EDTA K3 Coating for Hematology Analyzers (Pack of 500).These tubes are specifically designed for automated hematology systems. The inner wall is coated with EDTA K3, which effectively prevents clotting and preserves the natural morphology of blood cells. This ensures accurate and reproducible results in CBC and related hematology tests.Manufactured from high-quality polypropylene, the tubes withstand centrifugation and routine handling while maintaining sample integrity."
+    },
+    "164": {
+      "name": "Ekstradin, 1 L",
+      "description": "Ekstradin, 1 L (new concentrate) is an advanced high-performance disinfectant designed for preparing working solutions of various strengths. The upgraded formula delivers enhanced antimicrobial action, making it suitable for disinfecting surfaces, instruments, and sanitary areas."
+    },
+    "165": {
+      "name": "",
+      "description": "Disposable Sheets — 20 g/m² are lightweight yet durable protective coverings designed for hygienic single-use applications. The roll of 100 sheets is practical for medical rooms, beauty salons, massage studios, and any setting where clean surface protection is essential. A variety of colors allows easy matching to any professional environment."
+    },
+    "166": {
+      "name": "Disposable Wipes",
+      "description": "Disposable Wipes — 15 g/m² (200 sheets per roll) are lightweight, hygienic, and versatile, suitable for use in clinics, beauty salons, massage rooms, and daily sanitation tasks. Available in multiple colors to match different professional environments."
+    },
+    "167": {
+      "name": "Disposable Towels in Roll",
+      "description": "Disposable Towels in Roll — 35×70 (100 pcs) provide a hygienic and comfortable solution for clinics, beauty salons, massage rooms, and spa environments. Soft texture ensures client comfort, while the single-use format maintains cleanliness and prevents contamination."
+    },
+    "168": {
+      "name": "",
       "description": ""
     }
   },

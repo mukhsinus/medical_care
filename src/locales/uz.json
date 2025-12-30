@@ -358,20 +358,20 @@
       "description": "Sterilizatsiya uchun kraft paket — tibbiy asbob-uskunalarni xavfsiz o‘rash va ularning steril holatini saqlab turishga mo‘ljallangan maxsus qadoqlash materiali. Yuqori zichlikdagi tsellyuloza qatlamlari bug‘, havo va gaz sterilizatsiyasiga mos bo‘lib, asboblarni ifloslanishdan himoya qiladi. Uzoq rulon shakli katta hajmda foydalanish uchun qulay va iqtisodiy samarali."
     },
     "7": {
-      "name": "Nest Med Tech Drape",
-      "description": "Bir martalik jarrohlik yopqichi"
+      "name": "Steril jarrohlik prostinyasi",
+      "description": "Steril jarrohlik prostinyasi 200×160 sm,jarrohlik amaliyotida steril va himoyalangan maydon yaratish uchun mo‘ljallangan. Yuqori zichlikdagi dokasiz material biologik suyuqliklardan kuchli himoya qiladi va jarayon davomida ishonch beradi."
     },
     "8": {
       "name": "Dentafill jarrohlik qo‘lqoplari",
       "description": "Lateksdan tayyorlangan steril jarrohlik qo‘lqoplari"
     },
     "9": {
-      "name": "Jarrohlik xalat",
-      "description": "Steril jarrohlik to‘plami (xalat, niqob, shapka, bahillar) jarrohlik amaliyotlari vaqtida himoya to‘sig‘ini yaratish uchun mo‘ljallangan. To‘plam to‘liq steril muhitni ta’minlab, infeksiya xavfini kamaytiradi va tibbiyot xodimlari uchun qulaylik yaratadi."
+      "name": "Steril jarrohlik xalat",
+      "description": "Steril jarrohlik xalat jarrohlik amaliyotlari va tibbiy jarayonlarda tibbiyot xodimini himoya qilish uchun mo‘ljallangan. Engil va havo o‘tkazuvchi dokasiz material qulaylik yaratadi va biologik ifloslanishlardan samarali himoya qiladi."
     },
     "10": {
-      "name": "Hygiene United jarrohlik xalat",
-      "description": "Bir martalik jarrohlik xalat"
+      "name": "UKM steril jarrohlik xalat",
+      "description": "UKM steril jarrohlik xalat, zichligi 35 g/m² jarrohlik amaliyotlari va tibbiy jarayonlarda himoya to‘sig‘i yaratish uchun mo‘ljallangan. Engil va mustahkam material uzoq vaqt davomida ham qulaylik beradi va biologik ifloslanishlardan himoya qiladi."
     },
     "11": {
       "name": "Bir martalik ishlatiladigan steril stomatologik to'plam \"NEST-DENT\"",
@@ -469,8 +469,8 @@
       "description": "Bir martalik ginekologik namunagich"
     },
     "37": {
-      "name": "Nest-Pack jarrohlik to‘plami",
-      "description": "Xalat, bahil, qalpoqcha, niqobdan iborat jarrohlik to‘plami"
+      "name": "Steril jarrohlik to‘plami",
+      "description": "Steril jarrohlik to‘plami (xalat, niqob, shapka, bahillar) jarrohlik amaliyotlari vaqtida himoya to‘sig‘ini yaratish uchun mo‘ljallangan. To‘plam to‘liq steril muhitni ta’minlab, infeksiya xavfini kamaytiradi va tibbiyot xodimlari uchun qulaylik yaratadi."
     },
     "38": {
       "name": "Health Line insulin shprits, 1ml",
@@ -618,8 +618,8 @@
       "description": "“Sterilan” tashqi indikatorlari 180°C / 60 daqiqa (1000 dona) — quruq issiqlik sterilizatsiyasi oldidan paketlarni belgilash uchun ishlatiladi. Belgilangan harorat va vaqtga ta’sirlansa, indikator rangi aniq o‘zgaradi va paket to‘liq sterilizatsiya jarayonidan o‘tganini tasdiqlaydi."
     },
     "75": {
-      "name": "“STERITEST-Vl” sterilizatsiya indikatorlari 132/20",
-      "description": "“STERITEST-Vl” sterilizatsiya indikatorlari, 1000 dona, jurnal bilan — quruq issiqlik sterilizatsiyasi jarayonini nazorat qilish uchun mo‘ljallangan to‘plam. Indikatorlar belgilangan harorat va vaqtga yetilganda rangini o‘zgartiradi, jurnal esa har bir sterilizatsiya siklini rasmiy qayd etish imkonini beradi."
+      "name": "“STERITEST-P-132/20-02”",
+      "description": "“STERITEST-P-132/20-02” sterilizatsiya indikatorlari (1000 dona), jurnal bilan — bug‘li sterilizatsiya jarayonini paket ichida nazorat qilish uchun mo‘ljallangan to‘plam. Indikatorlar 132°C / 20 daqiqa rejimi to‘liq ta’minlanganda rangini o‘zgartiradi. To‘plamdagi jurnal har bir sterilizatsiya siklini rasmiy qayd etish imkonini beradi."
     },
     "76": {
       "name": "MedIS-132/20-1 sterilizatsiya indikatorlari",
@@ -766,7 +766,7 @@
     "113": { "name": "Bir martalik qalpoqchalar", "description": "" },
     "114": {
       "name": "Bir martalik prostinyalar",
-      "description": "Bir martalik prostinyalar — 20 g/m² zichlikka ega bo‘lib, gigiyenik, yengil va qulay foydalanishga mo‘ljallangan. Turli rang variantlari ish muhitini yanada estetik qiladi."
+      "description": "Bir martalik prostinyalar — 20 g/m² zichlikka ega bo‘lib, gigiyenik, yengil va qulay foydalanishga mo‘ljallangan. 10 donadan iborat ixcham qadoq ko‘chma ishlarda, kichik kabinetlarda yoki kunlik iste’molda juda amaliy hisoblanadi. Turli rang variantlari ish muhitini yanada estetik qiladi."
     },
     "115": { "name": "Bir martalik qalpoqchalar", "description": "" },
     "116": {
@@ -913,8 +913,52 @@
       "description": "Pipetka uchlari, ko‘k rangda, 1000 mkl, Eppendorf/Universal mos, polipropilen, 500 dona qadoqda.Yuqori aniqlikdagi dozalar bilan ishlash uchun mo‘ljallangan bir martalik uchlar. Eppendorf va universal tipdagi aksariyat pipetkalar bilan mos keladi. Polipropilendan tayyorlangani tufayli eritma silliq olinadi, tomchi qolmaydi va ishlov jarayoni aniq bo‘ladi."
     },
     "157": {
-      "name": "Pipetka uchlari, sariq rangda, 200 mkl",
-      "description": "Pipetka uchlari, sariq rangda, 200 mkl, Eppendorf/Universal mos, polipropilen, 500 dona qadoqda.Yuqori aniqlikdagi dozalar bilan ishlash uchun mo‘ljallangan bir martalik uchlar. Eppendorf va universal tipdagi aksariyat pipetkalar bilan mos keladi. Polipropilendan tayyorlangani tufayli eritma silliq olinadi, tomchi qolmaydi va ishlov jarayoni aniq bo‘ladi."
+      "name": "Indikatorlar jurnali",
+      "description": "Indikatorlar jurnali — sterilizatsiya va dezinfeksiya jarayonlarini nazorat qilish natijalarini qayd etish uchun mo‘ljallangan maxsus daftar. Unda kimyoviy va biologik indikatorlar bo‘yicha ma’lumotlar, sikl sanalari, partiya raqamlari, mas’ul xodimlarning imzolari va yakuniy baho qayd qilinadi. Ushbu jurnal sanitariya talablariga rioya etilganini tasdiqlovchi rasmiy hujjat sifatida xizmat qiladi."
+    },
+    "158": {
+      "name": "“Intest-P-134/5-02” sterilizatsiya indikatorlari",
+      "description": "“Intest-P-134/5-02” sterilizatsiya indikatorlari (500 dona) — bug‘li sterilizatsiya jarayonini paket ichida nazorat qilish uchun mo‘ljallangan ichki indikatorlar. 134°C / 5 daqiqa sharoiti to‘liq ta’minlanganida indikator rangi o‘zgarib, sterilizatsiyaning sifatli o‘tganini aniqlik bilan ko‘rsatadi."
+  },
+  "159": {
+      "name": "Bir martalik dokasiz matodan tayyorlangan jarrohlik xalat",
+      "description": "Bir martalik dokasiz matodan tayyorlangan jarrohlik xalat, zichligi 37 g/m² jarrohlik amaliyotlari va tibbiy jarayonlarda tibbiyot xodimini himoyalash uchun mo‘ljallangan. Engil, mustahkam va havo o‘tkazuvchi material qulaylik yaratadi hamda ifloslanish xavfini kamaytiradi."
+},
+  "160": {
+      "name": "UKM steril jarrohlik to‘plami",
+      "description": "UKM steril jarrohlik to‘plami (35 g/m² xalat, niqob, sharlotka, bahillar) jarrohlik va tibbiy amaliyot vaqtida himoya to‘sig‘i yaratadi. To‘plam gigiyenani ta’minlaydi, infeksiya xavfini kamaytiradi va tibbiyot xodimlari uchun qulay."
+  },
+  "161": {
+      "name": "UKM steril jarrohlik prostinyasi",
+      "description": "UKM steril jarrohlik prostinyasi jarrohlik maydonini himoyalangan va steril tarzda saqlash uchun mo‘ljallangan. Yuqori zichlikdagi dokasiz material suyuqlik va ifloslanishlardan ishonchli himoya yaratadi."
+    },
+    "162": {
+      "name": "“Butterfly” qon olish ignasi probirka uchun",
+      "description": "“Butterfly” qon olish ignasi probirka uchun (22G / 23G, 3/4\") Bu turdagi ignalar venaga qulay va xavfsiz kirishni ta’minlaydi. “Kapalak” shaklidagi yumshoq qanotchalar ignani aniq ushlab turishga yordam beradi, nozik tomirlardan qon olish jarayonini osonlashtiradi. Vakuumli probirkalar bilan to‘liq mos bo‘lib, bemor uchun maksimal qulaylik yaratadi."
+    },
+    "163": {
+      "name": "1.5 ml EDTA K3 qoplamali probirkalar",
+      "description": "1.5 ml EDTA K3 qoplamali probirkalar (500 dona qadoqda).Ushbu probirkalar gematologik analizatorlar uchun maxsus ishlab chiqilgan bo‘lib, ichki devoriga EDTA K3 purkalgan. Bu qonni ivishdan to‘liq himoya qilib, eritrotsit, leykotsit va trombotsitlarning tabiiy shaklini saqlaydi. Natijada OAK va boshqa gematologik testlar aniq, ishonchli va barqaror bo‘ladi.Probirkalar mustahkam polipropilendan tayyorlangan, yuqori tezlikdagi aylanishga chidamli va avtomatlashtirilgan tizimlar bilan mos ishlaydi."
+    },
+    "164": {
+      "name": "Ekstradin, 1 litr",
+      "description": "Ekstradin, 1 litr (yangi kontsentrat) — turli kuchdagi ishchi eritmalar tayyorlash uchun mo‘ljallangan, samaradorligi oshirilgan dezinfeksiya vositasi. Yangilangan formulasi mikroblar, viruslar va zamburug‘larga qarshi kuchli ta’sir ko‘rsatadi hamda sirtlar, asboblar va sanitariya hududlarini tozalashda qo‘llaniladi."
+    },
+    "165": {
+      "name": "Bir martalik prostinyalar",
+      "description": "Bir martalik prostinyalar — 20 g/m² zichlikka ega, gigiyenik, yengil va mustahkam materialdan tayyorlangan. 100 dona bo‘lgan rulon ko‘p marta foydalaniladigan joylarda tez, toza va qulay himoya qatlamini yaratish uchun mo‘ljallangan. Ranglar xilma-xilligi ularni klinikadan tortib kosmetologiya salonlarigacha har qanday muhitga moslashtiradi."
+    },
+    "166": {
+      "name": "Bir martalik salfetkalar",
+      "description": "Bir martalik salfetkalar — 15 g/m² (rulonda 200 dona) — gigiyenik, yengil va ko‘p maqsadli qo‘llaniladigan materialdir. Ular tibbiyot muassasalari, kosmetologiya xonalari, massaj kabinetlari va maishiy ehtiyojlarda tez-tez ishlatiladi. Turli rang variantlari ish muhitiga mos ravishda tanlash imkonini beradi."
+    },
+    "167": {
+      "name": "Bir martalik sochiq",
+      "description": "Bir martalik sochiq — 35×70 (100 dona rulonda) — gigiyenik, qulay va ko‘p maqsadli foydalanishga mo‘ljallangan mahsulot. Yumshoq tuzilmasi mijozga maksimal qulaylik beradi, bir martalik format esa tozalik talab qilinadigan muhitlar uchun ideal."
+    },
+    "168": {
+      "name": "",
+      "description": ""
     }
-  }
+}
 }

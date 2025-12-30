@@ -354,8 +354,8 @@
     },
     "5": { "name": "Face Maks", "description": "Bir martalik niqoblar" },
     "6": {
-      "name": "Unipack sterilizatsiya roli",
-      "description": "Sterilizatsiya uchun rolik shaklidagi qadoqlash materiali"
+      "name": "Sterilizatsiya uchun kraft paket",
+      "description": "Sterilizatsiya uchun kraft paket — tibbiy asbob-uskunalarni xavfsiz o‘rash va ularning steril holatini saqlab turishga mo‘ljallangan maxsus qadoqlash materiali. Yuqori zichlikdagi tsellyuloza qatlamlari bug‘, havo va gaz sterilizatsiyasiga mos bo‘lib, asboblarni ifloslanishdan himoya qiladi. Uzoq rulon shakli katta hajmda foydalanish uchun qulay va iqtisodiy samarali."
     },
     "7": {
       "name": "Nest Med Tech Drape",
@@ -367,15 +367,15 @@
     },
     "9": {
       "name": "Jarrohlik xalat",
-      "description": "Bir martalik jarrohlik xalat"
+      "description": "Steril jarrohlik to‘plami (xalat, niqob, shapka, bahillar) jarrohlik amaliyotlari vaqtida himoya to‘sig‘ini yaratish uchun mo‘ljallangan. To‘plam to‘liq steril muhitni ta’minlab, infeksiya xavfini kamaytiradi va tibbiyot xodimlari uchun qulaylik yaratadi."
     },
     "10": {
       "name": "Hygiene United jarrohlik xalat",
       "description": "Bir martalik jarrohlik xalat"
     },
     "11": {
-      "name": "Nest-Dent stomatologik to‘plam",
-      "description": "Steril stomatologik to‘plam"
+      "name": "Bir martalik ishlatiladigan steril stomatologik to'plam \"NEST-DENT\"",
+      "description": "\"NEST-DENT\" steril, bir martalik stomatologik to‘plam tish shifokori tekshiruvi va davolash jarayonlarida gigiyena va xavfsizlikni ta’minlash uchun mo‘ljallangan. To‘plam infeksiya tarqalish xavfini kamaytiradi va asboblarni qayta ishlatishga ehtiyoj qoldirmaydi."
     },
     "12": {
       "name": "Wego IV tizimi",
@@ -404,34 +404,58 @@
       "description": "Ignali bir martalik shprits"
     },
     "20": {
-      "name": "DLAB Pipettor",
-      "description": "Avtoklavlanadigan MicroPette pipetkasi"
+      "name": "MicroPette Plus pipet-dozatori, 20–200 mkl hajmni sozlash imkoniyati bilan",
+      "description": "MicroPette Plus pipet-dozatori, 20–200 mkl hajmni sozlash imkoniyati bilan.Kichik hajmdagi namunalarni aniqlik bilan o‘lchash uchun mo‘ljallangan laboratoriya dozatori. Hajm diapazonini erkin sozlash imkoni uni PCR, molekulyar biologiya, biokimyo va kundalik laboratoriya ishlarida juda qulay qiladi"
     },
     "21": {
       "name": "Gastrik zond",
       "description": "Ovqat hazm yo‘liga qo‘yiladigan zond"
     },
     "22": { "name": "", "description": "" },
-    "23": { "name": "", "description": "" },
-    "24": { "name": "", "description": "" },
-    "25": { "name": "", "description": "" },
-    "26": { "name": "", "description": "" },
-    "27": { "name": "", "description": "" },
-    "28": { "name": "", "description": "" },
-    "29": { "name": "", "description": "" },
+    "23": {
+      "name": "",
+      "description": ""
+    },
+    "24": {
+      "name": "Ultrasonik tozalagich",
+      "description": "Ultratovushli tozalagich, tibbiy asboblar, stomatologik instrumentlar, laboratoriya jihozlari va mayda detallarni chuqur va muloyim tozalash uchun mo‘ljallangan qurilma. Ultratovushli kavitatsiya texnologiyasi orqali hatto eng tor joylardagi ifloslanishlarni ham samarali olib tashlaydi."
+    },
+    "25": {
+      "name": "KRAFT PAKET “STANDART” – Plazmali sterilizatsiya uchun",
+      "description": "KRAFT PAKET “STANDART” – Plazmali sterilizatsiya uchun.Plazma sterilizatsiyasi uchun mo‘ljallangan yuqori sifatli kraft materialdan tayyorlangan o‘ram lentalari. Asbob-uskunalarni ishonchli o‘rash, sterilizatsiyadan keyin ularni himoyalangan holda saqlash va xavfsiz tashish imkonini beradi. Material havo o‘tkazadi, plazma nurlari uchun ochiq, ammo mikroorganizmlar va chang uchun barer vazifasini bajaradi."
+    },
+    "26": {
+      "name": "PK02-45 qadoqlash mashinasi",
+      "description": "PK02-45 qadoqlash mashinasi — sterilizatsiya paketlari va rulonlarini mahkam yopish uchun mo‘ljallangan bardoshli uskuna. Keng ishlash maydoni katta va uzun materiallarni bemalol qayta ishlash imkonini beradi. Mashina tekis va mustahkam termik chok hosil qilib, paketlarning to‘liq germetik yopilishini ta’minlaydi."
+    },
+    "27": {
+      "name": "PK100-A qadoqlash mashinasi (yopish funksiyasi)",
+      "description": "PK100-A qadoqlash mashinasi (yopish funksiyasi) — sterilizatsiya paketlari va rulonlarini mahkam yopish uchun mo‘ljallangan ixcham va ishonchli uskuna. Mashina barqaror, bir tekis termik chok hosil qiladi va asboblarni sterilizatsiya oldidan to‘liq himoya qiladi."
+    },
+    "28": {
+      "name": "PK212 – ikki qavatli kraft paketlar uchun mo‘ljallangan qulay podstavka",
+      "description": "PK212 – ikki qavatli kraft paketlar uchun mo‘ljallangan qulay podstavka, savdo shoxobchalari, dorixonalar, kafe va qadoqlash bo‘limlarida joyni tartibga keltirishga xizmat qiladi. Ikki pog‘onali tuzilma paketlarni o‘lchamiga qarab ajratishga imkon beradi, bu esa tezkor xizmat ko‘rsatish va ish samaradorligini oshiradi. Konstruksiya mustahkam metall asosga ega bo‘lib, uzoq vaqt barqaror turadi."
+    },
+    "29": {
+      "name": "PKD300AB qadoqlash mashinasi",
+      "description": "PKD300AB qadoqlash mashinasi — sterilizatsiya paketlari va rulonlarini germetik yopish uchun mo‘ljallangan ishonchli uskuna. Qurilma chiziq bo‘ylab bir xil harorat bilan ishlaydi va mustahkam termik chok hosil qilib, ko‘p ishlatiladigan tibbiy bo‘limlar uchun mos keladi."
+    },
     "30": {
       "name": "Insulin shpritsi",
       "description": "Ignali insulin shprits"
     },
     "31": {
-      "name": "Antiseptik salfetka",
-      "description": "Spirtli antiseptik salfetkalar"
+      "name": "Spirtli salfetkalar №100",
+      "description": "Spirtli salfetkalar №100 — inyeksiya yoki muolajalar oldidan terini dezinfeksiya qilish uchun mo‘ljallangan, bir martalik antiseptik salfetkalardir. Yuqori sifatli spirtli eritma bilan namlangan bo‘lib, tez quriydi va iz qoldirmaydi. Gigiyena talab qilinadigan har qanday sharoitda foydalanishga qulay."
     },
     "32": {
       "name": "Improvacuter ko‘p namuna ignalari",
       "description": "Qon olish uchun ko‘p martalik ushlagichli ignalar"
     },
-    "33": { "name": "Qon olish ignasi", "description": "Ko‘p namuna ignasi" },
+    "33": {
+      "name": "Vakuumli qon olish probirkalari uchun ignalar",
+      "description": "Vakuumli qon olish probirkalari uchun ignalar — 100 dona qadoqda (22G / 23G).Ushbu ignalar vakuumli qon yig‘ish tizimlari bilan ishlash uchun maxsus ishlab chiqilgan. 22G va 23G o‘lchamlari venaga silliq, xavfsiz va minimal og‘riq bilan kirishni ta’minlaydi. Ignalar mustahkam, steril va latekssiz bo‘lib, klinik va laboratoriya amaliyotlarida keng qo‘llanadi."
+    },
     "34": {
       "name": "Ginekologik sampler",
       "description": "Bir martalik ginekologik namunagich"
@@ -452,7 +476,10 @@
       "name": "Health Line insulin shprits, 1ml",
       "description": "Bir martalik insulin shprits, 1ml"
     },
-    "39": { "name": "", "description": "" },
+    "39": {
+      "name": "“PREMIUM” KRAFT PAKET – Plazmali sterilizatsiya uchun.",
+      "description": "“PREMIUM” KRAFT PAKET – Plazmali sterilizatsiya uchun.O‘rta o‘lchamdagi tibbiy asboblarni o‘rash uchun mo‘ljallangan universal premium kraft o‘ram. Mustahkam, barer Sifatlari kuchli va sterilizatsiya jarayonida barqaror."
+    },
     "40": {
       "name": "Jarrohlik to‘ri",
       "description": "Polipropilen monofilament steril jarrohlik to‘ri"
@@ -467,31 +494,37 @@
       "description": "Qanotli igna - skalp vena ignasi"
     },
     "44": {
-      "name": "Tibbiy chiqindi konteyneri",
-      "description": "Klinik chiqindilar uchun konteyner"
+      "name": "Tibbiy chiqindilar uchun plastik konteyner",
+      "description": "Tibbiy chiqindilar uchun plastik konteyner igna, shprits, o‘tkir asboblar va biologik chiqindilarni xavfsiz yig‘ish va yo‘q qilish uchun mo‘ljallangan. Mustahkam plastik va zich yopiladigan qopqoq sizib chiqish va tasodifiy kontaktlardan himoya qiladi."
     },
-    "45": { "name": "", "description": "" },
+    "45": {
+      "name": "Barer plyonka",
+      "description": "Barer plyonka — tibbiy asbob-uskunalar va steril mahsulotlarni ishonchli himoya qilishga mo‘ljallangan ko‘p qatlamli qadoqlash materiali. U mikroorganizmlar, namlik, chang va tashqi ta’sirlarga qarshi mustahkam to‘siq yaratadi, sterilizatsiya jarayonida o‘z Sifatlarini yo‘qotmaydi. Dental klinikalar, jarrohlik bo‘limlari, laboratoriyalar va sterilizatsiya markazlari uchun ideal yechimdir."
+    },
     "46": {
-      "name": "Zogear stomatologik paxta roliklari",
-      "description": "100% sof paxtadan, 10x38mm"
+      "name": "Paxtali valiklar",
+      "description": "Paxtali valiklar 10×38 mm, 1000 dona/paket (Cotton Rolls) stomatologiyada namlikni singdirish va ish maydonini izolyatsiya qilish uchun qo‘llaniladi. Yuqori singdiruvchanlikka ega, shaklini saqlaydi va bemor uchun qulaylik yaratadi."
     },
     "47": {
       "name": "LDH-kanyula",
       "description": "Yapon zanglamas po‘lat LDH bir martalik kanyula"
     },
     "48": {
-      "name": "Zogear tupurik ejektorlari",
-      "description": "Tupurik ejektorlari"
+      "name": "Tuprik ejektori/SE-01",
+      "description": "SE-01 so‘lak so‘rgichlari (Saliva Ejectors), 100 dona/paket stomatologik muolajalar vaqtida og‘iz bo‘shlig‘idan suyuqlik va so‘lakni samarali chiqarish uchun mo‘ljallangan bir martalik moslamalardir. Egiluvchan tuzilmasi kerakli shaklni berishga imkon beradi, yumshoq uchligi esa bemor uchun qulaylik yaratadi."
     },
     "49": {
       "name": "Siydik xaltalari",
       "description": "Steril bir martalik siydik xaltasi, 200ml"
     },
     "50": {
-      "name": "Namuna olish tamponi",
-      "description": "Tibbiy namuna olish uchun tampon"
+      "name": "Steril burun/nazofarengeal tampon zond, alohida qadoqlangan",
+      "description": "Burun va burun-halqumdan namunalar olish uchun steril, alohida qadoqlangan zond-tampon biomaterialni xavfsiz va aniq yig‘ish uchun mo‘ljallangan. Yumshoq uchlik noqulaylikni kamaytiradi, individual steril qadoq esa to‘liq gigiyena va infeksiya xavfini kamaytiradi."
     },
-    "51": { "name": "Lateks turniket", "description": "Lateks turniket" },
+    "51": {
+      "name": "Lateks turniket",
+      "description": "Qon olish, in’yeksiya va venaga kirish jarayonlarida qo‘llaniladigan elastik lateks jgut. Yuqori cho‘ziluvchanligi tufayli bemorga ortiqcha bosim bermasdan, venani aniq bo‘rtirish imkonini beradi. Kunlik tibbiy amaliyotda tez taqiladi, tez olinadi va uzoq xizmat qiladi"
+    },
     "52": {
       "name": "Kindik qisqichi",
       "description": "Steril kindik qisqichi"
@@ -505,8 +538,8 @@
       "description": "Bolalar uchun gigiyenik plastirlar"
     },
     "55": {
-      "name": "LDH EKG lentalari",
-      "description": "EKG lentalari, 110mm x 10m"
+      "name": "EKG uchun diagramma lentalari",
+      "description": "EKG uchun diagramma lentalari kardiograf apparatlarida ishlatish uchun mo‘ljallangan yuqori sifatli termoqog‘oz. Yurak ritmini aniq, kontrast va ishonchli tarzda qayd etadi, diagnostika uchun zarur bo‘lgan signallarni to‘liq aks ettiradi."
     },
     "56": {
       "name": "Medik Plast qanotli IV kateter",
@@ -516,7 +549,10 @@
       "name": "Medik Plast tibbiy yopishqoq lenta",
       "description": "Nosteril elastik tibbiy yopishqoq lenta, 15cm x 10m"
     },
-    "58": { "name": "", "description": "" },
+    "58": {
+      "name": "Dozatorlar uchun  uchlar",
+      "description": "Dozatorlar uchun  uchlar, sariq rangda,Kichik hajmdagi namunalarning aniq va toza o‘lchanishi uchun mo‘ljallangan bir martalik pipetka uchlari. Eppendorf va universal turdagi pipetkalar bilan mos keladi. Polipropilen materiali eritmaning silliq olinishi va minimal yo‘qotilishiga yordam beradi."
+    },
     "59": {
       "name": "One Aid nafas oluvchi plastirlar",
       "description": "Nafas oluvchi gigiyenik plastirlar, 10x15cm"
@@ -526,12 +562,12 @@
       "description": "Nafas oluvchi plastir, 2.5x500cm"
     },
     "61": {
-      "name": "Gigiyenik salfetka",
-      "description": "Gigiyenik salfetka, 33x45cm"
+      "name": "Stomatologiya uchun ko‘krak himoya salfetkalari",
+      "description": "Stomatologiya uchun ko‘krak himoya salfetkalari — 45×33 sm bemorning kiyimini protsedura davomida ifloslanishdan himoya qilish uchun mo‘ljallangan. Ko‘p qatlamli tuzilma namlikni yaxshi ushlab turadi va gigiyenani ta’minlaydi. Ranglar to‘plami klinika interyeriga moslash imkonini beradi."
     },
     "62": {
-      "name": "Adutor qon bosimi apparati",
-      "description": "Qon bosimi o‘lchagich"
+      "name": "Arterial bosim o‘lchagich IAD-01 \"Adyutor\"",
+      "description": "IAD-01 «Adyutor» — arterial bosim va pulsni avtomatik o‘lchaydigan ishonchli elektron qurilma. Klinikada ham, uy sharoitida ham qulay foydalanish uchun ishlab chiqilgan. Aniqligi yuqori, natijalar barqaror va ekrani yirik bo‘lgani sabab o‘qilishi oson. Aqlona o‘lchash tizimi bosimni yumshoq berib, bemor uchun noqulaylikni kamaytiradi."
     },
     "63": {
       "name": "Finflex plastir",
@@ -546,8 +582,8 @@
       "description": "PVC asosidagi nafas oluvchi plastir"
     },
     "66": {
-      "name": "Mikroskop oynachasi",
-      "description": "Mikroskop uchun oynacha"
+      "name": "Mikroskop yopuvchi shisha",
+      "description": "Mikroskop yopuvchi shisha, 1000 dona.Kengroq ish maydoni talab qilinadigan mikroskopik preparatlar uchun mo‘ljallangan shisha. Yuqori sifatli optik materialdan tayyorlangan bo‘lib, tasvirni buzmasdan aniq va tiniq ko‘rsatadi. Sitologiya, gistologiya va umumiy laboratoriya mikroskopiyasi uchun ideal."
     },
     "67": {
       "name": "KD-Fix IV kateter",
@@ -555,43 +591,43 @@
     },
     "68": {
       "name": "Unitest ichki bug‘ indikatori 132/20",
-      "description": "Ichki bug‘ sterilizatsiya indikatori, sariq-qora, 4-sinf"
+      "description": "132°C / 20 daqiqa uchun ichki bug‘li sterilizatsiya indikatori (1000 dona) — Unitest Steam sterilizatsiya paketi ichida jarayon sifatini nazorat qilish uchun qo‘llanadi. Kerakli harorat va vaqtga yetganda indikator rangi o‘zgaradi va sterilizatsiya samaradorligini aniq tasdiqlaydi."
     },
     "69": {
       "name": "Unitest tashqi bug‘ indikatori 132/20",
-      "description": "Tashqi bug‘ sterilizatsiya indikatori, pushti-qora, 4-sinf"
+      "description": "132°C / 20 daqiqa uchun tashqi bug‘li sterilizatsiya indikatori (1000 dona) — Unitest Steam sterilizatsiya paketi tashqi tomoniga yopishtiriladi va jarayon tugaganida rangini o‘zgartirib, paket autoklavdan to‘liq o‘tganini tasdiqlaydi."
     },
     "70": {
       "name": "Unitest universal bug‘ indikatori 134/5",
-      "description": "Universal bug‘ indikatori, ko‘k-qora, 4-sinf"
+      "description": "134°C / 5 daqiqa uchun universal bug‘li sterilizatsiya indikatori (1000 dona) — UNITEST STEAM sterilizatsiya jarayoni belgilangan harorat va vaqtga to‘liq mos kelganini tasdiqlash uchun xizmat qiladi. Kerakli sharoitga yetganda indikator rangi ravshan tarzda o‘zgaradi va paketlar autoklavdan to‘liq o‘tganini bildiradi."
     },
     "71": {
       "name": "Sterilan ichki indikator lentalari 132/20",
-      "description": "Ichki bug‘ sterilizatsiya indikatori, 5-sinf"
+      "description": "“Sterilan”-UP ichki bug‘li sterilizatsiya indikatоrlari 132°C / 20 daqiqa (1000 dona) — sterilizatsiya paketi yoki asboblar to‘plami ichida jarayon sifatini tekshirish uchun ishlatiladi. Indikator eng ichki qismga joylashtirilib, belgilangan harorat va vaqtga yetilganda o‘z rangini aniq o‘zgartiradi."
     },
     "72": {
       "name": "Sterilan tashqi indikator lentalari 132/20",
-      "description": "Tashqi bug‘ sterilizatsiya indikatori, 4-sinf"
+      "description": "“Sterilan” tashqi bug‘li sterilizatsiya indikatоrlari 132°C / 20 daqiqa (1000 dona) — sterilizatsiya paketlarini tashqi belgilash uchun ishlatiladi. Kerakli harorat va bug‘ ta’sirida indikator rangi o‘zgaradi va paket autoklav jarayonidan o‘tganini ko‘rsatadi."
     },
     "73": {
       "name": "Sterilan issiq havo ichki indikatorlari 180/60",
-      "description": "Ichki issiq havo sterilizatsiya indikatori, 5-sinf"
+      "description": "“Sterilan”-UP ichki indikatorlari, 180°C / 60 daqiqa (1000 dona) — quruq issiqlik sterilizatsiyasi jarayonining paket ichida to‘liq o‘tganini tekshirish uchun qo‘llanadi. Indikator to‘plamning eng ichki qismiga joylashtiriladi va kerakli harorat hamda vaqtga yetilganda rangini aniq o‘zgartiradi."
     },
     "74": {
       "name": "Sterilan issiq havo tashqi indikatorlari 180/60",
-      "description": "Tashqi issiq havo sterilizatsiya indikatori, 5-sinf"
+      "description": "“Sterilan” tashqi indikatorlari 180°C / 60 daqiqa (1000 dona) — quruq issiqlik sterilizatsiyasi oldidan paketlarni belgilash uchun ishlatiladi. Belgilangan harorat va vaqtga ta’sirlansa, indikator rangi aniq o‘zgaradi va paket to‘liq sterilizatsiya jarayonidan o‘tganini tasdiqlaydi."
     },
     "75": {
-      "name": "Vinar Steritest 132/20",
-      "description": "Bug‘ sterilizatsiya indikatori"
+      "name": "“STERITEST-Vl” sterilizatsiya indikatorlari 132/20",
+      "description": "“STERITEST-Vl” sterilizatsiya indikatorlari, 1000 dona, jurnal bilan — quruq issiqlik sterilizatsiyasi jarayonini nazorat qilish uchun mo‘ljallangan to‘plam. Indikatorlar belgilangan harorat va vaqtga yetilganda rangini o‘zgartiradi, jurnal esa har bir sterilizatsiya siklini rasmiy qayd etish imkonini beradi."
     },
     "76": {
-      "name": "Vinar MedIS 132/20",
-      "description": "Bug‘ sterilizatsiya indikatori"
+      "name": "MedIS-132/20-1 sterilizatsiya indikatorlari",
+      "description": "MedIS-132/20-1 sterilizatsiya indikatorlari (1000 dona) — bug‘li sterilizatsiya jarayonining paket ichida to‘liq o‘tganini tekshirish uchun mo‘ljallangan. 132°C / 20 daqiqa sharoitiga yetganda indikator rangi o‘zgarib, sterilizatsiya samaradorligini tasdiqlaydi."
     },
     "77": {
-      "name": "Vinar MedIS 180/60",
-      "description": "Issiq havo sterilizatsiya indikatori"
+      "name": "MedIS-B sterilizatsiya indikatorlari 180/60",
+      "description": "MedIS-B sterilizatsiya indikatorlari 180°C / 60 daqiqa (1000 dona) — quruq issiqlik sterilizatsiyasining to‘g‘ri o‘tganini tasdiqlash uchun mo‘ljallangan nazorat vositasi. Kerakli harorat va ekspozitsiya vaqtiga yetilganda indikator rangi o‘zgaradi va paket yoki konteyner ichidagi asboblarning to‘liq sterilizatsiyadan o‘tganini ko‘rsatadi."
     },
     "78": { "name": "Niqob", "description": "Bir martalik niqoblar" },
     "79": {
@@ -599,8 +635,8 @@
       "description": "Peshona uchun infraqizil termometr"
     },
     "80": {
-      "name": "Qo‘ltiq termometri",
-      "description": "Klinik qo‘ltiq termometr"
+      "name": "Tibbiy simobli termometr.",
+      "description": "Simobli termometr — tana haroratini aniq o‘lchashda eng ishonchli klassik uskunalardan biri. O‘qish aniqligi yuqori bo‘lib, uyda ham, tibbiy muassasada ham ishlatish mumkin. Mustahkam shisha korpus va oson o‘qiladigan shkala uni amaliy va qulay qiladi."
     },
     "81": {
       "name": "Jarrohlik skalpellari",
@@ -615,14 +651,17 @@
       "description": "Irrigatsiya uchun kanyula"
     },
     "84": {
-      "name": "Sentrifuga naychalari",
-      "description": "RNaza & DNaza dan xoli, 1.5ml"
+      "name": "EP-150-E-J mikrotsentrifuga probirkasi",
+      "description": "EP-150-E-J mikrotsentrifuga probirkasi — 1.5 ml, Eppendorf turi, DNK/RNKsiz, 500 dona qadoqda.Ushbu probirkalar molekulyar biologiya, biokimyo, PCR, nuklein kislotalar bilan ishlash kabi yuqori aniqlik talab qilinadigan laboratoriya amaliyotlari uchun mo‘ljallangan. DNK/RNK izlarining yo‘qligi namunalarning kontaminatsiyasiz ishlov berilishini ta’minlaydi. Mustahkam polipropilendan tayyorlanib, yuqori tezlikdagi mikrotsentrifugalar uchun mos keladi."
     },
     "85": {
       "name": "Nasal Cannuka Universal",
       "description": "Universal burun kanülası"
     },
-    "86": { "name": "Bir martalik igna", "description": "Bir martalik igna" },
+    "86": {
+      "name": "Spinal anesteziya ignalari",
+      "description": "Spinal anesteziya ignalari — Quincke turi, 25G va 26G.Quincke tipidagi spinal ignalar orqa miya suyuqligiga kirish uchun mo‘ljallangan bo‘lib, aniq kesuvchi uch, optimal qattiqlik va minimal to‘qima shikastlanishini ta’minlaydigan konstruktsiyaga ega. Ular anesteziologiya, neyroxirurgiya va og‘riqni bloklash amaliyotlarida keng qo‘llanadi."
+    },
     "87": {
       "name": "Po‘lat skalpel pichoqlari",
       "description": "Uglerod po‘latidan skalpel pichoqlari"
@@ -644,8 +683,8 @@
       "description": "O‘rta o‘lchamli termoplastik shina"
     },
     "92": {
-      "name": "Rustmomed igna ushlagichi",
-      "description": "Ignani ushlab turuvchi asbob"
+      "name": "Himoya qopqoqli igna ushlagichi (Holder)",
+      "description": "Himoya qopqoqli igna ushlagichi (Holder).Bu ushlagich vakuumli qon yig‘ish tizimining ajralmas qismi bo‘lib, ignani mahkam va xavfsiz ushlab turishni ta’minlaydi. Maxsus himoya qopqog‘i tibbiy xodimlarni igna sanchilish xavfidan himoya qiladi, ishlatilgandan so‘ng ignani xavfsiz yopib qo‘yish imkonini beradi. Laboratoriya, klinika va shifoxonalarda kundalik venoz qon olish jarayonida ishonchli va qulay vosita hisoblanadi."
     },
     "93": {
       "name": "Dispenser butilka",
@@ -664,8 +703,8 @@
       "description": "Steril bir martalik inyektsiya shprits"
     },
     "97": {
-      "name": "Dismed tibbiy spatula",
-      "description": "Steril bir martalik spatula"
+      "name": "Bir martalik plastik KBB spatulasi",
+      "description": "Bir martalik plastik LOR-shpatel og‘iz bo‘shlig‘i, til va bodom bezlarini tekshirish uchun mo‘ljallangan. Gigiyenik va qulay foydalanishni ta’minlaydi. Yaltiroq, silliq chetlari shilliq qavatni jarohatlamaydi, bir martalik format esa infeksiya tarqalishining oldini oladi."
     },
     "98": { "name": "Bir martalik igna", "description": "Bir martalik igna" },
     "99": {
@@ -678,11 +717,11 @@
     },
     "101": {
       "name": "Elektrojarrohlik koagulyatsiya qalami",
-      "description": "Elektrojarrohlik koagulyatsiya qalami"
+      "description": "Elektrojarrohlik qalam — yumshoq to‘qimalarni aniqlik bilan kesish, kuydirish va qon ketishini to‘xtatishda ishlatiladigan zamonaviy jarrohlik asbobi. U elektrokoagulyator apparatiga ulanib ishlaydi hamda energiyani to‘g‘ridan-to‘g‘ri ish maydoniga uzatadi. Ergonomik korpusi qo‘lda qulay ushlanadi, boshqaruv tugmalari esa «kesish» va «koagulyatsiya» rejimlari o‘rtasida tez o‘tish imkonini beradi."
     },
     "102": {
-      "name": "Azopyram C-GTM",
-      "description": "Sterilizatsiya oldi tozaligi nazorati uchun reaktivlar to‘plami"
+      "name": "Azopyram S-GTM",
+      "description": "Azopiram-S GTM, 100 ml — tibbiy asboblarning sterilizatsiyadan oldingi tozaligi sifatini tekshirish uchun mo‘ljallangan reaktiv. Qon, oqsil va yuvish vositasi qoldiqlarini aniqlaydi hamda tez rang o‘zgarishi bilan ishonchli natija beradi."
     },
     "103": {
       "name": "Romsons Foley kateteri",
@@ -693,41 +732,50 @@
       "description": "Tabiiy lateksdan Foley kateter"
     },
     "105": {
-      "name": "Antiseptin 0.5l yuzalar uchun",
-      "description": "Yuzalar uchun 0.5l antiseptik (A daraja)"
+      "name": "Sirtlar uchun 0,5 litrli antiseptin (A sinf)",
+      "description": "Antiseptin, 0,5 litr (A markasi) — sirtlarni tez va samarali dezinfeksiya qilish uchun tayyor vosita. Keng antimikrob ta’sirga ega bo‘lib, tibbiy muassasalar, korxonalar va uy sharoitida qo‘llash uchun mos. Tez quriydi va iz qoldirmaydi."
     },
     "106": {
-      "name": "Antibakterial vosita extra",
-      "description": "Sterilizatsiya oldidan asboblarni qayta ishlash uchun"
+      "name": "Sterilizatsiyadan oldin asboblarni qayta ishlash uchun ABK Extra 1 litr",
+      "description": "ABK Ekstra, 1 litr — tibbiy asboblarni sterilizatsiyadan oldin dastlabki tozalash va dezinfeksiya qilish uchun mo‘ljallangan professional vosita. Kuchli antimikrob ta’sirga ega bo‘lib, organik ifloslanishlarni samarali eritadi va asboblarni keyingi sterilizatsiya jarayoniga sifatli tayyorlaydi."
     },
     "107": {
-      "name": "Antiseptin OP 0.5l teri uchun",
-      "description": "Teri uchun antiseptik (B brend)"
+      "name": "Antiseptin OP 0.5l (B markasi) trigger bilan",
+      "description": "Antiseptin OP, 0,5 l (B markasi), trigger purkagich bilan — qo‘l va terini tez va xavfsiz dezinfeksiya qilish uchun mo‘ljallangan antiseptik vosita. Triggerli purkagich vositani teng taqsimlaydi va tejamkor foydalanishni ta’minlaydi. Kuchli antimikrob ta’sirga ega, terini quritmaydi va tez-tez ishlatish uchun mos."
     },
     "108": {
-      "name": "Septa Dez",
-      "description": "Asboblarni sterilizatsiya oldidan qayta ishlash uchun 1 litr vosita"
+      "name": "Sterilizatsiyadan oldin asboblarni qayta ishlash uchun 1 litrli Septodes",
+      "description": "Septodez, 1 litr — sterilizatsiyadan oldin tibbiy asboblarni dastlabki ishlov berish va dezinfeksiya qilish uchun mo‘ljallangan vosita. Keng antimikrob ta’sirga ega, biologik ifloslanishlarni samarali tozalaydi va keyingi sterilizatsiya jarayonining xavfsizligini ta’minlaydi."
     },
     "109": {
-      "name": "DS-1 0.5l kontsentrat",
-      "description": "Dezinfeksiya va sterilizatsiya vositasi"
+      "name": "DS-1 0,5 l (konsentrat)",
+      "description": "DS-1, 0,5 l (kontsentrat) — ishchi eritmalar tayyorlash uchun mo‘ljallangan universal dezinfeksiya kontsentrati. Keng antimikrob ta’sirga ega bo‘lib, tibbiy, maishiy yoki ishlab chiqarish sharoitlarida sirtlar va jihozlarni dezinfeksiya qilishda qo‘llaniladi."
     },
     "110": {
-      "name": "Pakion plazma kimyoviy indikatori",
-      "description": "Plazma sterilizatsiya indikatori"
+      "name": "Plazma sterilizatsiyasi uchun indikatorlar",
+      "description": "Plazma sterilizatsiyasi uchun indikatorlar — sterilizatsiya jarayonining to‘g‘ri va samarali o‘tganini vizual tarzda nazorat qilish uchun mo‘ljallangan kimyoviy test vositalari.Bu indikatorlar past haroratli plazma sterilizatorlarida ishlatiladi va sterilizatsiya sikli to‘liq bajarilganda rangini o‘zgartiradi, bu esa jarayonning ishonchli o‘tganini tasdiqlaydi."
     },
     "111": {
-      "name": "Maximed fenolftalein 100ml",
-      "description": "Fenolftalein, 100ml"
+      "name": "Fenolftalein 100 ml",
+      "description": "Fenolftalein, 100 ml — laboratoriya tahlillarida ishlatiladigan indikator eritma. Muhit kislotalikdan ishqoriylikka o‘tganda rangini o‘zgartiradi, bu esa titrlash jarayonlarida aniq natija olishga yordam beradi."
     },
-    "112": { "name": "Mikroskop shishachalari", "description": "" },
+    "112": {
+      "name": "Mikroskop uchun predmet shisha, sayqallangan qirrasiz",
+      "description": "Mikroskop uchun predmet shisha, sayqallangan qirrasiz, 50 dona.Oddiy laboratoriya preparatlarini tayyorlash uchun mo‘ljallangan shaffof predmet shishalar. Sirtining tekisligi va optik sifati tufayli mikroskop ostida tasvir aniq, buzilmasdan ko‘rinadi. Qirralari sayqallanmagan bo‘lib, ruxsat etilgan standart laboratoriya ehtiyojlari uchun mos."
+    },
     "113": { "name": "Bir martalik qalpoqchalar", "description": "" },
-    "114": { "name": "", "description": "" },
+    "114": {
+      "name": "Bir martalik prostinyalar",
+      "description": "Bir martalik prostinyalar — 20 g/m² zichlikka ega bo‘lib, gigiyenik, yengil va qulay foydalanishga mo‘ljallangan. Turli rang variantlari ish muhitini yanada estetik qiladi."
+    },
     "115": { "name": "Bir martalik qalpoqchalar", "description": "" },
-    "116": { "name": "", "description": "" },
+    "116": {
+      "name": "Spunbond materialidan yasalgan bir martalik muolaja shortiklari",
+      "description": "Spunbond materialidan yasalgan bir martalik muolaja shortiklari — kosmetologiya, massaj, SPA va tibbiy muolajalar uchun mo‘ljallangan qulay himoya kiyimi. Spunbond to‘qilmagan materiali yengil, nafas oluvchi va teriga yoqimli bo‘lib, gigiyena talab qilinadigan sharoitlarda juda amaliy."
+    },
     "117": {
       "name": "Biomateriallar uchun idish",
-      "description": "Plastik qopqoqli 100ml biomaterial yig‘ish idishi"
+      "description": "Biomaterial yig‘ish uchun plastik idish.Siydik, balg‘am va boshqa klinik namunalarni yig‘ish, saqlash va tashish uchun mo‘ljallangan ixcham idish. Tibbiy polipropilendan tayyorlanib, deformatsiyalanmaydi va namunaga zarar yetkazmaydi. Germetik qopqoq namunani to‘kilishdan va tashqi ta’sirlardan himoya qiladi."
     },
     "118": {
       "name": "Baxtteks-farm dokasi",
@@ -795,8 +843,8 @@
     "136": { "name": "", "description": "" },
     "137": { "name": "", "description": "" },
     "138": {
-      "name": "Pakion sterilizatsiya qopchasi",
-      "description": "O‘z-o‘zidan yopiladigan sterilizatsiya qopchasi"
+      "name": "O‘z-o‘zidan yopiladigan sterilizatsiya paketi",
+      "description": "O‘z-o‘zidan yopiladigan sterilizatsiya paketi — kichik tibbiy asboblar, dental ignalar, steril uchlar va nozik instrumentlarni xavfsiz o‘rash va sterilizatsiyadan keyin ularni toza saqlash uchun mo‘ljallangan qulay qadoqlash turi.O‘zida integratsiyalashgan yopishtiruvchi qatlam mavjud bo‘lib, qo‘shimcha qurilma ishlatmasdan tez va mustahkam yopishga yordam beradi."
     },
     "139": {
       "name": "UKM ginekologik to‘plam",
@@ -833,28 +881,40 @@
       "description": "Endotraxeal trubka"
     },
     "149": {
-      "name": "Qizil qopqoqli vakuum naycha",
-      "description": "Koagulyatsiya aktivatori bilan"
+      "name": "Qon olish uchun vakuumli probirka — ivish aktivatori bilan",
+      "description": "Qon olish uchun vakuumli probirka — ivish aktivatori bilan, qizil qopqoqli.Kengaytirilgan laborator tahlillar uchun mo‘ljallangan bo‘lib, probirka ichki qavati ivishni tezlashtiruvchi maxsus aktivator bilan qoplangan. Bu serumning toza, silliq ajralishini ta’minlaydi."
     },
     "150": {
-      "name": "Yashil qopqoqli vakuum naycha",
-      "description": "Litiy heparinli"
+      "name": "Litiy-geparinli vakuumli qon olish probirkasi",
+      "description": "Litiy-geparinli vakuumli qon olish probirkasi — 13×75 mm, 5 ml, yashil qopqoqli.Bu probirkalar plazma asosidagi tahlillar uchun mo‘ljallangan bo‘lib, litiy-geparin qonni ivishdan to‘xtatadi va namunani tez ishlov berishga tayyor holga keltiradi. Yashil qopqoq xalqaro standart bo‘lib, biokimyoviy va elektrolit tahlillari uchun maxsus belgilangan."
     },
     "151": {
-      "name": "Sariq qopqoqli vakuum naycha",
-      "description": "Gel va koagulyatsiya aktivatori bilan"
+      "name": "Qon olish uchun vakuumli probirka — ivish aktivatori va gel bilan",
+      "description": "Qon olish uchun vakuumli probirka — ivish aktivatori va gel bilan, sariq qopqoqli, 13×100 mm, 5 ml.Bu probirkalar toza, barqaror serum olish uchun ishlab chiqilgan. Ichidagi gel sentrifugalanishdan so‘ng serum bilan ivigan qism orasida mustahkam qatlam hosil qiladi. Aktivator esa ivish jarayonini tezlashtirib, tahlil uchun namunani tez tayyorlashga yordam beradi."
     },
     "152": {
-      "name": "Binafsha qopqoqli EDTA K3 vakuum naycha",
-      "description": "13x75 mm, 3 ml"
+      "name": "EDTA K3 li vakuumli probirka",
+      "description": "EDTA K3 li vakuumli probirka — 13×75 mm, 3 ml, binafsha qopqoqli.Gematologik tahlillar uchun mo‘ljallangan professional probirka. EDTA K3 qonni ivishdan to‘xtatib, hujayralarning tabiiy shaklini saqlaydi, bu esa OAK va boshqa gematologiya testlarida aniq natija beradi. Binafsha qopqoq xalqaro standartlarga mos."
     },
     "153": {
-      "name": "Ko‘k qopqoqli 3.2% natriy sitratli vakuum naycha",
-      "description": ""
+      "name": "3,2% natriy tsitratli vakuumli qon olish probirkasi",
+      "description": "3,2% natriy tsitratli vakuumli qon olish probirkasi — ko‘k qopqoqli, 13×75 mm, 2,7 ml.Gemostaz va koagulyatsiya tahlillari uchun mo‘ljallangan maxsus probirka. Ichida 3,2% natriy tsitrati bo‘lib, u qonni ivishdan saqlaydi va laborator tadqiqotlar uchun barqaror namuna yaratadi. Ko‘k rangli qopqoq xalqaro belgilashga mos."
     },
     "154": {
+      "name": "Natriy-geparinli gel bilan vakuumli probirka",
+      "description": "Natriy-geparinli gel bilan vakuumli probirka — 16×100 mm, 8.5 ml, yashil qopqoqli (100 dona qadoqda).Keng laborator tahlillar uchun ishlab chiqilgan ushbu probirka plazma ajratishda yuqori aniqlik beradi. Ichidagi natriy-geparin antikoagulyanti qonni ivishdan to‘xtatadi, gel esa sentrifugadan so‘ng plazma va hujayra qismini aniq ajratib turuvchi barqaror qatlam hosil qiladi. Katta hajm — bir nechta ko‘rsatkichlarni bitta namunadan tekshirish uchun qulay."
+    },
+    "155": {
       "name": "Katgut jarrohlik ipi",
       "description": "So‘riladigan jarrohlik ipi"
+    },
+    "156": {
+      "name": "Pipetka uchlari, ko‘k rangda, 1000 mkl",
+      "description": "Pipetka uchlari, ko‘k rangda, 1000 mkl, Eppendorf/Universal mos, polipropilen, 500 dona qadoqda.Yuqori aniqlikdagi dozalar bilan ishlash uchun mo‘ljallangan bir martalik uchlar. Eppendorf va universal tipdagi aksariyat pipetkalar bilan mos keladi. Polipropilendan tayyorlangani tufayli eritma silliq olinadi, tomchi qolmaydi va ishlov jarayoni aniq bo‘ladi."
+    },
+    "157": {
+      "name": "Pipetka uchlari, sariq rangda, 200 mkl",
+      "description": "Pipetka uchlari, sariq rangda, 200 mkl, Eppendorf/Universal mos, polipropilen, 500 dona qadoqda.Yuqori aniqlikdagi dozalar bilan ishlash uchun mo‘ljallangan bir martalik uchlar. Eppendorf va universal tipdagi aksariyat pipetkalar bilan mos keladi. Polipropilendan tayyorlangani tufayli eritma silliq olinadi, tomchi qolmaydi va ishlov jarayoni aniq bo‘ladi."
     }
   }
 }

@@ -191,7 +191,6 @@ exports.clickCallback = async (req, res) => {
     console.log('Order ID:', merchantTransId);
     console.log('Amount:', amount);
 
-    // VERIFY SIGNATURE (CRITICAL SECURITY CHECK)
     if (!isTest) {
       const SECRET_KEY = process.env.CLICK_SECRET_KEY;
       if (!SECRET_KEY) {

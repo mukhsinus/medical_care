@@ -14,7 +14,7 @@ export type CatalogItem = {
   descriptionKey: string;
   price?: number;
 
-  imageBase: string;
+  imageBase?: string;
 
   imageBases?: string[];
 
@@ -53,7 +53,7 @@ export const getImageSources = (basename: string): ImageSources => {
   return {
     avif,
     webp,
-    fallback: webp || avif, // optional placeholder
+    fallback: webp || avif, 
   };
 };
 
@@ -63,7 +63,6 @@ export const allItems: CatalogItem[] = [
     category: "equipment",
     nameKey: "items.1.name",
     descriptionKey: "items.1.description",
-    price: 2.5,
     imageBase: "DSC00937",
     imageBases: ["DSC00937", "DSC00976", "DSC00979", "DSC01021"],
     colors: [
@@ -82,7 +81,6 @@ export const allItems: CatalogItem[] = [
       "variants.sizes.l",
       "variants.sizes.xl",
     ],
-    // absolute prices per size (keys match translation keys used in `sizes`)
     sizePrices: {
       "variants.sizes.xs": 40000,
       "variants.sizes.s": 40000,
@@ -97,7 +95,6 @@ export const allItems: CatalogItem[] = [
     category: "equipment",
     nameKey: "items.2.name",
     descriptionKey: "items.2.description",
-    price: 0.8,
     imageBase: "DSC00949",
     imageBases: ["DSC00949", "DSC00962"],
     colors: ["variants.colors.black", "variants.colors.blue"],
@@ -158,9 +155,8 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.6.name",
     descriptionKey: "items.6.description",
-    price: 120,
     imageBase: "DSC01027",
-    imageBases: ["DSC01027","DSC01904", "DSC01906", "DSC01907", "DSC01909", "DSC01928"],
+    imageBases: ["DSC01027", "DSC01928","DSC01215", "DSC01218"],
     sizes: [
       "variants.sizes.50b200",
       "variants.sizes.55b200",
@@ -196,7 +192,6 @@ export const allItems: CatalogItem[] = [
     category: "surgery",
     nameKey: "items.7.name",
     descriptionKey: "items.7.description",
-    price: 3.5,
     imageBase: "DSC01031",
     imageBases: ["DSC01031", "DSC01057"],
     sizes: [
@@ -228,6 +223,16 @@ export const allItems: CatalogItem[] = [
     descriptionKey: "items.9.description",
     price: 12,
     imageBase: "DSC01043",
+    sizes: [ 
+      "variants.sizes.25gr",
+      "variants.sizes.35gr",
+      "variants.sizes.45gr",
+    ],
+    sizePrices: {
+      "variants.sizes.25gr": 12000,
+      "variants.sizes.35gr": 15000,
+      "variants.sizes.45gr": 22000,
+    },
     boxInfo: "24 pcs per box",
   },
   {
@@ -404,7 +409,6 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.24.name",
     descriptionKey: "items.24.description",
-    price: 20,
     imageBase: "DSC02357",
     imageBases: ["DSC02357", "DSC02358", "DSC02360"],
     sizes: [
@@ -427,7 +431,47 @@ export const allItems: CatalogItem[] = [
     nameKey: "items.25.name",
     descriptionKey: "items.25.description",
     price: 20,
-    imageBase: "DSC02363",
+    imageBases: ["DSC01904","DSC01909"],
+    sizes: [
+      "variants.sizes.75b70",
+      "variants.sizes.100b70",
+      "variants.sizes.150b70",
+      "variants.sizes.200b70",
+      "variants.sizes.250b70",
+      "variants.sizes.300b70",
+      "variants.sizes.350b70",
+      "variants.sizes.400b70",
+      "variants.sizes.450b70",
+      "variants.sizes.500b70",
+      "variants.sizes.75b100",
+      "variants.sizes.100b100",
+      "variants.sizes.150b100",
+      "variants.sizes.200b100",
+      "variants.sizes.250b100",
+      "variants.sizes.300b100",
+      "variants.sizes.350b100",
+      "variants.sizes.400b100",
+    ],
+    sizePrices:{
+      "variants.sizes.75b70": 467000,
+      "variants.sizes.100b70": 569000,
+      "variants.sizes.150b70": 678000,
+      "variants.sizes.200b70": 876000,
+      "variants.sizes.250b70": 1079000,
+      "variants.sizes.300b70": 1251000,
+      "variants.sizes.350b70": 1414000,
+      "variants.sizes.400b70": 1565000,
+      "variants.sizes.450b70": 1839000,
+      "variants.sizes.500b70": 2088000,
+      "variants.sizes.75b100": 667000,
+      "variants.sizes.100b100": 813000,
+      "variants.sizes.150b100": 968000,
+      "variants.sizes.200b100": 1251000,
+      "variants.sizes.250b100": 1541000,
+      "variants.sizes.300b100": 1787000,
+      "variants.sizes.350b100": 2020000,
+      "variants.sizes.400b100": 2236000,
+    },
     boxInfo: "1 pc per box",
   },
   {
@@ -481,7 +525,7 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.31.name",
     descriptionKey: "items.31.description",
-    price: 20,
+    price: 26000,
     imageBase: "DSC01145",
     boxInfo: "1 pc per box",
   },
@@ -570,9 +614,23 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.39.name",
     descriptionKey: "items.39.description",
-    price: 20,
-    imageBase: "DSC01215",
-    imageBases: ["DSC01215", "DSC01218"],
+    imageBases: [ "DSC01906", "DSC01907"],
+    sizes: [
+      "variants.sizes.75b70",
+      "variants.sizes.100b70",
+      "variants.sizes.150b70",
+      "variants.sizes.200b70",
+      "variants.sizes.250b70",
+      "variants.sizes.300b70",
+    ],
+    sizePrices:{
+      "variants.sizes.75b70": 539000,
+      "variants.sizes.100b70": 654000,
+      "variants.sizes.150b70": 793000,
+      "variants.sizes.200b70": 1028000,
+      "variants.sizes.250b70": 1269000,
+      "variants.sizes.300b70": 1491000,
+    },
     boxInfo: "1 pc per box",
   },
   {
@@ -654,7 +712,7 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.45.name",
     descriptionKey: "items.45.description",
-    price: 20,
+    price: 199000,
     imageBase: "DSC01392",
     boxInfo: "1 pc per box",
   },
@@ -757,9 +815,21 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.55.name",
     descriptionKey: "items.55.description",
-    price: 20,
+    price: 57000,
     imageBase: "DSC01579",
     imageBases: ["DSC01579", "DSC01581", "DSC01589"],
+    sizes: [
+      "variants.sizes.80b20",
+      "variants.sizes.110b30",
+      "variants.sizes.210b30",
+      "variants.sizes.215b30",
+    ],
+    sizePrices: {
+      "variants.sizes.80b20": 9800,
+      "variants.sizes.110b30": 30000,
+      "variants.sizes.210b30": 55000,
+      "variants.sizes.215b30": 57000,
+    },
     boxInfo: "1 pc per box",
   },
   {
@@ -801,7 +871,15 @@ export const allItems: CatalogItem[] = [
     descriptionKey: "items.58.description",
     price: 20,
     imageBase: "DSC01670",
-    imageBases: ["DSC01670", "DSC01672", "DSC01675"],
+    imageBases: ["DSC01670", "DSC01672"],
+    sizes: [
+      "variants.sizes.200mkl1000pcs",
+      "variants.sizes.1000mkl500pcs",
+    ],
+    sizePrices: {
+      "variants.sizes.200mkl1000pcs": 65000,
+      "variants.sizes.1000mkl500pcs": 110000,
+    },
     boxInfo: "1 pc per box",
   },
   {
@@ -857,6 +935,14 @@ export const allItems: CatalogItem[] = [
       "variants.colors.pink",
       "variants.colors.blue",
     ],
+    sizes: [
+      "variants.sizes.100",
+      "variants.sizes.125",
+    ],
+    sizePrices: {
+      "variants.sizes.100": 55000,
+      "variants.sizes.125": 64000,
+    },
     boxInfo: "125",
   },
   {
@@ -1119,7 +1205,7 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.86.name",
     descriptionKey: "items.86.description",
-    price: 20,
+    price: 16240,
     imageBase: "DSC01837",
     boxInfo: "1 pc per box",
   },
@@ -1176,7 +1262,7 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.92.name",
     descriptionKey: "items.92.description",
-    price: 20,
+    price: 830,
     imageBase: "DSC01858",
     imageBases: ["DSC01858", "DSC01861"],
     boxInfo: "1 pc per box",
@@ -1358,7 +1444,16 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.110.name",
     descriptionKey: "items.110.description",
-    price: 299000,
+    sizes: [
+      "variants.sizes.200pcs",
+      "variants.sizes.250pcs",
+      "variants.sizes.500pcs",
+    ],
+    sizePrices: {
+      "variants.sizes.200pcs": 245000,
+      "variants.sizes.250pcs": 299000,
+      "variants.sizes.500pcs": 599000,
+    },
     imageBase: "DSC01942",
     boxInfo: "1 pc per box",
   },
@@ -1395,9 +1490,15 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.114.name",
     descriptionKey: "items.114.description",
-    price: 20,
     imageBase: "DSC01956",
     imageBases: ["DSC01956", "DSC01957", "DSC01958", "DSC01959"],
+    colors: [
+      "variants.colors.white",
+      "variants.colors.blue",
+      "variants.colors.pink",
+      "variants.colors.violet",
+    ],
+    price: 26000,
     boxInfo: "1 pc per box",
   },
   {
@@ -1954,16 +2055,8 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.150.name",
     descriptionKey: "items.150.description",
-    price: 20,
+    price: 140000,
     imageBase: "DSC01916",
-    sizes: [
-      "variants.sizes.5ml",
-      "variants.sizes.8p5ml",
-    ],
-    sizePrices: {
-      "variants.sizes.5ml": 140000,
-      "variants.sizes.6ml": 537600,
-    },
     boxInfo: "1 pc per box",
   },
   {
@@ -1998,6 +2091,15 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.154.name",
     descriptionKey: "items.154.description",
+    price: 537000,
+    imageBase: "DSC01916",
+    boxInfo: "1 pc per box",
+  },
+  {
+    id: 155,
+    category: "lab",
+    nameKey: "items.155.name",
+    descriptionKey: "items.155.description",
     price: 16800,
     imageBase: "DSC02245",
     sizes: [
@@ -2006,6 +2108,15 @@ export const allItems: CatalogItem[] = [
       "variants.sizes.plainmet2",
       "variants.sizes.chromicmet3p5",
     ],
+    boxInfo: "1 pc per box",
+  },
+  {
+    id: 156,
+    category: "lab",
+    nameKey: "items.156.name",
+    descriptionKey: "items.156.description",
+    price: 80000,
+    imageBase: "DSC01675",
     boxInfo: "1 pc per box",
   },
 ];

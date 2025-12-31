@@ -643,12 +643,12 @@
       "description": "Himoya qopqog‘i bilan premium skalpellar"
     },
     "82": {
-      "name": "Tibbiy oliviya",
-      "description": "Bir martalik tibbiy oliviya"
+      "name": "Burunni chayish uchun olivka",
+      "description": "Burunni chayish uchun olivka — bu yuvish suyuqligini burun yo‘llariga xavfsiz va qulay tarzda yetkazish uchun mo‘ljallangan yumshoq tibbiy uchlikdir. Suyuq oqimini boshqaradi, shilliq qavatni jarohatlamaydi va kattalar hamda bolalar uchun mos."
     },
     "83": {
-      "name": "Irrigatsiya kanyulasi",
-      "description": "Irrigatsiya uchun kanyula"
+      "name": "Bodomsimon bezlarni yuvish uchun kanyula",
+      "description": "Bodomsimon bezlarni yuvish uchun kanyula — bu eritmani bodom bezlaridagi lakunalarga aniq yo‘naltirib yuborishga mo‘ljallangan ingichka tibbiy uchlikdir. Yuvish oqimini boshqaradi, yiringli tiqinlarni chiqarishga yordam beradi va surunkali tonzillitda yallig‘lanishni kamaytiradi."
     },
     "84": {
       "name": "EP-150-E-J mikrotsentrifuga probirkasi",
@@ -687,8 +687,8 @@
       "description": "Himoya qopqoqli igna ushlagichi (Holder).Bu ushlagich vakuumli qon yig‘ish tizimining ajralmas qismi bo‘lib, ignani mahkam va xavfsiz ushlab turishni ta’minlaydi. Maxsus himoya qopqog‘i tibbiy xodimlarni igna sanchilish xavfidan himoya qiladi, ishlatilgandan so‘ng ignani xavfsiz yopib qo‘yish imkonini beradi. Laboratoriya, klinika va shifoxonalarda kundalik venoz qon olish jarayonida ishonchli va qulay vosita hisoblanadi."
     },
     "93": {
-      "name": "Dispenser butilka",
-      "description": "Plastik dispenser idish"
+      "name": "“Akugel” UZI geli, 5 kg kanistrada",
+      "description": "“Akugel” UZI geli, 5 kg kanistrada — ultratovush diagnostikasi uchun mo‘ljallangan professional kontakt geli. U UZI to‘lqinlarining o‘tishini yaxshilaydi, to‘qimalarni aniq ko‘rsatadi va barqaror tasvir sifatini ta’minlaydi. 5 kg hajmdagi kanistra ko‘p ishlatiladigan tibbiyot muassasalari uchun juda qulay."
     },
     "94": {
       "name": "Romsons EKG elektrolyudi",
@@ -708,8 +708,8 @@
     },
     "98": { "name": "Bir martalik igna", "description": "Bir martalik igna" },
     "99": {
-      "name": "Otoskop spekulumi",
-      "description": "Bir martalik otoskop spekulumi"
+      "name": "Bir martalik quloq voronkalar",
+      "description": "Bir martalik quloq voronkalar quloqni xavfsiz ko‘zdan kechirish va gigiyenik muolajalar uchun mo‘ljallangan. Engil va gigiyenik materialdan tayyorlangan bo‘lib, bir martalik foydalanish orqali infeksiya xavfini kamaytiradi."
     },
     "100": {
       "name": "Steril namuna tamponi",
@@ -763,12 +763,18 @@
       "name": "Mikroskop uchun predmet shisha, sayqallangan qirrasiz",
       "description": "Mikroskop uchun predmet shisha, sayqallangan qirrasiz, 50 dona.Oddiy laboratoriya preparatlarini tayyorlash uchun mo‘ljallangan shaffof predmet shishalar. Sirtining tekisligi va optik sifati tufayli mikroskop ostida tasvir aniq, buzilmasdan ko‘rinadi. Qirralari sayqallanmagan bo‘lib, ruxsat etilgan standart laboratoriya ehtiyojlari uchun mos."
     },
-    "113": { "name": "Bir martalik qalpoqchalar", "description": "" },
+    "113": {
+      "name": "Bir martalik dokasiz matodan qilingan “Clinic Clean” shapkalar",
+      "description": "Bir martalik dokasiz matodan qilingan “Clinic Clean” shapkalar (oq, yashil) gigiyena talablariga rioya qilish va sochlarning ish maydoniga tushishining oldini olish uchun mo‘ljallangan. Engil, havo o‘tkazuvchi va qulay bo‘lib, shifoxona, laboratoriya, oziq-ovqat sanoati va go‘zallik xizmatlarida ishlatishga mos."
+    },
     "114": {
       "name": "Bir martalik prostinyalar",
       "description": "Bir martalik prostinyalar — 20 g/m² zichlikka ega bo‘lib, gigiyenik, yengil va qulay foydalanishga mo‘ljallangan. 10 donadan iborat ixcham qadoq ko‘chma ishlarda, kichik kabinetlarda yoki kunlik iste’molda juda amaliy hisoblanadi. Turli rang variantlari ish muhitini yanada estetik qiladi."
     },
-    "115": { "name": "Bir martalik qalpoqchalar", "description": "" },
+    "115": {
+      "name": "Bir martalik dokasiz matodan tayyorlangan shapkalar",
+      "description": "Bir martalik dokasiz matodan tayyorlangan shapkalar (oq, pushti) gigiyena talablarini ta’minlash va sochlarning ish maydoniga tushishini oldini olish uchun ishlatiladi. Engil, havo o‘tkazuvchi va qulay bo‘lib, tibbiyot, laboratoriya, oziq-ovqat sanoati va go‘zallik xizmatlarida qo‘llashga mos."
+    },
     "116": {
       "name": "Spunbond materialidan yasalgan bir martalik muolaja shortiklari",
       "description": "Spunbond materialidan yasalgan bir martalik muolaja shortiklari — kosmetologiya, massaj, SPA va tibbiy muolajalar uchun mo‘ljallangan qulay himoya kiyimi. Spunbond to‘qilmagan materiali yengil, nafas oluvchi va teriga yoqimli bo‘lib, gigiyena talab qilinadigan sharoitlarda juda amaliy."
@@ -802,12 +808,12 @@
       "description": "Nosteril paxta sharlari"
     },
     "124": {
-      "name": "Baxtteks-farm steril doka salfetkalari",
-      "description": "Steril doka salfetkalar, 45x29cm"
+      "name": "Steril tibbiy marli salfetkalar",
+      "description": "Steril tibbiy marli salfetkalar (2 qatlam, 45×29, №5) yara tozalash, bog‘lam qo‘yish va suyuqliklarni singdirish uchun ishlatiladi. Katta o‘lchamli bo‘lgani uchun kengroq yara yuzalariga qulay mos tushadi."
     },
     "125": {
-      "name": "Sarbonteks steril doka salfetkalari",
-      "description": "Steril doka salfetkalari"
+      "name": "Steril tibbiy salfetkalar “SARBONTEKS”",
+      "description": "Steril tibbiy salfetkalar “SARBONTEKS” yara tozalash, suyuqliklarni singdirish va katta bog‘lamlar qo‘yish uchun mo‘ljallangan. Keng o‘lchami tufayli katta yara yuzalarini qulay yopadi."
     },
     "126": {
       "name": "Sarbonteks paxta",
@@ -826,21 +832,27 @@
       "description": "Nosteril gigiyenik doka, 5m x 84cm"
     },
     "130": {
-      "name": "Sarbonteks doka",
-      "description": "Tibbiy gigiyenik doka"
+      "name": "Oqartirilgan tibbiy paxtali marli “SARBONTEKS”",
+      "description": "Oqartirilgan tibbiy paxtali marli “SARBONTEKS” — yaralarni parvarishlash va bog‘lov qo‘yish uchun mo‘ljallangan yumshoq va ishonchli material. Yaxshi singdiradi, havoni o‘tkazadi va teriga nozik ta’sir ko‘rsatadi."
     },
     "131": {
       "name": "Baxtteks-farm steril doka",
       "description": "Steril Baxtteks dokasi"
     },
     "132": {
-      "name": "Baxtteks-farm steril doka salfetkalari",
-      "description": "Steril doka salfetkalari, 16x14cm"
+      "name": "Steril tibbiy marli salfetkalar",
+      "description": "Steril tibbiy marli salfetkalar (2 qatlam, 16×14, №10) yaralarni tozalash, qon to‘xtatish va gigiyenik bog‘lovlarda qo‘llanadi. Yumshoq tuzilma va steril holati tufayli teriga xavfsiz ta’sir ko‘rsatadi."
     },
     "133": { "name": "", "description": "" },
     "134": { "name": "", "description": "" },
-    "135": { "name": "", "description": "" },
-    "136": { "name": "", "description": "" },
+    "135": {
+      "name": "Bir martalik polietilen shapkalar",
+      "description": "Bir martalik polietilen shapkalar (oq, yangi model) gigiyena talablarini ta’minlash va sochlarning ish hududiga tushishining oldini olish uchun mo‘ljallangan. Engil, namlik o‘tkazmaydigan va qulay bo‘lib, tibbiyot, oziq-ovqat sanoati, laboratoriya va go‘zallik xizmatlarida ishlatishga mos."
+    },
+    "136": {
+      "name": "Bir martalik polietilen bahillar",
+      "description": "Bir martalik polietilen bahillar xonalarni chang, namlik va kirlanishdan himoya qilish uchun ishlatiladi. Engil, suv o‘tkazmaydigan va qulay bo‘lib, shifoxona, laboratoriya, go‘zallik saloni va uy sharoitida foydalanishga mos."
+    },
     "137": { "name": "", "description": "" },
     "138": {
       "name": "O‘z-o‘zidan yopiladigan sterilizatsiya paketi",
@@ -873,8 +885,8 @@
     "145": { "name": "", "description": "" },
     "146": { "name": "", "description": "" },
     "147": {
-      "name": "PGA jarrohlik ipi",
-      "description": "Poliglikol kislotali so‘riladigan jarrohlik ipi"
+      "name": "Poliglikol kislota (Polyglycolic acid — PGA) jarrohlik ipsi",
+      "description": "Poliglikol kislota (Polyglycolic acid — PGA) jarrohlik ipsi — yuqori mustahkamlikka ega, bioso‘riluvchi, jarrohlik amaliyotlarida keng qo‘llaniladigan sintetik shov materialidir.U tikuvning barqarorligini saqlaydi, to‘qimalarga minimal shikast yetkazadi va operatsiyadan keyingi davrda ishonchli rezorbsiyani ta’minlaydi."
     },
     "148": {
       "name": "Medik Plast endotraxeal trubkasi",
@@ -905,8 +917,8 @@
       "description": "Natriy-geparinli gel bilan vakuumli probirka — 16×100 mm, 8.5 ml, yashil qopqoqli (100 dona qadoqda).Keng laborator tahlillar uchun ishlab chiqilgan ushbu probirka plazma ajratishda yuqori aniqlik beradi. Ichidagi natriy-geparin antikoagulyanti qonni ivishdan to‘xtatadi, gel esa sentrifugadan so‘ng plazma va hujayra qismini aniq ajratib turuvchi barqaror qatlam hosil qiladi. Katta hajm — bir nechta ko‘rsatkichlarni bitta namunadan tekshirish uchun qulay."
     },
     "155": {
-      "name": "Katgut jarrohlik ipi",
-      "description": "So‘riladigan jarrohlik ipi"
+      "name": "KETGUT — tabiiy kollagendan tayyorlangan",
+      "description": "KETGUT — tabiiy kollagendan tayyorlangan, organizm tomonidan to‘liq so‘riladigan jarrohlik shov materiali. Elastikligi, silliq o‘tishi va yumshoq to‘qimalarda qulay qo‘llanishi bilan ajralib turadi. Shov jarayon davomida asta-sekin rezorbsiyalanadi va olib tashlashni talab etmaydi."
     },
     "156": {
       "name": "Pipetka uchlari, ko‘k rangda, 1000 mkl",
@@ -919,16 +931,16 @@
     "158": {
       "name": "“Intest-P-134/5-02” sterilizatsiya indikatorlari",
       "description": "“Intest-P-134/5-02” sterilizatsiya indikatorlari (500 dona) — bug‘li sterilizatsiya jarayonini paket ichida nazorat qilish uchun mo‘ljallangan ichki indikatorlar. 134°C / 5 daqiqa sharoiti to‘liq ta’minlanganida indikator rangi o‘zgarib, sterilizatsiyaning sifatli o‘tganini aniqlik bilan ko‘rsatadi."
-  },
-  "159": {
+    },
+    "159": {
       "name": "Bir martalik dokasiz matodan tayyorlangan jarrohlik xalat",
       "description": "Bir martalik dokasiz matodan tayyorlangan jarrohlik xalat, zichligi 37 g/m² jarrohlik amaliyotlari va tibbiy jarayonlarda tibbiyot xodimini himoyalash uchun mo‘ljallangan. Engil, mustahkam va havo o‘tkazuvchi material qulaylik yaratadi hamda ifloslanish xavfini kamaytiradi."
-},
-  "160": {
+    },
+    "160": {
       "name": "UKM steril jarrohlik to‘plami",
       "description": "UKM steril jarrohlik to‘plami (35 g/m² xalat, niqob, sharlotka, bahillar) jarrohlik va tibbiy amaliyot vaqtida himoya to‘sig‘i yaratadi. To‘plam gigiyenani ta’minlaydi, infeksiya xavfini kamaytiradi va tibbiyot xodimlari uchun qulay."
-  },
-  "161": {
+    },
+    "161": {
       "name": "UKM steril jarrohlik prostinyasi",
       "description": "UKM steril jarrohlik prostinyasi jarrohlik maydonini himoyalangan va steril tarzda saqlash uchun mo‘ljallangan. Yuqori zichlikdagi dokasiz material suyuqlik va ifloslanishlardan ishonchli himoya yaratadi."
     },
@@ -957,8 +969,12 @@
       "description": "Bir martalik sochiq — 35×70 (100 dona rulonda) — gigiyenik, qulay va ko‘p maqsadli foydalanishga mo‘ljallangan mahsulot. Yumshoq tuzilmasi mijozga maksimal qulaylik beradi, bir martalik format esa tozalik talab qilinadigan muhitlar uchun ideal."
     },
     "168": {
-      "name": "",
-      "description": ""
+      "name": "Bir martalik dokasiz matodan tayyorlangan shapkalar",
+      "description": "Bir martalik dokasiz matodan tayyorlangan shapkalar (ko‘k rang) gigiyena talablariga rioya qilish va sochlarning ish hududiga tushishini oldini olish uchun mo‘ljallangan. Engil, havo o‘tkazuvchi va qulay bo‘lib, tibbiyot, laboratoriya, oziq-ovqat va go‘zallik sohalarida ishlatishga mos."
+    },
+    "169": {
+      "name": "Bir martalik dokasiz matodan tayyorlangan shapkalar",
+      "description": "Bir martalik dokasiz matodan tayyorlangan shapkalar (qora, oq) gigiyena talablariga rioya qilish va sochlarning ish hududiga tushishining oldini olish uchun mo‘ljallangan. Engil, shamollovchi va qulay bo‘lib, tibbiyot, laboratoriya, go‘zallik xizmati va oziq-ovqat sanoatida foydalanish uchun mos."
     }
-}
+  }
 }

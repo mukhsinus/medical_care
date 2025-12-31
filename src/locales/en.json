@@ -649,10 +649,13 @@
       "description": "Premium disposable scalpels with blade guard"
     },
     "82": {
-      "name": "Medical olivia",
-      "description": "Disposable medical olivia"
+      "name": "Nasal irrigation olive tip",
+      "description": "Nasal irrigation olive tip is a soft medical attachment designed for safe and comfortable delivery of solution into the nasal passages. It provides a controlled fluid flow, prevents mucosal injury, and is suitable for both adults and children during treatment or preventive care."
     },
-    "83": { "name": "Irrigation cannula", "description": "Irrigation cannula" },
+    "83": {
+      "name": "Tonsil irrigation cannula",
+      "description": "Tonsil irrigation cannula is a thin medical tip designed for precise delivery of solution into the tonsil crypts. It provides a directed fluid flow, helps remove debris and plugs, and reduces inflammation in the treatment of chronic tonsillitis."
+    },
     "84": {
       "name": "EP-150-E-J Microcentrifuge Tube",
       "description": "EP-150-E-J Microcentrifuge Tube — 1.5 ml, Eppendorf Type, DNA/RNA-Free, Pack of 500.These tubes are designed for molecular biology, biochemistry, PCR, and nucleic acid–related workflows. Being DNA/RNA-free, they eliminate contamination risks, ensuring reliable and reproducible results. Manufactured from high-quality polypropylene, they are compatible with high-speed microcentrifugation and maintain structural integrity under stress."
@@ -711,8 +714,8 @@
     },
     "98": { "name": "Single-use needle", "description": "Single-use needle" },
     "99": {
-      "name": "Otoscope speculum",
-      "description": "Disposable otoscope speculum"
+      "name": "Disposable ear funnels",
+      "description": "Disposable ear funnels are designed for safe ear examination and hygienic procedures. Made from lightweight, hygienic material, they provide single-use protection and help prevent cross-contamination."
     },
     "100": {
       "name": "Sterile specimen collection swab",
@@ -766,9 +769,18 @@
       "name": "Microscope Slide, Non-Ground Edges",
       "description": "Microscope Slide, Non-Ground Edges, Pack of 50.High-quality glass microscope slides designed for routine sample preparation. Made from clear optical glass to ensure sharp, distortion-free imaging. Non-ground edges provide a standard economical option suitable for everyday laboratory applications."
     },
-    "113": { "name": "Disposable caps", "description": "" },
-    "114": { "name": "Disposable Sheets", "description": "Disposable Sheets — 20 g/m² provide a hygienic, lightweight protective layer suitable for daily professional use. The convenient 10-sheet pack format is ideal for mobile specialists, small clinics, beauty rooms, and quick replacements. Multiple color options help match the setting or service style." },
-    "115": { "name": "Disposable caps", "description": "" },
+    "113": {
+      "name": "Disposable nonwoven caps “Clinic Clean”",
+      "description": "Disposable nonwoven caps “Clinic Clean” (white, green) are designed to maintain hygiene and prevent hair from entering clean or sterile environments. Lightweight, breathable, and comfortable, they are suitable for medical facilities, laboratories, food production, and beauty services."
+    },
+    "114": {
+      "name": "Disposable Sheets",
+      "description": "Disposable Sheets — 20 g/m² provide a hygienic, lightweight protective layer suitable for daily professional use. The convenient 10-sheet pack format is ideal for mobile specialists, small clinics, beauty rooms, and quick replacements. Multiple color options help match the setting or service style."
+    },
+    "115": {
+      "name": "Disposable nonwoven caps",
+      "description": "Disposable nonwoven caps (white, pink) are designed to maintain hygiene and prevent hair from entering clean or controlled environments. Lightweight and breathable, they ensure comfortable use in medical centers, laboratories, food production, and beauty services."
+    },
     "116": {
       "name": "Disposable Procedure Shorts (Spunbond)",
       "description": "Disposable Procedure Shorts (Spunbond) offer comfort and hygienic protection during cosmetic, SPA, massage, and medical treatments. Made from lightweight, breathable spunbond fabric, they ensure ease of movement and pleasant wear for clients."
@@ -802,12 +814,12 @@
       "description": "Cotton balls, non-sterile"
     },
     "124": {
-      "name": "Baxtteks-farm Sterile medical gauze wipes",
-      "description": "Sterile medical gauze wipes, 45x29cm"
+      "name": "Sterile Medical Gauze Pads",
+      "description": "Sterile Medical Gauze Pads (2-ply, 45×29, No.5) are designed for wound cleaning, dressing application, and absorbing exudates. Their large size makes them suitable for treating wider wound areas and ensuring comfortable coverage."
     },
     "125": {
-      "name": "Sarbonteks Sterile medical gauze wipes",
-      "description": "Sterile medical gauze wipes"
+      "name": "Sterile Medical Gauze Pads “SARBONTEKS”",
+      "description": "Sterile Medical Gauze Pads “SARBONTEKS” are designed for wound cleaning, exudate absorption, and applying large dressings. Their extended size ensures comfortable coverage of wider wound areas with soft, skin-friendly contact."
     },
     "126": {
       "name": "Sarbonteks cotton wool",
@@ -826,21 +838,27 @@
       "description": "Medical cotton gauze hygienic non-sterile, 5mx84cm"
     },
     "130": {
-      "name": "Sarbonteks gauze",
-      "description": "Medical cotton gauze"
+      "name": "Medical Bleached Cotton Gauze “SARBONTEKS”",
+      "description": "Medical Bleached Cotton Gauze “SARBONTEKS” is a reliable, soft dressing material made from natural cotton. It provides excellent absorbency, breathability, and gentle contact with the skin."
     },
     "131": {
       "name": "Baxtteks-farm sterile gauze",
       "description": "sterile baxt"
     },
     "132": {
-      "name": "Baxtteks-farm Sterile medical gauze wipes",
-      "description": "Sterile medical gauze wipes, 16x14cm"
+      "name": "Sterile Medical Gauze Pads",
+      "description": "Sterile Medical Gauze Pads (2-ply, 16×14, No.10) are designed for wound cleaning, bleeding control, and hygienic dressing applications. Their soft, sterile structure ensures safe and gentle contact with the skin."
     },
     "133": { "name": "", "description": "" },
     "134": { "name": "", "description": "" },
-    "135": { "name": "", "description": "" },
-    "136": { "name": "", "description": "" },
+    "135": {
+      "name": "Disposable polyethylene caps",
+      "description": "Disposable polyethylene caps (white, new model) provide hygienic protection by preventing hair from entering clean or controlled environments. Lightweight, moisture-resistant, and comfortable, they are suitable for medical facilities, food production, laboratories, and beauty services."
+    },
+    "136": {
+      "name": "Disposable polyethylene shoe covers",
+      "description": "Disposable polyethylene shoe covers are designed to protect indoor environments from dirt and moisture. Lightweight, waterproof, and easy to use, they are suitable for medical facilities, laboratories, beauty salons, and everyday hygiene."
+    },
     "137": { "name": "", "description": "" },
     "138": {
       "name": "Self-sealing sterilization pouch",
@@ -870,8 +888,8 @@
     "145": { "name": "", "description": "" },
     "146": { "name": "", "description": "" },
     "147": {
-      "name": "Polyglycolic acid-PGA suture material",
-      "description": ""
+      "name": "Polyglycolic Acid (PGA) Surgical Suture",
+      "description": "Polyglycolic Acid (PGA) Surgical Suture — a high-strength, absorbable, synthetic braided suture designed for reliable wound closure across various surgical fields. It ensures excellent knot security, smooth tissue passage, and predictable absorption during postoperative healing."
     },
     "148": {
       "name": "Medik Plast endotracheal tube",
@@ -902,8 +920,8 @@
       "description": "Vacuum Blood Collection Tube with Sodium Heparin + Gel — 16×100 mm, 8.5 ml, Green Cap (100 pcs).Designed for plasma separation in wide-range biochemical and electrolyte analyses. The sodium heparin anticoagulant prevents clotting, while the separating gel forms a stable barrier after centrifugation, ensuring clean plasma for accurate testing. The larger volume is ideal for multiple tests from a single sample."
     },
     "155": {
-      "name": "Surgical absorbable sutures with needles: Catgut",
-      "description": ""
+      "name": "Catgut Suture — a natural absorbable suture",
+      "description": "Catgut Suture — a natural absorbable suture made from purified collagen. It offers good elasticity, smooth passage through tissues, and easy handling, making it suitable for soft-tissue approximation with low tension. The material gradually absorbs within the body and does not require removal."
     },
     "156": {
       "name": "Blue Pipette Tips, 1000 µl",
@@ -954,8 +972,12 @@
       "description": "Disposable Towels in Roll — 35×70 (100 pcs) provide a hygienic and comfortable solution for clinics, beauty salons, massage rooms, and spa environments. Soft texture ensures client comfort, while the single-use format maintains cleanliness and prevents contamination."
     },
     "168": {
-      "name": "",
-      "description": ""
+      "name": "Disposable Nonwoven Caps",
+      "description": "Disposable nonwoven caps (blue) are designed to maintain hygiene and prevent hair from entering clean or controlled areas. Lightweight and breathable, they ensure comfortable use in medical facilities, laboratories, food industries, and beauty environments."
+    },
+    "169": {
+      "name": "Disposable Nonwoven Caps",
+      "description": "Disposable nonwoven caps (black, white) are designed to maintain hygiene and prevent hair from entering clean or controlled environments. Lightweight and breathable, they provide comfort during long use in medical, laboratory, beauty, and food industry settings."
     }
   },
 

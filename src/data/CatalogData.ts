@@ -25,35 +25,31 @@ export type CatalogItem = {
 };
 
 export type ImageSources = {
-  avif?: string;
   webp?: string;
   fallback: string;
 };
 
 
 const itemsImg = import.meta.glob(
-  "@/assets/items/**/**.{png,jpg,jpeg,webp,avif}",
+  "@/assets/items/**/**.{png,jpg,jpeg,webp}",
   {
     eager: true,
   }
 ) as Record<string, { default: string }>;
 
 export const getImageSources = (basename: string): ImageSources => {
-  const avif =
-    itemsImg[`/src/assets/items/items_avif/${basename}.avif`]?.default;
   const webp =
     itemsImg[`/src/assets/items/items_webp/${basename}.webp`]?.default;
 
   const fallback = webp;
 
-  if (!avif && !webp) {
-    console.warn(`No modern image found for: ${basename}`);
+  if (!webp) {
+    console.warn(`No webp image found for: ${basename}`);
   }
 
   return {
-    avif,
     webp,
-    fallback: webp || avif, 
+    fallback: webp, 
   };
 };
 
@@ -224,14 +220,14 @@ export const allItems: CatalogItem[] = [
     price: 12,
     imageBase: "DSC01043",
     sizes: [ 
-      "variants.sizes.25gr",
-      "variants.sizes.35gr",
-      "variants.sizes.45gr",
+      "variants.sizes.25g",
+      "variants.sizes.35g",
+      "variants.sizes.45g",
     ],
     sizePrices: {
-      "variants.sizes.25gr": 21000,
-      "variants.sizes.35gr": 25000,
-      "variants.sizes.45gr": 30000,
+      "variants.sizes.25g": 21000,
+      "variants.sizes.35g": 25000,
+      "variants.sizes.45g": 30000,
     },
     boxInfo: "24 pcs per box",
   },
@@ -478,7 +474,7 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.26.name",
     descriptionKey: "items.26.description",
-    price: 20,
+    price: 4230000,
     imageBase: "DSC02365",
     boxInfo: "1 pc per box",
   },
@@ -487,7 +483,7 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.27.name",
     descriptionKey: "items.27.description",
-    price: 20,
+    price: 17800000,
     imageBase: "DSC02368",
     boxInfo: "1 pc per box",
   },
@@ -496,7 +492,7 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.28.name",
     descriptionKey: "items.28.description",
-    price: 20,
+    price: 5270000,
     imageBase: "DSC02369",
     boxInfo: "1 pc per box",
   },
@@ -505,7 +501,7 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.29.name",
     descriptionKey: "items.29.description",
-    price: 20,
+    price: 2645000,
     imageBase: "DSC02371",
     boxInfo: "1 pc per box",
   },
@@ -663,7 +659,7 @@ export const allItems: CatalogItem[] = [
     nameKey: "items.42.name",
     descriptionKey: "items.42.description",
     price: 20,
-    imageBase: "DSC01258",
+    imageBase: "DSC01256",
     boxInfo: "1 pc per box",
   },
   {
@@ -1545,12 +1541,12 @@ export const allItems: CatalogItem[] = [
     nameKey: "items.117.name",
     descriptionKey: "items.117.description",
     price: 20,
-    imageBase: "DSC01976",
+    imageBase: "DSC01974",
     sizes: [
-      "variants.sizes.100ml",
+      "variants.sizes.100mlwths",
       "variants.sizes.100mlws",
-      "variants.sizes.60ml",
-      "variants.sizes.16mlws",
+      "variants.sizes.60mlwths",
+      "variants.sizes.60mlws",
     ],
     sizePrices: {
       "variants.sizes.100ml": 2200,
@@ -1591,7 +1587,6 @@ export const allItems: CatalogItem[] = [
     category: "lab",
     nameKey: "items.119.name",
     descriptionKey: "items.119.description",
-    price: 20,
     imageBase: "DSC01984",
     imageBases: ["DSC01998", "DSC01990", "DSC01984"],
     sizes: [
@@ -2035,16 +2030,20 @@ export const allItems: CatalogItem[] = [
     price: 20,
     imageBase: "DSC02252",
     sizes: [
-      "variants.sizes.met5",
-      "variants.sizes.met4",
-      "variants.sizes.met3",
-      "variants.sizes.met0p7",
+      "variants.sizes.met5poly",
+      "variants.sizes.met4poly",
+      "variants.sizes.met3poly",
+      "variants.sizes.met3poly25",
+      "variants.sizes.met3poly26",
+      "variants.sizes.met0p7poly",
     ],
     sizePrices: {
-      "variants.sizes.met5": 25760,
-      "variants.sizes.met4": 19040,
-      "variants.sizes.met3": 19040,
-      "variants.sizes.met0p7": 19040,
+      "variants.sizes.met5poly": 25760,
+      "variants.sizes.met4poly": 19040,
+      "variants.sizes.met3poly": 19040,
+      "variants.sizes.met3poly25": 19040,
+      "variants.sizes.met3poly26": 19040,
+      "variants.sizes.met0p7poly": 19040,
     },
     boxInfo: "1 pc per box",
   },
@@ -2159,7 +2158,7 @@ export const allItems: CatalogItem[] = [
     nameKey: "items.158.name",
     descriptionKey: "items.158.description",
     price: 227000,
-    imageBase: "DSC01762",
+    imageBase: "DSC01777",
     boxInfo: "1 pc per box",
   },
   {

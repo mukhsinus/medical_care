@@ -43,7 +43,7 @@ import {
 } from "@/data/CatalogData";
 
 /* -------------------------------------------------------------
-   <picture> with AVIF → WebP → fallback
+   <picture> with WebP → fallback
    ------------------------------------------------------------- */
 
 type ItemPictureProps = {
@@ -61,14 +61,13 @@ function ItemPicture({
   imgClassName,
   loading = "lazy",
 }: ItemPictureProps) {
-  const { avif, webp, fallback } = useMemo(
+  const { webp, fallback } = useMemo(
     () => getImageSources(basename),
     [basename]
   );
 
   return (
     <picture className={className}>
-      {avif && <source srcSet={avif} type="image/avif" />}
       {webp && <source srcSet={webp} type="image/webp" />}
       <img
         src={fallback}
@@ -252,35 +251,96 @@ function ItemModal({
           {/* IMAGE + DOTS INSIDE MODAL */}
           <div className="flex flex-col gap-3">
             <div
-              className="relative h-40 w-full overflow-hidden rounded bg-gray-50 flex items-center justify-center"
+              className="relative h-40 w-full overflow-hidden rounded bg-gray-50"
               onTouchStart={handleModalTouchStart}
               onTouchMove={handleModalTouchMove}
               onTouchEnd={handleModalTouchEnd}
             >
-              <ItemPicture
-                basename={basenames[activeImageIndex]}
-                alt={name}
-                className="max-h-full max-w-full flex items-center justify-center"
-                imgClassName="max-h-full max-w-full object-contain"
-                loading="eager"
-              />
+              <div className="relative w-full h-full" style={{ willChange: 'transform' }}>
+                {basenames.map((basename, idx) => {
+                  const offset = idx - activeImageIndex;
+                  // Only render current, previous, and next images for performance
+                  if (Math.abs(offset) > 1) return null;
+                  
+                  return (
+                    <div
+                      key={idx}
+                      className="absolute inset-0 flex items-center justify-center"
+                      style={{
+                        transform: `translate3d(${offset * 100}%, 0, 0)`,
+                        transition: 'transform 0.15s ease-out',
+                        opacity: idx === activeImageIndex ? 1 : 0,
+                        pointerEvents: idx === activeImageIndex ? 'auto' : 'none',
+                      }}
+                    >
+                      <ItemPicture
+                        basename={basename}
+                        alt={name}
+                        className="max-h-full max-w-full flex items-center justify-center"
+                        imgClassName="max-h-full max-w-full object-contain"
+                        loading="eager"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
 
               {basenames.length > 1 && (
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-                  {basenames.map((_, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setActiveImageIndex(idx)}
-                      className={`h-1.5 w-1.5 rounded-full transition ${
-                        idx === activeImageIndex
-                          ? "bg-primary"
-                          : "bg-primary/30"
-                      }`}
-                      aria-label={`Show image ${idx + 1}`}
-                    />
-                  ))}
-                </div>
+                <>
+                  {/* Left Arrow */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveImageIndex((prev) =>
+                        prev === 0 ? basenames.length - 1 : prev - 1
+                      );
+                    }}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-primary rounded-full p-1.5 shadow-md transition-transform duration-100 hover:scale-110 active:scale-95 z-10"
+                    style={{ willChange: 'transform' }}
+                    aria-label="Previous image"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+
+                  {/* Right Arrow */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveImageIndex((prev) =>
+                        prev === basenames.length - 1 ? 0 : prev + 1
+                      );
+                    }}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-primary rounded-full p-1.5 shadow-md transition-transform duration-100 hover:scale-110 active:scale-95 z-10"
+                    style={{ willChange: 'transform' }}
+                    aria-label="Next image"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+
+                  {/* Dots */}
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                    {basenames.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setActiveImageIndex(idx)}
+                        className={`h-1.5 w-1.5 rounded-full transition-transform duration-100 ${
+                          idx === activeImageIndex
+                            ? "bg-primary scale-125"
+                            : "bg-primary/30 hover:bg-primary/50"
+                        }`}
+                        style={{ willChange: 'transform' }}
+                        aria-label={`Show image ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
               )}
             </div>
 
@@ -513,7 +573,8 @@ const CatalogCard = memo(
     return (
       <div
         onClick={handleClickCard}
-        className="group cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-100 [content-visibility:auto] [contain-intrinsic-size:320px_320px]"
+        className="group cursor-pointer transition-transform duration-75 hover:scale-[1.02] active:scale-100"
+        style={{ willChange: 'transform', contain: 'layout style paint' }}
       >
         <div
           className="relative aspect-square mb-3 overflow-hidden border-2 border-primary bg-transparent"
@@ -529,13 +590,15 @@ const CatalogCard = memo(
           )}
 
           {/* Image */}
-          <ItemPicture
-            basename={basenames[imgIndex]}
-            alt={name}
-            className="h-full w-full"
-            imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
-            loading={isLcp ? "eager" : "lazy"}
-          />
+          <div className="h-full w-full overflow-hidden" style={{ contain: 'paint' }}>
+            <ItemPicture
+              basename={basenames[imgIndex]}
+              alt={name}
+              className="h-full w-full"
+              imgClassName="h-full w-full object-cover transition-transform duration-75 group-hover:scale-105 rounded-none"
+              loading={isLcp ? "eager" : "lazy"}
+            />
+          </div>
 
           {/* Image dots */}
           {basenames.length > 1 && (
@@ -545,11 +608,12 @@ const CatalogCard = memo(
                   key={idx}
                   type="button"
                   onClick={(e) => handleDotClick(e, idx)}
-                  className={`h-1.5 w-1.5 rounded-full transition ${
+                  className={`h-1.5 w-1.5 rounded-full transition-transform duration-100 ${
                     idx === imgIndex
-                      ? "bg-primary"
+                      ? "bg-primary scale-125"
                       : "bg-primary/30 group-hover:bg-primary/50"
                   }`}
+                  style={{ willChange: 'transform' }}
                   aria-label={`Show image ${idx + 1}`}
                 />
               ))}

@@ -25,14 +25,6 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 import debounce from "lodash.debounce";
 
 import {
@@ -81,408 +73,6 @@ function ItemPicture({
 }
 
 /* -------------------------------------------------------------
-   ITEM MODAL – Full info + Add to Cart
-   ------------------------------------------------------------- */
-
-type ItemModalProps = {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  item: CatalogItem;
-  getTranslatedField: (key: string) => string;
-  onAddedToCart: (itemId: number) => void;
-};
-
-function ItemModal({
-  open,
-  onOpenChange,
-  item,
-  getTranslatedField,
-  onAddedToCart,
-}: ItemModalProps) {
-  const { addItem } = useCart();
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const name = getTranslatedField(item.nameKey);
-  const desc = getTranslatedField(item.descriptionKey);
-
-  const minQty = item.boxInfo
-    ? parseInt(item.boxInfo.match(/(\d+)/)?.[1] || "1", 10)
-    : 1;
-
-  const [qty, setQty] = useState<number | "">(minQty);
-
-  const basenames = item.imageBases?.length
-    ? item.imageBases
-    : [item.imageBase];
-
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-  const [selectedColorKey, setSelectedColorKey] = useState<string | null>(
-    item.colors?.[0] ?? null
-  );
-  const [selectedSizeKey, setSelectedSizeKey] = useState<string | null>(
-    item.sizes?.[0] ?? null
-  );
-
-  // Swipe handling for modal image
-  const touchStartX = useRef<number | null>(null);
-  const isSwiping = useRef(false);
-  const lastDeltaX = useRef(0);
-
-  const handleModalTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    touchStartX.current = e.touches[0].clientX;
-    isSwiping.current = false;
-    lastDeltaX.current = 0;
-  };
-
-  const handleModalTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (touchStartX.current === null) return;
-    const deltaX = e.touches[0].clientX - touchStartX.current;
-    lastDeltaX.current = deltaX;
-    if (Math.abs(deltaX) > 15) {
-      isSwiping.current = true;
-    }
-  };
-
-  const handleModalTouchEnd = () => {
-    if (!isSwiping.current) {
-      touchStartX.current = null;
-      lastDeltaX.current = 0;
-      return;
-    }
-
-    const dx = lastDeltaX.current;
-    if (Math.abs(dx) > 40) {
-      if (dx < 0) {
-        // swipe left → next
-        setActiveImageIndex((prev) =>
-          prev === basenames.length - 1 ? 0 : prev + 1
-        );
-      } else {
-        // swipe right → prev
-        setActiveImageIndex((prev) =>
-          prev === 0 ? basenames.length - 1 : prev - 1
-        );
-      }
-    }
-
-    touchStartX.current = null;
-    lastDeltaX.current = 0;
-    isSwiping.current = false;
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value.replace(/[^0-9]/g, "");
-    setQty(raw === "" ? "" : Number(raw));
-  };
-
-  const handleBlur = () => {
-    if (!qty || qty < minQty) {
-      setQty(minQty);
-    }
-  };
-
-  const increment = () =>
-    setQty((prev) => (prev === "" ? minQty + minQty : prev + minQty));
-
-  const decrement = () =>
-    setQty((prev) => {
-      if (prev === "") return minQty;
-      return Math.max(minQty, prev - minQty);
-    });
-
-  const handleAdd = () => {
-    const finalQty = qty || minQty;
-
-    // Variant labels (translated)
-    const details: string[] = [];
-    if (selectedColorKey) details.push(getTranslatedField(selectedColorKey));
-    if (selectedSizeKey) details.push(getTranslatedField(selectedSizeKey));
-
-    let displayName = name;
-    if (details.length) {
-      displayName = `${name} (${details.join(", ")})`;
-    }
-
-    const { fallback: mainImage } = getImageSources(basenames[0]);
-
-    // Compute price according to selected size (if provided in data)
-    const displayedPrice =
-      (selectedSizeKey && item.sizePrices?.[selectedSizeKey]) || item.price;
-
-    addItem(
-      {
-        id: item.id,
-        name: displayName,
-        description: desc,
-        price: displayedPrice,
-        image: mainImage,
-      },
-      finalQty
-    );
-
-    onAddedToCart(item.id);
-    onOpenChange(false);
-    setQty(minQty);
-  };
-
-  useEffect(() => {
-    if (open) {
-      setQty(minQty);
-      setActiveImageIndex(0);
-      setSelectedColorKey(item.colors?.[0] ?? null);
-      setSelectedSizeKey(item.sizes?.[0] ?? null);
-
-      setTimeout(() => inputRef.current?.select(), 100);
-    }
-  }, [open, minQty, item.colors, item.sizes]);
-
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md w-[90vw] max-w-[90vw] bg-white rounded-lg p-4 sm:p-6 max-h-[90vh] flex flex-col">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-lg">
-            <ShoppingBasket className="h-5 w-5" />
-            {name}
-          </DialogTitle>
-        </DialogHeader>
-
-        <div className="grid gap-4 py-4 overflow-y-auto flex-1">
-          {/* IMAGE + DOTS INSIDE MODAL */}
-          <div className="flex flex-col gap-3">
-            <div
-              className="relative h-40 w-full overflow-hidden rounded bg-gray-50"
-              onTouchStart={handleModalTouchStart}
-              onTouchMove={handleModalTouchMove}
-              onTouchEnd={handleModalTouchEnd}
-            >
-              <div className="relative w-full h-full" style={{ willChange: 'transform' }}>
-                {basenames.map((basename, idx) => {
-                  const offset = idx - activeImageIndex;
-                  // Only render current, previous, and next images for performance
-                  if (Math.abs(offset) > 1) return null;
-                  
-                  return (
-                    <div
-                      key={idx}
-                      className="absolute inset-0 flex items-center justify-center"
-                      style={{
-                        transform: `translate3d(${offset * 100}%, 0, 0)`,
-                        transition: 'transform 0.15s ease-out',
-                        opacity: idx === activeImageIndex ? 1 : 0,
-                        pointerEvents: idx === activeImageIndex ? 'auto' : 'none',
-                      }}
-                    >
-                      <ItemPicture
-                        basename={basename}
-                        alt={name}
-                        className="max-h-full max-w-full flex items-center justify-center"
-                        imgClassName="max-h-full max-w-full object-contain"
-                        loading="eager"
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-
-              {basenames.length > 1 && (
-                <>
-                  {/* Left Arrow */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveImageIndex((prev) =>
-                        prev === 0 ? basenames.length - 1 : prev - 1
-                      );
-                    }}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-primary rounded-full p-1.5 shadow-md transition-transform duration-100 hover:scale-110 active:scale-95 z-10"
-                    style={{ willChange: 'transform' }}
-                    aria-label="Previous image"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-
-                  {/* Right Arrow */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveImageIndex((prev) =>
-                        prev === basenames.length - 1 ? 0 : prev + 1
-                      );
-                    }}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-primary rounded-full p-1.5 shadow-md transition-transform duration-100 hover:scale-110 active:scale-95 z-10"
-                    style={{ willChange: 'transform' }}
-                    aria-label="Next image"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-
-                  {/* Dots */}
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-                    {basenames.map((_, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => setActiveImageIndex(idx)}
-                        className={`h-1.5 w-1.5 rounded-full transition-transform duration-100 ${
-                          idx === activeImageIndex
-                            ? "bg-primary scale-125"
-                            : "bg-primary/30 hover:bg-primary/50"
-                        }`}
-                        style={{ willChange: 'transform' }}
-                        aria-label={`Show image ${idx + 1}`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <p className="font-medium">{name}</p>
-              <p className="text-sm text-muted-foreground">{desc}</p>
-              {item.boxInfo && (
-                <p className="text-xs italic text-muted-foreground">
-                  {item.boxInfo} (min {minQty})
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="text-lg font-bold text-primary">
-              $
-              {(
-                (selectedSizeKey && item.sizePrices?.[selectedSizeKey]) ||
-                item.price
-              ).toFixed(2)}{" "}
-              each
-            </span>
-          </div>
-
-          {/* COLORS (translated) */}
-          {item.colors && item.colors.length > 0 && (
-            <div className="space-y-1">
-              <Label>Color</Label>
-              <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
-                {item.colors.map((colorKey) => {
-                  const label = getTranslatedField(colorKey);
-                  return (
-                    <button
-                      key={colorKey}
-                      type="button"
-                      onClick={() => setSelectedColorKey(colorKey)}
-                      className={`px-2 py-1 text-xs rounded-full border transition whitespace-nowrap ${
-                        selectedColorKey === colorKey
-                          ? "bg-primary text-white border-primary"
-                          : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* SIZES (translated) */}
-          {item.sizes && item.sizes.length > 0 && (
-            <div className="space-y-1">
-              <Label>Size</Label>
-              <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
-                {item.sizes.map((sizeKey) => {
-                  const label = getTranslatedField(sizeKey);
-                  return (
-                    <button
-                      key={sizeKey}
-                      type="button"
-                      onClick={() => setSelectedSizeKey(sizeKey)}
-                      className={`px-2 py-1 text-xs rounded-full border transition whitespace-nowrap ${
-                        selectedSizeKey === sizeKey
-                          ? "bg-primary text-white border-primary"
-                          : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* QUANTITY */}
-          <div className="grid gap-2">
-            <Label htmlFor="qty">Quantity (min {minQty})</Label>
-
-            <div className="flex items-center gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                className="h-10 w-10 shrink-0"
-                onClick={decrement}
-              >
-                −
-              </Button>
-
-              <Input
-                id="qty"
-                ref={inputRef}
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                value={qty}
-                placeholder={minQty.toString()}
-                className="w-24 text-center"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                className="h-10 w-10 shrink-0"
-                onClick={increment}
-              >
-                +
-              </Button>
-            </div>
-
-            {qty !== "" && qty < minQty && (
-              <p className="text-xs text-red-600">
-                Minimum quantity is {minQty}
-              </p>
-            )}
-          </div>
-        </div>
-
-        <DialogFooter className="gap-2 flex-col sm:flex-row">
-          <Button
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-            className="w-full sm:w-auto"
-          >
-            Cancel
-          </Button>
-          <Button onClick={handleAdd} className="w-full sm:w-auto">
-            Add {qty || minQty} {qty === 1 ? "item" : "items"}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-/* -------------------------------------------------------------
    PRODUCT CARD (Grid item) – extracted + optimized
    ------------------------------------------------------------- */
 
@@ -492,7 +82,7 @@ type CatalogCardProps = {
   basenames: string[];
   isRecentlyAdded: boolean;
   getTranslatedField: (key: string) => string;
-  onOpenModal: (item: CatalogItem) => void;
+  onNavigateToItem: (itemId: number) => void;
   isLcp?: boolean;
 };
 
@@ -503,7 +93,7 @@ const CatalogCard = memo(
     basenames,
     isRecentlyAdded,
     getTranslatedField,
-    onOpenModal,
+    onNavigateToItem,
     isLcp = false,
   }: CatalogCardProps) {
     const [imgIndex, setImgIndex] = useState(0);
@@ -564,10 +154,10 @@ const CatalogCard = memo(
 
     const handleClickCard = () => {
       if (isSwiping.current) {
-        // Prevent opening modal when user was swiping
+        // Prevent navigation when user was swiping
         return;
       }
-      onOpenModal(item);
+      onNavigateToItem(item.id);
     };
 
     return (
@@ -769,7 +359,7 @@ const DESKTOP_ORDER_MAP: Record<string, number> = {
    ------------------------------------------------------------- */
 
 export default function Catalog() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -780,8 +370,6 @@ export default function Catalog() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 16;
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(null);
   const [recentlyAddedId, setRecentlyAddedId] = useState<number | null>(null);
   // translation cache to avoid repeated key.split and deep traversal
   const translationCache = useRef<Map<string, string>>(new Map());
@@ -797,6 +385,7 @@ export default function Catalog() {
       if (cached) return cached;
 
       const keys = key.split(".");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let value: any = t;
       for (const k of keys) {
         value = value?.[k];
@@ -815,11 +404,12 @@ export default function Catalog() {
 
   const getCategoryName = (key: string) => {
     if (key === "all") return t.catalog.allItems;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data = (t as any)?.cats?.[key] as { name?: string } | undefined;
     return data?.name ?? key;
   };
 
-  const filterItems = (cat: string, srch: string) => {
+  const filterItems = useCallback((cat: string, srch: string) => {
     let list = allItems;
     if (cat !== "all") list = list.filter((i) => i.category === cat);
     if (srch.trim()) {
@@ -834,13 +424,13 @@ export default function Catalog() {
       });
     }
     setFilteredItems(list);
-  };
+  }, [getTranslatedField]);
 
-  const debouncedFilter = useCallback(
-    debounce((cat: string, srch: string) => {
+  const debouncedFilter = useMemo(
+    () => debounce((cat: string, srch: string) => {
       filterItems(cat, srch);
     }, 300),
-    [t]
+    [filterItems]
   );
 
   useEffect(() => {
@@ -859,7 +449,7 @@ export default function Catalog() {
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [searchParams, t]);
+  }, [searchParams, filterItems]);
 
   const totalPages = useMemo(
     () => Math.ceil(filteredItems.length / itemsPerPage) || 1,
@@ -916,9 +506,8 @@ export default function Catalog() {
     updateUrl(activeCategory, searchTerm, clamped);
   };
 
-  const openModal = (item: CatalogItem) => {
-    setSelectedItem(item);
-    setModalOpen(true);
+  const navigateToItem = (itemId: number) => {
+    navigate(`/${locale}/catalog/${itemId}`);
   };
 
   if (loading) {
@@ -1092,7 +681,7 @@ export default function Catalog() {
                   basenames={basenames}
                   isRecentlyAdded={recentlyAddedId === item.id}
                   getTranslatedField={getTranslatedField}
-                  onOpenModal={openModal}
+                  onNavigateToItem={navigateToItem}
                   isLcp={isLcp}
                 />
               );
@@ -1172,25 +761,6 @@ export default function Catalog() {
           )}
         </div>
       </section>
-
-      {/* MODAL */}
-      {selectedItem && (
-        <ItemModal
-          open={modalOpen}
-          onOpenChange={(open) => {
-            setModalOpen(open);
-            if (!open) setSelectedItem(null);
-          }}
-          item={selectedItem}
-          getTranslatedField={getTranslatedField}
-          onAddedToCart={(id) => {
-            setRecentlyAddedId(id);
-            setTimeout(() => {
-              setRecentlyAddedId((prev) => (prev === id ? null : prev));
-            }, 2500);
-          }}
-        />
-      )}
     </Layout>
   );
 }

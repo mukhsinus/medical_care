@@ -130,7 +130,8 @@
     "itemsFound": "Товаров найдено",
     "showAll": "Показать все",
     "inquirie": "Запрос",
-    "addToBasket": "Добавить"
+    "addToBasket": "Добавить",
+    "backToCatalog": "Вернуться к каталогу"
   },
   "signup": {
     "error": "Ошибка при регистрации",

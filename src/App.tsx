@@ -11,6 +11,7 @@ import { CartProvider } from '@/contexts/CartContext';
 import Home from './pages/Home';
 import About from './pages/About';
 import Catalog from './pages/Catalog';
+import ItemDetails from './pages/ItemDetails';
 import Contacts from './pages/Contacts';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
@@ -146,6 +147,7 @@ function AppRoutes() {
           <Route path={`/${locale}`} element={<Home />} />
           <Route path={`/${locale}/about`} element={<About />} />
           <Route path={`/${locale}/catalog`} element={<Catalog />} />
+          <Route path={`/${locale}/catalog/:itemId`} element={<ItemDetails />} />
           <Route path={`/${locale}/contacts`} element={<Contacts />} />
           <Route path={`/${locale}/legal/privacy`} element={<Privacy />} />
           <Route path={`/${locale}/legal/terms`} element={<Terms />} />

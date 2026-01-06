@@ -132,7 +132,8 @@
     "itemsFound": "Items found",
     "showAll": "Show All",
     "inquirie": "Inquirie",
-    "addToBasket": "Add"
+    "addToBasket": "Add",
+    "backToCatalog": "Back to Catalog"
   },
   "signup": {
     "error": "Sign Up Failed",

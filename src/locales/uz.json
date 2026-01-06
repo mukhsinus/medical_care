@@ -129,7 +129,8 @@
     "itemsFound": "Topilgan mahsulotlar",
     "showAll": "Barchasini ko'rsatish",
     "inquirie": "So'rov",
-    "addToBasket": "Qo'shish"
+    "addToBasket": "Qo'shish",
+    "backToCatalog": "Katalogga qaytish"
   },
   "signup": {
     "error": "Ro'yxatdan o'tish muvaffaqiyatsiz bo'ldi",

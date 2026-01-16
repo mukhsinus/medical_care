@@ -43,6 +43,7 @@ type ItemPictureProps = {
   alt: string;
   className?: string;
   imgClassName?: string;
+  category?: string;
   loading?: "lazy" | "eager";
 };
 
@@ -51,11 +52,12 @@ function ItemPicture({
   alt,
   className,
   imgClassName,
+  category,
   loading = "lazy",
 }: ItemPictureProps) {
   const { webp, fallback } = useMemo(
-    () => getImageSources(basename),
-    [basename]
+    () => getImageSources(basename, category),
+    [basename, category]
   );
 
   return (
@@ -96,6 +98,7 @@ const CatalogCard = memo(
     onNavigateToItem,
     isLcp = false,
   }: CatalogCardProps) {
+    const { locale, t } = useLanguage();
     const [imgIndex, setImgIndex] = useState(0);
 
     const touchStartX = useRef<number | null>(null);
@@ -184,6 +187,7 @@ const CatalogCard = memo(
             <ItemPicture
               basename={basenames[imgIndex]}
               alt={name}
+              category={item.category}
               className="h-full w-full"
               imgClassName="h-full w-full object-cover transition-transform duration-75 group-hover:scale-105 rounded-none"
               loading={isLcp ? "eager" : "lazy"}
@@ -253,9 +257,9 @@ const CatalogCard = memo(
         <div className="flex items-center justify-between">
           <span className="font-bold text-primary">
             {item.sizePrices
-              ? `from UZS ${Math.min(
-                  ...Object.values(item.sizePrices)
-                ).toFixed(2)}`
+              ? locale === "uz"
+                ? `UZS ${Math.min(...Object.values(item.sizePrices)).toFixed(2)} ${t.catalog.from}`
+                : `${t.catalog.from} UZS ${Math.min(...Object.values(item.sizePrices)).toFixed(2)}`
               : `UZS ${item.price.toFixed(2)}`}
           </span>
           <ShoppingBasket
@@ -586,7 +590,6 @@ export default function Catalog() {
                   className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
                   onClick={handleClearSearch}
                 >
-                  <span className="sr-only">Clear</span>×
                 </Button>
               )}
             </div>

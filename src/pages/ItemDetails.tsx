@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-  useMemo,
-} from "react";
+import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Layout } from "@/components/Layout";
@@ -32,6 +26,7 @@ type ItemPictureProps = {
   alt: string;
   className?: string;
   imgClassName?: string;
+  category?: string;
   loading?: "lazy" | "eager";
 };
 
@@ -40,11 +35,12 @@ function ItemPicture({
   alt,
   className,
   imgClassName,
+  category,
   loading = "lazy",
 }: ItemPictureProps) {
   const { webp, fallback } = useMemo(
-    () => getImageSources(basename),
-    [basename]
+    () => getImageSources(basename, category),
+    [basename, category]
   );
 
   return (
@@ -72,6 +68,11 @@ export default function ItemDetails() {
   const location = window.location;
   const { addItem } = useCart();
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const normalizeImages = (value?: string | string[]) => {
+    if (!value) return [];
+    return Array.isArray(value) ? value : [value];
+  };
 
   // Translation cache
   const translationCache = useRef<Map<string, string>>(new Map());
@@ -104,25 +105,36 @@ export default function ItemDetails() {
   );
 
   // Find item by ID - memoized
-  const item = useMemo(() => allItems.find((i) => i.id === Number(itemId)), [itemId]);
+  const item = useMemo(
+    () => allItems.find((i) => i.id === Number(itemId)),
+    [itemId]
+  );
 
   // Get current locale from URL - memoized
   const currentLocale = useMemo(() => {
-    const pathParts = location.pathname.split('/').filter(Boolean);
-    return pathParts[0] || 'en';
+    const pathParts = location.pathname.split("/").filter(Boolean);
+    return pathParts[0] || "en";
   }, [location.pathname]);
 
   // Memoize derived values
-  const name = useMemo(() => item ? getTranslatedField(item.nameKey) : "", [item, getTranslatedField]);
-  const desc = useMemo(() => item ? getTranslatedField(item.descriptionKey) : "", [item, getTranslatedField]);
-
-  const minQty = useMemo(() => 
-    item?.boxInfo ? parseInt(item.boxInfo.match(/(\d+)/)?.[1] || "1", 10) : 1,
-    [item?.boxInfo]
+  const name = useMemo(
+    () => (item ? getTranslatedField(item.nameKey) : ""),
+    [item, getTranslatedField]
+  );
+  const desc = useMemo(
+    () => (item ? getTranslatedField(item.descriptionKey) : ""),
+    [item, getTranslatedField]
   );
 
-  const basenames = useMemo(() => 
-    item?.imageBases?.length ? item.imageBases : item?.imageBase ? [item.imageBase] : [],
+  const minQty = useMemo(() => 1, []);
+
+  const basenames = useMemo(
+    () =>
+      item?.imageBases?.length
+        ? item.imageBases
+        : item?.imageBase
+        ? [item.imageBase]
+        : [],
     [item?.imageBases, item?.imageBase]
   );
 
@@ -142,11 +154,14 @@ export default function ItemDetails() {
   const isSwiping = useRef(false);
   const lastDeltaX = useRef(0);
 
-  const handleTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
-    touchStartX.current = e.touches[0].clientX;
-    isSwiping.current = false;
-    lastDeltaX.current = 0;
-  }, []);
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => {
+      touchStartX.current = e.touches[0].clientX;
+      isSwiping.current = false;
+      lastDeltaX.current = 0;
+    },
+    []
+  );
 
   const handleTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     if (touchStartX.current === null) return;
@@ -193,22 +208,23 @@ export default function ItemDetails() {
     }
   }, [qty, minQty]);
 
-  const increment = useCallback(() =>
-    setQty((prev) => (prev === "" ? minQty + minQty : prev + minQty)),
+  const increment = useCallback(
+    () => setQty((prev) => (prev === "" ? minQty + minQty : prev + minQty)),
     [minQty]
   );
 
-  const decrement = useCallback(() =>
-    setQty((prev) => {
-      if (prev === "") return minQty;
-      return Math.max(minQty, prev - minQty);
-    }),
+  const decrement = useCallback(
+    () =>
+      setQty((prev) => {
+        if (prev === "") return minQty;
+        return Math.max(minQty, prev - minQty);
+      }),
     [minQty]
   );
 
   const handleAdd = useCallback(() => {
     if (!item) return;
-    
+
     const finalQty = qty || minQty;
 
     // Variant labels (translated)
@@ -221,7 +237,10 @@ export default function ItemDetails() {
       displayName = `${name} (${details.join(", ")})`;
     }
 
-    const { fallback: mainImage } = getImageSources(basenames[0]);
+    const { fallback: mainImage } = getImageSources(
+      basenames[0],
+      item.category
+    );
 
     // Compute price according to selected size (if provided in data)
     const displayedPrice =
@@ -239,7 +258,20 @@ export default function ItemDetails() {
     );
 
     navigate(`/${currentLocale}/catalog`);
-  }, [item, qty, minQty, selectedColorKey, selectedSizeKey, name, desc, basenames, currentLocale, navigate, addItem, getTranslatedField]);
+  }, [
+    item,
+    qty,
+    minQty,
+    selectedColorKey,
+    selectedSizeKey,
+    name,
+    desc,
+    basenames,
+    currentLocale,
+    navigate,
+    addItem,
+    getTranslatedField,
+  ]);
 
   const handleBack = useCallback(() => {
     navigate(`/${currentLocale}/catalog`);
@@ -250,12 +282,41 @@ export default function ItemDetails() {
       navigate(`/${currentLocale}/catalog`);
       return;
     }
-    
+
     setQty(minQty);
     setActiveImageIndex(0);
     setSelectedColorKey(item.colors?.[0] ?? null);
     setSelectedSizeKey(item.sizes?.[0] ?? null);
   }, [itemId, item, minQty, navigate, currentLocale]);
+
+  // Update selected color when image changes via arrows/dots
+  useEffect(() => {
+    if (!item?.colorImages || activeImageIndex >= basenames.length) return;
+
+    const currentBasename = basenames[activeImageIndex];
+    // Find which color maps to this image
+    for (const [colorKey, imageName] of Object.entries(item.colorImages)) {
+      if (imageName === currentBasename) {
+        setSelectedColorKey(colorKey);
+        break;
+      }
+    }
+  }, [activeImageIndex, basenames, item?.colorImages]);
+
+  useEffect(() => {
+    if (!item?.sizeImages || activeImageIndex >= basenames.length) return;
+
+    const currentBasename = basenames[activeImageIndex];
+
+    for (const [sizeKey, value] of Object.entries(item.sizeImages)) {
+      const images = normalizeImages(value);
+
+      if (images.includes(currentBasename)) {
+        setSelectedSizeKey(sizeKey);
+        return;
+      }
+    }
+  }, [activeImageIndex, basenames, item?.sizeImages]);
 
   if (!item) {
     return null;
@@ -293,7 +354,7 @@ export default function ItemDetails() {
                 {basenames.map((basename, idx) => {
                   // Only render current image for performance
                   if (idx !== activeImageIndex) return null;
-                  
+
                   return (
                     <div
                       key={idx}
@@ -302,8 +363,9 @@ export default function ItemDetails() {
                       <ItemPicture
                         basename={basename}
                         alt={name}
-                        className="max-h-full max-w-full flex items-center justify-center"
-                        imgClassName="max-h-full max-w-full object-contain"
+                        category={item.category}
+                        className="h-full w-full flex items-center justify-center"
+                        imgClassName="h-full w-full object-cover"
                         loading="eager"
                       />
                     </div>
@@ -325,8 +387,18 @@ export default function ItemDetails() {
                     className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-primary rounded-full p-2 shadow-md z-10"
                     aria-label="Previous image"
                   >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M15 19l-7-7 7-7"
+                      />
                     </svg>
                   </button>
 
@@ -342,8 +414,18 @@ export default function ItemDetails() {
                     className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-primary rounded-full p-2 shadow-md z-10"
                     aria-label="Next image"
                   >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M9 5l7 7-7 7"
+                      />
                     </svg>
                   </button>
 
@@ -369,21 +451,22 @@ export default function ItemDetails() {
 
             {/* Thumbnail gallery for desktop */}
             {basenames.length > 1 && (
-              <div className="hidden md:flex gap-2 overflow-x-auto">
+              <div className="hidden md:flex gap-3 overflow-x-auto overflow-y-hidden scrollbar-hide whitespace-nowrap">
                 {basenames.map((basename, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`flex-shrink-0 w-20 h-20 rounded border-2 overflow-hidden transition-all ${
+                    className={`flex-shrink-0 w-24 h-24 rounded border-2 overflow-hidden transition-all ${
                       idx === activeImageIndex
-                        ? "border-primary scale-105"
+                        ? "border-primary"
                         : "border-gray-200 hover:border-gray-400"
                     }`}
                   >
                     <ItemPicture
                       basename={basename}
                       alt={`${name} thumbnail ${idx + 1}`}
+                      category={item.category}
                       imgClassName="w-full h-full object-cover"
                       loading="lazy"
                     />
@@ -397,7 +480,6 @@ export default function ItemDetails() {
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold mb-4 flex items-center gap-2">
-                <ShoppingBasket className="h-7 w-7 text-primary" />
                 {name}
               </h1>
               {desc && (
@@ -405,24 +487,24 @@ export default function ItemDetails() {
                   <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
                     Description
                   </h2>
-                  <p className="text-base text-gray-600 leading-relaxed">{desc}</p>
+                  <p className="text-base text-gray-600 leading-relaxed">
+                    {desc}
+                  </p>
                 </div>
-              )}
-              {item.boxInfo && (
-                <p className="text-sm italic text-muted-foreground mt-2 bg-blue-50 p-2 rounded border border-blue-100">
-                  📦 {item.boxInfo} (min {minQty})
-                </p>
               )}
             </div>
 
             <div className="border-t pt-4">
               <span className="text-3xl font-bold text-primary">
-                $
+                UZS{" "}
                 {(
                   (selectedSizeKey && item.sizePrices?.[selectedSizeKey]) ||
-                  item.price || 0
+                  item.price ||
+                  0
                 ).toFixed(2)}{" "}
-                <span className="text-lg font-normal text-muted-foreground">each</span>
+                <span className="text-lg font-normal text-muted-foreground">
+                  each
+                </span>
               </span>
             </div>
 
@@ -437,7 +519,23 @@ export default function ItemDetails() {
                       <button
                         key={colorKey}
                         type="button"
-                        onClick={() => setSelectedColorKey(colorKey)}
+                        onClick={() => {
+                          setSelectedColorKey(colorKey);
+                          // Change image if colorImages mapping exists
+                          if (item.colorImages?.[colorKey]) {
+                            const images = normalizeImages(
+                              item.colorImages?.[colorKey]
+                            );
+
+                            const imageIndex = basenames.findIndex((b) =>
+                              images.includes(b)
+                            );
+
+                            if (imageIndex !== -1) {
+                              setActiveImageIndex(imageIndex);
+                            }
+                          }
+                        }}
                         className={`px-4 py-2 text-sm rounded-md border transition ${
                           selectedColorKey === colorKey
                             ? "bg-primary text-white border-primary"
@@ -463,7 +561,23 @@ export default function ItemDetails() {
                       <button
                         key={sizeKey}
                         type="button"
-                        onClick={() => setSelectedSizeKey(sizeKey)}
+                        onClick={() => {
+                          setSelectedSizeKey(sizeKey);
+                          // Change image if sizeImages mapping exists
+                          if (item.sizeImages?.[sizeKey]) {
+                            const images = normalizeImages(
+                              item.sizeImages?.[sizeKey]
+                            );
+
+                            const imageIndex = basenames.findIndex((b) =>
+                              images.includes(b)
+                            );
+
+                            if (imageIndex !== -1) {
+                              setActiveImageIndex(imageIndex);
+                            }
+                          }
+                        }}
                         className={`px-4 py-2 text-sm rounded-md border transition ${
                           selectedSizeKey === sizeKey
                             ? "bg-primary text-white border-primary"
@@ -481,7 +595,7 @@ export default function ItemDetails() {
             {/* QUANTITY */}
             <div className="space-y-2 border-t pt-4">
               <Label htmlFor="qty" className="text-base font-semibold">
-                Quantity (min {minQty})
+                Quantity
               </Label>
 
               <div className="flex items-center gap-3">
@@ -518,21 +632,11 @@ export default function ItemDetails() {
                   +
                 </Button>
               </div>
-
-              {qty !== "" && qty < minQty && (
-                <p className="text-sm text-red-600">
-                  Minimum quantity is {minQty}
-                </p>
-              )}
             </div>
 
             {/* Add to Cart Button */}
             <div className="flex gap-3 pt-4">
-              <Button
-                variant="outline"
-                onClick={handleBack}
-                className="flex-1"
-              >
+              <Button variant="outline" onClick={handleBack} className="flex-1">
                 Cancel
               </Button>
               <Button onClick={handleAdd} className="flex-1" size="lg">

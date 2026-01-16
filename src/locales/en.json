@@ -133,7 +133,8 @@
     "showAll": "Show All",
     "inquirie": "Inquirie",
     "addToBasket": "Add",
-    "backToCatalog": "Back to Catalog"
+    "backToCatalog": "Back to Catalog",
+    "from": "from"
   },
   "signup": {
     "error": "Sign Up Failed",
@@ -317,6 +318,16 @@
       "100mlws": "100 ml without spoon",
       "60mlwths": "60 ml with spoon",
       "60mlws": "60 ml without spoon",
+      "200mkl1000pcs": "200 mkl x 1000 pcs",
+      "1000mkl500pcs": "1000 mkl x 500 pcs",
+      "10": "№10",
+      "11": "№11",
+      "12": "№12",
+      "15": "№15",
+      "20": "№20",
+      "22": "№22",
+      "23": "№23",
+      "24": "№24",
       "1l": "1 L",
       "2l": "2 L",
       "3l": "3 L",
@@ -340,6 +351,7 @@
       "3b90": "3mx90cm",
       "5b84": "5mx84cm",
       "5b90": "5mx90cm",
+      "10b90": "10mx90cm",
       "18mm": "18x18mm",
       "24mm": "24x24mm",
       "57b130": "57x130mm",
@@ -358,8 +370,9 @@
       "5b10cm": "5cmx10cm",
       "10b10cm": "10cmx10cm",
       "15b10cm": "15cmx10cm",
-      "10b15": "10cmx15cm",
-      "10b20": "10cmx20cm",
+      "10b15": "10x15cm",
+      "10b20": "10x20cm",
+      "10b30": "10x30cm",
       "80b20": "80mmx20m",
       "110b30": "110mmx30m",
       "210b30": "210mmx30m",
@@ -407,6 +420,9 @@
       "14fr": "14 Fr/Ch",
       "16fr": "16 Fr/Ch",
       "18fr": "18 Fr/Ch",
+      "5pcs": "5 pcs in box",
+      "25pcs": "25 pcs in box",
+      "50pcs": "50 pcs in box",
       "100": "100 pcs in box",
       "125": "125 pcs in box",
       "1pc": "1 pc in box",
@@ -443,8 +459,8 @@
       "description": "Disposable face masks"
     },
     "4": {
-      "name": "Clinic Clean Face Masks",
-      "description": "Three-layer disposable medical mask"
+      "name": "Disposable Nonwoven Caps",
+      "description": "Disposable nonwoven caps (black, white) are designed to maintain hygiene and prevent hair from entering clean or controlled environments. Lightweight and breathable, they provide comfort during long use in medical, laboratory, beauty, and food industry settings."
     },
     "5": {
       "name": "Face Maks",
@@ -471,7 +487,7 @@
       "description": "UKM sterile surgical gown, density 35 g/m² is designed to provide a protective barrier during surgeries and medical procedures. The lightweight yet durable material ensures comfort during long use and protects against biological contamination."
     },
     "11": {
-      "name": "Sterile dental kit for single use \"NEST-DENT\"",
+      "name": "Dental kit \"NEST-DENT\"",
       "description": "\"NEST-DENT\" sterile single-use dental kit is designed for diagnostic and therapeutic dental procedures. The kit ensures full hygiene, minimizes infection risks, and eliminates the need for instrument reuse."
     },
     "12": {
@@ -557,7 +573,7 @@
       "description": "Vacuum Blood Collection Needles — Pack of 100 (22G / 23G).hese needles are designed for use with vacuum blood collection tubes, ensuring smooth and controlled venipuncture. Available in 22G and 23G sizes, they offer optimal comfort for patients and reliable performance for healthcare professionals. Sterile and latex-free"
     },
     "34": {
-      "name": "Gynecologic Sampler",
+      "name": "Eyler's Spatula",
       "description": "Gynecologic sampler for single use"
     },
     "35": {
@@ -1068,10 +1084,6 @@
     "168": {
       "name": "Disposable Nonwoven Caps",
       "description": "Disposable nonwoven caps (blue) are designed to maintain hygiene and prevent hair from entering clean or controlled areas. Lightweight and breathable, they ensure comfortable use in medical facilities, laboratories, food industries, and beauty environments."
-    },
-    "169": {
-      "name": "Disposable Nonwoven Caps",
-      "description": "Disposable nonwoven caps (black, white) are designed to maintain hygiene and prevent hair from entering clean or controlled environments. Lightweight and breathable, they provide comfort during long use in medical, laboratory, beauty, and food industry settings."
     }
   },
 

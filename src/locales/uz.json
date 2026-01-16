@@ -130,7 +130,8 @@
     "showAll": "Barchasini ko'rsatish",
     "inquirie": "So'rov",
     "addToBasket": "Qo'shish",
-    "backToCatalog": "Katalogga qaytish"
+    "backToCatalog": "Katalogga qaytish",
+    "from": "dan"
   },
   "signup": {
     "error": "Ro'yxatdan o'tish muvaffaqiyatsiz bo'ldi",
@@ -314,6 +315,8 @@
       "100mlws": "100 ml qoshiqsiz",
       "60mlwths": "60 ml qoshiqli",
       "60mlws": "60 ml qoshiqsiz",
+      "200mkl1000pcs": "200 mkl x 1000 dona",
+      "1000mkl500pcs": "1000 mkl x 500 dona",
       "1l": "1 litr",
       "2l": "2 litr",
       "3l": "3 litr",
@@ -337,6 +340,7 @@
       "3b90": "3mx90sm",
       "5b84": "5mx84sm",
       "5b90": "5mx90sm",
+      "10b90": "10mx90sm",
       "18mm": "18x18mm",
       "24mm": "24x24mm",
       "57b130": "57x130mm",
@@ -355,8 +359,9 @@
       "5b10cm": "5cmx10cm",
       "10b10cm": "10cmx10cm",
       "15b10cm": "15cmx10cm",
-      "10b15": "10смx15см",
-      "10b20": "10смx20см",
+      "10b15": "10x15см",
+      "10b20": "10x20см",
+      "10b30": "10x30см",
       "80b20": "80mmx20m",
       "110b30": "110mmx30m",
       "210b30": "210mmx30m",
@@ -404,6 +409,9 @@
       "14fr": "14 Fr/Ch",
       "16fr": "16 Fr/Ch",
       "18fr": "18 Fr/Ch",
+      "5pcs": "Qutida 5 dona",
+      "25pcs": "Qutida 25 dona",
+      "50pcs": "Qutida 50 dona",
       "100": "Qutida 100 dona",
       "125": "Qutida 125 dona",
       "1pc": "1 dona",
@@ -444,8 +452,8 @@
       "description": "Bir martalik niqoblar"
     },
     "4": {
-      "name": "Clinic Clean niqoblari",
-      "description": "Uch qatlamli tibbiy niqob, bir martalik"
+      "name": "Bir martalik dokasiz matodan tayyorlangan shapkalar",
+      "description": "Bir martalik dokasiz matodan tayyorlangan shapkalar (qora, oq) gigiyena talablariga rioya qilish va sochlarning ish hududiga tushishining oldini olish uchun mo‘ljallangan. Engil, shamollovchi va qulay bo‘lib, tibbiyot, laboratoriya, go‘zallik xizmati va oziq-ovqat sanoatida foydalanish uchun mos."
     },
     "5": { "name": "Face Maks", "description": "Bir martalik niqoblar" },
     "6": {
@@ -469,7 +477,7 @@
       "description": "UKM steril jarrohlik xalat, zichligi 35 g/m² jarrohlik amaliyotlari va tibbiy jarayonlarda himoya to‘sig‘i yaratish uchun mo‘ljallangan. Engil va mustahkam material uzoq vaqt davomida ham qulaylik beradi va biologik ifloslanishlardan himoya qiladi."
     },
     "11": {
-      "name": "Bir martalik ishlatiladigan steril stomatologik to'plam \"NEST-DENT\"",
+      "name": "Stomatologik nabor \"NEST-DENT\"",
       "description": "\"NEST-DENT\" steril, bir martalik stomatologik to‘plam tish shifokori tekshiruvi va davolash jarayonlarida gigiyena va xavfsizlikni ta’minlash uchun mo‘ljallangan. To‘plam infeksiya tarqalish xavfini kamaytiradi va asboblarni qayta ishlatishga ehtiyoj qoldirmaydi."
     },
     "12": {
@@ -552,7 +560,7 @@
       "description": "Vakuumli qon olish probirkalari uchun ignalar — 100 dona qadoqda (22G / 23G).Ushbu ignalar vakuumli qon yig‘ish tizimlari bilan ishlash uchun maxsus ishlab chiqilgan. 22G va 23G o‘lchamlari venaga silliq, xavfsiz va minimal og‘riq bilan kirishni ta’minlaydi. Ignalar mustahkam, steril va latekssiz bo‘lib, klinik va laboratoriya amaliyotlarida keng qo‘llanadi."
     },
     "34": {
-      "name": "Ginekologik sampler",
+      "name": "Eyler shpateli",
       "description": "Bir martalik ginekologik namunagich"
     },
     "35": {
@@ -1066,10 +1074,6 @@
     "168": {
       "name": "Bir martalik dokasiz matodan tayyorlangan shapkalar",
       "description": "Bir martalik dokasiz matodan tayyorlangan shapkalar (ko‘k rang) gigiyena talablariga rioya qilish va sochlarning ish hududiga tushishini oldini olish uchun mo‘ljallangan. Engil, havo o‘tkazuvchi va qulay bo‘lib, tibbiyot, laboratoriya, oziq-ovqat va go‘zallik sohalarida ishlatishga mos."
-    },
-    "169": {
-      "name": "Bir martalik dokasiz matodan tayyorlangan shapkalar",
-      "description": "Bir martalik dokasiz matodan tayyorlangan shapkalar (qora, oq) gigiyena talablariga rioya qilish va sochlarning ish hududiga tushishining oldini olish uchun mo‘ljallangan. Engil, shamollovchi va qulay bo‘lib, tibbiyot, laboratoriya, go‘zallik xizmati va oziq-ovqat sanoatida foydalanish uchun mos."
     }
   }
 }

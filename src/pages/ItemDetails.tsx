@@ -246,9 +246,17 @@ export default function ItemDetails() {
     const displayedPrice =
       (selectedSizeKey && item.sizePrices?.[selectedSizeKey]) || item.price;
 
+    // Create unique variant ID: base_id-color-size
+    // This ensures same item with different variants creates separate cart items
+    const variantId = [
+      item.id,
+      selectedColorKey || "nocolor",
+      selectedSizeKey || "nosize"
+    ].join("-");
+
     addItem(
       {
-        id: item.id,
+        id: variantId,
         name: displayName,
         description: desc,
         price: displayedPrice,

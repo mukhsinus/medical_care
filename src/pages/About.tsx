@@ -133,7 +133,7 @@ export default function About() {
           </div>
 
           {/* TEAM */}
-          <div className="bg-muted/50 rounded-2xl p-8 md:p-12 text-center mb-20">
+          <div className="bg-muted/50 rounded-2xl p-8 md:p-12 text-center mb-20 hidden">
             <Users className="h-12 w-12 text-primary mx-auto mb-4" />
             <h3 className="text-2xl font-bold mb-3">{t.about.teamTitle}</h3>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-6">

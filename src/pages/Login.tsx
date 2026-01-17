@@ -13,21 +13,32 @@ import { Mail, Lock, UserPlus, AlertCircle, User, Phone, Eye, EyeOff } from 'luc
 
 
 const loginUser = async ({ nameOrEmail, password }: { nameOrEmail: string; password: string }) => {
-  // отправляем поле identifier, чтобы бек точно распознал
+  // send identifier field for backend to recognize
   const payload = { identifier: nameOrEmail, password };
+  
+  console.log('=== LOGIN DEBUG ===');
+  console.log('Payload being sent:', JSON.stringify(payload));
+  console.log('Payload keys:', Object.keys(payload));
+  console.log('Password length:', password.length);
+  console.log('Password type:', typeof password);
 
   const response = await fetch('http://localhost:8090/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    credentials: 'include', // важно: попытаемся принять httpOnly cookie
+    credentials: 'include',
     body: JSON.stringify(payload),
   });
+  
+  console.log('Response status:', response.status);
+  console.log('Response headers:', Array.from(response.headers.entries()));
+  
   const data = await response.json();
+  console.log('Response body:', data);
+  console.log('================');
+  
   if (!response.ok) {
-    // если бек прислал ошибку — бросаем
     throw new Error(data.message || 'Login failed');
   }
-  // data: { user: {...}, token?: '...' }
   return data;
 };
 
@@ -38,16 +49,31 @@ const signupUser = async ({
   phone,
   password,
 }: { name: string; email: string; phone?: string; password: string }) => {
+  const payload = { name, email, phone, password };
+  
+  console.log('=== SIGNUP DEBUG ===');
+  console.log('Signup payload:', JSON.stringify(payload));
+  console.log('Email:', email, 'Type:', typeof email);
+  console.log('Name:', name, 'Type:', typeof name);
+  
   const response = await fetch('http://localhost:8090/api/auth/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, phone, password }),
+    body: JSON.stringify(payload),
   });
+  
+  console.log('Signup response status:', response.status);
+  
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Sign-up failed');
+    const errorData = await response.json();
+    console.log('Signup error:', errorData);
+    console.log('===================');
+    throw new Error(errorData.message || 'Sign-up failed');
   }
+  
   const data = await response.json();
+  console.log('Signup response data:', data);
+  console.log('===================');
   return data;
 };
 
@@ -69,16 +95,16 @@ const Login: React.FC = () => {
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      // если бек вернул token в теле — сохраняем как fallback (dev)
+      // save token as fallback if provided by backend
       if (data?.token) localStorage.setItem('authToken', data.token);
-      // иначе удаляем старый fallback, будем полагаться на httpOnly cookie
+      // otherwise rely on httpOnly cookie
       else localStorage.removeItem('authToken');
 
       setError(null);
       navigate(`/${locale}/account`);
     },
     onError: (error: Error) => {
-      setError(error.message || t.login?.error || 'Invalid credentials');
+      setError(t.login?.error || 'Invalid credentials');
     },
   });
 
@@ -90,7 +116,7 @@ const Login: React.FC = () => {
       navigate(`/${locale}/account`);
     },
     onError: (error: Error) => {
-      setError(error.message || t.signup?.error || 'Sign-up failed');
+      setError(t.signup?.error || 'Sign-up failed');
     },
   });
 
@@ -337,16 +363,6 @@ const Login: React.FC = () => {
                           </div>
                         </div>
                       </>
-                    )}
-                    {isLogin && (
-                      <div className="text-right">
-                        <Link
-                          to={`/${locale}/forgot-password`}
-                          className="text-sm text-sky-500 hover:text-sky-600"
-                        >
-                          {t.login?.forgot_password || 'Forgot Password?'}
-                        </Link>
-                      </div>
                     )}
                     <Button
                       type="submit"

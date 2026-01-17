@@ -133,6 +133,14 @@
     "backToCatalog": "Katalogga qaytish",
     "from": "dan"
   },
+  "common": {
+    "viewLeadership": "Rahbariyatni ko'rish",
+    "findLocation": "Ofisni topish",
+    "callUs": "Bizga qo'ng'iroq qiling",
+    "back": "Orqaga",
+    "back_to_login": "Kirishga qaytish",
+    "loading": "Yuklanmoqda..."
+  },
   "signup": {
     "error": "Ro'yxatdan o'tish muvaffaqiyatsiz bo'ldi",
     "password_mismatch": "Parollar mos kelmaydi",
@@ -245,7 +253,8 @@
     "description": "O'zbekistonda professional tibbiy buyumlar ulgurji etkazib beruvchisi",
     "legal": "Huquqiy ma'lumot",
     "privacy": "Maxfiylik siyosati",
-    "terms": "Foydalanish shartlari"
+    "terms": "Foydalanish shartlari",
+    "copyright": "© {year} Medicare. Barcha huquqlar himoyalangan."
   },
   "legal": {
     "privacy": {
@@ -286,8 +295,17 @@
       "lightBlue": "Och ko‘k",
       "lightPink": "Och pushti"
     },
-
     "sizes": {
+      "10": "№10",
+      "11": "№11",
+      "12": "№12",
+      "15": "№15",
+      "20": "№20",
+      "22": "№22",
+      "23": "№23",
+      "24": "№24",
+      "100": "Qutida 100 dona",
+      "125": "Qutida 125 dona",
       "with": "dozatorli",
       "without": "dozatorsiz",
       "22g": "22G",
@@ -304,6 +322,7 @@
       "5ml": "5 ml",
       "5p5ml": "5.5 ml",
       "6ml": "6 ml",
+      "8p5ml": "8.5 ml",
       "10ml": "10 ml",
       "10p5ml": "10.5 ml",
       "20ml": "20 ml",
@@ -412,8 +431,6 @@
       "5pcs": "Qutida 5 dona",
       "25pcs": "Qutida 25 dona",
       "50pcs": "Qutida 50 dona",
-      "100": "Qutida 100 dona",
-      "125": "Qutida 125 dona",
       "1pc": "1 dona",
       "200pcs": "Qutida 200 dona",
       "250pcs": "Qutida 250 dona",
@@ -437,7 +454,6 @@
       "chromicmet3p5": "Xrom katgut, ip uzunligi - 75 sm; qalinligi - 2-0 (Met3.5), kesish ignasi: 30 mm, 1/2 doira"
     }
   },
-
   "items": {
     "1": {
       "name": "Unigloves",
@@ -455,7 +471,10 @@
       "name": "Bir martalik dokasiz matodan tayyorlangan shapkalar",
       "description": "Bir martalik dokasiz matodan tayyorlangan shapkalar (qora, oq) gigiyena talablariga rioya qilish va sochlarning ish hududiga tushishining oldini olish uchun mo‘ljallangan. Engil, shamollovchi va qulay bo‘lib, tibbiyot, laboratoriya, go‘zallik xizmati va oziq-ovqat sanoatida foydalanish uchun mos."
     },
-    "5": { "name": "Face Maks", "description": "Bir martalik niqoblar" },
+    "5": {
+      "name": "Face Maks",
+      "description": "Bir martalik niqoblar"
+    },
     "6": {
       "name": "Sterilizatsiya uchun kraft paket",
       "description": "Sterilizatsiya uchun kraft paket — tibbiy asbob-uskunalarni xavfsiz o‘rash va ularning steril holatini saqlab turishga mo‘ljallangan maxsus qadoqlash materiali. Yuqori zichlikdagi tsellyuloza qatlamlari bug‘, havo va gaz sterilizatsiyasiga mos bo‘lib, asboblarni ifloslanishdan himoya qiladi. Uzoq rulon shakli katta hajmda foydalanish uchun qulay va iqtisodiy samarali."
@@ -500,8 +519,14 @@
       "name": "Medco shprits, 50ml",
       "description": "Ignali bir martalik shprits, 1ml"
     },
-    "17": { "name": "Shprits", "description": "Ignali bir martalik shprits" },
-    "18": { "name": "Shprits", "description": "Ignali bir martalik shprits" },
+    "17": {
+      "name": "Shprits",
+      "description": "Ignali bir martalik shprits"
+    },
+    "18": {
+      "name": "Shprits",
+      "description": "Ignali bir martalik shprits"
+    },
     "19": {
       "name": "MFA shprits",
       "description": "Ignali bir martalik shprits"
@@ -514,7 +539,10 @@
       "name": "Gastrik zond",
       "description": "Ovqat hazm yo‘liga qo‘yiladigan zond"
     },
-    "22": { "name": "", "description": "" },
+    "22": {
+      "name": "",
+      "description": ""
+    },
     "23": {
       "name": "",
       "description": ""
@@ -591,7 +619,10 @@
       "name": "ProLite Composite",
       "description": "Ikki qatlamli, qisman so‘riladigan to‘r"
     },
-    "42": { "name": "", "description": "" },
+    "42": {
+      "name": "",
+      "description": ""
+    },
     "43": {
       "name": "KD-FLY qanotli infuziya to‘plami",
       "description": "Qanotli igna - skalp vena ignasi"
@@ -732,7 +763,10 @@
       "name": "MedIS-B sterilizatsiya indikatorlari 180/60",
       "description": "MedIS-B sterilizatsiya indikatorlari 180°C / 60 daqiqa (1000 dona) — quruq issiqlik sterilizatsiyasining to‘g‘ri o‘tganini tasdiqlash uchun mo‘ljallangan nazorat vositasi. Kerakli harorat va ekspozitsiya vaqtiga yetilganda indikator rangi o‘zgaradi va paket yoki konteyner ichidagi asboblarning to‘liq sterilizatsiyadan o‘tganini ko‘rsatadi."
     },
-    "78": { "name": "Niqob", "description": "Bir martalik niqoblar" },
+    "78": {
+      "name": "Niqob",
+      "description": "Bir martalik niqoblar"
+    },
     "79": {
       "name": "Aiqura infraqizil termometr",
       "description": "Peshona uchun infraqizil termometr"
@@ -809,7 +843,10 @@
       "name": "Bir martalik plastik KBB spatulasi",
       "description": "Bir martalik plastik LOR-shpatel og‘iz bo‘shlig‘i, til va bodom bezlarini tekshirish uchun mo‘ljallangan. Gigiyenik va qulay foydalanishni ta’minlaydi. Yaltiroq, silliq chetlari shilliq qavatni jarohatlamaydi, bir martalik format esa infeksiya tarqalishining oldini oladi."
     },
-    "98": { "name": "Bir martalik igna", "description": "Bir martalik igna" },
+    "98": {
+      "name": "Bir martalik igna",
+      "description": "Bir martalik igna"
+    },
     "99": {
       "name": "Bir martalik quloq voronkalar",
       "description": "Bir martalik quloq voronkalar quloqni xavfsiz ko‘zdan kechirish va gigiyenik muolajalar uchun mo‘ljallangan. Engil va gigiyenik materialdan tayyorlangan bo‘lib, bir martalik foydalanish orqali infeksiya xavfini kamaytiradi."
@@ -946,8 +983,14 @@
       "name": "Steril tibbiy marli salfetkalar",
       "description": "Steril tibbiy marli salfetkalar (2 qatlam, 16×14, №10) yaralarni tozalash, qon to‘xtatish va gigiyenik bog‘lovlarda qo‘llanadi. Yumshoq tuzilma va steril holati tufayli teriga xavfsiz ta’sir ko‘rsatadi."
     },
-    "133": { "name": "", "description": "" },
-    "134": { "name": "", "description": "" },
+    "133": {
+      "name": "",
+      "description": ""
+    },
+    "134": {
+      "name": "",
+      "description": ""
+    },
     "135": {
       "name": "Bir martalik polietilen shapkalar",
       "description": "Bir martalik polietilen shapkalar (oq, yangi model) gigiyena talablarini ta’minlash va sochlarning ish hududiga tushishining oldini olish uchun mo‘ljallangan. Engil, namlik o‘tkazmaydigan va qulay bo‘lib, tibbiyot, oziq-ovqat sanoati, laboratoriya va go‘zallik xizmatlarida ishlatishga mos."
@@ -956,7 +999,10 @@
       "name": "Bir martalik polietilen bahillar",
       "description": "Bir martalik polietilen bahillar xonalarni chang, namlik va kirlanishdan himoya qilish uchun ishlatiladi. Engil, suv o‘tkazmaydigan va qulay bo‘lib, shifoxona, laboratoriya, go‘zallik saloni va uy sharoitida foydalanishga mos."
     },
-    "137": { "name": "", "description": "" },
+    "137": {
+      "name": "",
+      "description": ""
+    },
     "138": {
       "name": "O‘z-o‘zidan yopiladigan sterilizatsiya paketi",
       "description": "O‘z-o‘zidan yopiladigan sterilizatsiya paketi — kichik tibbiy asboblar, dental ignalar, steril uchlar va nozik instrumentlarni xavfsiz o‘rash va sterilizatsiyadan keyin ularni toza saqlash uchun mo‘ljallangan qulay qadoqlash turi.O‘zida integratsiyalashgan yopishtiruvchi qatlam mavjud bo‘lib, qo‘shimcha qurilma ishlatmasdan tez va mustahkam yopishga yordam beradi."
@@ -985,8 +1031,14 @@
       "name": "Westcom shprits",
       "description": "Steril bir martalik shprits"
     },
-    "145": { "name": "", "description": "" },
-    "146": { "name": "", "description": "" },
+    "145": {
+      "name": "",
+      "description": ""
+    },
+    "146": {
+      "name": "",
+      "description": ""
+    },
     "147": {
       "name": "Poliglikol kislota (Polyglycolic acid — PGA) jarrohlik ipsi",
       "description": "Poliglikol kislota (Polyglycolic acid — PGA) jarrohlik ipsi — yuqori mustahkamlikka ega, bioso‘riluvchi, jarrohlik amaliyotlarida keng qo‘llaniladigan sintetik shov materialidir.U tikuvning barqarorligini saqlaydi, to‘qimalarga minimal shikast yetkazadi va operatsiyadan keyingi davrda ishonchli rezorbsiyani ta’minlaydi."
@@ -1075,5 +1127,32 @@
       "name": "Bir martalik dokasiz matodan tayyorlangan shapkalar",
       "description": "Bir martalik dokasiz matodan tayyorlangan shapkalar (ko‘k rang) gigiyena talablariga rioya qilish va sochlarning ish hududiga tushishini oldini olish uchun mo‘ljallangan. Engil, havo o‘tkazuvchi va qulay bo‘lib, tibbiyot, laboratoriya, oziq-ovqat va go‘zallik sohalarida ishlatishga mos."
     }
+  },
+  "forgot_password": {
+    "title": "Parolni unutdingizmi",
+    "description": "Elektron pochtangizni kiriting, va biz parolingizni qayta o'rnatish uchun havolani yuboramiz.",
+    "email_label": "Elektron pochtaning manzili",
+    "email_placeholder": "Elektron pochtangizni kiriting",
+    "submit_button": "Qayta o'rnatish havolasini yuborish",
+    "error": "Iltimos, to'g'ri elektron pochta manzilini kiriting",
+    "success_title": "Elektron pochtangizni tekshiring",
+    "success_message": "Biz parolingizni qayta o'rnatish havolasini elektron pochtangizga yubordik. Kelgan xatlarni tekshiring va ko'rsatmalarni bajarizng."
+  },
+  "reset_password": {
+    "title": "Parolni qayta o'rnatish",
+    "description": "Quyiga yangi parolingizni kiriting.",
+    "new_password": "Yangi parol",
+    "password_placeholder": "Yangi parolni kiriting",
+    "confirm_password": "Parolni tasdiqlash",
+    "confirm_password_placeholder": "Yangi parolni tasdiqlang",
+    "submit_button": "Parolni qayta o'rnatish",
+    "error": "Iltimos, barcha maydonlarni to'ldiring",
+    "password_mismatch": "Parollar mos kelmaydi",
+    "password_too_short": "Parol kamida 6 ta belgilikni o'z ichiga olishi kerak",
+    "invalid_link": "Nomuaffaqiyatli qayta o'rnatish havolasi",
+    "invalid_link_message": "Parolni qayta o'rnatish havolasi noto'g'ri yoki muddati o'tgan. Iltimos, yangisini so'rang.",
+    "request_new_link": "Yangi havola so'rash",
+    "success_title": "Parol muvaffaqiyatli qayta o'rnatildi",
+    "success_message": "Parolingiz muvaffaqiyatli o'zgartirildi. Hisobingizga yo'naltirilyapsiz..."
   }
 }

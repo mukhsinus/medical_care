@@ -248,7 +248,8 @@
     "description": "Professional medical supplies wholesaler in Uzbekistan",
     "legal": "Legal",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Service"
+    "terms": "Terms of Service",
+    "copyright": "© {year} Medicare. All rights reserved."
   },
   "legal": {
     "privacy": {

@@ -14,3 +14,9 @@
   bundle = false
   minify = false
   fingerprint = false
+
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

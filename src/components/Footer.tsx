@@ -55,7 +55,7 @@ export const Footer = () => {
         </div>
 
         <div className="border-t mt-8 pt-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Medicare. All rights reserved.
+          {t.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
         </div>
       </div>
     </footer>

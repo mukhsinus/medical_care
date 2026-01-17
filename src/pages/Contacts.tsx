@@ -111,19 +111,19 @@ export default function Contacts() {
                     <ul className="space-y-1 text-sm">
                       <li>
                         <span className="font-medium text-foreground">
-                          Mon–Fri:
+                          {t.contacts.monFri}:
                         </span>{" "}
-                        9:00 AM – 6:00 PM
+                        {t.contacts.morningHours}
                       </li>
                       <li>
                         <span className="font-medium text-foreground">
-                          Saturday:
+                          {t.contacts.saturday}:
                         </span>{" "}
-                        10:00 AM – 4:00 PM
+                        {t.contacts.saturdayHours}
                       </li>
                       <li>
                         <span className="font-medium text-foreground">
-                          Sunday:
+                          {t.contacts.sunday}:
                         </span>{" "}
                         {t.contacts.closed}
                       </li>

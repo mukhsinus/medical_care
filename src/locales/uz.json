@@ -117,6 +117,15 @@
     "subtitle": "Bizning keng qamrovli tibbiy jihozlar assortimentini o'rganing",
     "contactCta": "Ma’lumot",
     "allItems": "Barcha mahsulotlar",
+    "itemDetail": {
+      "description": "Tavsifi",
+      "color": "Rang",
+      "size": "O'lcham",
+      "quantity": "Miqdori",
+      "each": "dona",
+      "cancel": "Bekor qilish",
+      "addItem": "{qty} {itemLabel} qo'shish"
+    },
     "loading": "Yuklanmoqda...",
     "noItems": "Mahsulotlar topilmadi.",
     "searchPlaceholder": "Mahsulotlarni qidiring...",
@@ -194,6 +203,9 @@
     "processing": "Jarayon davom etmoqda...",
     "checkout_payme": "Payme orqali to'lash",
     "checkout_click": "Click orqali to'lash",
+    "checkout_uzum": "Uzum orqali to'lash",
+    "added_to_basket": "Mahsulot savatga qo'shildi",
+    "minimum_amount": "Eng kam buyurtma miqdori 500 000 so'm",
     "total": "Jami"
   },
   "account": {
@@ -236,6 +248,11 @@
     "visitOffice": "Ofisimizga tashrif buyuring",
     "workingHours": "Ish vaqti",
     "closed": "Dam olish kuni",
+    "monFri": "Dushanba–Juma",
+    "saturday": "Shanba",
+    "sunday": "Yakshanba",
+    "morningHours": "9:00 – 18:00",
+    "saturdayHours": "10:00 – 16:00",
     "getDirections": "Yoʻnalish olish",
     "faqTitle": "Tez-tez soʻraladigan savollar",
     "faq": {

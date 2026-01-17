@@ -230,7 +230,7 @@ export default function About() {
                   {/* Text + ▾ in one container */}
                   <div className="flex flex-1 items-center justify-center gap-1">
                     <span className="text-center">
-                      {t.common.callUs}
+                      {t.contacts.phoneLabel}
                     </span>
                     <span className="text-xs text-muted-foreground">▾</span>
                   </div>

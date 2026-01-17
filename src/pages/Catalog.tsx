@@ -511,7 +511,12 @@ export default function Catalog() {
   };
 
   const navigateToItem = (itemId: number) => {
-    navigate(`/${locale}/catalog/${itemId}`);
+    const catalogState = {
+      category: activeCategory,
+      search: searchTerm,
+      page: currentPage,
+    };
+    navigate(`/${locale}/catalog/${itemId}`, { state: catalogState });
   };
 
   if (loading) {

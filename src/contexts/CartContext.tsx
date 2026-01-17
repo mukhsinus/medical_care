@@ -58,6 +58,12 @@ function reducer(state: State, action: Action): State {
     case "SET_CART": {
       // Filter out invalid items
       const validItems = action.payload.items.filter(isValidCartItem);
+      // Persist immediately when setting cart
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(validItems));
+      } catch (error) {
+        console.error("Failed to persist cart to localStorage:", error);
+      }
       return { ...state, items: validItems };
     }
     case "ADD_ITEM": {
@@ -67,31 +73,55 @@ function reducer(state: State, action: Action): State {
         return state;
       }
       const existingIndex = state.items.findIndex((i) => i.product.id === product.id);
+      let newItems;
       if (existingIndex >= 0) {
-        const items = [...state.items];
-        items[existingIndex] = {
-          ...items[existingIndex],
-          quantity: items[existingIndex].quantity + quantity,
+        newItems = [...state.items];
+        newItems[existingIndex] = {
+          ...newItems[existingIndex],
+          quantity: newItems[existingIndex].quantity + quantity,
         };
-        return { ...state, items };
+      } else {
+        newItems = [...state.items, { product, quantity }];
       }
-      return { ...state, items: [...state.items, { product, quantity }] };
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newItems));
+      } catch (error) {
+        console.error("Failed to persist cart to localStorage:", error);
+      }
+      return { ...state, items: newItems };
     }
     case "REMOVE_ITEM": {
-      const items = state.items.filter((i) => i.product.id !== action.payload.id);
-      return { ...state, items };
+      const newItems = state.items.filter((i) => i.product.id !== action.payload.id);
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newItems));
+      } catch (error) {
+        console.error("Failed to persist cart to localStorage:", error);
+      }
+      return { ...state, items: newItems };
     }
     case "UPDATE_QUANTITY": {
       const { id, quantity } = action.payload;
+      let newItems;
       if (quantity <= 0) {
-        return { ...state, items: state.items.filter((i) => i.product.id !== id) };
+        newItems = state.items.filter((i) => i.product.id !== id);
+      } else {
+        newItems = state.items.map((i) =>
+          i.product.id === id ? { ...i, quantity } : i
+        );
       }
-      const items = state.items.map((i) =>
-        i.product.id === id ? { ...i, quantity } : i
-      );
-      return { ...state, items };
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newItems));
+      } catch (error) {
+        console.error("Failed to persist cart to localStorage:", error);
+      }
+      return { ...state, items: newItems };
     }
     case "CLEAR_CART":
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([]));
+      } catch (error) {
+        console.error("Failed to persist cart to localStorage:", error);
+      }
       return { ...state, items: [] };
     default:
       return state;
@@ -124,7 +154,7 @@ export const CartContext = createContext<CartContextValue>(defaultCartContext);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Hydrate from localStorage
+  // Hydrate from localStorage on mount
   useEffect(() => {
     try {
       const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -137,7 +167,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
               `Filtered out ${parsed.length - validItems.length} invalid cart items from localStorage`
             );
           }
-          dispatch({ type: "SET_CART", payload: { items: validItems } });
+          if (validItems.length > 0) {
+            dispatch({ type: "SET_CART", payload: { items: validItems } });
+          }
         }
       }
     } catch (error) {
@@ -145,15 +177,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // Persist to localStorage
-  useEffect(() => {
-    try {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.items));
-    } catch (error) {
-      console.error("Failed to persist cart to localStorage:", error);
-    }
-  }, [state.items]);
 
   const addItem = (product: Product, quantity = 1) =>
     dispatch({ type: "ADD_ITEM", payload: { product, quantity } });

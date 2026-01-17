@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef, useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/components/ui/use-toast";
 import { Layout } from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
@@ -65,8 +66,9 @@ export default function ItemDetails() {
   const { t } = useLanguage();
   const { itemId } = useParams<{ itemId: string }>();
   const navigate = useNavigate();
-  const location = window.location;
+  const location = useLocation();
   const { addItem } = useCart();
+  const { toast } = useToast();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const normalizeImages = (value?: string | string[]) => {
@@ -265,7 +267,23 @@ export default function ItemDetails() {
       finalQty
     );
 
-    navigate(`/${currentLocale}/catalog`);
+    // Show success toast notification
+    toast({
+      title: t.basket?.added_to_basket || "Item added to basket",
+      variant: "default",
+    });
+
+    // Navigate back with preserved catalog state
+    const params = new URLSearchParams();
+    const state = location.state as { category?: string; search?: string; page?: number } | null;
+    if (state?.category) {
+      if (state.category !== 'all') params.set('category', state.category);
+      if (state.search) params.set('search', state.search);
+      if (state.page && state.page > 1) params.set('page', state.page.toString());
+      navigate(`/${currentLocale}/catalog?${params.toString()}`, { state: {} });
+    } else {
+      navigate(`/${currentLocale}/catalog`);
+    }
   }, [
     item,
     qty,
@@ -278,12 +296,25 @@ export default function ItemDetails() {
     currentLocale,
     navigate,
     addItem,
+    location.state,
+    t.basket?.added_to_basket,
+    toast,
     getTranslatedField,
   ]);
 
   const handleBack = useCallback(() => {
-    navigate(`/${currentLocale}/catalog`);
-  }, [currentLocale, navigate]);
+    // Try to get catalog state from location, otherwise navigate to catalog
+    const params = new URLSearchParams();
+    const state = location.state as { category?: string; search?: string; page?: number } | null;
+    if (state?.category) {
+      if (state.category !== 'all') params.set('category', state.category);
+      if (state.search) params.set('search', state.search);
+      if (state.page && state.page > 1) params.set('page', state.page.toString());
+      navigate(`/${currentLocale}/catalog?${params.toString()}`, { state: {} });
+    } else {
+      navigate(`/${currentLocale}/catalog`);
+    }
+  }, [currentLocale, navigate, location.state]);
 
   useEffect(() => {
     if (!item) {
@@ -493,7 +524,7 @@ export default function ItemDetails() {
               {desc && (
                 <div className="mb-4">
                   <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
-                    Description
+                    {t.catalog?.itemDetail?.description || 'Description'}
                   </h2>
                   <p className="text-base text-gray-600 leading-relaxed">
                     {desc}
@@ -511,7 +542,7 @@ export default function ItemDetails() {
                   0
                 ).toFixed(2)}{" "}
                 <span className="text-lg font-normal text-muted-foreground">
-                  each
+                  {t.catalog?.itemDetail?.each || 'each'}
                 </span>
               </span>
             </div>
@@ -519,7 +550,7 @@ export default function ItemDetails() {
             {/* COLORS (translated) */}
             {item.colors && item.colors.length > 0 && (
               <div className="space-y-2">
-                <Label className="text-base font-semibold">Color</Label>
+                <Label className="text-base font-semibold">{t.catalog?.itemDetail?.color || 'Color'}</Label>
                 <div className="flex flex-wrap gap-2">
                   {item.colors.map((colorKey) => {
                     const label = getTranslatedField(colorKey);
@@ -561,7 +592,7 @@ export default function ItemDetails() {
             {/* SIZES (translated) */}
             {item.sizes && item.sizes.length > 0 && (
               <div className="space-y-2">
-                <Label className="text-base font-semibold">Size</Label>
+                <Label className="text-base font-semibold">{t.catalog?.itemDetail?.size || 'Size'}</Label>
                 <div className="flex flex-wrap gap-2">
                   {item.sizes.map((sizeKey) => {
                     const label = getTranslatedField(sizeKey);
@@ -603,7 +634,7 @@ export default function ItemDetails() {
             {/* QUANTITY */}
             <div className="space-y-2 border-t pt-4">
               <Label htmlFor="qty" className="text-base font-semibold">
-                Quantity
+                {t.catalog?.itemDetail?.quantity || 'Quantity'}
               </Label>
 
               <div className="flex items-center gap-3">
@@ -645,11 +676,11 @@ export default function ItemDetails() {
             {/* Add to Cart Button */}
             <div className="flex gap-3 pt-4">
               <Button variant="outline" onClick={handleBack} className="flex-1">
-                Cancel
+                {t.catalog?.itemDetail?.cancel || 'Cancel'}
               </Button>
               <Button onClick={handleAdd} className="flex-1" size="lg">
                 <ShoppingBasket className="h-5 w-5 mr-2" />
-                Add {qty || minQty} {qty === 1 ? "item" : "items"}
+                {(t.catalog?.itemDetail?.addItem || 'Add {qty} {itemLabel}').replace('{qty}', (qty || minQty).toString()).replace('{itemLabel}', (qty === 1 ? t.basket?.item : t.basket?.items) || (qty === 1 ? 'item' : 'items'))}
               </Button>
             </div>
           </div>

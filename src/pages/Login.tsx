@@ -103,9 +103,6 @@ const Login: React.FC = () => {
       setError(null);
       navigate(`/${locale}/account`);
     },
-    onError: (error: Error) => {
-      setError(t.login?.error || 'Invalid credentials');
-    },
   });
 
   const signupMutation = useMutation({
@@ -115,10 +112,20 @@ const Login: React.FC = () => {
       setError(null);
       navigate(`/${locale}/account`);
     },
-    onError: (error: Error) => {
-      setError(t.signup?.error || 'Sign-up failed');
-    },
   });
+
+  // Handle mutation errors with current translation context
+  React.useEffect(() => {
+    if (loginMutation.isError) {
+      setError(t.login?.error || 'Invalid credentials');
+    }
+  }, [loginMutation.isError, t.login?.error]);
+
+  React.useEffect(() => {
+    if (signupMutation.isError) {
+      setError(t.signup?.error || 'Sign-up failed');
+    }
+  }, [signupMutation.isError, t.signup?.error]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

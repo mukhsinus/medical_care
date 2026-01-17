@@ -121,6 +121,15 @@
     "subtitle": "Ознакомьтесь с нашим широким ассортиментом медицинских товаров",
     "contactCta": "Детали",
     "allItems": "Все товары",
+    "itemDetail": {
+      "description": "Описание",
+      "color": "Цвет",
+      "size": "Размер",
+      "quantity": "Количество",
+      "each": "шт",
+      "cancel": "Отмена",
+      "addItem": "Добавить {qty} {itemLabel}"
+    },
     "loading": "Загрузка...",
     "noItems": "Товары не найдены.",
     "searchPlaceholder": "Поиск товаров...",
@@ -190,6 +199,9 @@
     "processing": "Обработка...",
     "checkout_payme": "Оплатить через Payme",
     "checkout_click": "Оплатить через Click",
+    "checkout_uzum": "Оплатить через Uzum",
+    "added_to_basket": "Товар добавлен в корзину",
+    "minimum_amount": "Минимальная сумма заказа - 500 000 сўм",
     "total": "Итого"
   },
   "account": {
@@ -232,6 +244,11 @@
     "visitOffice": "Посетите наш офис",
     "workingHours": "Часы работы",
     "closed": "Выходной",
+    "monFri": "Пн–Пт",
+    "saturday": "Суббота",
+    "sunday": "Воскресенье",
+    "morningHours": "9:00 – 18:00",
+    "saturdayHours": "10:00 – 16:00",
     "getDirections": "Проложить маршрут",
     "faqTitle": "Часто задаваемые вопросы",
     "faq": {

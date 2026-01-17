@@ -49,13 +49,20 @@ const Basket: React.FC = () => {
                 {t.basket?.empty || "Your basket is empty."}
               </p>
               <Button
-                asChild
                 size="lg"
                 className="btn-primary shadow-lg hover:shadow-xl"
+                onClick={() => {
+                  const state = location.state as { category?: string; search?: string; page?: number } | null;
+                  const params = new URLSearchParams();
+                  if (state?.category) {
+                    if (state.category !== 'all') params.set('category', state.category);
+                    if (state.search) params.set('search', state.search);
+                    if (state.page && state.page > 1) params.set('page', state.page.toString());
+                  }
+                  window.location.href = `/${locale}/catalog${params.toString() ? '?' + params.toString() : ''}`;
+                }}
               >
-                <Link to={`/${locale}/catalog`}>
-                  {t.basket?.shop || "Go to shop"}
-                </Link>
+                {t.basket?.shop || "Go to shop"}
               </Button>
             </div>
           ) : (
@@ -139,10 +146,20 @@ const Basket: React.FC = () => {
                   <Button variant="outline" onClick={clearCart}>
                     {t.basket?.clear || "Clear basket"}
                   </Button>
-                  <Button asChild variant="outline">
-                    <Link to={`/${locale}/catalog`}>
-                      {t.basket?.continue || "Continue shopping"}
-                    </Link>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      const state = location.state as { category?: string; search?: string; page?: number } | null;
+                      const params = new URLSearchParams();
+                      if (state?.category) {
+                        if (state.category !== 'all') params.set('category', state.category);
+                        if (state.search) params.set('search', state.search);
+                        if (state.page && state.page > 1) params.set('page', state.page.toString());
+                      }
+                      window.location.href = `/${locale}/catalog${params.toString() ? '?' + params.toString() : ''}`;
+                    }}
+                  >
+                    {t.basket?.continue || "Continue shopping"}
                   </Button>
                 </div>
               </section>

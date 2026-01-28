@@ -300,7 +300,7 @@ export const allItems: CatalogItem[] = [
     id: 8,
     category: "injection",
     nameKey: "items.8.name",
-    imageBases: [],
+    imageBases: ["Шприцы  1 мл инсулин WEGO (2)"],
     sizes: [
       "variants.sizes.0p3ml",
       "variants.sizes.0p5ml",
@@ -718,12 +718,9 @@ export const allItems: CatalogItem[] = [
     descriptionKey: "items.32.description",
     imageBases: [
       "Катетер Фолея 2-х ход 16 CHFR (2 way 30 ml) Kdm medical (2)",
-      "Катетер Фолея 2-х ход 18 CHFR (2 way 30 ml) Kdm medical (2)"
+      "Катетер Фолея 2-х ход 18 CHFR (2 way 30 ml) Kdm medical (2)",
     ],
-    sizes: [
-      "variants.sizes.16chfr",
-      "variants.sizes.18chfr",
-    ],
+    sizes: ["variants.sizes.16chfr", "variants.sizes.18chfr"],
     sizeImages: {
       "variants.sizes.16chfr":
         "Катетер Фолея 2-х ход 16 CHFR (2 way 30 ml) Kdm medical (2)",
@@ -787,7 +784,8 @@ export const allItems: CatalogItem[] = [
     id: 37,
     category: "surgery",
     nameKey: "items.37.name",
-    descriptionKey: "items.37.description",    imageBases: [
+    descriptionKey: "items.37.description",
+    imageBases: [
       "Трубка эндотрахеальная MEDIK PLAST размеры от  3,0 мм12 ChF",
       "Трубка эндотрахеальная MEDIK PLAST размеры  3,5 мм14 ChFr",
       "Трубка эндотрахеальная MEDIK PLAST размеры  4.5мм18 ChFr",
@@ -875,7 +873,7 @@ export const allItems: CatalogItem[] = [
     category: "surgery",
     nameKey: "items.39.name",
     descriptionKey: "items.39.description",
-    imageBases:[
+    imageBases: [
       "Зонд желудочный, стер-й размер26",
       "Зонд желудочный, стер-й размер32",
       "Зонд желудочный, стер-й размер34",
@@ -896,7 +894,7 @@ export const allItems: CatalogItem[] = [
     category: "surgery",
     nameKey: "items.40.name",
     descriptionKey: "items.40.description",
-    imageBases:[
+    imageBases: [
       "Зонд желудочный питательный назогастральный FR 12 (Medikplast)",
       "Зонд желудочный питательный назогастральный FR 14 (Medikplast)",
       "Зонд желудочный питательный назогастральный FR 16 (Medikplast)",
@@ -955,7 +953,8 @@ export const allItems: CatalogItem[] = [
     category: "hygiene",
     nameKey: "items.44.name",
     descriptionKey: "items.44.description",
-    imageBase: "зеркало гинекологическое типа куско размер L ochilgani healthline",
+    imageBase:
+      "зеркало гинекологическое типа куско размер L ochilgani healthline",
     sizes: ["variants.sizes.m", "variants.sizes.l"],
     price: 3300,
   },
@@ -1333,18 +1332,15 @@ export const allItems: CatalogItem[] = [
       "variants.sizes.50g": 4300,
       "variants.sizes.100g": 8200,
       "variants.sizes.250g": 19500,
-    }
+    },
   },
   {
     id: 66,
     category: "hygiene",
     nameKey: "items.66.name",
     descriptionKey: "items.66.description",
-    imageBase: "",
-    sizes: [
-      "variants.sizes.25g",
-      "variants.sizes.50g",
-    ],
+    imageBase: "vata_back_enhanced",
+    sizes: ["variants.sizes.25g", "variants.sizes.50g"],
     sizePrices: {
       "variants.sizes.25g": 2430,
       "variants.sizes.50g": 4290,
@@ -1582,7 +1578,10 @@ export const allItems: CatalogItem[] = [
     category: "hygiene",
     nameKey: "items.76.name",
     descriptionKey: "items.76.description",
-    imageBases: ["Шапочки одноразовые цвет белий", "Шапочки одноразовые цвет роз"],
+    imageBases: [
+      "Шапочки одноразовые цвет белий",
+      "Шапочки одноразовые цвет роз",
+    ],
     colors: ["variants.colors.white", "variants.colors.pink"],
     colorImages: {
       "variants.colors.white": "Шапочки одноразовые цвет белий",
@@ -1611,7 +1610,10 @@ export const allItems: CatalogItem[] = [
     category: "hygiene",
     nameKey: "items.79.name",
     descriptionKey: "items.79.description",
-    imageBases: ["Шапочки полиэтилен Белый новый", "Шапочки одноразовые цвет черный"],
+    imageBases: [
+      "Шапочки полиэтилен Белый новый",
+      "Шапочки одноразовые цвет черный",
+    ],
     colors: ["variants.colors.white", "variants.colors.black"],
     colorImages: {
       "variants.colors.white": "Шапочки полиэтилен Белый новый",
@@ -1705,18 +1707,19 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 89,
-    category: "hygiene",
+    category: "surgery",
     nameKey: "items.89.name",
     descriptionKey: "items.89.description",
-    imageBase: "",
+    imageBase: "Хирургический комплект стерильный 35гр",
     price: 30000,
   },
   {
     id: 90,
-    category: "dressings",
+    category: "surgery",
     nameKey: "items.90.name",
     descriptionKey: "items.90.description",
-    imageBases: [""],
+    imageBases: ["Хирургический халат стерильный (25 грм2) ukm"],
+    price: 22000
   },
   {
     id: 91,
@@ -1785,7 +1788,7 @@ export const allItems: CatalogItem[] = [
     imageBases: [
       "Хирург-я простыня стерильная 200х160см (25грм2) NEST-DRAPE",
       "Хирург-я простыня стерильная 200х160см (25грм2)",
-      "Хирург-я простыня стерильная 200х160см (45грм2) NEST-DRAPE"
+      "Хирург-я простыня стерильная 200х160см (45грм2) NEST-DRAPE",
     ],
     sizes: [
       "variants.sizes.200b16025g",
@@ -1805,16 +1808,18 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 95,
-    category: "dressings",
+    category: "surgery",
     nameKey: "items.95.name",
     descriptionKey: "items.95.description",
+    imageBase: "Хирургическая простыня стерильный 80200-35гр UKM",
+    price: 70000,
   },
   {
     id: 96,
     category: "dressings",
     nameKey: "items.96.name",
     descriptionKey: "items.96.description",
-    imageBase: "",
+    imageBase: "хлорактив",
     price: 70000,
   },
   {
@@ -2127,7 +2132,7 @@ export const allItems: CatalogItem[] = [
     category: "dressings",
     nameKey: "items.128.name",
     descriptionKey: "items.128.description",
-    imageBase: "",
+    imageBase: "seal320-upakovochnaya-mashina",
     price: 2400000,
   },
   {
@@ -2503,9 +2508,8 @@ export const allItems: CatalogItem[] = [
     category: "injection",
     nameKey: "items.141.name",
     descriptionKey: "items.141.description",
-    imageBases: [],
+    imageBases: ["иглы спинальной анестезии тип Pencil Point 25g-1"],
     sizes: ["variants.sizes.25Gr", "variants.sizes.26Gr"],
-    sizeImages: {},
     price: 16240,
   },
   {
@@ -2513,15 +2517,8 @@ export const allItems: CatalogItem[] = [
     category: "injection",
     nameKey: "items.142.name",
     descriptionKey: "items.142.description",
-    imageBases: [
-      "иглы спинальной анестезии тип Pencil Point 25g-1",
-      "Иглы спинальной анестезии, тип Pencil Point 26g",
-    ],
+    imageBases: ["Иглы спинальной анестезии, тип Pencil Point 26g"],
     sizes: ["variants.sizes.25Gr", "variants.sizes.26Gr"],
-    sizeImages: {
-      "variants.sizes.25Gr": "иглы спинальной анестезии тип Pencil Point 25g-1",
-      "variants.sizes.26Gr": "Иглы спинальной анестезии, тип Pencil Point 26g",
-    },
     price: 28560,
   },
   {
@@ -2529,12 +2526,17 @@ export const allItems: CatalogItem[] = [
     category: "injection",
     nameKey: "items.143.name",
     descriptionKey: "items.143.description",
+    imageBase: "иглы спинальной анестезии тип Pencil Point 25g-1",
+    price: 22000,
   },
   {
     id: 144,
     category: "injection",
     nameKey: "items.144.name",
     descriptionKey: "items.144.description",
+    imageBases: ["Иглы спинальной анестезии, тип Pencil Point 26g"],
+    sizes: ["variants.sizes.25Gr", "variants.sizes.26Gr"],
+    price: 38000,
   },
   {
     id: 145,
@@ -2978,8 +2980,17 @@ export const allItems: CatalogItem[] = [
       "Clinic clean одноразовая маска в коробке 25 шт",
       "Clinic clean одноразовая маска в пачке 50шт",
     ],
-    colors: ["variants.colors.white", "variants.colors.blue", "variants.colors.black", "variants.colors.pink"],
-    sizes: ["variants.sizes.pack5", "variants.sizes.box25", "variants.sizes.pack50"],
+    colors: [
+      "variants.colors.white",
+      "variants.colors.blue",
+      "variants.colors.black",
+      "variants.colors.pink",
+    ],
+    sizes: [
+      "variants.sizes.pack5",
+      "variants.sizes.box25",
+      "variants.sizes.pack50",
+    ],
     sizePrices: {
       "variants.sizes.pack5": 3640,
       "variants.sizes.box25": 18200,
@@ -2991,8 +3002,16 @@ export const allItems: CatalogItem[] = [
     category: "equipment",
     nameKey: "items.183.name",
     descriptionKey: "items.183.description",
-    imageBases: ["Маска гигиеническая Детская РОЗОВЫЙ №10", "Маска гигиеническая Детская БЕЛЫЙ №10", "Маска гигиеническая Детская СИНИЙ №10"],
-    colors: ["variants.colors.pink", "variants.colors.white", "variants.colors.blue"],
+    imageBases: [
+      "Маска гигиеническая Детская РОЗОВЫЙ №10",
+      "Маска гигиеническая Детская БЕЛЫЙ №10",
+      "Маска гигиеническая Детская СИНИЙ №10",
+    ],
+    colors: [
+      "variants.colors.pink",
+      "variants.colors.white",
+      "variants.colors.blue",
+    ],
     colorImages: {
       "variants.colors.pink": "Маска гигиеническая Детская РОЗОВЫЙ №10",
       "variants.colors.white": "Маска гигиеническая Детская БЕЛЫЙ №10",
@@ -3005,8 +3024,16 @@ export const allItems: CatalogItem[] = [
     category: "equipment",
     nameKey: "items.184.name",
     descriptionKey: "items.184.description",
-    imageBases: ["Маска гигиеническая Детская  БЕЛЫЙ №50", "Маска гигиеническая Детская РОЗОВЫЙ №50", "Маска гигиеническая Детская СИНИЙ №50"],
-    colors: ["variants.colors.pink", "variants.colors.white", "variants.colors.blue"],
+    imageBases: [
+      "Маска гигиеническая Детская  БЕЛЫЙ №50",
+      "Маска гигиеническая Детская РОЗОВЫЙ №50",
+      "Маска гигиеническая Детская СИНИЙ №50",
+    ],
+    colors: [
+      "variants.colors.pink",
+      "variants.colors.white",
+      "variants.colors.blue",
+    ],
     colorImages: {
       "variants.colors.pink": "Маска гигиеническая Детская РОЗОВЫЙ №50",
       "variants.colors.white": "Маска гигиеническая Детская БЕЛЫЙ №50",
@@ -3014,7 +3041,7 @@ export const allItems: CatalogItem[] = [
     },
     price: 40000,
   },
-  
+
   {
     id: 185,
     category: "equipment",
@@ -3030,8 +3057,7 @@ export const allItems: CatalogItem[] = [
     descriptionKey: "items.186.description",
     imageBase: "Маски для лица  EPFM Ecoproduct в пачке 50шт (2)",
     price: 20000,
-  }
-
+  },
 ];
 
 export const categories = [

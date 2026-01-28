@@ -466,645 +466,979 @@
       "chromicmet3p5": "Chromic catgut, thread length - 75 cm; thickness - 2-0 (Met3.5), cutting needle: 30 mm, 1/2 circle"
     }
   },
+
   "items": {
     "1": {
-      "name": "Unigloves",
-      "description": "Non-sterile, nitrile, non-powdered, textured, ambidextrous, single-use examination gloves."
+      "name": "Syringes \"UKM\"",
+      "description": {
+        "1ml": "A small-volume disposable syringe designed for accurate medication dosing. Suitable for subcutaneous and intramuscular injections.",
+        "2ml": "A disposable syringe for accurate administration of medications up to 2 ml. Suitable for various injection purposes.",
+        "5ml": "A syringe for administering medium-volume medications. Used in clinical and outpatient practice.",
+        "10ml": "A medium to large-volume syringe for standard medical procedures. Suitable for administering medicinal solutions.",
+        "10mlwtoutneedle": "A 10 ml syringe without a needle designed for fluid transfer and irrigation. Used in combination with catheters and tubes.",
+        "20ml": "A large-volume syringe for fluid administration and aspiration. Used in clinical and diagnostic procedures.",
+        "60mlLL": "A large-volume syringe with a Luer Lock connection for secure attachment of accessories. Used for irrigation, aspiration, and catheter-related procedures.",
+        "60mlCT": "A large-volume syringe with a catheter tip for fluid administration and removal. Used for cavity irrigation and procedures involving tubes."
+      }
     },
-    "2": { "name": "Adras gloves", "description": "Single-use gloves" },
+    "2": {
+      "name": "Syringes \"MFA\"",
+      "description": {
+        "1ml": "A 1 ml syringe ensures precise administration of small-dose medications. Used in both outpatient and clinical settings.",
+        "2ml": "A 2 ml disposable syringe for medication administration. Suitable for a wide range of injection procedures.",
+        "5ml": "A 5 ml disposable syringe for standard therapeutic procedures. Suitable for a wide range of injections.",
+        "10ml": "A 10 ml disposable syringe for clinical procedures. Suitable for administering larger volumes of medications."
+      }
+    },
     "3": {
-      "name": "Clinic Clean Face Masks",
-      "description": "Disposable face masks"
+      "name": "Syringes \"WEGO\"",
+      "description": {
+        "1ml": "A disposable small-volume syringe with a clear measurement scale. Suitable for precise medical procedures.",
+        "2ml": "A syringe for small to medium-volume injections with an easy-to-read dosing scale. Used in routine medical practice.",
+        "5ml": "A 5 ml syringe for standard injection procedures. Suitable for administering solutions and suspensions.",
+        "10ml": "A large-volume syringe for standard medical injections. Suitable for intravenous administration of medications.",
+        "20ml": "A large-volume syringe for administering medicinal solutions and for irrigation procedures. Used in clinical and procedural practice.",
+        "50ml": "A high-volume syringe for fluid administration and removal. Suitable for irrigation and aspiration procedures."
+      }
     },
     "4": {
-      "name": "Disposable Nonwoven Caps",
-      "description": "Disposable nonwoven caps (black, white) are designed to maintain hygiene and prevent hair from entering clean or controlled environments. Lightweight and breathable, they provide comfort during long use in medical, laboratory, beauty, and food industry settings."
+      "name": "Syringes \"UNIJECT\"",
+      "description": {
+        "1ml": "A small-volume syringe intended for accurate medication dosing. Used when high precision is required.",
+        "2p5ml": "A medium-volume syringe for intramuscular and subcutaneous injections. Allows convenient administration of standard medication doses.",
+        "5ml": "A medium-volume syringe for administering medicinal solutions. Used for intramuscular and intravenous injections.",
+        "10ml": "A large-volume syringe for administering medicinal solutions. Used for intravenous and infusion procedures.",
+        "20ml": "A 20 ml disposable syringe for administering larger volumes of fluids. Used in infusion-related and auxiliary procedures."
+      }
     },
     "5": {
-      "name": "Face Maks",
-      "description": "Disposable face masks"
+      "name": "Syringes \"Healthline\"",
+      "description": {
+        "2ml": "A medium-volume syringe for standard injections. Used in therapeutic and preventive medical procedures.",
+        "3ml": "A 3 ml syringe commonly used for standard injection procedures. Provides convenient medication dosing.",
+        "5ml": "Features a high-contrast, easy-to-read scale for dosing control. Suitable for medium-volume injections.",
+        "10ml": "A 10 ml syringe for standard injections and procedures. Ensures convenient and controlled medication administration.",
+        "20ml": "A large-volume syringe for clinical manipulations and irrigation. Used for handling medicinal solutions."
+      }
     },
     "6": {
-      "name": "Sterilization kraft roll",
-      "description": "Sterilization kraft roll is a high-quality packaging material designed to protect medical instruments during and after the sterilization process.Made from dense medical-grade cellulose, it provides a reliable microbial barrier and is compatible with steam, hot air, and EO gas sterilization. Its long roll format makes it ideal for high-volume use in clinics, dental centers, and sterilization departments."
+      "name": "Pediatric syringes 2 ml \"KIDDI\"",
+      "description": "A 2 ml syringe designed for pediatric use. Ensures accurate and controlled administration of medications for children."
     },
     "7": {
-      "name": "Sterile surgical drape",
-      "description": "Sterile surgical drape 200×160 cm,designed to provide a protected and sterile surgical field. The higher-density nonwoven fabric offers enhanced fluid resistance and reliable contamination control throughout medical procedures."
+      "name": "Syringes \"Westcom\"",
+      "description": {
+        "2p5ml": "A medium-volume syringe for administering standard medication doses. Suitable for intramuscular and subcutaneous injections.",
+        "5p5ml": "A slightly increased medium-volume syringe for medication administration. Used when precise volume control is required.",
+        "10p5ml": "An increased-volume syringe for administering medicinal solutions. Used when precise control of administered volume is required."
+      }
     },
     "8": {
-      "name": "Dentafill Surgical Gloves",
-      "description": "Single-use sterile surgical gloves made from rubber latex"
+      "name": "Insulin syringes 0.3 ml \"KDM\"",
+      "description": {
+        "0p3ml": "A small-volume insulin syringe designed for precise insulin administration. Suitable for accurate dosing in diabetes management.",
+        "0p5ml": "A small to medium-volume insulin syringe for insulin administration. Provides convenient dosing for regular injections.",
+        "1ml12mm": "A 1 ml insulin syringe with a 12 mm needle. Used for standard subcutaneous insulin injections.",
+        "1ml8mm": "A 1 ml insulin syringe with a shortened 8 mm needle. Suitable for shallow subcutaneous injections."
+      }
     },
     "9": {
-      "name": "Sterile surgical gown",
-      "description": "Sterile surgical gown is designed to protect medical staff during surgeries and procedures. The lightweight, breathable nonwoven material provides comfort while maintaining an effective barrier against biological contaminants."
+      "name": "Insulin syringes 1 ml \"UKM\"",
+      "description": "A standard-volume insulin syringe for accurate insulin dosing. Used in daily insulin therapy."
     },
     "10": {
-      "name": "UKM sterile surgical gown",
-      "description": "UKM sterile surgical gown, density 35 g/m² is designed to provide a protective barrier during surgeries and medical procedures. The lightweight yet durable material ensures comfort during long use and protects against biological contamination."
+      "name": "Insulin syringes 1 ml \"Healthline\"",
+      "description": "An insulin syringe designed for subcutaneous insulin administration. Ensures dose control during regular use."
+    }, "11": {
+      "name": "50 ml syringe KD-JECT III",
+      "description": {
+        "withoutneedleLuerLock": "A large-volume syringe without a needle featuring a Luer Lock connection. Used for fluid transfer, irrigation, and medical systems.",
+        "withneedleWithCap": "A large-volume syringe with a capped tip for administering and removing fluids. Used for irrigation and aspiration procedures.",
+        "withneedleWithoutCap100ml": "A very large-volume syringe without a needle for fluid transfer and irrigation. Used with tubes and catheters."
+      }
     },
-    "11": {
-      "name": "Dental kit \"NEST-DENT\"",
-      "description": "\"NEST-DENT\" sterile single-use dental kit is designed for diagnostic and therapeutic dental procedures. The kit ensures full hygiene, minimizes infection risks, and eliminates the need for instrument reuse."
-    },
+
     "12": {
-      "name": "Wego IV system",
-      "description": "Intravenous infusion system"
+      "name": "50 ml syringe with needle \"LDH\"",
+      "description": "A large-volume syringe with a needle for fluid administration and aspiration. Used in clinical and procedural manipulations."
     },
+
     "13": {
-      "name": "Uniset IV system",
-      "description": "Disposable IV infusion set with needle"
+      "name": "Sterile needle 27G / 30G",
+      "description": "A sterile disposable small-gauge needle for injections. Suitable for subcutaneous and intradermal administration."
     },
+
     "14": {
-      "name": "IV system",
-      "description": "Disposable IV infusion set with needle"
+      "name": "Infusion set \"Westcom\"",
+      "description": "An infusion set for intravenous administration of solutions. Used for drip infusions in clinical practice."
     },
+
     "15": {
-      "name": "Syringe, 50ml",
-      "description": "Disposable syringe with needle, 50ml"
+      "name": "Infusion set \"WEGO\"",
+      "description": "A system for controlled intravenous infusion of solutions. Used in inpatient and outpatient settings."
     },
+
     "16": {
-      "name": "Medco Syringe, 50ml",
-      "description": "Disposable syringe with needle, 1ml"
+      "name": "Infusion set \"MC UNISET\"",
+      "description": "An infusion system for standard drip infusions. Ensures even and controlled solution delivery."
     },
+
     "17": {
-      "name": "Syringe",
-      "description": "Disposable syringe with needle"
+      "name": "Transfusion set",
+      "description": "A transfusion system for blood and blood substitute administration. Used during hemotransfusion procedures."
     },
+
     "18": {
-      "name": "Syringe",
-      "description": "Disposable syringe with needle"
+      "name": "Transfusion set with 18G needle",
+      "description": "A transfusion set with an 18G needle for blood transfusion. Provides stable flow during transfusion."
     },
+
     "19": {
-      "name": "MFA Syringe",
-      "description": "Disposable syringe with needle"
+      "name": "Infusion set TBL-150",
+      "description": "An infusion system for intravenous administration of solutions. Used in standard infusion procedures."
     },
+
     "20": {
-      "name": "MicroPette Plus Adjustable Pipette, 20–200 µl",
-      "description": "MicroPette Plus Adjustable Pipette, 20–200 µl.A precise and ergonomic micropipette designed for accurate liquid handling in molecular biology, PCR, biochemistry, and routine lab applications. The adjustable range makes it a versatile tool for various sample volumes and daily workflow needs."
+      "name": "Nitrile gloves \"UNIGLOVES\"",
+      "description": "Disposable nitrile gloves for hand protection during medical procedures. Used to reduce the risk of contact with biological fluids."
     },
-    "21": { "name": "Gastric tube", "description": "Gastric tube" },
-    "22": { "name": "", "description": "" },
+
+    "21": {
+      "name": "Nitrile gloves \"ADRAS GLOVES\"",
+      "description": "Disposable nitrile gloves for medical and diagnostic procedures. Provide barrier protection against biological exposure."
+    },
+
+    "22": {
+      "name": "Nitrile gloves \"UNIGLOVES Premium\"",
+      "description": "High-density nitrile gloves for medical procedures. Used in situations requiring enhanced hand protection."
+    },
+
     "23": {
-      "name": "",
-      "description": ""
+      "name": "Sterile surgical gloves \"Dentafil\"",
+      "description": "Sterile surgical gloves for invasive procedures. Used in operating rooms and sterile environments."
     },
+
     "24": {
-      "name": "Ultrasonic cleaner",
-      "description": "Ultrasonic cleaner a compact device designed for deep and gentle cleaning of medical instruments, dental tools, laboratory equipment, and small components. It works using ultrasonic cavitation, removing contaminants from even the hardest-to-reach areas."
+      "name": "Intravenous catheter",
+      "description": "An intravenous catheter for short-term venous access. Used for infusions and medication administration."
     },
+
     "25": {
-      "name": "KRAFT PACKAGING ROLL “STANDART” for Plasma Sterilization",
-      "description": "KRAFT PACKAGING ROLL “STANDART” for Plasma Sterilization.A high-quality kraft sterilization roll designed specifically for plasma sterilization systems. It ensures secure wrapping of medical instruments, maintains sterility after processing, and provides reliable protection during storage and transportation. The material is breathable for sterilization gases while effectively blocking dust and microorganisms."
+      "name": "Intravenous catheter \"HEALFLON\"",
+      "description": "A catheter for intravenous administration of solutions and medications. Used in infusion and therapeutic practice."
     },
+
     "26": {
-      "name": "PK02-45 sealing machine",
-      "description": "PK02-45 sealing machine is a durable, high-capacity device designed for sealing sterilization rolls and pouches. Its expanded working width and reinforced construction allow processing larger and longer packaging materials. The machine produces a strong, uniform thermal seal that keeps sterilization packaging hermetically closed."
+      "name": "Intravenous catheter \"KD-FIX\"",
+      "description": "An intravenous catheter for controlled delivery of medications and infusion solutions. Used for prolonged procedures."
     },
+
     "27": {
-      "name": "PK100-A sealing machine",
-      "description": "PK100-A sealing machine is a compact professional device designed for hermetically sealing sterilization rolls and pouches. It produces a strong, uniform thermal seal that keeps instruments protected from moisture and air prior to sterilization."
+      "name": "Butterfly catheter \"KD-FLY\"",
+      "description": "A butterfly-type catheter for short-term venous access. Used for blood sampling and medication administration."
     },
+
     "28": {
-      "name": "The PK212 Double-Layer Kraft Bag Stand",
-      "description": "The PK212 Double-Layer Kraft Bag Stand is a practical and space-efficient solution designed for retail counters, pharmacies, cafés, and packing stations.Its two-tier structure allows bags to be grouped by size, ensuring quick access and smoother workflow during busy hours. Built with a sturdy metal frame, the stand maintains stability and durability even under constant daily use."
+      "name": "Butterfly catheter \"Healthline\"",
+      "description": "A catheter for peripheral venous access. Used during injections and diagnostic procedures."
     },
+
     "29": {
-      "name": "PKD300AB packaging machine",
-      "description": "PKD300AB packaging machine is a dependable sealing device designed for hermetically closing sterilization rolls and pouches. It delivers consistent temperature control and even heating across the sealing line, ensuring high-quality seals suitable for daily clinical use."
+      "name": "Pediatric oxygen cannula \"BEROTUBE\"",
+      "description": "An oxygen cannula designed for pediatric oxygen therapy. Used in pediatric respiratory care."
     },
+
     "30": {
-      "name": "Insulin Syringe",
-      "description": "Insulin Syringe with needle"
+      "name": "Lancet scarifier",
+      "description": "A disposable lancet for skin puncture during capillary blood sampling. Used in laboratory diagnostics."
     },
+
     "31": {
-      "name": "Alcohol Wipes No.100",
-      "description": "Alcohol Wipes — No.100 are ready-to-use disposable antiseptic wipes saturated with a highly effective alcohol solution. Designed for skin disinfection prior to injections, procedures, and minor treatments. They evaporate quickly, leave no residue, and offer reliable hygienic protection"
+      "name": "Foley catheter 2-way",
+      "description": "A two-way Foley catheter for urinary bladder drainage. Used for short-term and long-term catheterization."
     },
+
     "32": {
-      "name": "Improvacuter Multi-sample Needles",
-      "description": "Disposable multi-sample blood collection needles"
+      "name": "Foley catheter 2-way \"KDM\"",
+      "description": "A two-way Foley catheter for controlled urine drainage. Used in urological practice."
     },
+
     "33": {
-      "name": "Vacuum Blood Collection Needles",
-      "description": "Vacuum Blood Collection Needles — Pack of 100 (22G / 23G).hese needles are designed for use with vacuum blood collection tubes, ensuring smooth and controlled venipuncture. Available in 22G and 23G sizes, they offer optimal comfort for patients and reliable performance for healthcare professionals. Sterile and latex-free"
+      "name": "Foley catheter 2-way",
+      "description": "A sterile two-way Foley catheter for urinary catheterization. Suitable for inpatient use."
     },
+
     "34": {
-      "name": "Eyler's Spatula",
-      "description": "Gynecologic sampler for single use"
+      "name": "Nelaton catheter sterile",
+      "description": "A straight sterile Nelaton catheter for single-use catheterization. Used for temporary urine drainage."
     },
+
     "35": {
-      "name": "Berocath Foley catheter",
-      "description": "Latex foley balloon catheter"
+      "name": "Urine collection bag 2000 ml",
+      "description": "A large-capacity urine collection bag. Used together with urological catheters."
     },
+
     "36": {
-      "name": "Gynecologic Sampler",
-      "description": "Gynecologic sampler for single use"
+      "name": "Urogenital probe",
+      "description": "A urogenital probe for diagnostic and gynecological procedures. Used for biological sample collection."
+    },"37": {
+      "name": "Endotracheal tube 3.0 mm",
+      "description": {
+        "3mm": "A small-diameter endotracheal tube for maintaining airway patency. Used in anesthesiology and intensive care.",
+        "3p5mm": "An endotracheal tube for airway control. Used for intubation in pediatric patients.",
+        "4mm": "An endotracheal tube for lung ventilation. Used during anesthesia and emergency conditions.",
+        "4p5mm": "A small to medium-diameter endotracheal tube for intubation. Used to support respiratory function.",
+        "5mm": "An endotracheal tube for intubation and airway maintenance. Used in anesthesia and mechanical ventilation.",
+        "5p5mm": "An endotracheal tube for airway control in pediatric and adolescent patients. Used in intensive care practice.",
+        "6mm": "An endotracheal tube for maintaining respiratory function. Used in planned and emergency intubation.",
+        "6p5mm": "An endotracheal tube for lung ventilation and airway protection. Used in anesthesiology.",
+        "7mm": "A standard-diameter endotracheal tube for adult patients. Used for intubation and mechanical ventilation.",
+        "7p5mm": "An increased-diameter endotracheal tube for adult patients. Used to ensure effective lung ventilation.",
+        "8mm": "A large-diameter endotracheal tube for adult intubation. Used in surgery and intensive care.",
+        "8p5mm": "An enlarged endotracheal tube for airway patency. Used in difficult intubation cases."
+      }
     },
-    "37": {
-      "name": "Sterile Surgical Kit",
-      "description": "Sterile surgical kit (gown , mask, cap, shoe covers) is designed to create a protective barrier during surgical procedures. The kit ensures full sterility, reduces infection risks, and provides comfort for medical personnel."
-    },
+
     "38": {
-      "name": "Health Line Insulin Syringe, 1ml",
-      "description": "Single-use insulin syringe, 1ml"
+      "name": "Endotracheal tube \"MEDIK PLAST\"",
+      "description": "An endotracheal tube for intubation of patients of various ages. Used for airway control during anesthesia."
     },
+
     "39": {
-      "name": "Kraft Sterilization Roll “PREMIUM” for Plasma Sterilization",
-      "description": "Kraft Sterilization Roll “PREMIUM” for Plasma Sterilization. A premium universal-width sterilization roll suitable for medium-sized medical tools and trays. Provides enhanced durability, excellent microbial barrier performance, and stability during plasma sterilization"
+      "name": "Gastric tube sterile",
+      "description": "A sterile gastric tube for insertion and removal of stomach contents. Used in diagnostic and therapeutic procedures."
     },
+
     "40": {
-      "name": "Surgical Mesh",
-      "description": "Polypropylene monofilament surgical mesh, sterile"
+      "name": "Nasogastric gastric tube",
+      "description": "A nasogastric tube for feeding and removal of gastric contents. Used in patients with swallowing disorders."
     },
+
     "41": {
-      "name": "ProLite Composite",
-      "description": "Dual-layer partially absorbable mesh"
+      "name": "Sterile umbilical clamp",
+      "description": "A sterile umbilical clamp for clamping the umbilical cord in newborns. Used immediately after childbirth."
     },
-    "42": { "name": "", "description": "" },
+
+    "42": {
+      "name": "Disposable Ayre spatula",
+      "description": "A disposable Ayre spatula for gynecological examinations. Used for smear collection and diagnostics."
+    },
+
     "43": {
-      "name": "KD-FLY Winged Infusion Set",
-      "description": "Winged infusion set - Scalp vein set"
+      "name": "Universal probe",
+      "description": "A universal probe for diagnostic and gynecological procedures. Used for biological sample collection."
     },
+
     "44": {
-      "name": "Plastic disposal container",
-      "description": "Plastic disposal container is designed for the safe collection, storage, and disposal of medical waste such as needles, syringes, sharp tools, and contaminated materials. Made from durable plastic, it prevents leaks and accidental contact with hazardous items."
+      "name": "Cusco gynecological speculum",
+      "description": "A Cusco-type gynecological speculum for cervical examination. Used in diagnostic and preventive gynecological exams."
     },
+
     "45": {
-      "name": "Barrier film",
-      "description": "Barrier film is a high-protection, multi-layer packaging material used to maintain the sterility of medical instruments and supplies. It forms a reliable shield against microorganisms, moisture, dust, and external contamination. Ideal for dental clinics, surgical departments, laboratories, and sterilization units, it ensures the safe storage and transportation of sterilized tools."
+      "name": "Cusco gynecological speculum with lock",
+      "description": "A gynecological speculum with a locking mechanism for stable vaginal dilation. Facilitates examinations and procedures."
     },
+
     "46": {
-      "name": "Dental Cotton Rolls",
-      "description": "Cotton Rolls 10×38 mm, 1000 pcs/bag are designed for moisture absorption and isolation of the working area in dentistry. They provide excellent absorbency, maintain their shape, and offer patient comfort during procedures"
+      "name": "Gynecological kit",
+      "description": "A disposable gynecological kit for examinations and diagnostic procedures. Used in outpatient practice."
     },
+
     "47": {
-      "name": "LDH-Cannula",
-      "description": "Japanese stainless steel LDH-Cannula for single use"
+      "name": "Disposable scalpel blade",
+      "description": "A disposable surgical blade for precise tissue incisions. Used in surgical interventions."
     },
+
     "48": {
-      "name": "Salvia Ejectors",
-      "description": "SE-01 Saliva Ejectors, 100 pcs/bag are disposable dental suction tubes designed to efficiently remove saliva and fluids during procedures. Their flexible body allows easy shaping, while the soft tip ensures patient comfort."
+      "name": "Disposable scalpel",
+      "description": "A disposable surgical scalpel for making incisions. Used in surgical practice."
     },
+
     "49": {
-      "name": "Urine Bags",
-      "description": "Signle-use sterile urine bag, 200ml"
+      "name": "Adhesive plaster ONE AID",
+      "description": "A medical adhesive plaster for securing dressings and protecting skin. Used during wound care and minor injuries."
     },
+
     "50": {
-      "name": "Sterile nasal/nasopharyngeal swab probe, individually packaged",
-      "description": "Sterile nasal/nasopharyngeal swab, individually packed is designed for safe and precise sample collection. Its soft tip reduces discomfort, while individual sterile packaging ensures complete hygiene and eliminates cross-contamination risks."
+      "name": "Adhesive plaster ONE AID No.500",
+      "description": "A medical adhesive plaster for securing dressings. Used to protect skin and hold gauze materials."
     },
+
     "51": {
-      "name": "Latex Tourniquet",
-      "description": "A durable and flexible medical tourniquet designed for venipuncture, injections, and routine blood collection procedures. Made from natural latex, it provides excellent elasticity, smooth tension distribution, and secure placement without causing discomfort. Easy to apply and remove, making it ideal for high-use clinical environments."
+      "name": "Children’s adhesive plaster ONE AID",
+      "description": "A pediatric adhesive plaster for protecting minor skin injuries. Used for abrasions and small wounds."
     },
+
     "52": {
-      "name": "Umbilical clamp",
-      "description": "umbilical clamp sterile"
+      "name": "Corn plaster",
+      "description": "A corn plaster designed to protect skin from friction and pressure. Used for corn prevention and care."
     },
+
     "53": {
-      "name": "Berotape IV cannula fixation",
-      "description": "IV cannula fixation"
+      "name": "Polyethylene-based adhesive plaster",
+      "description": {
+        "1p25cm": "A polyethylene-based medical adhesive plaster for securing dressings. Suitable for everyday wound care.",
+        "2p5cm": "An adhesive plaster for reliable fixation of dressings and medical devices. Used for various dressing needs."
+      }
+    },"54": {
+      "name": "Non-woven adhesive plaster",
+      "description": {
+        "10b15": "A non-woven medical plaster for securing and protecting wound surfaces. Used after medical procedures.",
+        "10b20": "A medical plaster for covering and protecting larger skin areas. Used for medium-sized wounds.",
+        "10b30": "An enlarged adhesive plaster for securing and protecting skin injuries. Suitable for postoperative care."
+      }
     },
-    "54": {
-      "name": "Own Aid children's hygienic plasters",
-      "description": "Children's hygienic plasters"
-    },
+
     "55": {
-      "name": "ECG Recording Paper ",
-      "description": "ECG Recording Paper — high-quality thermal chart paper designed for use in electrocardiograph devices. Provides clear waveform printing, stable thermal response, and accurate transmission of diagnostic cardiac data."
+      "name": "Adhesive plaster MEDIK PLAST",
+      "description": {
+        "2p5cm": "A medical adhesive plaster for securing dressings and catheters. Used in clinical and outpatient practice.",
+        "5cm": "A wide medical adhesive plaster for reliable fixation of medical devices. Used during long-term dressings."
+      }
     },
-    "56": {
-      "name": "Medik Plast winged IV cannula",
-      "description": "Winged IV cannula with injection port"
+     "56": {
+      "name": "Sterile gauze bandage",
+      "description": {
+        "5m": "A sterile gauze bandage for wound care and protection. Used for dressings with increased cleanliness requirements.",
+        "7m": "A sterile gauze bandage for protection and absorption of wound exudate. Used in sterile dressings."
+      }
     },
     "57": {
-      "name": "Medik Plast non-sterile elastic medical adhesive plaster",
-      "description": "Non-sterile elastic medical adhesive plaster, 15cm x 10m"
+      "name": "Non-sterile gauze bandage \"SARBONTEKS\"",
+      "description": {
+        "5m": "A gauze bandage for securing dressings and protecting damaged skin areas. Used for routine dressings.",
+        "7m": "An extended-length gauze bandage for securing and supporting dressings. Used on larger body areas."
+      }
     },
     "58": {
-      "name": "Yellow Pipette Tips",
-      "description": "Yellow Pipette Tips.Premium-quality disposable pipette tips for precise dispensing of small to medium liquid volumes. Compatible with most universal and Eppendorf-style pipettes. Made of robust polypropylene for smooth liquid uptake and minimal sample retention."
+      "name": "Non-sterile woven bandage 7 m \"SARBONTEKS\"",
+      "description": "A woven bandage for securing dressings and supporting soft tissues. Used after injuries and procedures."
     },
     "59": {
-      "name": "One Aid breathable hygienic patches",
-      "description": "Breathable hygienic patches, 10x15cm"
+      "name": "Sterile woven bandage 7 m \"SARBONTEKS\"",
+      "description": "A sterile woven bandage for aseptic dressings. Used for postoperative wound care."
     },
     "60": {
-      "name": "Own Aid breathable hygienic patches",
-      "description": "Breathable hygienic patches, 2.5x500cm"
+      "name": "Non-sterile gauze bandage 7 m",
+      "description": "A gauze bandage for securing dressings and protecting wounds. Suitable for household and medical use."
     },
     "61": {
-      "name": "Dental Bib Napkins",
-      "description": "Dental Bib Napkins — size 45×33 cm provide reliable protection for patients' clothing during dental, cosmetic, and clinical procedures. Their multilayer structure offers excellent moisture resistance while maintaining comfort and hygiene. A range of colors adds a professional and pleasant appearance to the treatment room."
+      "name": "Non-sterile woven bandage",
+      "description": {
+        "5m": "A woven bandage for supporting and fixing soft tissues. Used during injuries and rehabilitation.",
+        "7m": "An extended woven bandage for fixation and support. Used during dressings and injuries."
+      }
     },
     "62": {
-      "name": "Blood Pressure Monitor IAD-01 “Adyutor”",
-      "description": "The IAD-01 “Adyutor” is a dependable automatic device for measuring blood pressure and pulse rate. Designed for both clinical and home use, it provides high accuracy, stable readings, and intuitive operation. Its large, clear display makes results easy to read, while the smart inflation technology ensures a comfortable measurement experience."
+      "name": "Sterile woven bandage 7 m",
+      "description": "A sterile woven bandage for aseptic wound dressings. Used in postoperative care."
     },
     "63": {
-      "name": "Finflex plaster",
-      "description": "Plaster non-woven, 10cm x 20m"
+      "name": "Plaster bandage 2.7 m × 15 cm",
+      "description": "A plaster bandage for immobilization and fixation of limbs in fractures and injuries. Used to form plaster casts."
     },
     "64": {
-      "name": "Own Aid plaster",
-      "description": "Hygienic plaster, breathable, 19x72mm"
+      "name": "Non-sterile cotton wool",
+      "description": {
+        "25g": "Non-sterile medical cotton wool for hygienic and auxiliary procedures. Used for skin treatment and solution application.",
+        "50g": "Medical cotton wool for hygienic care and auxiliary procedures. Suitable for everyday use.",
+        "100g": "Increased-volume cotton wool for medical and hygienic procedures. Used in patient care.",
+        "250g": "Large-volume cotton wool for medical institutions. Used in mass hygienic and care procedures."
+      }
     },
     "65": {
-      "name": "Own Aid plaster",
-      "description": "Polyvinyl chloride based breathable plaster"
+      "name": "Non-sterile cotton wool \"SARBONTEKS\"",
+      "description": {
+        "25g": "Non-sterile cotton wool for skin care and medical manipulations. Used in outpatient practice.",
+        "50g": "Non-sterile medical cotton wool for care and skin treatment. Used during dressings and sanitary procedures.",
+        "100g": "Medical cotton wool for skin treatment and auxiliary manipulations. Suitable for regular use.",
+        "250g": "Non-sterile medical cotton wool for intensive use. Used in clinical practice."
+      }
     },
     "66": {
-      "name": "Cover Glass",
-      "description": "Cover Glass, Pack of 1000.Larger-format cover glass designed for preparing microscope slides that require a wider viewing area. Made from premium optical glass, it ensures crystal-clear imaging with no distortion and excellent adhesion to specimen slides. Ideal for cytology, histology, and general microscopy."
+      "name": "Sterile cotton wool",
+      "description": {
+        "25g": "Sterile medical cotton wool for wound and injection site treatment. Used in aseptic procedures.",
+        "50g": "Sterile medical cotton wool for wound and skin treatment. Used during dressings and aseptic procedures."
+      }
     },
     "67": {
-      "name": "KD-Fix IV Catheter",
-      "description": "IV catheter, 0.9x25mm (22G)"
+      "name": "Cotton wool \"Cotton Club\"",
+      "description": {
+        "25gRoll": "Medical cotton wool in roll form for hygienic and care procedures. Suitable for skin treatment and medical use.",
+        "25g": "Medical cotton wool for hygienic skin care. Used in routine medical practice.",
+        "50gRoll": "Increased-volume cotton wool for patient care and medical procedures. Suitable for regular use.",
+        "50gBalls": "Cotton balls for skin and injection site treatment. Used in cosmetic and medical procedures.",
+        "100gRoll": "Large-volume medical cotton wool for care and hygienic procedures. Used in medical institutions.",
+        "250gRoll": "High-volume cotton wool for intensive medical use. Used in mass care procedures."
+      }
     },
     "68": {
-      "name": "Unitest-steam 132/20, internal steam indicator",
-      "description": "Internal indicator for steam sterilization 132°C / 20 min (1000 pcs) — Unitest Steam is designed to monitor the effectiveness of the sterilization cycle inside the package. The indicator changes color once the required temperature and exposure time are reached, ensuring accurate verification of autoclave performance."
+      "name": "Gauze pieces 1 m × 90 cm",
+      "description": {
+        "1b90": "Gauze for dressings and wound treatment. Used for protection and absorption of wound exudate.",
+        "2b90": "Extended-length gauze for dressings on larger body areas. Used in therapeutic practice.",
+        "3b84": "Gauze for fixation and protection of wounds on large surfaces. Used in wound care.",
+        "3b90": "Gauze for dressings and wound protection on extensive skin areas. Used for absorption and fixation.",
+        "5b84": "Extended-length gauze for wound care and protection. Used in medical institutions.",
+        "5b90": "Gauze for securing dressings and protecting wound surfaces. Suitable for postoperative care.",
+        "10b90": "Gauze for treatment and protection of extensive wound surfaces. Used in patient care."
+      }
     },
     "69": {
-      "name": "Unitest-steam 132/20, external steam indicator",
-      "description": "External indicator for steam sterilization 132°C / 20 min (1000 pcs) — Unitest Steam is used for external monitoring of sterilization cycles. Applied to the outside of sterilization packs, the indicator changes color when exposed to the required temperature and exposure time, confirming that the package has passed through the autoclave."
+      "name": "Gauze pieces \"SARBONTEKS\"",
+      "description": {
+        "1b90": "Gauze for dressings and sanitary skin treatment. Used in routine medical procedures.",
+        "2b90": "Extended gauze for wound protection and treatment. Used in therapeutic and preventive practice.",
+        "3b90": "Gauze for dressings on large body areas. Used for absorption and wound protection.",
+        "5b90": "Large-format gauze for medical dressings. Used in extensive wound care.",
+        "10b90": "Large-format gauze for wound dressings and treatment. Used in medical institutions."
+      }
     },
     "70": {
-      "name": "Unitest-steam 134/5, universal steam indicator",
-      "description": "Universal indicator for steam sterilization 134°C / 5 min (1000 pcs) — UNITEST STEAM is designed to verify that sterilization cycles meet the required temperature and exposure time. The indicator provides a clear color change once the correct conditions are achieved, confirming effective autoclave processing."
+      "name": "Gauze pieces GOST \"SARBONTEKS\"",
+      "description": {
+        "5b90": "Gauze for dressings with increased quality requirements. Used in medical wound care.",
+        "10b90": "Extended-length gauze for intensive use in medical institutions. Suitable for large-surface dressings."
+      }
     },
     "71": {
-      "name": "Sterilan internal indicator strips 132/20",
-      "description": "“Sterilan”-UP internal indicators for steam sterilization 132°C / 20 min (1000 pcs) are designed to verify sterilization effectiveness inside the package or instrument set. The indicator is placed in the most challenging area to ensure accurate confirmation that required temperature and exposure time conditions were achieved."
+      "name": "Sterile gauze pads",
+      "description": {
+        "16b14": "Sterile gauze pads for wound treatment and dressings. Used in aseptic medical procedures.",
+        "45b29": "Large sterile gauze pads for surgical and dressing procedures. Used for extensive wound treatment."
+      }
     },
     "72": {
-      "name": "Sterilan external indicator strips 132/20",
-      "description": "“Sterilan” external indicators for steam sterilization 132°C / 20 min (1000 pcs) are used for marking the outside of sterilization packages. When exposed to the required steam and temperature conditions, the indicator changes color, confirming that the item has completed an autoclave cycle."
-    },
-    "73": {
-      "name": "Sterilan internal indicator strips 180/60",
-      "description": "“Sterilan”-UP internal indicators for dry heat sterilization 180°C / 60 min (1000 pcs) are used to verify sterilization quality inside the package. Placed deep within the load, the indicator changes color only when the required temperature and exposure time are fully achieved, ensuring accurate confirmation of dry-heat sterilization effectiveness."
+      "name": "Sterile gauze pads \"SARBONTEKS\"",
+      "description": {
+        "16b14": "Sterile gauze pads for wound protection and cleaning. Used in dressings.",
+        "45b29": "Sterile gauze pads for surgical and dressing procedures. Ensure absorption of wound exudate."
+      }
+    }, "73": {
+      "name": "Disposable polyethylene shoe covers",
+      "description": "Disposable shoe covers for protecting premises from outdoor contamination. Used in medical facilities."
     },
     "74": {
-      "name": "Sterilan external indicator strips 180/60",
-      "description": "“Sterilan” external indicators for dry heat sterilization 180°C / 60 min (1000 pcs) are designed for labeling sterilization packs prior to processing. The indicator changes color after exposure to the required temperature and time, confirming that the package has undergone a full dry heat sterilization cycle."
+      "name": "Disposable shoe covers No.500",
+      "description": "Disposable shoe covers for mass use. Used to maintain sanitary conditions."
     },
     "75": {
-      "name": "“STERITEST-P-132/20-02” sterilization indicators",
-      "description": "“STERITEST-P-132/20-02” sterilization indicators (1000 pcs) with logbook are designed for internal monitoring of steam sterilization processes. Each indicator reacts only when the required exposure of 132°C for 20 minutes is achieved, confirming proper heat penetration. The included logbook allows accurate tracking and documentation of every sterilization cycle."
+      "name": "Disposable caps \"Clinic Clean\"",
+      "description": "Disposable medical caps for hair protection and hygiene compliance. Used in treatment and procedure areas."
     },
     "76": {
-      "name": "MedIS-132/20-1 sterilization indicator",
-      "description": "MedIS-132/20-1 sterilization indicator (1000 pcs) is designed for internal monitoring of steam sterilization parameters. The indicator changes color once the required conditions of 132°C for 20 minutes are met, confirming effective sterilization inside the package."
+      "name": "Disposable caps",
+      "description": "Disposable caps for sanitary protection of staff and patients. Used in medical facilities."
     },
     "77": {
-      "name": "MedIS-B sterilization indicator for dry-heat sterilization 180/60",
-      "description": "MedIS-B sterilization indicator for dry-heat sterilization 180°C / 60 min (1000 pcs) is designed to verify the accuracy of the dry-heat sterilization cycle. The indicator shifts color once the required temperature and exposure time are achieved, confirming proper processing of items inside the pack or container."
+      "name": "Disposable blue caps",
+      "description": "Disposable caps for maintaining hygiene in medical environments. Used during diagnostic and therapeutic procedures."
     },
-    "78": { "name": "Face Mask", "description": "Disposable face masks" },
+    "78": {
+      "name": "Disposable polyethylene caps",
+      "description": "Polyethylene disposable caps for hair protection and sanitary compliance. Used in medical and procedure rooms."
+    },
     "79": {
-      "name": "Aiqura infrared thermometer",
-      "description": "Infrared forehead thermometer"
+      "name": "Disposable caps black and white",
+      "description": "Disposable medical caps for maintaining hygiene. Used in medical institutions and procedure areas."
     },
     "80": {
-      "name": "Medical Mercury Thermometer",
-      "description": "A traditional medical mercury thermometer designed for highly accurate body temperature measurement. Known for its excellent precision and reliability, it is suitable for both home use and clinical applications. The heat-resistant glass body and clear scale ensure easy and consistent readings."
+      "name": "Nasal irrigation olive",
+      "description": "An olive tip for nasal irrigation. Used in otorhinolaryngological hygiene and therapeutic procedures."
     },
     "81": {
-      "name": "Surgeon Disposable Scalpels",
-      "description": "Premium disposable scalpels with blade guard"
+      "name": "Disposable ear funnels",
+      "description": "Disposable ear funnels for examination of the external auditory canal. Used in ENT diagnostics."
     },
     "82": {
-      "name": "Nasal irrigation olive tip",
-      "description": "Nasal irrigation olive tip is a soft medical attachment designed for safe and comfortable delivery of solution into the nasal passages. It provides a controlled fluid flow, prevents mucosal injury, and is suitable for both adults and children during treatment or preventive care."
+      "name": "Tonsil irrigation cannula",
+      "description": "A cannula for irrigation of tonsillar lacunae. Used in ENT therapeutic procedures."
     },
     "83": {
-      "name": "Tonsil irrigation cannula",
-      "description": "Tonsil irrigation cannula is a thin medical tip designed for precise delivery of solution into the tonsil crypts. It provides a directed fluid flow, helps remove debris and plugs, and reduces inflammation in the treatment of chronic tonsillitis."
+      "name": "Nasal and nasopharyngeal swab probe",
+      "description": "A swab probe for sample collection from the nose and nasopharynx. Used in diagnostic testing."
     },
     "84": {
-      "name": "EP-150-E-J Microcentrifuge Tube",
-      "description": "EP-150-E-J Microcentrifuge Tube — 1.5 ml, Eppendorf Type, DNA/RNA-Free, Pack of 500.These tubes are designed for molecular biology, biochemistry, PCR, and nucleic acid–related workflows. Being DNA/RNA-free, they eliminate contamination risks, ensuring reliable and reproducible results. Manufactured from high-quality polypropylene, they are compatible with high-speed microcentrifugation and maintain structural integrity under stress."
+      "name": "Disposable ENT spatula",
+      "description": "A disposable spatula for examination of the oral cavity and pharynx. Used in ENT diagnostics."
     },
     "85": {
-      "name": "Nasal Cannuka Universal",
-      "description": "Nasal Cannula Universal"
+      "name": "Dental saliva ejector",
+      "description": "A dental saliva ejector for removing saliva and fluids from the oral cavity. Used in dental procedures."
     },
     "86": {
-      "name": "Spinal Anesthesia Needles",
-      "description": "Spinal Anesthesia Needles — Quincke Type, 25G and 26G.Quincke spinal needles are designed for precise dural puncture with minimal tissue trauma. Their cutting-bevel tip provides accurate entry into the subarachnoid space. Widely used in anesthesiology, neurosurgery, and pain-management procedures."
+      "name": "Disposable dental kit",
+      "description": "A disposable dental kit for examinations and procedures. Used to maintain hygiene during patient care."
     },
     "87": {
-      "name": "Carbon Steel Scalpel Blades",
-      "description": "Carbon steel scalpel blades"
+      "name": "Dental cotton rolls",
+      "description": "Dental cotton rolls for isolation and moisture absorption. Used in therapeutic and preventive procedures."
     },
     "88": {
-      "name": "Gastric tube",
-      "description": "Disposal gastric tube, 1200mm length"
+      "name": "Sterile surgical kit",
+      "description": {
+        "35g": "A sterile surgical kit for performing operations and invasive procedures. Used to maintain aseptic conditions in operating rooms.",
+        "45g": "A higher-density surgical kit for operative interventions. Used in sterile surgical procedures."
+      }
     },
     "89": {
-      "name": "LDH Nasal cannula universal",
-      "description": "Nasal cannula universandicatorl"
+      "name": "Sterile surgical kit 35 g \"UKM\"",
+      "description": "A sterile surgical kit for standard operative procedures. Used to protect patients and medical staff."
     },
     "90": {
-      "name": "Surgeon Carbon Steel Scalpel Blades",
-      "description": "Carbon Steel Scalpel Blades"
+      "name": "Sterile surgical gown 35 g \"UKM\"",
+      "description": "A sterile surgical gown for performing operations. Used to comply with sanitary and hygienic requirements."
     },
     "91": {
-      "name": "External Thermoplastic Splint Medium",
-      "description": "External Thermoplastic Splint Medium"
+      "name": "Surgical gown 37 g/m²",
+      "description": "A surgical gown for protecting staff during medical procedures. Used in operating and procedure rooms."
     },
     "92": {
-      "name": "Needle Holder with Safety Cover",
-      "description": "Needle Holder with Safety Cover.This holder is designed for secure attachment and stabilization of needles during vacuum blood collection. The integrated safety cover helps protect healthcare workers from accidental needle-stick injuries and ensures safe disposal. It provides strong grip and seamless compatibility with standard vacuum needles and tubes"
+      "name": "Sterile surgical gown",
+      "description": {
+        "25gmsq": "A sterile surgical gown for short-term operations and procedures. Used to maintain aseptic conditions.",
+        "35gmsq": "A sterile surgical gown for operative interventions. Provides barrier protection for medical staff.",
+        "45gmsq": "A high-density surgical gown for long-duration operations. Used in environments with increased protection requirements."
+      }
     },
     "93": {
-      "name": "Ultrasound Gel “Akugel”, 5 kg canister",
-      "description": "Ultrasound Gel “Akugel”, 5 kg canister — a professional contact gel designed for high-quality ultrasound diagnostics. It ensures excellent acoustic transmission, enhances visualization of tissues, and provides stable, clear imaging. The large 5 kg container is ideal for clinics and high-volume diagnostic centers."
+      "name": "Sterile surgical drape UKM",
+      "description": {
+        "80b20025g": "A sterile surgical drape for isolating the operative field. Used during surgical interventions.",
+        "160b20035g": "An enlarged surgical drape for covering extended operative fields. Used in procedures requiring wider access.",
+        "80b20035g": "A sterile surgical drape for isolating the operative field. Used during surgical and invasive procedures."
+      }
     },
     "94": {
-      "name": "Romsons ECG electrolude",
-      "description": "Electrocardiograph eletrolude, 45x42mm"
+      "name": "Sterile surgical drape Nest Med Tech",
+      "description": {
+        "200b16025g": "A sterile surgical drape for patient and operative field protection. Used in standard surgical procedures.",
+        "200b16035g": "A medium-density surgical drape for operative interventions. Used in prolonged procedures.",
+        "200b16045g": "A high-density surgical drape for procedures with increased protection requirements. Used in intensive surgery."
+      }
     },
     "95": {
-      "name": "Health Line Nelaton catheter",
-      "description": "Sterile nelaton cathete"
-    },
-    "96": {
-      "name": "Wego single-use syringe",
-      "description": "Single-use sterile injection syringe"
+      "name": "Disposable surgical drape (spine surgery set)",
+      "description": "A disposable surgical drape for specialized spinal operations. Used to isolate the operative field."
+    },"96": {
+      "name": "Chloractiv-MAX",
+      "description": "A tablet-based disinfectant for preparing working solutions. Used for surface and medical device disinfection."
     },
     "97": {
-      "name": "Disposable plastic ENT spatula",
-      "description": "Disposable plastic ENT spatula is designed for examination of the oral cavity, tongue, and tonsils. It provides hygienic and comfortable diagnostic use. The smooth, rounded surface prevents mucosal injury, and the single-use format eliminates cross-contamination risks."
+      "name": "Septodez 1 L",
+      "description": "A liquid disinfectant for surface and equipment treatment. Used in medical facilities."
     },
-    "98": { "name": "Single-use needle", "description": "Single-use needle" },
+    "98": {
+      "name": "ABK Extra 1 L",
+      "description": "A disinfectant for sanitary treatment of medical premises. Used as part of infection control measures."
+    },
     "99": {
-      "name": "Disposable ear funnels",
-      "description": "Disposable ear funnels are designed for safe ear examination and hygienic procedures. Made from lightweight, hygienic material, they provide single-use protection and help prevent cross-contamination."
+      "name": "Antiseptin 0.5 L",
+      "description": "An antiseptic solution for skin and surface treatment. Used in hygienic and preventive procedures."
     },
     "100": {
-      "name": "Sterile specimen collection swab",
-      "description": "Sterile specimen collection swab in a transport tube"
+      "name": "Antiseptin OP 0.5 L",
+      "description": "An antiseptic solution for surface and equipment treatment. Used in sanitary processing in medical institutions."
     },
     "101": {
-      "name": "Electrosurgical cautery pencil",
-      "description": "The electrosurgical pencil is a precision tool used for cutting and coagulating soft tissues during surgical procedures. It connects to electrocautery generators and delivers controlled energy to the operative field. Its ergonomic design provides excellent handling, while onboard buttons allow seamless switching between cutting and coagulation modes."
+      "name": "DS-1 concentrate 0.5 L",
+      "description": "A concentrated disinfectant for preparing working solutions. Used for treatment of medical surfaces."
     },
     "102": {
-      "name": "Azopyram S-GTM",
-      "description": "Azopiram-S GTM, 100 ml is a reagent used to verify the quality of pre-sterilization cleaning of medical instruments. It detects traces of blood, proteins, and detergent residues, providing a fast and reliable color reaction."
+      "name": "Extradin concentrate 1 L",
+      "description": "A concentrated disinfectant for sanitary treatment. Used in medical and laboratory practice."
     },
     "103": {
-      "name": "Romsons Foley Catheter",
-      "description": "Foley catheter from natural latex"
+      "name": "Extra Dez Plus concentrate 1 L",
+      "description": "A disinfectant for intensive sanitary treatment of premises. Used under enhanced infection control measures."
     },
     "104": {
-      "name": "Medik Plast Foley Catheter",
-      "description": "Foley catheter from natural latex"
+      "name": "Phenolphthalein 100 ml",
+      "description": "An indicator solution for monitoring the quality of washing and cleaning. Used in laboratory and sanitary practice."
     },
     "105": {
-      "name": "Antiseptin 0.5 liter (grade A) for surfaces",
-      "description": "Antiseptin, 0.5 liter (grade A) is a ready-to-use solution for fast and effective surface disinfection. It provides a broad antimicrobial effect and is suitable for use in medical facilities, workplaces, and home environments. Dries quickly and leaves no residue."
+      "name": "Azopyram-S GTM 100 ml",
+      "description": "A solution for monitoring the quality of pre-sterilization cleaning of instruments. Used in medical facilities."
     },
     "106": {
-      "name": "ABK Extra 1 liter for processing instruments before sterilization",
-      "description": "ABK Extra, 1 liter is a professional solution used for pre-cleaning and disinfecting medical instruments before sterilization. It offers strong antimicrobial action, efficiently removes organic contaminants, and ensures proper preparation of instruments for further sterilization."
+      "name": "Ultrasonic cleaner",
+      "description": {
+        "2l": "An ultrasonic cleaner for medical instrument cleaning. Used to remove contaminants from hard-to-reach areas.",
+        "3l": "An increased-capacity ultrasonic cleaner for medical instruments. Used in clinical practice.",
+        "4p5l": "An ultrasonic cleaner for intensive instrument cleaning. Used in sterilization departments.",
+        "6l": "A large-capacity ultrasonic cleaner for medical instrument processing. Suitable for continuous operation."
+      }
     },
     "107": {
-      "name": "Antiseptin OP 0.5l (brand B) with trigger",
-      "description": "Antiseptin OP, 0.5 L (grade B) with trigger sprayer is a skin antiseptic designed for fast and safe hand and skin disinfection. The trigger dispenser allows even application and economical use. Provides strong antimicrobial action, does not dry the skin, and is suitable for frequent use."
+      "name": "Waste disposal container",
+      "description": {
+        "1l": "A plastic container for collection and disposal of medical waste. Used for safe storage of sharp and biohazard materials.",
+        "2l": "An increased-volume container for medical waste disposal. Used in procedure and laboratory rooms.",
+        "3l": "A container for safe collection of used medical products. Used in compliance with sanitary regulations.",
+        "4l": "A plastic container for medium-volume medical waste collection. Used in clinics and diagnostic centers.",
+        "5l": "A large-volume container for medical waste disposal. Used in high-intensity medical facilities."
+      }
     },
     "108": {
-      "name": "Septodes 1 liter for processing instruments before sterilization",
-      "description": "Septodez, 1 liter is a disinfecting solution used for pre-treatment of medical instruments before sterilization. It provides a broad antimicrobial effect, removes organic contamination, and ensures safety for further sterilization processes."
+      "name": "Sterilization indicator logbook",
+      "description": "A logbook for recording sterilization control results. Used for documentation in sterilization departments."
     },
     "109": {
-      "name": "DS-1 0.5l (concentrate)",
-      "description": "DS-1, 0.5 L (concentrate) is a universal disinfectant concentrate used for preparing working solutions. It provides a broad antimicrobial spectrum and is suitable for disinfecting surfaces, equipment, and sanitary areas in medical, household, and industrial environments."
+      "name": "Internal steam sterilization indicator 132/20",
+      "description": "An internal indicator for monitoring steam sterilization parameters. Used inside instrument packages."
     },
     "110": {
-      "name": "Plasma sterilization indicators",
-      "description": "Plasma sterilization indicators are chemical test strips designed to visually confirm whether the low-temperature plasma sterilization cycle has been completed correctly.When exposed to the proper sterilization conditions, the indicator changes color, ensuring reliable verification of the process."
+      "name": "External steam sterilization indicator 132/20",
+      "description": "An external indicator for visual monitoring of steam sterilization. Used on instrument packages."
     },
     "111": {
-      "name": "Phenolphthalein 100ml",
-      "description": "Phenolphthalein, 100 ml is an indicator solution widely used in analytical and laboratory work. It provides a clear visual color change when the environment shifts from acidic to alkaline, making it suitable for titration and pH monitoring."
+      "name": "Steam sterilization indicator 134/5",
+      "description": "A universal indicator for monitoring steam sterilization modes. Used in sterilization processes."
     },
     "112": {
-      "name": "Microscope Slide, Non-Ground Edges",
-      "description": "Microscope Slide, Non-Ground Edges, Pack of 50.High-quality glass microscope slides designed for routine sample preparation. Made from clear optical glass to ensure sharp, distortion-free imaging. Non-ground edges provide a standard economical option suitable for everyday laboratory applications."
+      "name": "Sterilization indicator \"Pharma-Test\" 134/5",
+      "description": "An indicator for monitoring steam sterilization effectiveness. Used in medical facilities and laboratories."
     },
     "113": {
-      "name": "Disposable nonwoven caps “Clinic Clean”",
-      "description": "Disposable nonwoven caps “Clinic Clean” (white, green) are designed to maintain hygiene and prevent hair from entering clean or sterile environments. Lightweight, breathable, and comfortable, they are suitable for medical facilities, laboratories, food production, and beauty services."
+      "name": "Sterilization indicator \"Sterilan\" 132/20 external",
+      "description": "An external indicator for visual monitoring of steam sterilization. Used to confirm completion of the sterilization cycle."
     },
     "114": {
-      "name": "Disposable Sheets",
-      "description": "Disposable Sheets — 20 g/m² provide a hygienic, lightweight protective layer suitable for daily professional use. The convenient 10-sheet pack format is ideal for mobile specialists, small clinics, beauty rooms, and quick replacements. Multiple color options help match the setting or service style."
+      "name": "Sterilization indicator \"Sterilan\" UP-132/20 internal",
+      "description": "An internal indicator for monitoring steam sterilization conditions inside packaging. Used during sterilization of medical devices."
     },
     "115": {
-      "name": "Disposable nonwoven caps",
-      "description": "Disposable nonwoven caps (white, pink) are designed to maintain hygiene and prevent hair from entering clean or controlled environments. Lightweight and breathable, they ensure comfortable use in medical centers, laboratories, food production, and beauty services."
+      "name": "Sterilization indicator \"Sterilan\" 180/60 external",
+      "description": "An external indicator for monitoring high-temperature sterilization modes. Used in thermal processing of instruments."
     },
     "116": {
-      "name": "Disposable Procedure Shorts (Spunbond)",
-      "description": "Disposable Procedure Shorts (Spunbond) offer comfort and hygienic protection during cosmetic, SPA, massage, and medical treatments. Made from lightweight, breathable spunbond fabric, they ensure ease of movement and pleasant wear for clients."
+      "name": "Sterilization indicator \"Sterilan\" UP-180/60 internal",
+      "description": "An internal indicator for monitoring sterilization parameters at high temperatures. Used inside sterilization packaging."
     },
     "117": {
-      "name": "Container for biomaterials",
-      "description": "Plastic Sample Collection Container.A compact and secure container designed for collecting, storing, and transporting various biological samples such as urine, sputum, and small clinical specimens. Made from medical-grade polypropylene, it ensures durability and sample integrity. The leak-proof lid protects against spills and contamination."
+      "name": "Sterilization indicator MedIS-V-180/60",
+      "description": "An indicator for monitoring high-temperature sterilization of medical devices. Used in sterilization departments."
     },
     "118": {
-      "name": "Baxtteks-farm gauze",
-      "description": "Medical cotton gauze, bleached in pieces"
+      "name": "Sterilization indicator Steritest-VL",
+      "description": "An indicator with a log for monitoring sterilization parameters. Used for documentation of sterilization processes."
     },
     "119": {
-      "name": "Baxtteks-farm cotton wool",
-      "description": "Cotton wool medical hygienic non-sterile"
+      "name": "Sterilization indicator MedIS-132/20",
+      "description": "An indicator for monitoring steam sterilization of medical devices. Used in standard sterilization cycles."
     },
     "120": {
-      "name": "Apexfly plaster bandage",
-      "description": "Medical plaster bandage"
+      "name": "Sterilization indicator MedIS-132/20 (2000)",
+      "description": "An indicator for mass monitoring of steam sterilization. Used in medical facilities with high sterilization volumes."
     },
     "121": {
-      "name": "Baxtteks-farm non-sterile gauze",
-      "description": "Medical cotton gauze, non-sterile"
+      "name": "Sterilization indicator Steritest-P-132/20",
+      "description": "An indicator for monitoring steam sterilization with result recording. Used in clinics and sterilization units."
     },
     "122": {
-      "name": "Cotton-Club cotton wool",
-      "description": "Cotton wool medical hygienic non-sterile"
-    },
-    "123": {
-      "name": "Cotton-Club cotton balls",
-      "description": "Cotton balls, non-sterile"
+      "name": "Sterilization indicator Intest-P-134/5",
+      "description": "An indicator for monitoring steam sterilization modes. Used in sterilization of medical instruments."
+    }, "123": {
+      "name": "Packaging machine PK100-C",
+      "description": "A packaging machine for sealing and printing sterilization pouches. Used to prepare medical instruments for sterilization."
     },
     "124": {
-      "name": "Sterile Medical Gauze Pads",
-      "description": "Sterile Medical Gauze Pads (2-ply, 45×29, No.5) are designed for wound cleaning, dressing application, and absorbing exudates. Their large size makes them suitable for treating wider wound areas and ensuring comfortable coverage."
+      "name": "Packaging machine PK100-A",
+      "description": "A packaging machine for hermetic sealing of sterilization packages. Used in sterilization departments."
     },
     "125": {
-      "name": "Sterile Medical Gauze Pads “SARBONTEKS”",
-      "description": "Sterile Medical Gauze Pads “SARBONTEKS” are designed for wound cleaning, exudate absorption, and applying large dressings. Their extended size ensures comfortable coverage of wider wound areas with soft, skin-friendly contact."
+      "name": "Packaging machine PK02-45",
+      "description": "A compact packaging machine for medical pouches. Used when preparing instruments for sterilization."
     },
     "126": {
-      "name": "Sarbonteks cotton wool",
-      "description": "Cotton wool medical hygienic non-sterile"
+      "name": "Packaging machine PKD310AB",
+      "description": "A packaging machine for sealing sterilization materials. Used in medical and dental clinics."
     },
     "127": {
-      "name": "Sarbonteks gauze",
-      "description": "Medical cotton gauze hygienic non-sterile"
+      "name": "Packaging machine PKD300AB",
+      "description": "A machine for hermetic sealing of medical sterilization pouches. Used to maintain instrument sterility."
     },
     "128": {
-      "name": "Sarbonteks gauze",
-      "description": "Medical cotton gauze hygienic sterile"
+      "name": "Packaging machine SEAL BEST",
+      "description": "A packaging machine for sterilization pouches and rolls. Used to prepare medical products for sterilization."
     },
     "129": {
-      "name": "Asilbek Tibbiyot Maxulotlari gauze",
-      "description": "Medical cotton gauze hygienic non-sterile, 5mx84cm"
+      "name": "Three-tier kraft pouch holder PK213",
+      "description": "A holder for convenient placement of sterilization kraft pouches. Used to organize workspace."
     },
     "130": {
-      "name": "Medical Bleached Cotton Gauze “SARBONTEKS”",
-      "description": "Medical Bleached Cotton Gauze “SARBONTEKS” is a reliable, soft dressing material made from natural cotton. It provides excellent absorbency, breathability, and gentle contact with the skin."
+      "name": "Two-tier kraft pouch holder PK212",
+      "description": "A two-level holder for storing sterilization pouches. Used in sterilization and procedure areas."
     },
     "131": {
-      "name": "Baxtteks-farm sterile gauze",
-      "description": "sterile baxt"
+      "name": "Single-tier kraft pouch holder PK211",
+      "description": "A single-level holder for placing sterilization kraft pouches. Used for organized storage."
     },
     "132": {
-      "name": "Sterile Medical Gauze Pads",
-      "description": "Sterile Medical Gauze Pads (2-ply, 16×14, No.10) are designed for wound cleaning, bleeding control, and hygienic dressing applications. Their soft, sterile structure ensures safe and gentle contact with the skin."
+      "name": "Barrier film",
+      "description": "A barrier film for protecting surfaces from contamination. Used during medical and diagnostic procedures."
     },
-    "133": { "name": "", "description": "" },
-    "134": { "name": "", "description": "" },
+    "133": {
+      "name": "Sterilization kraft pouch",
+      "description": {
+        "50b200": "A kraft pouch roll for packaging medical instruments before sterilization. Used to maintain sterility after processing.",
+        "55b200": "A sterilization kraft pouch for small medical instruments. Used in steam sterilization.",
+        "75b200": "A kraft pouch for packaging medium-sized instruments. Used for sterilization and storage.",
+        "100b200": "A sterilization kraft pouch for various medical products. Used in medical practice.",
+        "150b200": "A wide kraft pouch for packaging large instruments. Used in sterilization of surgical products.",
+        "200b200": "A kraft pouch for bulky medical instruments. Used for sterilization and contamination protection.",
+        "250b200": "A sterilization kraft pouch for large medical devices. Used in sterilization departments.",
+        "300b200": "A wide kraft pouch for packaging instrument sets. Used during set sterilization.",
+        "350b200": "A sterilization kraft pouch for large instrument kits. Used to ensure sterility.",
+        "400b200": "A maximum-width kraft pouch for sterilizing large medical devices. Used in surgical practice.",
+        "450b200": "A wide kraft pouch for sterilizing large medical devices. Used to preserve sterility after processing.",
+        "500b200": "A sterilization kraft pouch for bulky instrument sets. Used in sterilization departments."
+      }
+    },
+    "134": {
+      "name": "Self-sealing kraft pouch",
+      "description": {
+        "57b130": "A self-sealing kraft pouch for sterilizing small medical items. Protects instruments after processing.",
+        "90b165": "A kraft pouch with a self-sealing flap for sterilizing instruments. Used in medical practice.",
+        "70b260": "A self-sealing sterilization pouch for medical devices. Used for individual instrument packaging.",
+        "90b260": "A kraft pouch for sterilizing medium-sized instruments. Used to maintain sterility.",
+        "135b280": "A self-sealing sterilization pouch for medical instrument sets. Used in clinics and offices.",
+        "190b360": "A large-format kraft pouch for sterilizing bulky instruments. Used during surgical procedures.",
+        "200b300": "A sterilization pouch for medium and large medical devices. Used for individual sterilization.",
+        "308b430": "An oversized kraft pouch for sterilizing large medical instruments. Used in sterilization departments.",
+        "400b500": "A self-sealing sterilization pouch for large medical devices. Used to protect sterility after processing.",
+        "500b600": "A large-format kraft pouch for sterilizing bulky instruments and kits. Used in sterilization departments."
+      }
+    },
     "135": {
-      "name": "Disposable polyethylene caps",
-      "description": "Disposable polyethylene caps (white, new model) provide hygienic protection by preventing hair from entering clean or controlled environments. Lightweight, moisture-resistant, and comfortable, they are suitable for medical facilities, food production, laboratories, and beauty services."
+      "name": "Plasma sterilization indicator",
+      "description": "An indicator for monitoring the plasma sterilization process of medical devices. Used to confirm sterilization effectiveness."
     },
     "136": {
-      "name": "Disposable polyethylene shoe covers",
-      "description": "Disposable polyethylene shoe covers are designed to protect indoor environments from dirt and moisture. Lightweight, waterproof, and easy to use, they are suitable for medical facilities, laboratories, beauty salons, and everyday hygiene."
+      "name": "Plasma sterilization indicator (500 pcs)",
+      "description": "An indicator for mass monitoring of plasma sterilization. Used in high-volume sterilization cycles."
     },
-    "137": { "name": "", "description": "" },
+    "137": {
+      "name": "Plasma sterilization indicator tape",
+      "description": "Indicator tape for monitoring plasma sterilization. Used for marking and visual verification."
+    },
     "138": {
-      "name": "Self-sealing sterilization pouch",
-      "description": "Self-sealing sterilization pouch is designed for safe packaging of small medical instruments such as dental tips, needles, and fine tools.Its built-in adhesive strip allows fast and secure sealing—no sealing machine required. The combination of medical-grade kraft paper and transparent film ensures full visibility and strong microbial protection."
+      "name": "Non-woven sterilization material",
+      "description": "A non-woven material for packaging medical devices prior to sterilization. Used to protect and maintain sterility."
     },
-    "139": { "name": "UKM Gynecologic kit", "description": "Gynecologic kit" },
+    "139": {
+      "name": "Plasma sterilization kraft pouch STANDARD",
+      "description": {
+        "75b70": "A kraft pouch for packaging medical devices during plasma sterilization. Used for low-temperature processing.",
+        "100b70": "A sterilization kraft pouch for medical instruments. Used in plasma sterilization processes.",
+        "150b70": "A kraft pouch for plasma sterilization of medium-sized medical devices. Ensures post-processing protection.",
+        "200b70": "A kraft pouch for packaging medical devices during plasma sterilization. Used for low-temperature instrument processing.",
+        "250b70": "A sterilization kraft pouch for large medical devices. Used in plasma sterilization.",
+        "300b70": "A wide kraft pouch for plasma sterilization of bulky instruments. Used in sterilization departments.",
+        "350b70": "A sterilization kraft pouch for large instrument sets. Used to preserve sterility after processing.",
+        "400b70": "A maximum-width kraft pouch for plasma sterilization of medical devices. Used for bulky instruments.",
+        "450b70": "A sterilization kraft pouch for large medical devices. Used in clinical plasma sterilization.",
+        "500b70": "A large-format kraft pouch for plasma sterilization of bulky instruments. Used in sterilization departments.",
+        "75b100": "A kraft pouch for plasma sterilization of small medical devices. Used for low-temperature processing.",
+        "100b100": "A sterilization kraft pouch for medium-sized medical instruments. Used in plasma sterilization.",
+        "150b100": "A kraft pouch for plasma sterilization of medium-sized medical devices. Used to maintain sterility.",
+        "200b100": "A kraft pouch for packaging medical devices during plasma sterilization. Used for low-temperature processing.",
+        "250b100": "A sterilization kraft pouch for large medical devices. Used in plasma sterilization.",
+        "300b100": "A wide kraft pouch for plasma sterilization of bulky instruments. Used in sterilization departments.",
+        "350b100": "A sterilization kraft pouch for large instrument sets. Used to preserve sterility after processing.",
+        "400b100": "A maximum-width kraft pouch for plasma sterilization of medical devices. Used for bulky instruments."
+      }
+    },
     "140": {
-      "name": "UKM Gynecology mirror Cusco",
-      "description": "Gynecology mirror Cusco"
+      "name": "Plasma sterilization kraft pouch PREMIUM",
+      "description": {
+        "75b70": "A premium-quality kraft pouch for plasma sterilization of medical devices. Used in low-temperature processing.",
+        "100b70": "A high-density sterilization kraft pouch for medical instruments. Used in plasma sterilization.",
+        "150b70": "A kraft pouch for plasma sterilization of medium-sized medical devices. Ensures sterility protection.",
+        "200b70": "A sterilization kraft pouch for large medical devices. Used in plasma sterilization in clinics.",
+        "250b70": "A large-format kraft pouch for plasma sterilization of bulky instruments. Used in sterilization departments.",
+        "300b70": "A wide kraft pouch for plasma sterilization of large medical instruments. Used to preserve sterility after processing."
+      }
     },
     "141": {
-      "name": "Health Line Gynecology mirror Cusco",
-      "description": "Gynecology mirror Cusco"
+      "name": "Quincke spinal anesthesia needles 25G, 26G",
+      "description": "Quincke-type spinal needles for spinal anesthesia. Ensure controlled penetration into the subarachnoid space."
     },
     "142": {
-      "name": "Finflex Disposable surgical gloves",
-      "description": "Disposable surgical gloves made of rubber latex, sterile"
+      "name": "Pencil Point spinal anesthesia needles 25G, 26G",
+      "description": "Spinal needles with a rounded tip for spinal anesthesia. Used to reduce tissue trauma."
     },
     "143": {
-      "name": "Health Line Syringe",
-      "description": "Single-use sterile syringe"
+      "name": "KD-FINE Quincke spinal needle 26G",
+      "description": "A Quincke-type spinal needle for precise spinal anesthesia procedures. Used in anesthesiology practice."
     },
     "144": {
-      "name": "Westcom Syringe",
-      "description": "Single-use sterile syringe"
+      "name": "KD-FINE Pencil Point spinal needle 25G, 26G",
+      "description": "A blunt-tip spinal needle for anesthesia procedures. Used for controlled puncture of the spinal space."
     },
-    "145": { "name": "", "description": "" },
-    "146": { "name": "", "description": "" },
+    "145": {
+      "name": "Ultrasound gel \"Akugel\" 5 kg",
+      "description": "An ultrasound gel for improved signal conductivity between the transducer and skin. Used in diagnostic ultrasound examinations."
+    },
+    "146": {
+      "name": "High-viscosity ultrasound gel \"Akugel\" 5 kg with dispenser",
+      "description": "A high-viscosity ultrasound gel for stable transducer-skin contact. Used during prolonged ultrasound procedures."
+    },
     "147": {
-      "name": "Polyglycolic Acid (PGA) Surgical Suture",
-      "description": "Polyglycolic Acid (PGA) Surgical Suture — a high-strength, absorbable, synthetic braided suture designed for reliable wound closure across various surgical fields. It ensures excellent knot security, smooth tissue passage, and predictable absorption during postoperative healing."
+      "name": "ECG chart paper",
+      "description": {
+        "80b20": "Chart paper for electrocardiogram recording. Used in electrocardiographic examinations.",
+        "110b30": "ECG paper with extended recording format. Used in cardiology diagnostics.",
+        "210b30": "Large-format chart paper for electrocardiographs. Used for detailed ECG recording.",
+        "215b30": "Chart paper for ECG recording on electrocardiograph devices. Used for accurate heart rhythm documentation."
+      }
     },
     "148": {
-      "name": "Medik Plast endotracheal tube",
-      "description": "endotracheal tube"
+      "name": "Disposable sheets 20 g/m² in roll",
+      "description": "Disposable sheets for surface protection during medical procedures. Used to maintain hygiene and prevent contamination."
     },
     "149": {
-      "name": "Vacuum Blood Collection Tubes with Clot Activator",
-      "description": "Vacuum Blood Collection Tubes with Clot Activator — Red Cap.Designed for high-volume serum collection in biochemistry, immunology, and serology testing. The interior contains a clot activator that accelerates coagulation, ensuring clean and reliable serum separation."
+      "name": "Disposable sheets 20 g/m² (pack)",
+      "description": "Disposable sheets for use in medical and cosmetology rooms. Provide barrier protection for surfaces."
     },
     "150": {
-      "name": "Vacuum Blood Collection Tube with Lithium Heparin",
-      "description": "Vacuum Blood Collection Tube with Lithium Heparin — 13×75 mm, 5 ml, Green Cap.Designed for plasma-based laboratory testing. Lithium heparin acts as an anticoagulant, preventing clotting and ensuring rapid sample processing. The green cap follows international coding for biochemistry and electrolyte studies."
+      "name": "Disposable sheets 80 × 200 roll UKM",
+      "description": "Roll-type disposable sheets for covering couches and tables. Used during diagnostic and therapeutic procedures."
     },
     "151": {
-      "name": "Vacuum Blood Collection Tubes with Clot Activator and Gel",
-      "description": "Vacuum Blood Collection Tubes with Clot Activator and Gel — Yellow Cap, 13×100 mm, 5 ml.These tubes are designed to obtain high-quality serum. The separating gel forms a stable barrier between the clot and serum after centrifugation, ensuring clean samples for biochemistry, immunology, hormone testing, and other advanced diagnostics. The clot activator accelerates coagulation for faster sample processing."
+      "name": "Disposable wipes 15 g/m² in roll",
+      "description": "Disposable wipes for hygienic treatment and surface protection. Used in medical practice."
     },
     "152": {
-      "name": "Vacuum Blood Collection Tube with EDTA K3",
-      "description": "Vacuum Blood Collection Tube with EDTA K3 — 13×75 mm, 3 ml, Purple Cap.Designed for hematology tests such as CBC and cell counts. EDTA K3 prevents clotting and preserves cell structure for stable, accurate results. The purple cap follows international identification standards."
+      "name": "Disposable towel in roll 35 × 70",
+      "description": "Disposable towels for hygienic use in medical facilities. Used during patient care."
     },
     "153": {
-      "name": "Vacuum Blood Collection Tubes with 3.2% Sodium Citrate",
-      "description": "Vacuum Blood Collection Tubes with 3.2% Sodium Citrate — Blue Cap, 13×75 mm, 2.7 ml.Designed for coagulation testing, including PT, INR, APTT, fibrinogen, D-dimer, and full hemostasis panels. The tube contains a precise amount of 3.2% sodium citrate, which prevents clotting by binding calcium ions. The blue cap follows international coding standards."
+      "name": "Disposable bibs",
+      "description": "Disposable bibs for protecting patient clothing during procedures. Used in dental and medical practice."
     },
     "154": {
-      "name": "Vacuum Blood Collection Tube with Sodium Heparin + Gel",
-      "description": "Vacuum Blood Collection Tube with Sodium Heparin + Gel — 16×100 mm, 8.5 ml, Green Cap (100 pcs).Designed for plasma separation in wide-range biochemical and electrolyte analyses. The sodium heparin anticoagulant prevents clotting, while the separating gel forms a stable barrier after centrifugation, ensuring clean plasma for accurate testing. The larger volume is ideal for multiple tests from a single sample."
+      "name": "Disposable dental bibs 45 × 33",
+      "description": "Dental bibs for protecting patients from moisture and contamination. Used during dental procedures."
     },
     "155": {
-      "name": "Catgut Suture — a natural absorbable suture",
-      "description": "Catgut Suture — a natural absorbable suture made from purified collagen. It offers good elasticity, smooth passage through tissues, and easy handling, making it suitable for soft-tissue approximation with low tension. The material gradually absorbs within the body and does not require removal."
+      "name": "Alcohol wipes",
+      "description": "Wipes impregnated with an alcohol solution for antiseptic skin treatment. Used before injections and procedures."
     },
     "156": {
-      "name": "Blue Pipette Tips, 1000 µl",
-      "description": "Blue Pipette Tips, 1000 µl, Eppendorf/Universal Type, Polypropylene, 500 pcs/pack.Premium-quality disposable pipette tips designed for accurate handling of large liquid volumes. Compatible with most Eppendorf and universal-style pipettes. Made from pure polypropylene to ensure smooth liquid uptake and consistent dispensing without dripping."
+      "name": "Disposable procedure shorts",
+      "description": "Disposable procedure shorts for ensuring patient hygiene and comfort. Used during diagnostic and therapeutic procedures."
     },
     "157": {
-      "name": "Indicator Logbook",
-      "description": "Indicator Logbook is a specialized record used to document the results of sterilization and disinfection monitoring. It includes entries for chemical and biological indicators, cycle dates, batch numbers, responsible personnel, and the final assessment of processing quality. The logbook ensures transparency, traceability, and compliance with hygiene standards."
+      "name": "Blood collection tube with clot activator 5 ml (red cap)",
+      "description": "Vacuum blood collection tube with a clot activator for venous blood collection. Used to obtain serum for laboratory testing."
     },
     "158": {
-      "name": "“Intest-P-134/5-02” sterilization indicators",
-      "description": "“Intest-P-134/5-02” sterilization indicators (500 pcs) are internal monitoring tools designed for steam sterilization cycles. They verify whether the required exposure of 134°C for 5 minutes has been achieved inside the pack by producing a clear color change once the correct conditions are met."
+      "name": "Blood collection tube with clot activator 6 ml (red cap)",
+      "description": "Blood collection tube with a clot activator. Used in clinical diagnostic laboratories."
     },
     "159": {
-      "name": "Disposable surgical gown made of nonwoven material",
-      "description": "Disposable surgical gown made of nonwoven material, density 37 g/m² is designed to protect medical staff during surgeries and procedures. The lightweight, durable, and breathable fabric provides comfort and reduces the risk of contamination."
+      "name": "Sodium citrate tube 2.7 ml (blue cap)",
+      "description": "Vacuum tube with sodium citrate for coagulation studies. Used to assess blood clotting parameters."
     },
     "160": {
-      "name": "UKM sterile surgical kit",
-      "description": "UKM sterile surgical kit (gown 35 g/m², mask, bouffant cap, shoe covers) provides a protective barrier during surgical and medical procedures. The kit ensures hygiene, reduces infection risk, and offers comfort for medical staff."
+      "name": "Tube with gel and clot activator 5 ml (yellow cap)",
+      "description": "Tube with gel separator and clot activator for serum separation. Used in biochemical laboratory tests."
     },
     "161": {
-      "name": "UKM sterile surgical drape",
-      "description": "UKM sterile surgical drape is designed to establish a protected and sterile surgical field. The dense nonwoven fabric provides reliable resistance to fluids and contamination while maintaining user comfort."
+      "name": "EDTA K3 tube 3 ml (purple cap)",
+      "description": "Vacuum tube with EDTA K3 anticoagulant for hematological tests. Preserves cellular blood components."
     },
     "162": {
-      "name": "Butterfly Blood Collection Needle for Vacuum Tubes",
-      "description": "Butterfly Blood Collection Needle for Vacuum Tubes (22G / 23G, 3/4\") This butterfly-style needle ensures comfortable and controlled venous access, especially for small or sensitive veins. Soft flexible wings provide a stable grip, improving precision during blood collection. Fully compatible with vacuum collection systems."
+      "name": "Lithium heparin tube 5 ml (green cap)",
+      "description": "Blood collection tube with lithium heparin anticoagulant. Used for biochemical and clinical analyses."
     },
     "163": {
-      "name": "1.5 ml Microtubes with EDTA K3 Coating for Hematology Analyzers",
-      "description": "1.5 ml Microtubes with EDTA K3 Coating for Hematology Analyzers (Pack of 500).These tubes are specifically designed for automated hematology systems. The inner wall is coated with EDTA K3, which effectively prevents clotting and preserves the natural morphology of blood cells. This ensures accurate and reproducible results in CBC and related hematology tests.Manufactured from high-quality polypropylene, the tubes withstand centrifugation and routine handling while maintaining sample integrity."
+      "name": "Tube with gel and sodium heparin 8.5 ml",
+      "description": "Tube with gel and sodium heparin for plasma separation. Used in laboratory diagnostics."
     },
     "164": {
-      "name": "Ekstradin, 1 L",
-      "description": "Ekstradin, 1 L (new concentrate) is an advanced high-performance disinfectant designed for preparing working solutions of various strengths. The upgraded formula delivers enhanced antimicrobial action, making it suitable for disinfecting surfaces, instruments, and sanitary areas."
+      "name": "Microcentrifuge tube 1.5 ml (Eppendorf type)",
+      "description": "Microcentrifuge tube for storage and centrifugation of samples. Used in laboratory and molecular research."
     },
     "165": {
-      "name": "",
-      "description": "Disposable Sheets — 20 g/m² are lightweight yet durable protective coverings designed for hygienic single-use applications. The roll of 100 sheets is practical for medical rooms, beauty salons, massage studios, and any setting where clean surface protection is essential. A variety of colors allows easy matching to any professional environment."
+      "name": "EDTA K3 tube 1.5 ml for hematology analyzers",
+      "description": "Tube coated with EDTA K3 for automated hematological analysis. Ensures stable blood analysis."
     },
     "166": {
-      "name": "Disposable Wipes",
-      "description": "Disposable Wipes — 15 g/m² (200 sheets per roll) are lightweight, hygienic, and versatile, suitable for use in clinics, beauty salons, massage rooms, and daily sanitation tasks. Available in multiple colors to match different professional environments."
+      "name": "Butterfly needle for vacuum tubes 22G, 23G",
+      "description": "Butterfly needle for venous blood collection using vacuum systems. Provides convenience and control during venipuncture."
     },
     "167": {
-      "name": "Disposable Towels in Roll",
-      "description": "Disposable Towels in Roll — 35×70 (100 pcs) provide a hygienic and comfortable solution for clinics, beauty salons, massage rooms, and spa environments. Soft texture ensures client comfort, while the single-use format maintains cleanliness and prevents contamination."
+      "name": "Vacuum blood collection needles 22G, 23G",
+      "description": "Needles for vacuum blood collection systems. Used for safe and controlled sample collection."
     },
     "168": {
-      "name": "Disposable Nonwoven Caps",
-      "description": "Disposable nonwoven caps (blue) are designed to maintain hygiene and prevent hair from entering clean or controlled areas. Lightweight and breathable, they ensure comfortable use in medical facilities, laboratories, food industries, and beauty environments."
+      "name": "Vacuum tube needle holder",
+      "description": "Plastic holder for securing needles during vacuum blood collection. Ensures stability and ease of use."
+    },
+    "169": {
+      "name": "Micropipette MicroPette Plus 20–200 µl",
+      "description": "Adjustable micropipette for accurate small-volume liquid dispensing. Used in laboratory practice."
+    },
+    "170": {
+      "name": "Pipette tips 1000 µl",
+      "description": "Disposable tips for pipettes up to 1000 µl. Used to prevent cross-contamination."
+    },
+    "171": {
+      "name": "Pipette tips 200 µl",
+      "description": "Disposable tips for small-volume pipettes. Used in analytical and diagnostic laboratories."
+    },
+    "172": {
+      "name": "Pipette tips 1000 µl",
+      "description": "Pipette tips for accurate liquid dosing. Used in laboratory research."
+    },
+    "173": {
+      "name": "Biological sample container",
+      "description": {
+        "100ml": "Plastic container for collection and storage of biological samples. Used in laboratory diagnostics.",
+        "100mlWS": "Sample container with an integrated spoon. Ensures convenient and hygienic specimen collection.",
+        "60ml": "Container for storage and transport of biological samples. Used in clinical diagnostics.",
+        "60mlWS": "Compact container for collecting biological samples. Used in laboratory testing."
+      }
+    },
+    "174": {
+      "name": "Latex tourniquet",
+      "description": "Latex tourniquet for temporary venous occlusion during blood collection. Used to facilitate venipuncture."
+    },
+    "175": {
+      "name": "Electrosurgical pencil",
+      "description": "Electrosurgical instrument for tissue cutting and coagulation. Used in surgical procedures."
+    },
+    "176": {
+      "name": "Cover glass 18 × 18 mm",
+      "description": {
+        "18b18": "Cover glass for microscopic examination. Used to protect and secure specimens.",
+        "24b24": "Larger cover glass for microscopy. Used for examination of larger samples."
+      }
+    },
+    "177": {
+      "name": "Microscope slide without ground edges",
+      "description": "Microscope slide for preparation of microscopic specimens. Used in laboratory diagnostics."
+    },
+    "178": {
+      "name": "Blood pressure monitor LDH-MAXI",
+      "description": "Device for non-invasive blood pressure measurement. Used in clinical and outpatient practice."
+    },
+    "179": {
+      "name": "Blood pressure monitor IAD-01 \"Adyutor\"",
+      "description": "Mechanical device for measuring blood pressure. Used during medical examinations."
+    },
+    "180": {
+      "name": "Rappaport cardiology stethoscope BK 3003",
+      "description": "Cardiology stethoscope for auscultation of the heart and lungs. Used to diagnose cardiovascular and respiratory systems."
+    },
+    "181": {
+      "name": "Mercury medical thermometer",
+      "description": "Mercury thermometer for measuring body temperature. Used in medical practice to monitor patient condition."
     }
   },
-
   "forgot_password": {
     "title": "Forgot Password",
     "description": "Enter your email address and we'll send you a link to reset your password.",

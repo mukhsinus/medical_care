@@ -114,22 +114,43 @@ export default function ItemDetails() {
 
   // Get current locale from URL - memoized
   const currentLocale = useMemo(() => {
+    if (!location.pathname) return "en";
     const pathParts = location.pathname.split("/").filter(Boolean);
     return pathParts[0] || "en";
   }, [location.pathname]);
+
+  // State declarations must come before useMemos that depend on them
+  const [qty, setQty] = useState<number | "">(1);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [selectedSizeKey, setSelectedSizeKey] = useState<string | null>(
+    item?.sizes?.[0] ?? null
+  );
+  const [selectedColorKey, setSelectedColorKey] = useState<string | null>(
+    item?.colors?.[0] ?? null
+  );
 
   // Memoize derived values
   const name = useMemo(
     () => (item ? getTranslatedField(item.nameKey) : ""),
     [item, getTranslatedField]
   );
-  const desc = useMemo(
-    () => (item ? getTranslatedField(item.descriptionKey) : ""),
-    [item, getTranslatedField]
-  );
+  
+  // Get description - use size-specific description if available, else fall back to generic description
+  const desc = useMemo(() => {
+    if (!item) return "";
+    
+    // If a size is selected and there's a size-specific description mapping
+    if (selectedSizeKey && item.sizesDescription?.[selectedSizeKey]) {
+      return getTranslatedField(item.sizesDescription[selectedSizeKey]);
+    }
+    
+    // Fall back to generic description
+    return getTranslatedField(item.descriptionKey);
+  }, [item, selectedSizeKey, getTranslatedField]);
 
   const minQty = useMemo(() => 1, []);
 
+  // Restore image handling - get basenames from item
   const basenames = useMemo(
     () =>
       item?.imageBases?.length
@@ -138,17 +159,6 @@ export default function ItemDetails() {
         ? [item.imageBase]
         : [],
     [item?.imageBases, item?.imageBase]
-  );
-
-  const [qty, setQty] = useState<number | "">(minQty);
-
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-  const [selectedColorKey, setSelectedColorKey] = useState<string | null>(
-    item?.colors?.[0] ?? null
-  );
-  const [selectedSizeKey, setSelectedSizeKey] = useState<string | null>(
-    item?.sizes?.[0] ?? null
   );
 
   // Swipe handling for image gallery
@@ -229,31 +239,32 @@ export default function ItemDetails() {
 
     const finalQty = qty || minQty;
 
-    // Variant labels (translated)
+    // Variant labels (translated) - size and color
     const details: string[] = [];
-    if (selectedColorKey) details.push(getTranslatedField(selectedColorKey));
     if (selectedSizeKey) details.push(getTranslatedField(selectedSizeKey));
+    if (selectedColorKey) details.push(getTranslatedField(selectedColorKey));
 
     let displayName = name;
     if (details.length) {
       displayName = `${name} (${details.join(", ")})`;
     }
 
-    const { fallback: mainImage } = getImageSources(
-      basenames[0],
-      item.category
-    );
+    // Get main image from basenames
+    let mainImage = "";
+    if (basenames.length > 0) {
+      const { fallback } = getImageSources(basenames[0], item.category);
+      mainImage = fallback || "";
+    }
 
     // Compute price according to selected size (if provided in data)
     const displayedPrice =
-      (selectedSizeKey && item.sizePrices?.[selectedSizeKey]) || item.price;
+      (selectedSizeKey && item.sizePrices?.[selectedSizeKey]) || item.price || 0;
 
-    // Create unique variant ID: base_id-color-size
-    // This ensures same item with different variants creates separate cart items
+    // Create unique variant ID: base_id-size-color
     const variantId = [
       item.id,
-      selectedColorKey || "nocolor",
-      selectedSizeKey || "nosize"
+      selectedSizeKey || "nosize",
+      selectedColorKey || "nocolor"
     ].join("-");
 
     addItem(
@@ -288,12 +299,10 @@ export default function ItemDetails() {
     item,
     qty,
     minQty,
-    selectedColorKey,
     selectedSizeKey,
+    selectedColorKey,
     name,
-    desc,
-    basenames,
-    currentLocale,
+    desc,    basenames,    currentLocale,
     navigate,
     addItem,
     location.state,
@@ -324,38 +333,79 @@ export default function ItemDetails() {
 
     setQty(minQty);
     setActiveImageIndex(0);
-    setSelectedColorKey(item.colors?.[0] ?? null);
     setSelectedSizeKey(item.sizes?.[0] ?? null);
+    setSelectedColorKey(item.colors?.[0] ?? null);
   }, [itemId, item, minQty, navigate, currentLocale]);
 
-  // Update selected color when image changes via arrows/dots
+  // Update image when selected size changes (if sizeImages mapping exists)
   useEffect(() => {
-    if (!item?.colorImages || activeImageIndex >= basenames.length) return;
+    if (!item?.sizeImages || !selectedSizeKey || basenames.length === 0) return;
 
-    const currentBasename = basenames[activeImageIndex];
-    // Find which color maps to this image
-    for (const [colorKey, imageName] of Object.entries(item.colorImages)) {
-      if (imageName === currentBasename) {
-        setSelectedColorKey(colorKey);
-        break;
-      }
+    const sizeImageData = item.sizeImages[selectedSizeKey];
+    if (!sizeImageData) return;
+
+    // Normalize to array
+    const sizeImages = Array.isArray(sizeImageData) ? sizeImageData : [sizeImageData];
+
+    // Find which basename matches this size
+    const imageIndex = basenames.findIndex((b) => sizeImages.includes(b));
+
+    if (imageIndex !== -1) {
+      setActiveImageIndex(imageIndex);
     }
-  }, [activeImageIndex, basenames, item?.colorImages]);
+  }, [selectedSizeKey, item?.sizeImages, basenames]);
 
+  // Update selected size when image changes (via arrows, dots, or swipe)
   useEffect(() => {
-    if (!item?.sizeImages || activeImageIndex >= basenames.length) return;
+    if (!item?.sizeImages || basenames.length === 0) return;
 
-    const currentBasename = basenames[activeImageIndex];
+    const currentImageBasename = basenames[activeImageIndex];
+    if (!currentImageBasename) return;
 
-    for (const [sizeKey, value] of Object.entries(item.sizeImages)) {
-      const images = normalizeImages(value);
-
-      if (images.includes(currentBasename)) {
+    // Find which size has this image
+    for (const [sizeKey, sizeImageData] of Object.entries(item.sizeImages)) {
+      const sizeImages = Array.isArray(sizeImageData) ? sizeImageData : [sizeImageData];
+      if (sizeImages.includes(currentImageBasename)) {
         setSelectedSizeKey(sizeKey);
         return;
       }
     }
-  }, [activeImageIndex, basenames, item?.sizeImages]);
+  }, [activeImageIndex, item?.sizeImages, basenames]);
+
+  // Update image when selected color changes (if colorImages mapping exists)
+  useEffect(() => {
+    if (!item?.colorImages || !selectedColorKey || basenames.length === 0) return;
+
+    const colorImageData = item.colorImages[selectedColorKey];
+    if (!colorImageData) return;
+
+    // Normalize to array
+    const colorImages = Array.isArray(colorImageData) ? colorImageData : [colorImageData];
+
+    // Find which basename matches this color
+    const imageIndex = basenames.findIndex((b) => colorImages.includes(b));
+
+    if (imageIndex !== -1) {
+      setActiveImageIndex(imageIndex);
+    }
+  }, [selectedColorKey, item?.colorImages, basenames]);
+
+  // Update selected color when image changes (via arrows, dots, or swipe)
+  useEffect(() => {
+    if (!item?.colorImages || basenames.length === 0) return;
+
+    const currentImageBasename = basenames[activeImageIndex];
+    if (!currentImageBasename) return;
+
+    // Find which color has this image
+    for (const [colorKey, colorImageData] of Object.entries(item.colorImages)) {
+      const colorImages = Array.isArray(colorImageData) ? colorImageData : [colorImageData];
+      if (colorImages.includes(currentImageBasename)) {
+        setSelectedColorKey(colorKey);
+        return;
+      }
+    }
+  }, [activeImageIndex, item?.colorImages, basenames]);
 
   if (!item) {
     return null;
@@ -547,48 +597,6 @@ export default function ItemDetails() {
               </span>
             </div>
 
-            {/* COLORS (translated) */}
-            {item.colors && item.colors.length > 0 && (
-              <div className="space-y-2">
-                <Label className="text-base font-semibold">{t.catalog?.itemDetail?.color || 'Color'}</Label>
-                <div className="flex flex-wrap gap-2">
-                  {item.colors.map((colorKey) => {
-                    const label = getTranslatedField(colorKey);
-                    return (
-                      <button
-                        key={colorKey}
-                        type="button"
-                        onClick={() => {
-                          setSelectedColorKey(colorKey);
-                          // Change image if colorImages mapping exists
-                          if (item.colorImages?.[colorKey]) {
-                            const images = normalizeImages(
-                              item.colorImages?.[colorKey]
-                            );
-
-                            const imageIndex = basenames.findIndex((b) =>
-                              images.includes(b)
-                            );
-
-                            if (imageIndex !== -1) {
-                              setActiveImageIndex(imageIndex);
-                            }
-                          }
-                        }}
-                        className={`px-4 py-2 text-sm rounded-md border transition ${
-                          selectedColorKey === colorKey
-                            ? "bg-primary text-white border-primary"
-                            : "bg-white text-slate-700 border-slate-300 hover:border-slate-400"
-                        }`}
-                      >
-                        {label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
             {/* SIZES (translated) */}
             {item.sizes && item.sizes.length > 0 && (
               <div className="space-y-2">
@@ -602,23 +610,37 @@ export default function ItemDetails() {
                         type="button"
                         onClick={() => {
                           setSelectedSizeKey(sizeKey);
-                          // Change image if sizeImages mapping exists
-                          if (item.sizeImages?.[sizeKey]) {
-                            const images = normalizeImages(
-                              item.sizeImages?.[sizeKey]
-                            );
-
-                            const imageIndex = basenames.findIndex((b) =>
-                              images.includes(b)
-                            );
-
-                            if (imageIndex !== -1) {
-                              setActiveImageIndex(imageIndex);
-                            }
-                          }
                         }}
                         className={`px-4 py-2 text-sm rounded-md border transition ${
                           selectedSizeKey === sizeKey
+                            ? "bg-primary text-white border-primary"
+                            : "bg-white text-slate-700 border-slate-300 hover:border-slate-400"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* COLORS (translated) */}
+            {item.colors && item.colors.length > 0 && (
+              <div className="space-y-2">
+                <Label className="text-base font-semibold">{t.catalog?.itemDetail?.color || 'Color'}</Label>
+                <div className="flex flex-wrap gap-2">
+                  {item.colors.map((colorKey) => {
+                    const label = getTranslatedField(colorKey);
+                    return (
+                      <button
+                        key={colorKey}
+                        type="button"
+                        onClick={() => {
+                          setSelectedColorKey(colorKey);
+                        }}
+                        className={`px-4 py-2 text-sm rounded-md border transition ${
+                          selectedColorKey === colorKey
                             ? "bg-primary text-white border-primary"
                             : "bg-white text-slate-700 border-slate-300 hover:border-slate-400"
                         }`}

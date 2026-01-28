@@ -256,11 +256,20 @@ const CatalogCard = memo(
         {/* Price + Basket Icon */}
         <div className="flex items-center justify-between">
           <span className="font-bold text-primary">
-            {item.sizePrices
+            {item.sizePrices && Object.keys(item.sizePrices).length > 0
+              ? (() => {
+                  const prices = Object.values(item.sizePrices);
+                  const minPrice = Math.min(...prices).toFixed(2);
+                  const hasMultiplePrices = prices.length > 1;
+                  return locale === "uz"
+                    ? `UZS ${minPrice}${hasMultiplePrices ? ` ${t.catalog.from}` : ""}`
+                    : `${hasMultiplePrices ? `${t.catalog.from} ` : ""}UZS ${minPrice}`;
+                })()
+              : item.price
               ? locale === "uz"
-                ? `UZS ${Math.min(...Object.values(item.sizePrices)).toFixed(2)} ${t.catalog.from}`
-                : `${t.catalog.from} UZS ${Math.min(...Object.values(item.sizePrices)).toFixed(2)}`
-              : `UZS ${item.price.toFixed(2)}`}
+                ? `UZS ${item.price.toFixed(2)}`
+                : `UZS ${item.price.toFixed(2)}`
+              : "—"}
           </span>
           <ShoppingBasket
             className={`h-5 w-5 text-primary transition-opacity ${

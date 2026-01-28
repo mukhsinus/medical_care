@@ -1,0 +1,2241 @@
+[
+  {
+    "id": 1,
+    "name": "Шприцы 1 мл \"UKM\"",
+    "ru": "Одноразовый шприц малого объёма для точного дозирования лекарственных средств. Подходит для подкожных и внутримышечных инъекций.",
+    "uz": "Kichik hajmli bir martalik shprits bo‘lib, dori vositalarini aniq dozalash uchun mo‘ljallangan. Teri osti va mushak ichiga inʼeksiyalar uchun mos.",
+    "en": "A small-volume disposable syringe designed for accurate medication dosing. Suitable for subcutaneous and intramuscular injections."
+  },
+  {
+    "id": 2,
+    "name": "Шприцы 1 мл \"MFA\"",
+    "ru": "Шприц объёмом 1 мл обеспечивает точное введение препаратов в малых дозах. Применяется в амбулаторной и клинической практике.",
+    "uz": "1 ml hajmdagi shprits kichik dozadagi preparatlarni aniq yuborishni taʼminlaydi. Ambulator va klinik amaliyotda qo‘llaniladi.",
+    "en": "A 1 ml syringe ensures precise administration of small-dose medications. Used in both outpatient and clinical settings."
+  },
+  {
+    "id": 3,
+    "name": "Шприцы 1 мл \"WEGO\"",
+    "ru": "Одноразовый шприц для инъекций малого объёма с чёткой шкалой. Подходит для точных медицинских манипуляций.",
+    "uz": "Aniq shkalaga ega bo‘lgan kichik hajmli bir martalik shprits. Nozik tibbiy muolajalar uchun mos.",
+    "en": "A disposable small-volume syringe with a clear measurement scale. Suitable for precise medical procedures."
+  },
+  {
+    "id": 4,
+    "name": "Шприцы 1 мл \"UNIJECT\"",
+    "ru": "Шприц малого объёма для точного дозирования лекарств. Используется при необходимости высокой точности введения.",
+    "uz": "Dori vositalarini aniq dozalash uchun mo‘ljallangan kichik hajmli shprits. Yuqori aniqlik talab etiladigan holatlarda qo‘llaniladi.",
+    "en": "A small-volume syringe intended for accurate medication dosing. Used when high precision is required."
+  },
+  {
+    "id": 5,
+    "name": "Шприцы 2,5 мл \"UNIJECT\"",
+    "ru": "Шприц среднего объёма для внутримышечных и подкожных инъекций. Обеспечивает удобное введение стандартных доз препаратов.",
+    "uz": "O‘rtacha hajmli shprits bo‘lib, mushak ichiga va teri ostiga inʼeksiyalar uchun mo‘ljallangan. Standart dozalarni qulay yuborishni taʼminlaydi.",
+    "en": "A medium-volume syringe for intramuscular and subcutaneous injections. Allows convenient administration of standard medication doses."
+  },
+  {
+    "id": 6,
+    "name": "Шприцы 2 мл \"MFA\"",
+    "ru": "Одноразовый шприц объёмом 2 мл для введения лекарственных средств. Подходит для широкого спектра инъекционных процедур.",
+    "uz": "2 ml hajmdagi bir martalik shprits dori vositalarini yuborish uchun mo‘ljallangan. Turli xil inʼeksiya muolajalarida qo‘llaniladi.",
+    "en": "A 2 ml disposable syringe for medication administration. Suitable for a wide range of injection procedures."
+  },
+  {
+    "id": 7,
+    "name": "Шприцы 2 мл \"Healthline\"",
+    "ru": "Шприц среднего объёма для стандартных инъекций. Используется в лечебных и профилактических медицинских процедурах.",
+    "uz": "Standart inʼeksiyalar uchun mo‘ljallangan o‘rtacha hajmli shprits. Davolash va profilaktik muolajalarda ishlatiladi.",
+    "en": "A medium-volume syringe for standard injections. Used in therapeutic and preventive medical procedures."
+  },
+  {
+    "id": 8,
+    "name": "Шприцы 2 мл \"UKM\"",
+    "ru": "Одноразовый шприц для точного введения лекарств объёмом до 2 мл. Подходит для инъекций различного назначения.",
+    "uz": "2 ml gacha bo‘lgan dori vositalarini aniq yuborish uchun mo‘ljallangan bir martalik shprits. Turli maqsadli inʼeksiyalar uchun mos.",
+    "en": "A disposable syringe for accurate administration of medications up to 2 ml. Suitable for various injection purposes."
+  },
+  {
+    "id": 9,
+    "name": "Шприцы 2 мл \"WEGO\"",
+    "ru": "Шприц для инъекций малого и среднего объёма с удобной шкалой дозирования. Применяется в повседневной медицинской практике.",
+    "uz": "Qulay dozali shkalaga ega bo‘lgan kichik va o‘rtacha hajmli inʼeksiyalar uchun shprits. Kundalik tibbiy amaliyotda qo‘llaniladi.",
+    "en": "A syringe for small to medium-volume injections with an easy-to-read dosing scale. Used in routine medical practice."
+  },
+  {
+    "id": 10,
+    "name": "Детские шприцы 2 мл \"KIDDI\"",
+    "ru": "Шприц объёмом 2 мл, предназначенный для применения в педиатрии. Обеспечивает точное и контролируемое введение лекарств детям.",
+    "uz": "Pediatriya uchun mo‘ljallangan 2 ml hajmdagi shprits. Bolalarga dori vositalarini aniq va nazorat ostida yuborishni taʼminlaydi.",
+    "en": "A 2 ml syringe designed for pediatric use. Ensures accurate and controlled administration of medications for children."
+  },
+  {
+    "id": 11,
+    "name": "Шприцы 2,5 мл \"Westcom\"",
+    "ru": "Шприц среднего объёма для введения лекарственных средств стандартной дозировки. Подходит для внутримышечных и подкожных инъекций.",
+    "uz": "Standart dozadagi dori vositalarini yuborish uchun mo‘ljallangan o‘rtacha hajmli shprits. Mushak ichiga va teri ostiga inʼeksiyalar uchun mos.",
+    "en": "A medium-volume syringe for administering standard medication doses. Suitable for intramuscular and subcutaneous injections."
+  },
+  {
+    "id": 12,
+    "name": "Шприцы 3 мл \"Healthline\"",
+    "ru": "Шприц объёмом 3 мл широко применяется для стандартных инъекционных процедур. Обеспечивает удобное дозирование лекарств.",
+    "uz": "3 ml hajmdagi shprits standart inʼeksiya muolajalarida keng qo‘llaniladi. Dori vositalarini qulay dozalash imkonini beradi.",
+    "en": "A 3 ml syringe commonly used for standard injection procedures. Provides convenient medication dosing."
+  },
+  {
+    "id": 13,
+    "name": "Шприцы 5 мл \"UNIJECT\"",
+    "ru": "Шприц среднего объёма для введения лекарственных растворов. Используется при внутримышечных и внутривенных инъекциях.",
+    "uz": "Dori eritmalarini yuborish uchun mo‘ljallangan o‘rtacha hajmli shprits. Mushak ichiga va vena ichiga inʼeksiyalarda ishlatiladi.",
+    "en": "A medium-volume syringe for administering medicinal solutions. Used for intramuscular and intravenous injections."
+  },
+  {
+    "id": 14,
+    "name": "Шприцы 5 мл \"MFA\"",
+    "ru": "Одноразовый шприц объёмом 5 мл для стандартных лечебных процедур. Подходит для широкого спектра инъекций.",
+    "uz": "5 ml hajmdagi bir martalik shprits standart davolovchi muolajalar uchun mo‘ljallangan. Turli xil inʼeksiyalar uchun mos.",
+    "en": "A 5 ml disposable syringe for standard therapeutic procedures. Suitable for a wide range of injections."
+  },
+  {
+    "id": 15,
+    "name": "Шприцы 5 мл \"UKM\"",
+    "ru": "Шприц для введения лекарств среднего объёма. Применяется в клинической и амбулаторной практике.",
+    "uz": "O‘rtacha hajmdagi dori vositalarini yuborish uchun mo‘ljallangan shprits. Klinik va ambulator amaliyotda qo‘llaniladi.",
+    "en": "A syringe for administering medium-volume medications. Used in clinical and outpatient practice."
+  },
+  {
+    "id": 16,
+    "name": "Шприцы 5 мл \"Healthline\"",
+    "ru": "Контрастная, легко читаемая шкала облегчает контроль дозировки. Подходит для инъекций среднего объёма.",
+    "uz": "Kontrastli va o‘qilishi oson shkala dozalashni nazorat qilishni yengillashtiradi. O‘rtacha hajmdagi inʼeksiyalar uchun mos.",
+    "en": "Features a high-contrast, easy-to-read scale for dosing control. Suitable for medium-volume injections."
+  },
+  {
+    "id": 17,
+    "name": "Шприцы 5,5 мл \"Westcom\"",
+    "ru": "Шприц увеличенного среднего объёма для введения лекарственных средств. Используется при необходимости точного контроля объёма.",
+    "uz": "Bir oz kattaroq o‘rtacha hajmli shprits dori vositalarini yuborish uchun mo‘ljallangan. Hajmni aniq nazorat qilish talab etilganda qo‘llaniladi.",
+    "en": "A slightly increased medium-volume syringe for medication administration. Used when precise volume control is required."
+  },
+  {
+    "id": 18,
+    "name": "Шприцы 5 мл \"WEGO\"",
+    "ru": "Шприц объёмом 5 мл для стандартных инъекционных процедур. Подходит для введения растворов и суспензий.",
+    "uz": "5 ml hajmdagi shprits standart inʼeksiya muolajalari uchun mo‘ljallangan. Eritmalar va suspenziyalarni yuborish uchun mos.",
+    "en": "A 5 ml syringe for standard injection procedures. Suitable for administering solutions and suspensions."
+  },
+  {
+    "id": 19,
+    "name": "Шприцы 10 мл \"UNIJECT\"",
+    "ru": "Шприц большого объёма для введения лекарственных растворов. Используется при внутривенных и инфузионных манипуляциях.",
+    "uz": "Katta hajmli shprits dori eritmalarini yuborish uchun mo‘ljallangan. Vena ichiga va infuzion muolajalarda ishlatiladi.",
+    "en": "A large-volume syringe for administering medicinal solutions. Used for intravenous and infusion procedures."
+  },
+  {
+    "id": 20,
+    "name": "Шприцы 10 мл \"MFA\"",
+    "ru": "Одноразовый шприц объёмом 10 мл для клинических процедур. Подходит для введения значительных объёмов препаратов.",
+    "uz": "10 ml hajmdagi bir martalik shprits klinik muolajalar uchun mo‘ljallangan. Katta hajmdagi preparatlarni yuborish uchun mos.",
+    "en": "A 10 ml disposable syringe for clinical procedures. Suitable for administering larger volumes of medications."
+  },
+  {
+    "id": 21,
+    "name": "Шприцы 10,5 мл \"Westcom\"",
+    "ru": "Шприц увеличенного объёма для введения лекарственных растворов. Используется при процедурах, требующих точного контроля вводимого объёма.",
+    "uz": "Kengaytirilgan hajmli shprits dori eritmalarini yuborish uchun mo‘ljallangan. Kiritilayotgan hajmni aniq nazorat qilish talab etilganda qo‘llaniladi.",
+    "en": "An increased-volume syringe for administering medicinal solutions. Used when precise control of administered volume is required."
+  },
+  {
+    "id": 22,
+    "name": "Шприцы 10 мл \"WEGO\"",
+    "ru": "Шприц большого объёма для стандартных медицинских инъекций. Подходит для внутривенного введения препаратов.",
+    "uz": "Katta hajmli shprits standart tibbiy inʼeksiyalar uchun mo‘ljallangan. Dori vositalarini vena ichiga yuborish uchun mos.",
+    "en": "A large-volume syringe for standard medical injections. Suitable for intravenous administration of medications."
+  },
+  {
+    "id": 23,
+    "name": "Шприцы 20 мл \"WEGO\"",
+    "ru": "Шприц большого объёма для введения лекарственных растворов и промываний. Используется при клинических и процедурных манипуляциях.",
+    "uz": "Katta hajmli shprits dori eritmalari va yuvish muolajalari uchun mo‘ljallangan. Klinik va protseduraviy amaliyotda qo‘llaniladi.",
+    "en": "A large-volume syringe for administering medicinal solutions and for irrigation procedures. Used in clinical and procedural practice."
+  },
+  {
+    "id": 24,
+    "name": "Шприцы 20 мл \"UNIJECT\"",
+    "ru": "Одноразовый шприц объёмом 20 мл для введения значительных объёмов жидкости. Применяется при инфузионных и вспомогательных процедурах.",
+    "uz": "20 ml hajmdagi bir martalik shprits katta hajmdagi suyuqliklarni yuborish uchun mo‘ljallangan. Infuzion va yordamchi muolajalarda ishlatiladi.",
+    "en": "A 20 ml disposable syringe for administering larger volumes of fluids. Used in infusion-related and auxiliary procedures."
+  },
+  {
+    "id": 25,
+    "name": "Шприцы 10 мл \"UKM\"",
+    "ru": "Шприц среднего и большого объёма для стандартных медицинских процедур. Подходит для введения лекарственных растворов.",
+    "uz": "O‘rtacha va katta hajmli shprits standart tibbiy muolajalar uchun mo‘ljallangan. Dori eritmalarini yuborish uchun mos.",
+    "en": "A medium to large-volume syringe for standard medical procedures. Suitable for administering medicinal solutions."
+  },
+  {
+    "id": 26,
+    "name": "Шприцы 10 мл \"UKM\" без иглы",
+    "ru": "Шприц объёмом 10 мл без иглы, предназначенный для переливания и промывания. Используется в сочетании с катетерами и зондами.",
+    "uz": "Ignasiz 10 ml hajmdagi shprits yuvish va suyuqlik o‘tkazish uchun mo‘ljallangan. Kateter va zondlar bilan birga qo‘llaniladi.",
+    "en": "A 10 ml syringe without a needle designed for fluid transfer and irrigation. Used in combination with catheters and tubes."
+  },
+  {
+    "id": 27,
+    "name": "Шприцы 20 мл \"UKM\"",
+    "ru": "Шприц большого объёма для введения и аспирации жидкостей. Применяется при клинических и диагностических процедурах.",
+    "uz": "Katta hajmli shprits suyuqliklarni yuborish va so‘rib olish uchun mo‘ljallangan. Klinik va diagnostik muolajalarda qo‘llaniladi.",
+    "en": "A large-volume syringe for fluid administration and aspiration. Used in clinical and diagnostic procedures."
+  },
+  {
+    "id": 28,
+    "name": "Шприцы 10 мл \"Healthline\"",
+    "ru": "Шприц объёмом 10 мл для стандартных инъекций и процедур. Обеспечивает удобное и контролируемое введение препаратов.",
+    "uz": "10 ml hajmdagi shprits standart inʼeksiyalar va muolajalar uchun mo‘ljallangan. Preparatlarni qulay va nazorat ostida yuborishni taʼminlaydi.",
+    "en": "A 10 ml syringe for standard injections and procedures. Ensures convenient and controlled medication administration."
+  },
+  {
+    "id": 29,
+    "name": "Шприцы 20 мл \"Healthline\"",
+    "ru": "Шприц большого объёма для клинических манипуляций и промываний. Используется для работы с лекарственными растворами.",
+    "uz": "Katta hajmli shprits klinik muolajalar va yuvishlar uchun mo‘ljallangan. Dori eritmalari bilan ishlashda qo‘llaniladi.",
+    "en": "A large-volume syringe for clinical manipulations and irrigation. Used for handling medicinal solutions."
+  },
+  {
+    "id": 30,
+    "name": "Шприцы 50 мл \"WEGO\"",
+    "ru": "Шприц большого объёма для введения и удаления жидкостей. Подходит для процедур промывания и аспирации.",
+    "uz": "Juda katta hajmli shprits suyuqliklarni yuborish va chiqarib olish uchun mo‘ljallangan. Yuvish va aspiratsiya muolajalarida ishlatiladi.",
+    "en": "A high-volume syringe for fluid administration and removal. Suitable for irrigation and aspiration procedures."
+  },
+  {
+    "id": 31,
+    "name": "Шприцы 60 мл Luer Lock \"UKM\"",
+    "ru": "Шприц большого объёма с соединением Luer Lock для надёжной фиксации насадок. Применяется при промываниях, аспирации и работе с катетерами.",
+    "uz": "Luer Lock ulanishiga ega katta hajmli shprits bo‘lib, nasadkalarni ishonchli mahkamlashni taʼminlaydi. Yuvish, aspiratsiya va kateterlar bilan ishlashda qo‘llaniladi.",
+    "en": "A large-volume syringe with a Luer Lock connection for secure attachment of accessories. Used for irrigation, aspiration, and catheter-related procedures."
+  },
+  {
+    "id": 32,
+    "name": "Шприцы 60 мл Catheter Tip \"UKM\"",
+    "ru": "Шприц большого объёма с катетерным наконечником для введения и удаления жидкостей. Используется при промывании полостей и работе с зондами.",
+    "uz": "Kateter uchiga ega katta hajmli shprits suyuqliklarni yuborish va chiqarish uchun mo‘ljallangan. Bo‘shliqlarni yuvish va zondlar bilan ishlashda qo‘llaniladi.",
+    "en": "A large-volume syringe with a catheter tip for fluid administration and removal. Used for cavity irrigation and procedures involving tubes."
+  },
+  {
+    "id": 33,
+    "name": "Шприцы инсулиновые 0,3 мл \"KDM\"",
+    "ru": "Инсулиновый шприц малого объёма для точного введения инсулина. Подходит для контроля малых доз при сахарном диабете.",
+    "uz": "Insulinni aniq yuborish uchun mo‘ljallangan kichik hajmli insulin shpritsidir. Qandli diabetda kichik dozalarni nazorat qilish uchun mos.",
+    "en": "A small-volume insulin syringe designed for precise insulin administration. Suitable for accurate dosing in diabetes management."
+  },
+  {
+    "id": 34,
+    "name": "Шприцы инсулиновые 0,5 мл \"KDM\"",
+    "ru": "Инсулиновый шприц среднего малого объёма для введения инсулина. Обеспечивает удобное дозирование при регулярных инъекциях.",
+    "uz": "Insulinni yuborish uchun mo‘ljallangan o‘rtacha kichik hajmli insulin shpritsidir. Doimiy inʼeksiyalarda qulay dozalashni taʼminlaydi.",
+    "en": "A small to medium-volume insulin syringe for insulin administration. Provides convenient dosing for regular injections."
+  },
+  {
+    "id": 35,
+    "name": "Шприцы инсулиновые 1 мл \"KDM\" (игла 12 мм)",
+    "ru": "Инсулиновый шприц объёмом 1 мл с иглой длиной 12 мм. Используется для стандартных подкожных инъекций инсулина.",
+    "uz": "12 mm uzunlikdagi ignaga ega 1 ml hajmli insulin shpritsidir. Insulinni teri ostiga standart yuborish uchun ishlatiladi.",
+    "en": "A 1 ml insulin syringe with a 12 mm needle. Used for standard subcutaneous insulin injections."
+  },
+  {
+    "id": 36,
+    "name": "Шприцы инсулиновые 1 мл \"KDM\" (игла 8 мм)",
+    "ru": "Инсулиновый шприц объёмом 1 мл с укороченной иглой 8 мм. Подходит для подкожных инъекций с минимальной глубиной прокола.",
+    "uz": "8 mm qisqa ignaga ega 1 ml hajmli insulin shpritsidir. Teri ostiga sayoz chuqurlikda inʼeksiya qilish uchun mos.",
+    "en": "A 1 ml insulin syringe with a shortened 8 mm needle. Suitable for shallow subcutaneous injections."
+  },
+  {
+    "id": 37,
+    "name": "Шприцы инсулиновые 1 мл \"UKM\"",
+    "ru": "Инсулиновый шприц стандартного объёма для точного дозирования инсулина. Применяется при ежедневной терапии.",
+    "uz": "Insulinni aniq dozalash uchun mo‘ljallangan standart hajmli insulin shpritsidir. Kundalik davolash jarayonida qo‘llaniladi.",
+    "en": "A standard-volume insulin syringe for accurate insulin dosing. Used in daily insulin therapy."
+  },
+  {
+    "id": 38,
+    "name": "Шприцы инсулиновые 1 мл \"Healthline\"",
+    "ru": "Инсулиновый шприц для подкожного введения инсулина. Обеспечивает контроль дозы при регулярном применении.",
+    "uz": "Insulinni teri ostiga yuborish uchun mo‘ljallangan insulin shpritsidir. Muntazam qo‘llashda dozani nazorat qilishni taʼminlaydi.",
+    "en": "An insulin syringe designed for subcutaneous insulin administration. Ensures dose control during regular use."
+  },
+  {
+    "id": 39,
+    "name": "Шприц 50 мл KD-JECT III без иглы Luer Lock",
+    "ru": "Шприц большого объёма без иглы с соединением Luer Lock. Используется для переливания, промывания и работы с медицинскими системами.",
+    "uz": "Ignasiz va Luer Lock ulanishiga ega katta hajmli shprits. Suyuqlik o‘tkazish, yuvish va tibbiy tizimlar bilan ishlashda qo‘llaniladi.",
+    "en": "A large-volume needle-free syringe with a Luer Lock connection. Used for fluid transfer, irrigation, and medical system procedures."
+  },
+  {
+    "id": 40,
+    "name": "Шприц 50 мл KD-JECT III без иглы с наконечником",
+    "ru": "Шприц большого объёма с наконечником без иглы для введения и удаления жидкостей. Применяется при промывании и аспирации.",
+    "uz": "Ignasiz va uchli katta hajmli shprits suyuqliklarni yuborish va chiqarish uchun mo‘ljallangan. Yuvish va aspiratsiya muolajalarida ishlatiladi.",
+    "en": "A large-volume needle-free syringe with a tip for fluid administration and removal. Used in irrigation and aspiration procedures."
+  },
+  {
+    "id": 41,
+    "name": "Шприц 50 мл с иглой \"LDH\"",
+    "ru": "Шприц большого объёма с иглой для введения и аспирации жидкостей. Используется при клинических и процедурных манипуляциях.",
+    "uz": "Ignali katta hajmli shprits suyuqliklarni yuborish va so‘rib olish uchun mo‘ljallangan. Klinik va protseduraviy muolajalarda qo‘llaniladi.",
+    "en": "A large-volume syringe with a needle for fluid administration and aspiration. Used in clinical and procedural applications."
+  },
+  {
+    "id": 42,
+    "name": "Шприц 100 мл KD-JECT III без иглы с наконечником",
+    "ru": "Шприц очень большого объёма без иглы для переливания и промывания. Применяется при работе с зондами и катетерами.",
+    "uz": "Ignasiz juda katta hajmli shprits suyuqliklarni o‘tkazish va yuvish uchun mo‘ljallangan. Zond va kateterlar bilan ishlashda qo‘llaniladi.",
+    "en": "An extra-large needle-free syringe for fluid transfer and irrigation. Used with catheters and tubes."
+  },
+  {
+    "id": 43,
+    "name": "Игла стерильная 27G / 30G",
+    "ru": "Стерильная одноразовая игла малого диаметра для инъекций. Подходит для подкожного и внутрикожного введения препаратов.",
+    "uz": "Kichik diametrli steril bir martalik igna inʼeksiyalar uchun mo‘ljallangan. Teri ostiga va teri ichiga yuborish uchun mos.",
+    "en": "A sterile disposable small-gauge needle for injections. Suitable for subcutaneous and intradermal administration."
+  },
+  {
+    "id": 44,
+    "name": "Система инфузионная \"Westcom\"",
+    "ru": "Инфузионная система для внутривенного введения растворов. Применяется при капельных инфузиях в клинической практике.",
+    "uz": "Eritmalarni vena ichiga tomchilab yuborish uchun mo‘ljallangan infuzion tizim. Klinik amaliyotda tomchilatib infuziyada ishlatiladi.",
+    "en": "An infusion set for intravenous administration of solutions. Used for drip infusions in clinical practice."
+  },
+  {
+    "id": 45,
+    "name": "Система инфузионная \"WEGO\"",
+    "ru": "Система для контролируемого внутривенного введения инфузионных растворов. Используется в стационарных и амбулаторных условиях.",
+    "uz": "Infuzion eritmalarni nazorat ostida vena ichiga yuborish uchun mo‘ljallangan tizim. Statsionar va ambulator sharoitlarda qo‘llaniladi.",
+    "en": "A system for controlled intravenous infusion of solutions. Used in both inpatient and outpatient settings."
+  },
+  {
+    "id": 46,
+    "name": "Система инфузионная \"MC UNISET\"",
+    "ru": "Инфузионная система для стандартных капельных вливаний. Обеспечивает равномерную подачу растворов.",
+    "uz": "Standart tomchilatib yuborish uchun mo‘ljallangan infuzion tizim. Eritmalarning bir tekis oqimini taʼminlaydi.",
+    "en": "An infusion set for standard drip administration. Ensures steady delivery of solutions."
+  },
+  {
+    "id": 47,
+    "name": "Система трансфузионная",
+    "ru": "Трансфузионная система для переливания крови и кровезаменителей. Используется при гемотрансфузионных процедурах.",
+    "uz": "Qon va qon o‘rnini bosuvchi suyuqliklarni quyish uchun mo‘ljallangan transfuzion tizim. Gemotransfuziya muolajalarida ishlatiladi.",
+    "en": "A transfusion set for blood and blood substitute administration. Used in hemotransfusion procedures."
+  },
+  {
+    "id": 48,
+    "name": "Система трансфузионная с иглой 18G",
+    "ru": "Трансфузионная система с иглой 18G для переливания крови. Обеспечивает стабильный поток при трансфузии.",
+    "uz": "18G ignali transfuzion tizim qon quyish uchun mo‘ljallangan. Transfuziya vaqtida barqaror oqimni taʼminlaydi.",
+    "en": "A transfusion set with an 18G needle for blood administration. Provides stable flow during transfusion."
+  },
+  {
+    "id": 49,
+    "name": "Система инфузионная TBL-150",
+    "ru": "Инфузионная система для внутривенного введения растворов. Применяется при стандартных инфузионных процедурах.",
+    "uz": "Eritmalarni vena ichiga yuborish uchun mo‘ljallangan infuzion tizim. Standart infuzion muolajalarda qo‘llaniladi.",
+    "en": "An infusion system for intravenous solution administration. Used in standard infusion procedures."
+  },
+  {
+    "id": 50,
+    "name": "Перчатки нитриловые \"UNIGLOVES\"",
+    "ru": "Одноразовые нитриловые перчатки для защиты рук при медицинских манипуляциях. Используются для снижения риска контакта с биологическими жидкостями.",
+    "uz": "Tibbiy muolajalar vaqtida qo‘llarni himoyalash uchun mo‘ljallangan bir martalik nitril qo‘lqoplar. Biologik suyuqliklar bilan aloqa xavfini kamaytiradi.",
+    "en": "Disposable nitrile gloves for hand protection during medical procedures. Used to reduce contact with biological fluids."
+  },
+  {
+    "id": 51,
+    "name": "Перчатки нитриловые \"ADRAS GLOVES\"",
+    "ru": "Одноразовые нитриловые перчатки для медицинских и диагностических процедур. Обеспечивают барьерную защиту рук при контакте с биологическими средами.",
+    "uz": "Tibbiy va diagnostik muolajalar uchun mo‘ljallangan bir martalik nitril qo‘lqoplar. Biologik muhitlar bilan aloqada qo‘llarni himoyalaydi.",
+    "en": "Disposable nitrile gloves for medical and diagnostic procedures. Provide a protective barrier during contact with biological substances."
+  },
+  {
+    "id": 52,
+    "name": "Перчатки нитриловые \"UNIGLOVES Premium\"",
+    "ru": "Нитриловые перчатки повышенной плотности для медицинских манипуляций. Используются при процедурах, требующих надёжной защиты рук.",
+    "uz": "Tibbiy muolajalar uchun mo‘ljallangan yuqori zichlikdagi nitril qo‘lqoplar. Qo‘llarni ishonchli himoya qilish talab etilganda qo‘llaniladi.",
+    "en": "High-density nitrile gloves for medical procedures. Used when enhanced hand protection is required."
+  },
+  {
+    "id": 53,
+    "name": "Перчатки хирургические стерильные \"Dentafil\"",
+    "ru": "Стерильные хирургические перчатки для проведения инвазивных процедур. Применяются в операционной и при стерильных манипуляциях.",
+    "uz": "Invaziv muolajalarni bajarish uchun mo‘ljallangan steril jarrohlik qo‘lqoplari. Operatsion va steril sharoitlarda qo‘llaniladi.",
+    "en": "Sterile surgical gloves for invasive procedures. Used in operating rooms and sterile medical settings."
+  },
+  {
+    "id": 54,
+    "name": "Внутривенный катетер",
+    "ru": "Внутривенный катетер для кратковременного доступа к венозной системе. Используется для инфузий и введения лекарственных средств.",
+    "uz": "Vena ichiga kirish uchun mo‘ljallangan intravenoz kateter. Infuziya va dori vositalarini yuborishda qo‘llaniladi.",
+    "en": "An intravenous catheter for short-term access to the venous system. Used for infusions and medication administration."
+  },
+  {
+    "id": 55,
+    "name": "Внутривенный катетер \"HEALFLON\"",
+    "ru": "Катетер для внутривенного введения растворов и препаратов. Применяется в инфузионной и лечебной практике.",
+    "uz": "Eritmalar va dori vositalarini vena ichiga yuborish uchun mo‘ljallangan kateter. Infuzion va davolovchi amaliyotda qo‘llaniladi.",
+    "en": "A catheter for intravenous administration of solutions and medications. Used in infusion and therapeutic practice."
+  },
+  {
+    "id": 56,
+    "name": "Внутривенный катетер \"KD-FIX\"",
+    "ru": "Внутривенный катетер для контролируемого введения лекарств и инфузионных растворов. Используется при длительных процедурах.",
+    "uz": "Dori vositalari va infuzion eritmalarni nazorat ostida yuborish uchun mo‘ljallangan intravenoz kateter. Uzoq davom etuvchi muolajalarda qo‘llaniladi.",
+    "en": "An intravenous catheter for controlled administration of medications and infusion solutions. Used in prolonged procedures."
+  },
+  {
+    "id": 57,
+    "name": "Катетер-бабочка \"KD-FLY\"",
+    "ru": "Катетер типа «бабочка» для кратковременного венозного доступа. Применяется при заборе крови и введении препаратов.",
+    "uz": "Qisqa muddatli venoz kirish uchun mo‘ljallangan «kapalak» turidagi kateter. Qon olish va dori yuborishda ishlatiladi.",
+    "en": "A butterfly-type catheter for short-term venous access. Used for blood collection and medication administration."
+  },
+  {
+    "id": 58,
+    "name": "Катетер-бабочка \"Healthline\"",
+    "ru": "Катетер для периферического венозного доступа. Используется при инъекциях и диагностических процедурах.",
+    "uz": "Periferik venoz kirish uchun mo‘ljallangan kateter. Inʼeksiya va diagnostik muolajalarda qo‘llaniladi.",
+    "en": "A catheter for peripheral venous access. Used in injections and diagnostic procedures."
+  },
+  {
+    "id": 59,
+    "name": "Канюля кислородная \"BEROTUBE\" (детская)",
+    "ru": "Кислородная канюля для подачи кислорода детям. Используется при кислородной терапии в педиатрической практике.",
+    "uz": "Bolalar uchun mo‘ljallangan kislorod kanülasi. Pediatriyada kislorod terapiyasida qo‘llaniladi.",
+    "en": "A pediatric oxygen cannula for oxygen delivery. Used in pediatric oxygen therapy."
+  },
+  {
+    "id": 60,
+    "name": "Скарификатор копьё",
+    "ru": "Одноразовый скарификатор для прокола кожи при заборе капиллярной крови. Применяется в лабораторной диагностике.",
+    "uz": "Kapillyar qon olishda terini teshib olish uchun mo‘ljallangan bir martalik skarifikator. Laboratoriya diagnostikasida qo‘llaniladi.",
+    "en": "A disposable lancet for skin puncture during capillary blood sampling. Used in laboratory diagnostics."
+  },
+  {
+    "id": 61,
+    "name": "Катетер Фолея 2-х ходовой",
+    "ru": "Двухходовой катетер Фолея для дренирования мочевого пузыря. Используется при кратковременной и длительной катетеризации.",
+    "uz": "Siydik pufagini drenaj qilish uchun mo‘ljallangan ikki yo‘lli Foley kateteri. Qisqa va uzoq muddatli kateterizatsiyada qo‘llaniladi.",
+    "en": "A two-way Foley catheter for urinary bladder drainage. Used for short-term and long-term catheterization."
+  },
+  {
+    "id": 62,
+    "name": "Катетер Фолея 2-х ходовой \"KDM\"",
+    "ru": "Двухходовой катетер Фолея для контролируемого отведения мочи. Применяется в урологической практике.",
+    "uz": "Siydikni nazorat ostida chiqarish uchun mo‘ljallangan ikki yo‘lli Foley kateteri. Urologik amaliyotda qo‘llaniladi.",
+    "en": "A two-way Foley catheter for controlled urinary drainage. Used in urological practice."
+  },
+  {
+    "id": 63,
+    "name": "Катетер Фолея 2-х ходовой",
+    "ru": "Стерильный двухходовой катетер Фолея для мочевой катетеризации. Подходит для использования в стационарных условиях.",
+    "uz": "Siydik kateterizatsiyasi uchun mo‘ljallangan steril ikki yo‘lli Foley kateteri. Statsionar sharoitlarda foydalaniladi.",
+    "en": "A sterile two-way Foley catheter for urinary catheterization. Suitable for inpatient use."
+  },
+  {
+    "id": 64,
+    "name": "Катетер Нелатона стерильный",
+    "ru": "Прямой стерильный катетер Нелатона для однократной катетеризации. Используется для временного отведения мочи.",
+    "uz": "Bir martalik kateterizatsiya uchun mo‘ljallangan to‘g‘ri steril Nelaton kateteri. Siydikni vaqtincha chiqarish uchun ishlatiladi.",
+    "en": "A straight sterile Nelaton catheter for single-use catheterization. Used for temporary urinary drainage."
+  },
+  {
+    "id": 65,
+    "name": "Мочеприемник 2000 мл",
+    "ru": "Мочеприёмник большого объёма для сбора мочи. Используется совместно с урологическими катетерами.",
+    "uz": "Siydikni yig‘ish uchun mo‘ljallangan katta hajmli siydik qabul qilgich. Urologik kateterlar bilan birga ishlatiladi.",
+    "en": "A high-capacity urine collection bag. Used in combination with urological catheters."
+  },
+  {
+    "id": 66,
+    "name": "Зонд урогенитальный",
+    "ru": "Урогенитальный зонд для диагностических и гинекологических процедур. Используется для забора биоматериала.",
+    "uz": "Diagnostik va ginekologik muolajalar uchun mo‘ljallangan urogenital zond. Biomaterial olishda qo‘llaniladi.",
+    "en": "A urogenital probe for diagnostic and gynecological procedures. Used for biological sample collection."
+  },
+  {
+    "id": 67,
+    "name": "Трубка эндотрахеальная 3,0 мм",
+    "ru": "Эндотрахеальная трубка малого диаметра для обеспечения проходимости дыхательных путей. Применяется в анестезиологии и реанимации.",
+    "uz": "Nafas yo‘llarining o‘tkazuvchanligini taʼminlash uchun mo‘ljallangan kichik diametrli endotraxeal naycha. Anesteziologiya va reanimatsiyada qo‘llaniladi.",
+    "en": "A small-diameter endotracheal tube for maintaining airway patency. Used in anesthesia and critical care."
+  },
+  {
+    "id": 68,
+    "name": "Трубка эндотрахеальная 3,5 мм",
+    "ru": "Эндотрахеальная трубка для контроля дыхательных путей. Используется при интубации у пациентов малого возраста.",
+    "uz": "Nafas yo‘llarini nazorat qilish uchun mo‘ljallangan endotraxeal naycha. Kichik yoshdagi bemorlarda intubatsiya vaqtida ishlatiladi.",
+    "en": "An endotracheal tube for airway control. Used during intubation in pediatric patients."
+  },
+  {
+    "id": 69,
+    "name": "Трубка эндотрахеальная 4,0 мм",
+    "ru": "Эндотрахеальная трубка для обеспечения вентиляции лёгких. Применяется при анестезии и экстренных состояниях.",
+    "uz": "O‘pkani ventilyatsiya qilishni taʼminlash uchun mo‘ljallangan endotraxeal naycha. Anesteziya va shoshilinch holatlarda qo‘llaniladi.",
+    "en": "An endotracheal tube for ensuring lung ventilation. Used in anesthesia and emergency situations."
+  },
+  {
+    "id": 70,
+    "name": "Трубка эндотрахеальная 4,5 мм",
+    "ru": "Эндотрахеальная трубка среднего малого диаметра для интубации. Используется для поддержания дыхательных функций.",
+    "uz": "Intubatsiya uchun mo‘ljallangan o‘rtacha kichik diametrli endotraxeal naycha. Nafas olish funksiyalarini qo‘llab-quvvatlashda ishlatiladi.",
+    "en": "A small to medium-diameter endotracheal tube for intubation. Used to support respiratory function."
+  },
+  {
+    "id": 71,
+    "name": "Трубка эндотрахеальная 5,0 мм",
+    "ru": "Эндотрахеальная трубка для интубации и обеспечения проходимости дыхательных путей. Используется при анестезии и искусственной вентиляции лёгких.",
+    "uz": "Intubatsiya va nafas yo‘llarining o‘tkazuvchanligini taʼminlash uchun mo‘ljallangan endotraxeal naycha. Anesteziya va sunʼiy nafas oldirishda qo‘llaniladi.",
+    "en": "An endotracheal tube for intubation and airway patency. Used in anesthesia and mechanical ventilation."
+  },
+  {
+    "id": 72,
+    "name": "Трубка эндотрахеальная 5,5 мм",
+    "ru": "Эндотрахеальная трубка для контроля дыхательных путей у пациентов среднего возраста. Применяется в реанимационной практике.",
+    "uz": "O‘rtacha yoshdagi bemorlarda nafas yo‘llarini nazorat qilish uchun mo‘ljallangan endotraxeal naycha. Reanimatsiya amaliyotida qo‘llaniladi.",
+    "en": "An endotracheal tube for airway control in medium-sized patients. Used in critical care practice."
+  },
+  {
+    "id": 73,
+    "name": "Трубка эндотрахеальная 6,0 мм",
+    "ru": "Эндотрахеальная трубка для поддержания дыхательных функций. Используется при плановой и экстренной интубации.",
+    "uz": "Nafas olish funksiyalarini taʼminlash uchun mo‘ljallangan endotraxeal naycha. Rejali va shoshilinch intubatsiyada qo‘llaniladi.",
+    "en": "An endotracheal tube for maintaining respiratory function. Used in elective and emergency intubation."
+  },
+  {
+    "id": 74,
+    "name": "Трубка эндотрахеальная 6,5 мм",
+    "ru": "Эндотрахеальная трубка для вентиляции лёгких и защиты дыхательных путей. Применяется в анестезиологии.",
+    "uz": "O‘pkani ventilyatsiya qilish va nafas yo‘llarini himoyalash uchun mo‘ljallangan endotraxeal naycha. Anesteziologiyada qo‘llaniladi.",
+    "en": "An endotracheal tube for lung ventilation and airway protection. Used in anesthesiology."
+  },
+  {
+    "id": 75,
+    "name": "Трубка эндотрахеальная 7,0 мм",
+    "ru": "Эндотрахеальная трубка стандартного диаметра для взрослых пациентов. Используется при интубации и ИВЛ.",
+    "uz": "Kattalar uchun mo‘ljallangan standart diametrli endotraxeal naycha. Intubatsiya va sunʼiy nafas oldirishda ishlatiladi.",
+    "en": "A standard-diameter endotracheal tube for adult patients. Used for intubation and mechanical ventilation."
+  },
+  {
+    "id": 76,
+    "name": "Трубка эндотрахеальная 7,5 мм",
+    "ru": "Эндотрахеальная трубка увеличенного диаметра для взрослых пациентов. Применяется для обеспечения эффективной вентиляции лёгких.",
+    "uz": "Kattalar uchun mo‘ljallangan kattaroq diametrli endotraxeal naycha. O‘pkaning samarali ventilyatsiyasini taʼminlash uchun qo‘llaniladi.",
+    "en": "A larger-diameter endotracheal tube for adult patients. Used to ensure effective lung ventilation."
+  },
+  {
+    "id": 77,
+    "name": "Трубка эндотрахеальная 8,0 мм",
+    "ru": "Эндотрахеальная трубка большого диаметра для интубации взрослых пациентов. Используется при операциях и в реанимации.",
+    "uz": "Kattalar bemorlarini intubatsiya qilish uchun mo‘ljallangan katta diametrli endotraxeal naycha. Operatsiyalar va reanimatsiyada qo‘llaniladi.",
+    "en": "A large-diameter endotracheal tube for adult intubation. Used in surgery and intensive care."
+  },
+  {
+    "id": 78,
+    "name": "Трубка эндотрахеальная 8,5 мм",
+    "ru": "Эндотрахеальная трубка увеличенного диаметра для обеспечения проходимости дыхательных путей. Применяется при сложной интубации.",
+    "uz": "Nafas yo‘llarining o‘tkazuvchanligini taʼminlash uchun mo‘ljallangan kattaroq diametrli endotraxeal naycha. Murakkab intubatsiyada qo‘llaniladi.",
+    "en": "An extra-large endotracheal tube for maintaining airway patency. Used in difficult intubation cases."
+  },
+  {
+    "id": 79,
+    "name": "Трубка эндотрахеальная \"MEDIK PLAST\"",
+    "ru": "Эндотрахеальная трубка для интубации пациентов различного возраста. Используется для контроля дыхательных путей при анестезии.",
+    "uz": "Turli yoshdagi bemorlarni intubatsiya qilish uchun mo‘ljallangan endotraxeal naycha. Anesteziyada nafas yo‘llarini nazorat qilish uchun qo‘llaniladi.",
+    "en": "An endotracheal tube for intubating patients of different ages. Used for airway control during anesthesia."
+  },
+  {
+    "id": 80,
+    "name": "Зонд желудочный стерильный",
+    "ru": "Стерильный желудочный зонд для введения и удаления содержимого желудка. Применяется в диагностических и лечебных процедурах.",
+    "uz": "Oshqozon tarkibini kiritish va chiqarish uchun mo‘ljallangan steril oshqozon zondi. Diagnostik va davolovchi muolajalarda qo‘llaniladi.",
+    "en": "A sterile gastric tube for introducing and removing stomach contents. Used in diagnostic and therapeutic procedures."
+  },
+  {
+    "id": 81,
+    "name": "Зонд желудочный назогастральный",
+    "ru": "Назогастральный зонд для введения питания и удаления желудочного содержимого. Применяется при лечении и уходе за пациентами с нарушением глотания.",
+    "uz": "Ovqatlantirish va oshqozon tarkibini chiqarish uchun mo‘ljallangan nazogastral zond. Yutish buzilishi bo‘lgan bemorlarni parvarishlashda qo‘llaniladi.",
+    "en": "A nasogastric tube for feeding and gastric content removal. Used in the care and treatment of patients with swallowing disorders."
+  },
+  {
+    "id": 82,
+    "name": "Зажим пупочный стерильный",
+    "ru": "Стерильный пупочный зажим для пережатия пуповины у новорождённых. Используется в акушерской практике сразу после родов.",
+    "uz": "Yangi tug‘ilgan chaqaloqlarda kindikni qisish uchun mo‘ljallangan steril kindik qisqichi. Tug‘ruqdan so‘ng akusherlik amaliyotida qo‘llaniladi.",
+    "en": "A sterile umbilical clamp for clamping the umbilical cord in newborns. Used in obstetric practice immediately after birth."
+  },
+  {
+    "id": 83,
+    "name": "Шпатель Эйра одноразовый",
+    "ru": "Одноразовый шпатель Эйра для гинекологических осмотров. Используется при заборе мазков и диагностических процедурах.",
+    "uz": "Ginekologik ko‘riklar uchun mo‘ljallangan bir martalik Ayre shpateli. Surma olish va diagnostik muolajalarda qo‘llaniladi.",
+    "en": "A disposable Ayre spatula for gynecological examinations. Used for smear collection and diagnostic procedures."
+  },
+  {
+    "id": 84,
+    "name": "Зонд универсальный",
+    "ru": "Универсальный зонд для диагностических и гинекологических процедур. Применяется для забора биоматериала.",
+    "uz": "Diagnostik va ginekologik muolajalar uchun mo‘ljallangan universal zond. Biomaterial olishda ishlatiladi.",
+    "en": "A universal probe for diagnostic and gynecological procedures. Used for biological sample collection."
+  },
+  {
+    "id": 85,
+    "name": "Зеркало гинекологическое Куско",
+    "ru": "Гинекологическое зеркало типа Куско для осмотра шейки матки. Используется при диагностических и профилактических осмотрах.",
+    "uz": "Bachadon bo‘ynini ko‘rikdan o‘tkazish uchun mo‘ljallangan Cusco turidagi ginekologik oynacha. Diagnostik va profilaktik tekshiruvlarda qo‘llaniladi.",
+    "en": "A Cusco-type gynecological speculum for cervical examination. Used in diagnostic and preventive gynecological exams."
+  },
+  {
+    "id": 86,
+    "name": "Зеркало гинекологическое Куско с фиксатором",
+    "ru": "Гинекологическое зеркало с фиксатором для стабильного раскрытия влагалища. Облегчает проведение осмотров и процедур.",
+    "uz": "Qulfli ginekologik Cusco oynachasi qinni barqaror ochib turish uchun mo‘ljallangan. Ko‘rik va muolajalarni osonlashtiradi.",
+    "en": "A Cusco gynecological speculum with a locking mechanism for stable vaginal opening. Facilitates examinations and procedures."
+  },
+  {
+    "id": 87,
+    "name": "Набор гинекологический",
+    "ru": "Одноразовый гинекологический набор для осмотров и диагностических процедур. Используется в амбулаторной практике.",
+    "uz": "Ko‘rik va diagnostik muolajalar uchun mo‘ljallangan bir martalik ginekologik to‘plam. Ambulator amaliyotda qo‘llaniladi.",
+    "en": "A disposable gynecological kit for examinations and diagnostic procedures. Used in outpatient practice."
+  },
+  {
+    "id": 88,
+    "name": "Лезвие скальпеля одноразовое",
+    "ru": "Одноразовое хирургическое лезвие для точных разрезов тканей. Используется при оперативных вмешательствах.",
+    "uz": "To‘qimalarni aniq kesish uchun mo‘ljallangan bir martalik jarrohlik pichog‘i. Operativ aralashuvlarda qo‘llaniladi.",
+    "en": "A disposable surgical blade for precise tissue incisions. Used in surgical procedures."
+  },
+  {
+    "id": 89,
+    "name": "Скальпель одноразовый",
+    "ru": "Одноразовый хирургический скальпель для выполнения разрезов. Применяется в хирургической практике.",
+    "uz": "Kesish amallarini bajarish uchun mo‘ljallangan bir martalik jarrohlik skalpeli. Jarrohlik amaliyotida ishlatiladi.",
+    "en": "A disposable surgical scalpel for making incisions. Used in surgical practice."
+  },
+  {
+    "id": 90,
+    "name": "Лейкопластырь ONE AID",
+    "ru": "Медицинский лейкопластырь для фиксации повязок и защиты кожи. Используется при перевязках и мелких повреждениях.",
+    "uz": "Bog‘lamlarni mahkamlash va terini himoyalash uchun mo‘ljallangan tibbiy yopishtiruvchi plastyr. Bog‘lash va mayda jarohatlarda qo‘llaniladi.",
+    "en": "A medical adhesive plaster for securing dressings and protecting the skin. Used during wound care and minor injuries."
+  },
+  {
+    "id": 91,
+    "name": "Лейкопластырь ONE AID №500",
+    "ru": "Медицинский лейкопластырь для фиксации повязок при перевязках. Используется для защиты кожных покровов и удержания марлевых материалов.",
+    "uz": "Bog‘lov materiallarini mahkamlash uchun mo‘ljallangan tibbiy yopishtiruvchi plastyr. Terini himoyalash va bog‘lamlarni ushlab turish uchun ishlatiladi.",
+    "en": "A medical adhesive plaster for securing dressings. Used to protect the skin and hold gauze materials in place."
+  },
+  {
+    "id": 92,
+    "name": "Лейкопластырь детский ONE AID",
+    "ru": "Детский лейкопластырь для защиты небольших повреждений кожи. Применяется при обработке ссадин и мелких ран.",
+    "uz": "Bolalar uchun mo‘ljallangan yopishtiruvchi plastyr teridagi kichik shikastlanishlarni himoyalash uchun ishlatiladi. Shilinmalar va mayda jarohatlarda qo‘llaniladi.",
+    "en": "A pediatric adhesive plaster for protecting minor skin injuries. Used for abrasions and small wounds."
+  },
+  {
+    "id": 93,
+    "name": "Пластырь мозольный",
+    "ru": "Мозольный пластырь для защиты участков кожи от трения и давления. Используется при профилактике и уходе за мозолями.",
+    "uz": "Terini ishqalanish va bosimdan himoyalash uchun mo‘ljallangan mozol plastyri. Mozollarni oldini olish va parvarish qilishda qo‘llaniladi.",
+    "en": "A corn plaster designed to protect skin areas from friction and pressure. Used for prevention and care of calluses."
+  },
+  {
+    "id": 94,
+    "name": "Пластырь на полиэтиленовой основе 1,25 см",
+    "ru": "Медицинский пластырь на полиэтиленовой основе для фиксации повязок. Подходит для повседневного использования при перевязках.",
+    "uz": "Bog‘lamlarni mahkamlash uchun mo‘ljallangan polietilen asosli tibbiy plastyr. Kundalik bog‘lashlarda foydalaniladi.",
+    "en": "A polyethylene-based medical adhesive tape for securing dressings. Suitable for everyday wound care use."
+  },
+  {
+    "id": 95,
+    "name": "Пластырь на полиэтиленовой основе 2,5 см",
+    "ru": "Пластырь для надёжной фиксации повязок и медицинских изделий. Используется при перевязках различной сложности.",
+    "uz": "Bog‘lamlar va tibbiy buyumlarni ishonchli mahkamlash uchun mo‘ljallangan plastyr. Turli murakkablikdagi bog‘lashlarda qo‘llaniladi.",
+    "en": "An adhesive tape for reliable fixation of dressings and medical devices. Used in various wound care procedures."
+  },
+  {
+    "id": 96,
+    "name": "Пластырь на нетканой основе 10 × 15",
+    "ru": "Нетканый медицинский пластырь для фиксации и защиты раневых поверхностей. Применяется при перевязках после процедур.",
+    "uz": "Yaralarni himoyalash va mahkamlash uchun mo‘ljallangan netkan asosli tibbiy plastyr. Muolajalardan keyingi bog‘lashlarda ishlatiladi.",
+    "en": "A non-woven medical plaster for wound protection and fixation. Used in post-procedure wound care."
+  },
+  {
+    "id": 97,
+    "name": "Пластырь на нетканой основе 10 × 20",
+    "ru": "Медицинский пластырь для покрытия и защиты более обширных участков кожи. Используется при перевязках средних ран.",
+    "uz": "Kengroq teri maydonlarini yopish va himoyalash uchun mo‘ljallangan tibbiy plastyr. O‘rtacha hajmdagi yaralarda qo‘llaniladi.",
+    "en": "A medical plaster for covering and protecting larger skin areas. Used in dressing medium-sized wounds."
+  },
+  {
+    "id": 98,
+    "name": "Пластырь на нетканой основе 10 × 30",
+    "ru": "Пластырь увеличенного размера для фиксации и защиты кожных повреждений. Подходит для послеоперационного ухода.",
+    "uz": "Teri shikastlanishlarini mahkamlash va himoyalash uchun mo‘ljallangan kattaroq o‘lchamdagi plastyr. Operatsiyadan keyingi parvarishda ishlatiladi.",
+    "en": "A larger-size plaster for fixation and protection of skin injuries. Suitable for postoperative care."
+  },
+  {
+    "id": 99,
+    "name": "Пластырь MEDIK PLAST 2,5 см",
+    "ru": "Медицинский пластырь для фиксации повязок и катетеров. Используется в клинической и амбулаторной практике.",
+    "uz": "Bog‘lamlar va kateterlarni mahkamlash uchun mo‘ljallangan tibbiy plastyr. Klinik va ambulator amaliyotda qo‘llaniladi.",
+    "en": "A medical adhesive tape for securing dressings and catheters. Used in clinical and outpatient practice."
+  },
+  {
+    "id": 100,
+    "name": "Пластырь MEDIK PLAST 5 см",
+    "ru": "Широкий медицинский пластырь для надёжной фиксации медицинских изделий. Применяется при длительных перевязках.",
+    "uz": "Tibbiy buyumlarni ishonchli mahkamlash uchun mo‘ljallangan keng plastyr. Uzoq muddatli bog‘lashlarda qo‘llaniladi.",
+    "en": "A wide medical adhesive tape for secure fixation of medical devices. Used during long-term dressings."
+  },
+  {
+    "id": 111,
+    "name": "Бинт марлевый стерильный 5 м",
+    "ru": "Стерильный марлевый бинт для обработки и защиты ран. Используется при перевязках с повышенными требованиями к чистоте.",
+    "uz": "Yaralarni ishlov berish va himoyalash uchun mo‘ljallangan steril marli bint. Yuqori gigiyena talab qilinadigan bog‘lashlarda qo‘llaniladi.",
+    "en": "A sterile gauze bandage for wound care and protection. Used in dressings requiring increased cleanliness."
+  },
+  {
+    "id": 112,
+    "name": "Бинт марлевый нестерильный 5 м \"SARBONTEKS\"",
+    "ru": "Марлевый бинт для фиксации повязок и защиты повреждённых участков кожи. Применяется при повседневных перевязках.",
+    "uz": "Bog‘lamlarni mahkamlash va terining shikastlangan joylarini himoyalash uchun mo‘ljallangan marli bint. Kundalik bog‘lashlarda ishlatiladi.",
+    "en": "A non-sterile gauze bandage for securing dressings and protecting damaged skin areas. Used in routine wound care."
+  },
+  {
+    "id": 113,
+    "name": "Бинт марлевый нестерильный 7 м \"SARBONTEKS\"",
+    "ru": "Марлевый бинт увеличенной длины для фиксации и поддержки повязок. Используется при перевязках на крупных участках тела.",
+    "uz": "Bog‘lamlarni mahkamlash va qo‘llab-quvvatlash uchun mo‘ljallangan uzun marli bint. Tananing katta qismlarida bog‘lashda qo‘llaniladi.",
+    "en": "An extended-length gauze bandage for securing and supporting dressings. Used on larger body areas."
+  },
+  {
+    "id": 114,
+    "name": "Бинт тканый нестерильный 7 м \"SARBONTEKS\"",
+    "ru": "Тканый бинт для фиксации повязок и поддержки мягких тканей. Применяется при травмах и после процедур.",
+    "uz": "Bog‘lamlarni mahkamlash va yumshoq to‘qimalarni qo‘llab-quvvatlash uchun mo‘ljallangan to‘qilgan bint. Jarohatlar va muolajalardan keyin qo‘llaniladi.",
+    "en": "A woven non-sterile bandage for dressing fixation and soft tissue support. Used after injuries and medical procedures."
+  },
+  {
+    "id": 115,
+    "name": "Бинт тканый стерильный 7 м \"SARBONTEKS\"",
+    "ru": "Стерильный тканый бинт для перевязок с требованиями к асептике. Используется при уходе за операционными ранами.",
+    "uz": "Aseptika talab qilinadigan bog‘lashlar uchun mo‘ljallangan steril to‘qilgan bint. Operatsion yaralarni parvarishlashda qo‘llaniladi.",
+    "en": "A sterile woven bandage for dressings requiring aseptic conditions. Used in postoperative wound care."
+  },
+  {
+    "id": 116,
+    "name": "Бинт марлевый нестерильный 7 м",
+    "ru": "Марлевый бинт для фиксации повязок и защиты ран. Подходит для перевязок в бытовых и медицинских условиях.",
+    "uz": "Bog‘lamlarni mahkamlash va yaralarni himoyalash uchun mo‘ljallangan marli bint. Uy va tibbiy sharoitlarda foydalaniladi.",
+    "en": "A non-sterile gauze bandage for dressing fixation and wound protection. Suitable for home and medical use."
+  },
+  {
+    "id": 117,
+    "name": "Бинт тканый нестерильный 5 м",
+    "ru": "Тканый бинт для поддержки и фиксации мягких тканей. Используется при травмах и реабилитационных процедурах.",
+    "uz": "Yumshoq to‘qimalarni qo‘llab-quvvatlash va mahkamlash uchun mo‘ljallangan to‘qilgan bint. Jarohatlar va reabilitatsiya muolajalarida qo‘llaniladi.",
+    "en": "A woven non-sterile bandage for soft tissue support and fixation. Used in injuries and rehabilitation procedures."
+  },
+  {
+    "id": 118,
+    "name": "Бинт тканый нестерильный 7 м",
+    "ru": "Тканый бинт увеличенной длины для фиксации и поддержки. Применяется при перевязках и травмах.",
+    "uz": "Mahkamlash va qo‘llab-quvvatlash uchun mo‘ljallangan uzun to‘qilgan bint. Bog‘lash va jarohatlarda qo‘llaniladi.",
+    "en": "An extended-length woven non-sterile bandage for fixation and support. Used in dressings and injuries."
+  },
+  {
+    "id": 119,
+    "name": "Бинт тканый стерильный 7 м",
+    "ru": "Стерильный тканый бинт для асептических перевязок. Используется при обработке послеоперационных ран.",
+    "uz": "Aseptik bog‘lashlar uchun mo‘ljallangan steril to‘qilgan bint. Operatsiyadan keyingi yaralarni ishlov berishda qo‘llaniladi.",
+    "en": "A sterile woven bandage for aseptic dressings. Used in postoperative wound treatment."
+  },
+  {
+    "id": 120,
+    "name": "Бинт марлевый стерильный 7 м",
+    "ru": "Стерильный марлевый бинт для защиты и впитывания раневого отделяемого. Применяется при стерильных перевязках.",
+    "uz": "Yara ajralmalarini shimish va himoyalash uchun mo‘ljallangan steril marli bint. Steril bog‘lashlarda qo‘llaniladi.",
+    "en": "A sterile gauze bandage for wound protection and absorption of exudate. Used in sterile dressings."
+  },
+  {
+    "id": 121,
+    "name": "Бинт гипсовый 2,7 м × 15 см",
+    "ru": "Гипсовый бинт для иммобилизации и фиксации конечностей при переломах и травмах. Используется для формирования гипсовых повязок.",
+    "uz": "Sinish va jarohatlarda qo‘l-oyoqlarni immobilizatsiya qilish uchun mo‘ljallangan gipsli bint. Gips bog‘lamlarini hosil qilishda ishlatiladi.",
+    "en": "A plaster bandage for immobilization and fixation of limbs in fractures and injuries. Used for forming plaster casts."
+  },
+  {
+    "id": 122,
+    "name": "Вата нестерильная 25 г",
+    "ru": "Нестерильная медицинская вата для гигиенических и вспомогательных процедур. Используется при обработке кожи и нанесении растворов.",
+    "uz": "Gigiyenik va yordamchi muolajalar uchun mo‘ljallangan nosteril tibbiy paxta. Terini tozalash va eritmalarni surtishda qo‘llaniladi.",
+    "en": "Non-sterile medical cotton for hygienic and auxiliary procedures. Used for skin cleansing and application of solutions."
+  },
+  {
+    "id": 123,
+    "name": "Вата нестерильная 25 г \"SARBONTEKS\"",
+    "ru": "Нестерильная вата для ухода за кожей и медицинских манипуляций. Применяется в амбулаторной практике.",
+    "uz": "Terini parvarishlash va tibbiy muolajalar uchun mo‘ljallangan nosteril paxta. Ambulator amaliyotda qo‘llaniladi.",
+    "en": "Non-sterile cotton for skin care and medical procedures. Used in outpatient practice."
+  },
+  {
+    "id": 124,
+    "name": "Вата нестерильная 50 г",
+    "ru": "Медицинская вата для гигиенической обработки и вспомогательных процедур. Подходит для повседневного использования.",
+    "uz": "Gigiyenik ishlov berish va yordamchi muolajalar uchun mo‘ljallangan tibbiy paxta. Kundalik foydalanish uchun mos.",
+    "en": "Medical cotton for hygienic treatment and auxiliary procedures. Suitable for everyday use."
+  },
+  {
+    "id": 125,
+    "name": "Вата нестерильная 50 г \"SARBONTEKS\"",
+    "ru": "Нестерильная медицинская вата для ухода и обработки кожи. Используется при перевязках и санитарных процедурах.",
+    "uz": "Terini parvarishlash va ishlov berish uchun mo‘ljallangan nosteril tibbiy paxta. Bog‘lash va sanitariya muolajalarida qo‘llaniladi.",
+    "en": "Non-sterile medical cotton for skin care and treatment. Used in dressings and sanitary procedures."
+  },
+  {
+    "id": 126,
+    "name": "Вата нестерильная 100 г",
+    "ru": "Вата увеличенного объёма для медицинских и гигиенических процедур. Применяется при уходе за пациентами.",
+    "uz": "Tibbiy va gigiyenik muolajalar uchun mo‘ljallangan katta hajmli paxta. Bemorlarni parvarishlashda ishlatiladi.",
+    "en": "Larger-volume cotton for medical and hygienic procedures. Used in patient care."
+  },
+  {
+    "id": 127,
+    "name": "Вата нестерильная 100 г \"SARBONTEKS\"",
+    "ru": "Медицинская вата для обработки кожи и вспомогательных манипуляций. Подходит для регулярного использования.",
+    "uz": "Terini tozalash va yordamchi muolajalar uchun mo‘ljallangan tibbiy paxta. Muntazam foydalanish uchun mos.",
+    "en": "Medical cotton for skin treatment and auxiliary manipulations. Suitable for regular use."
+  },
+  {
+    "id": 128,
+    "name": "Вата нестерильная 250 г",
+    "ru": "Вата большого объёма для медицинских учреждений. Используется при массовых гигиенических и уходовых процедурах.",
+    "uz": "Tibbiyot muassasalari uchun mo‘ljallangan katta hajmli paxta. Ommaviy gigiyenik va parvarishlash muolajalarida qo‘llaniladi.",
+    "en": "High-volume cotton for medical facilities. Used in large-scale hygienic and care procedures."
+  },
+  {
+    "id": 129,
+    "name": "Вата нестерильная 250 г \"SARBONTEKS\"",
+    "ru": "Нестерильная медицинская вата для интенсивного использования. Применяется в клинической практике.",
+    "uz": "Intensiv foydalanish uchun mo‘ljallangan nosteril tibbiy paxta. Klinik amaliyotda qo‘llaniladi.",
+    "en": "Non-sterile medical cotton for intensive use. Used in clinical practice."
+  },
+  {
+    "id": 130,
+    "name": "Вата стерильная 25 г",
+    "ru": "Стерильная медицинская вата для обработки ран и инъекционных зон. Используется при асептических процедурах.",
+    "uz": "Yaralar va inʼeksiya joylarini ishlov berish uchun mo‘ljallangan steril tibbiy paxta. Aseptik muolajalarda qo‘llaniladi.",
+    "en": "Sterile medical cotton for wound and injection site care. Used in aseptic procedures."
+  },
+  {
+    "id": 131,
+    "name": "Вата стерильная 50 г",
+    "ru": "Стерильная медицинская вата для обработки ран и кожных покровов. Используется при перевязках и асептических процедурах.",
+    "uz": "Yaralar va teri yuzalarini ishlov berish uchun mo‘ljallangan steril tibbiy paxta. Bog‘lash va aseptik muolajalarda qo‘llaniladi.",
+    "en": "Sterile medical cotton for wound and skin care. Used in dressings and aseptic procedures."
+  },
+  {
+    "id": 132,
+    "name": "Вата \"Cotton Club\" 25 г (рулон)",
+    "ru": "Медицинская вата в рулоне для гигиенических и уходовых процедур. Подходит для обработки кожи и медицинских манипуляций.",
+    "uz": "Gigiyenik va parvarishlash muolajalari uchun mo‘ljallangan rulon shaklidagi tibbiy paxta. Terini ishlov berish va tibbiy amaliyotda qo‘llaniladi.",
+    "en": "Medical cotton in roll form for hygienic and care procedures. Suitable for skin treatment and medical use."
+  },
+  {
+    "id": 133,
+    "name": "Вата \"Cotton Club\" 25 г",
+    "ru": "Медицинская вата для гигиенической обработки кожи. Используется в повседневной медицинской практике.",
+    "uz": "Terini gigiyenik tozalash uchun mo‘ljallangan tibbiy paxta. Kundalik tibbiy amaliyotda ishlatiladi.",
+    "en": "Medical cotton for hygienic skin care. Used in everyday medical practice."
+  },
+  {
+    "id": 134,
+    "name": "Вата \"Cotton Club\" 50 г (рулон)",
+    "ru": "Вата увеличенного объёма для ухода за пациентами и медицинских процедур. Подходит для регулярного использования.",
+    "uz": "Bemorlarni parvarishlash va tibbiy muolajalar uchun mo‘ljallangan katta hajmli paxta. Muntazam foydalanish uchun mos.",
+    "en": "Larger-volume cotton for patient care and medical procedures. Suitable for regular use."
+  },
+  {
+    "id": 135,
+    "name": "Вата \"Cotton Club\" 50 г (шарики)",
+    "ru": "Ватные шарики для обработки кожи и инъекционных зон. Используются при косметологических и медицинских процедурах.",
+    "uz": "Teri va inʼeksiya joylarini ishlov berish uchun mo‘ljallangan paxta shariklari. Kosmetologik va tibbiy muolajalarda qo‘llaniladi.",
+    "en": "Cotton balls for skin and injection site preparation. Used in cosmetic and medical procedures."
+  },
+  {
+    "id": 136,
+    "name": "Вата \"Cotton Club\" 100 г (рулон)",
+    "ru": "Медицинская вата большого объёма для ухода и гигиенических процедур. Используется в медицинских учреждениях.",
+    "uz": "Parvarishlash va gigiyenik muolajalar uchun mo‘ljallangan katta hajmli tibbiy paxta. Tibbiyot muassasalarida qo‘llaniladi.",
+    "en": "High-volume medical cotton for care and hygienic procedures. Used in medical facilities."
+  },
+  {
+    "id": 137,
+    "name": "Вата \"Cotton Club\" 250 г (рулон)",
+    "ru": "Вата большого объёма для интенсивного медицинского использования. Применяется при массовых уходовых процедурах.",
+    "uz": "Intensiv tibbiy foydalanish uchun mo‘ljallangan juda katta hajmli paxta. Ommaviy parvarishlash muolajalarida ishlatiladi.",
+    "en": "Extra-large cotton roll for intensive medical use. Used in large-scale care procedures."
+  },
+  {
+    "id": 138,
+    "name": "Марля в кусках 1 м × 90 см",
+    "ru": "Марля для перевязок и обработки ран. Используется для защиты и впитывания раневого отделяемого.",
+    "uz": "Yaralarni bog‘lash va ishlov berish uchun mo‘ljallangan marli. Yara ajralmalarini himoyalash va shimish uchun ishlatiladi.",
+    "en": "Gauze for wound dressing and treatment. Used for protection and absorption of wound exudate."
+  },
+  {
+    "id": 139,
+    "name": "Марля в кусках 2 м × 90 см",
+    "ru": "Марля увеличенной длины для перевязок на более обширных участках тела. Применяется в лечебной практике.",
+    "uz": "Tananing kengroq qismlarida bog‘lash uchun mo‘ljallangan uzun marli. Davolovchi amaliyotda qo‘llaniladi.",
+    "en": "Extended-length gauze for dressings on larger body areas. Used in therapeutic practice."
+  },
+  {
+    "id": 140,
+    "name": "Марля в кусках 3 м × 84 см",
+    "ru": "Марля для фиксации и защиты ран на больших поверхностях. Используется при перевязках и уходе за ранами.",
+    "uz": "Katta yuzalardagi yaralarni himoyalash va mahkamlash uchun mo‘ljallangan marli. Bog‘lash va yara parvarishida ishlatiladi.",
+    "en": "Gauze for fixation and protection of wounds on large surfaces. Used in wound care and dressing."
+  },
+  {
+    "id": 141,
+    "name": "Марля в кусках 3 м × 90 см",
+    "ru": "Марля для перевязок и защиты ран на обширных участках кожи. Используется для впитывания раневого отделяемого и фиксации повязок.",
+    "uz": "Keng teri yuzalarida yaralarni bog‘lash va himoyalash uchun mo‘ljallangan marli. Yara ajralmalarini shimish va bog‘lamlarni mahkamlashda ishlatiladi.",
+    "en": "Gauze for dressing and protecting wounds on large skin areas. Used for absorption of exudate and dressing fixation."
+  },
+  {
+    "id": 142,
+    "name": "Марля в кусках 5 м × 84 см",
+    "ru": "Марля увеличенной длины для обработки и защиты ран. Применяется при перевязках в медицинских учреждениях.",
+    "uz": "Yaralarni ishlov berish va himoyalash uchun mo‘ljallangan uzun marli. Tibbiyot muassasalarida bog‘lashda qo‘llaniladi.",
+    "en": "Extended-length gauze for wound care and protection. Used in medical dressing procedures."
+  },
+  {
+    "id": 143,
+    "name": "Марля в кусках 5 м × 90 см",
+    "ru": "Марля для фиксации повязок и защиты раневых поверхностей. Подходит для ухода за послеоперационными ранами.",
+    "uz": "Bog‘lamlarni mahkamlash va yara yuzalarini himoyalash uchun mo‘ljallangan marli. Operatsiyadan keyingi yaralarni parvarishlashda ishlatiladi.",
+    "en": "Gauze for dressing fixation and wound surface protection. Suitable for postoperative wound care."
+  },
+  {
+    "id": 144,
+    "name": "Марля в кусках 1 м × 90 см \"SARBONTEKS\"",
+    "ru": "Марля для перевязок и санитарной обработки кожи. Используется при повседневных медицинских процедурах.",
+    "uz": "Terini bog‘lash va sanitariya ishlov berish uchun mo‘ljallangan marli. Kundalik tibbiy muolajalarda qo‘llaniladi.",
+    "en": "Gauze for dressings and sanitary skin treatment. Used in routine medical procedures."
+  },
+  {
+    "id": 145,
+    "name": "Марля в кусках 2 м × 90 см \"SARBONTEKS\"",
+    "ru": "Марля увеличенной длины для защиты и обработки ран. Применяется в лечебной и профилактической практике.",
+    "uz": "Yaralarni himoyalash va ishlov berish uchun mo‘ljallangan uzun marli. Davolovchi va profilaktik amaliyotda qo‘llaniladi.",
+    "en": "Extended-length gauze for wound protection and treatment. Used in therapeutic and preventive care."
+  },
+  {
+    "id": 146,
+    "name": "Марля в кусках 3 м × 90 см \"SARBONTEKS\"",
+    "ru": "Марля для перевязок на больших участках тела. Используется для впитывания и защиты раневых поверхностей.",
+    "uz": "Tananing katta qismlarida bog‘lash uchun mo‘ljallangan marli. Yara yuzalarini shimish va himoyalashda ishlatiladi.",
+    "en": "Gauze for dressing large body areas. Used for absorption and protection of wound surfaces."
+  },
+  {
+    "id": 147,
+    "name": "Марля в кусках 5 м × 90 см \"SARBONTEKS\"",
+    "ru": "Марля большого формата для медицинских перевязок. Применяется при уходе за обширными ранами.",
+    "uz": "Keng formatdagi tibbiy marli katta yaralarni parvarishlashda qo‘llaniladi.",
+    "en": "Large-format medical gauze for dressings. Used in the care of extensive wounds."
+  },
+  {
+    "id": 148,
+    "name": "Марля в кусках 5 м × 90 см по ГОСТ \"SARBONTEKS\"",
+    "ru": "Марля для перевязок с повышенными требованиями к качеству. Используется при медицинском уходе за ранами.",
+    "uz": "Sifat talablariga javob beruvchi bog‘lash marlisi. Yaralarni tibbiy parvarishlashda qo‘llaniladi.",
+    "en": "Gauze for dressings with increased quality requirements. Used in medical wound care."
+  },
+  {
+    "id": 149,
+    "name": "Марля в кусках 10 м × 90 см по ГОСТ \"SARBONTEKS\"",
+    "ru": "Марля большой длины для интенсивного использования в медицинских учреждениях. Подходит для перевязок на больших поверхностях.",
+    "uz": "Tibbiyot muassasalarida intensiv foydalanish uchun mo‘ljallangan juda uzun marli. Keng yuzalarda bog‘lash uchun mos.",
+    "en": "Extra-long gauze for intensive use in medical facilities. Suitable for dressing large wound areas."
+  },
+  {
+    "id": 150,
+    "name": "Марля в кусках 10 м × 90 см",
+    "ru": "Марля для обработки и защиты обширных раневых поверхностей. Используется при перевязках и уходе за пациентами.",
+    "uz": "Keng yara yuzalarini ishlov berish va himoyalash uchun mo‘ljallangan marli. Bog‘lash va bemorlarni parvarishlashda qo‘llaniladi.",
+    "en": "Gauze for treatment and protection of extensive wound surfaces. Used in dressings and patient care."
+  },
+  {
+    "id": 151,
+    "name": "Марля в кусках 10 м × 90 см \"SARBONTEKS\"",
+    "ru": "Марля большого формата для перевязок и обработки ран. Используется в медицинских учреждениях при уходе за пациентами.",
+    "uz": "Bog‘lash va yaralarni ishlov berish uchun mo‘ljallangan katta formatdagi marli. Tibbiyot muassasalarida bemorlarni parvarishlashda qo‘llaniladi.",
+    "en": "Large-format gauze for wound dressing and treatment. Used in medical facilities for patient care."
+  },
+  {
+    "id": 152,
+    "name": "Салфетки марлевые стерильные 16 × 14",
+    "ru": "Стерильные марлевые салфетки для обработки ран и перевязок. Используются при асептических медицинских процедурах.",
+    "uz": "Yaralarni ishlov berish va bog‘lash uchun mo‘ljallangan steril marli salfetkalar. Aseptik tibbiy muolajalarda qo‘llaniladi.",
+    "en": "Sterile gauze swabs for wound care and dressings. Used in aseptic medical procedures."
+  },
+  {
+    "id": 153,
+    "name": "Салфетки марлевые стерильные 16 × 14 \"SARBONTEKS\"",
+    "ru": "Марлевые стерильные салфетки для защиты и очистки раневых поверхностей. Применяются при перевязках.",
+    "uz": "Yara yuzalarini tozalash va himoyalash uchun mo‘ljallangan steril marli salfetkalar. Bog‘lashlarda ishlatiladi.",
+    "en": "Sterile gauze swabs for cleaning and protecting wound surfaces. Used during dressing procedures."
+  },
+  {
+    "id": 154,
+    "name": "Салфетки марлевые стерильные 45 × 29",
+    "ru": "Стерильные салфетки увеличенного размера для перевязок и хирургического ухода. Используются при обработке обширных ран.",
+    "uz": "Bog‘lash va jarrohlik parvarishi uchun mo‘ljallangan katta o‘lchamli steril salfetkalar. Keng yaralarni ishlov berishda qo‘llaniladi.",
+    "en": "Large-size sterile gauze swabs for dressings and surgical care. Used for treating extensive wounds."
+  },
+  {
+    "id": 155,
+    "name": "Салфетки марлевые стерильные 45 × 29 \"SARBONTEKS\"",
+    "ru": "Стерильные марлевые салфетки для хирургических и перевязочных процедур. Обеспечивают впитывание раневого отделяемого.",
+    "uz": "Jarrohlik va bog‘lash muolajalari uchun mo‘ljallangan steril marli salfetkalar. Yara ajralmalarini shimadi.",
+    "en": "Sterile gauze swabs for surgical and dressing procedures. Provide absorption of wound exudate."
+  },
+  {
+    "id": 156,
+    "name": "Бахилы одноразовые полиэтиленовые",
+    "ru": "Одноразовые бахилы для защиты помещений от уличных загрязнений. Используются в медицинских учреждениях.",
+    "uz": "Xonalarni tashqi ifloslanishdan himoyalash uchun mo‘ljallangan bir martalik baxilalar. Tibbiyot muassasalarida qo‘llaniladi.",
+    "en": "Disposable polyethylene shoe covers for protecting indoor areas from external contamination. Used in medical facilities."
+  },
+  {
+    "id": 157,
+    "name": "Бахилы одноразовые №500",
+    "ru": "Одноразовые бахилы для массового использования. Применяются для соблюдения санитарного режима.",
+    "uz": "Ommaviy foydalanish uchun mo‘ljallangan bir martalik baxilalar. Sanitariya tartibiga rioya qilishda ishlatiladi.",
+    "en": "Disposable shoe covers for high-volume use. Applied to maintain sanitary conditions."
+  },
+  {
+    "id": 158,
+    "name": "Шапочки одноразовые \"Clinic Clean\"",
+    "ru": "Одноразовые медицинские шапочки для защиты волос и соблюдения гигиены. Используются в лечебных и процедурных зонах.",
+    "uz": "Sochlarni yopish va gigiyenani taʼminlash uchun mo‘ljallangan bir martalik tibbiy qalpoqlar. Davolash va protsedura xonalarida qo‘llaniladi.",
+    "en": "Disposable medical caps for hair protection and hygiene compliance. Used in treatment and procedure areas."
+  },
+  {
+    "id": 159,
+    "name": "Шапочки одноразовые",
+    "ru": "Одноразовые шапочки для санитарной защиты персонала и пациентов. Применяются в медицинских учреждениях.",
+    "uz": "Xodimlar va bemorlarni sanitariya jihatdan himoyalash uchun mo‘ljallangan bir martalik qalpoqlar. Tibbiyot muassasalarida qo‘llaniladi.",
+    "en": "Disposable caps for sanitary protection of staff and patients. Used in medical facilities."
+  },
+  {
+    "id": 160,
+    "name": "Шапочки одноразовые синие",
+    "ru": "Одноразовые шапочки для поддержания гигиены в медицинской среде. Используются при диагностических и лечебных процедурах.",
+    "uz": "Tibbiy muhitda gigiyenani saqlash uchun mo‘ljallangan bir martalik qalpoqlar. Diagnostik va davolovchi muolajalarda qo‘llaniladi.",
+    "en": "Disposable caps for maintaining hygiene in medical environments. Used during diagnostic and therapeutic procedures."
+  },
+  {
+    "id": 161,
+    "name": "Шапочки полиэтиленовые одноразовые",
+    "ru": "Полиэтиленовые одноразовые шапочки для защиты волос и соблюдения санитарных норм. Используются в медицинских и процедурных помещениях.",
+    "uz": "Sochlarni himoyalash va sanitariya qoidalariga rioya qilish uchun mo‘ljallangan polietilen bir martalik qalpoqlar. Tibbiy va protsedura xonalarida qo‘llaniladi.",
+    "en": "Disposable polyethylene caps for hair protection and sanitary compliance. Used in medical and procedure rooms."
+  },
+  {
+    "id": 162,
+    "name": "Шапочки одноразовые чёрные и белые",
+    "ru": "Одноразовые медицинские шапочки для поддержания гигиены. Применяются в лечебных учреждениях и процедурных зонах.",
+    "uz": "Gigiyenani saqlash uchun mo‘ljallangan bir martalik tibbiy qalpoqlar. Davolash muassasalari va protsedura zonalarida qo‘llaniladi.",
+    "en": "Disposable medical caps for hygiene maintenance. Used in healthcare facilities and procedure areas."
+  },
+  {
+    "id": 163,
+    "name": "Олива для промывания носа",
+    "ru": "Олива для промывания носовых ходов. Используется в оториноларингологической практике при гигиенических и лечебных процедурах.",
+    "uz": "Burun yo‘llarini yuvish uchun mo‘ljallangan oliva. Otolaringologik amaliyotda gigiyenik va davolovchi muolajalarda qo‘llaniladi.",
+    "en": "A nasal irrigation tip for rinsing nasal passages. Used in otorhinolaryngology for hygienic and therapeutic procedures."
+  },
+  {
+    "id": 164,
+    "name": "Воронки ушные одноразовые",
+    "ru": "Одноразовые ушные воронки для осмотра наружного слухового прохода. Применяются в ЛОР-диагностике.",
+    "uz": "Tashqi eshituv yo‘lini ko‘rikdan o‘tkazish uchun mo‘ljallangan bir martalik quloq voronkalari. LOR-diagnostikada ishlatiladi.",
+    "en": "Disposable ear specula for examination of the external auditory canal. Used in ENT diagnostics."
+  },
+  {
+    "id": 165,
+    "name": "Канюля для промывания миндалин",
+    "ru": "Канюля для промывания лакун миндалин. Используется при лечебных процедурах в оториноларингологии.",
+    "uz": "Bodomcha lakunalarini yuvish uchun mo‘ljallangan kanüla. Otorinolaringologiyada davolovchi muolajalarda qo‘llaniladi.",
+    "en": "A cannula for tonsil lacuna irrigation. Used in ENT therapeutic procedures."
+  },
+  {
+    "id": 166,
+    "name": "Зонд тампон для носа и носоглотки",
+    "ru": "Тампон-зонд для забора проб из носа и носоглотки. Используется в диагностических исследованиях.",
+    "uz": "Burun va burun-halqumdan namuna olish uchun mo‘ljallangan tampon-zond. Diagnostik tekshiruvlarda qo‘llaniladi.",
+    "en": "A swab probe for sampling from the nose and nasopharynx. Used in diagnostic testing."
+  },
+  {
+    "id": 167,
+    "name": "Шпатель ЛОР одноразовый",
+    "ru": "Одноразовый шпатель для осмотра полости рта и глотки. Используется в ЛОР-диагностике.",
+    "uz": "Og‘iz bo‘shlig‘i va tomoqni ko‘rikdan o‘tkazish uchun mo‘ljallangan bir martalik LOR shpateli. LOR-diagnostikada qo‘llaniladi.",
+    "en": "A disposable ENT spatula for examination of the oral cavity and throat. Used in ENT diagnostics."
+  },
+  {
+    "id": 168,
+    "name": "Слюноотсос стоматологический",
+    "ru": "Стоматологический слюноотсос для удаления слюны и жидкостей из полости рта. Используется при стоматологических процедурах.",
+    "uz": "Og‘iz bo‘shlig‘idan so‘lak va suyuqliklarni chiqarish uchun mo‘ljallangan stomatologik so‘lakso‘rgich. Stomatologik muolajalarda qo‘llaniladi.",
+    "en": "A dental saliva ejector for removing saliva and fluids from the oral cavity. Used during dental procedures."
+  },
+  {
+    "id": 169,
+    "name": "Набор стоматологический одноразовый",
+    "ru": "Одноразовый стоматологический набор для осмотров и процедур. Используется для обеспечения гигиены при приёме пациентов.",
+    "uz": "Ko‘rik va muolajalar uchun mo‘ljallangan bir martalik stomatologik to‘plam. Bemorlarni qabul qilishda gigiyenani taʼminlaydi.",
+    "en": "A disposable dental kit for examinations and procedures. Used to maintain hygiene during patient treatment."
+  },
+  {
+    "id": 170,
+    "name": "Ватные валики стоматологические",
+    "ru": "Стоматологические ватные валики для изоляции и впитывания влаги. Используются при лечебных и профилактических процедурах.",
+    "uz": "Namlikni shimish va izolyatsiya qilish uchun mo‘ljallangan stomatologik paxta valiklari. Davolovchi va profilaktik muolajalarda qo‘llaniladi.",
+    "en": "Dental cotton rolls for moisture absorption and isolation. Used in therapeutic and preventive dental procedures."
+  },
+  {
+    "id": 171,
+    "name": "Хирургический комплект стерильный 35 г",
+    "ru": "Стерильный хирургический комплект для проведения операций и инвазивных процедур. Используется для соблюдения асептики в операционной.",
+    "uz": "Operatsiyalar va invaziv muolajalar uchun mo‘ljallangan steril jarrohlik to‘plami. Operatsionda aseptik sharoitni taʼminlashda qo‘llaniladi.",
+    "en": "A sterile surgical kit for operations and invasive procedures. Used to maintain aseptic conditions in the operating room."
+  },
+  {
+    "id": 172,
+    "name": "Хирургический комплект стерильный 45 г",
+    "ru": "Хирургический комплект повышенной плотности для операционных вмешательств. Применяется при стерильных хирургических процедурах.",
+    "uz": "Yuqori zichlikdagi steril jarrohlik to‘plami operatsion aralashuvlar uchun mo‘ljallangan. Steril jarrohlik muolajalarida qo‘llaniladi.",
+    "en": "A higher-density sterile surgical kit for operative procedures. Used in sterile surgical interventions."
+  },
+  {
+    "id": 173,
+    "name": "Хирургический комплект стерильный 35 г \"UKM\"",
+    "ru": "Стерильный хирургический комплект для стандартных операционных процедур. Используется для защиты пациента и медицинского персонала.",
+    "uz": "Standart operatsion muolajalar uchun mo‘ljallangan steril jarrohlik to‘plami. Bemor va tibbiyot xodimlarini himoyalash uchun ishlatiladi.",
+    "en": "A sterile surgical kit for standard operative procedures. Used to protect both patient and medical staff."
+  },
+  {
+    "id": 174,
+    "name": "Халат хирургический стерильный 35 г \"UKM\"",
+    "ru": "Стерильный хирургический халат для проведения операций. Используется для соблюдения санитарно-гигиенических требований.",
+    "uz": "Operatsiyalarni o‘tkazish uchun mo‘ljallangan steril jarrohlik xalat. Sanitariya-gigiyena talablariga rioya qilishda qo‘llaniladi.",
+    "en": "A sterile surgical gown for performing operations. Used to meet sanitary and hygiene requirements."
+  },
+  {
+    "id": 175,
+    "name": "Халат хирургический 37 г/м²",
+    "ru": "Хирургический халат для защиты персонала при медицинских процедурах. Применяется в операционных и процедурных зонах.",
+    "uz": "Tibbiy muolajalar vaqtida xodimlarni himoyalash uchun mo‘ljallangan jarrohlik xalat. Operatsion va protsedura zonalarida qo‘llaniladi.",
+    "en": "A surgical gown for staff protection during medical procedures. Used in operating and procedure areas."
+  },
+  {
+    "id": 176,
+    "name": "Халат хирургический стерильный 25 г/м²",
+    "ru": "Стерильный хирургический халат для кратковременных операций и процедур. Используется при соблюдении асептики.",
+    "uz": "Qisqa muddatli operatsiyalar va muolajalar uchun mo‘ljallangan steril jarrohlik xalat. Aseptik sharoitda qo‘llaniladi.",
+    "en": "A sterile surgical gown for short-term operations and procedures. Used under aseptic conditions."
+  },
+  {
+    "id": 177,
+    "name": "Халат хирургический стерильный 35 г/м²",
+    "ru": "Стерильный хирургический халат для операционных вмешательств. Обеспечивает барьерную защиту персонала.",
+    "uz": "Operatsion aralashuvlar uchun mo‘ljallangan steril jarrohlik xalat. Xodimlar uchun himoya to‘sig‘ini taʼminlaydi.",
+    "en": "A sterile surgical gown for operative interventions. Provides barrier protection for medical staff."
+  },
+  {
+    "id": 178,
+    "name": "Халат хирургический стерильный 45 г/м²",
+    "ru": "Хирургический халат повышенной плотности для длительных операций. Используется в условиях повышенных требований к защите.",
+    "uz": "Uzoq davom etuvchi operatsiyalar uchun mo‘ljallangan yuqori zichlikdagi steril jarrohlik xalat. Kuchaytirilgan himoya talab etilganda qo‘llaniladi.",
+    "en": "A high-density sterile surgical gown for long procedures. Used when enhanced protection is required."
+  },
+  {
+    "id": 179,
+    "name": "Хирургическая простыня стерильная 80 × 200",
+    "ru": "Стерильная хирургическая простыня для изоляции операционного поля. Используется при хирургических вмешательствах.",
+    "uz": "Operatsion maydonni izolyatsiya qilish uchun mo‘ljallangan steril jarrohlik choyshabi. Jarrohlik aralashuvlarda qo‘llaniladi.",
+    "en": "A sterile surgical drape for isolating the operative field. Used during surgical procedures."
+  },
+  {
+    "id": 180,
+    "name": "Хирургическая простыня стерильная 160 × 200",
+    "ru": "Хирургическая простыня увеличенного размера для покрытия операционного поля. Применяется при сложных операциях.",
+    "uz": "Operatsion maydonni yopish uchun mo‘ljallangan katta o‘lchamli steril jarrohlik choyshabi. Murakkab operatsiyalarda qo‘llaniladi.",
+    "en": "A large-size sterile surgical drape for covering the operative field. Used in complex surgical procedures."
+  },
+  {
+    "id": 181,
+    "name": "Хирургическая простыня стерильная 80 × 200 (35 г)",
+    "ru": "Стерильная хирургическая простыня для изоляции операционного поля. Используется при хирургических вмешательствах и инвазивных процедурах.",
+    "uz": "Operatsion maydonni izolyatsiya qilish uchun mo‘ljallangan steril jarrohlik choyshabi. Jarrohlik va invaziv muolajalarda qo‘llaniladi.",
+    "en": "A sterile surgical drape for isolating the operative field. Used in surgical and invasive procedures."
+  },
+  {
+    "id": 182,
+    "name": "Хирургическая простыня стерильная 160 × 200 (35 г)",
+    "ru": "Хирургическая простыня увеличенного размера для покрытия операционного поля. Применяется при операциях с расширенной зоной доступа.",
+    "uz": "Keng operatsion maydonni yopish uchun mo‘ljallangan katta o‘lchamli steril jarrohlik choyshabi. Keng kirish talab qilinadigan operatsiyalarda ishlatiladi.",
+    "en": "A large sterile surgical drape for covering extended operative areas. Used in procedures requiring wider access."
+  },
+  {
+    "id": 183,
+    "name": "Хирургическая простыня стерильная 200 × 160 (25 г/м²)",
+    "ru": "Стерильная хирургическая простыня для защиты пациента и операционного поля. Используется при стандартных хирургических процедурах.",
+    "uz": "Bemor va operatsion maydonni himoyalash uchun mo‘ljallangan steril jarrohlik choyshabi. Standart jarrohlik muolajalarida qo‘llaniladi.",
+    "en": "A sterile surgical drape for patient and operative field protection. Used in standard surgical procedures."
+  },
+  {
+    "id": 184,
+    "name": "Хирургическая простыня стерильная 200 × 160 (35 г/м²)",
+    "ru": "Хирургическая простыня средней плотности для операционных вмешательств. Применяется при длительных процедурах.",
+    "uz": "Operatsion aralashuvlar uchun mo‘ljallangan o‘rtacha zichlikdagi steril jarrohlik choyshabi. Uzoq davom etuvchi muolajalarda qo‘llaniladi.",
+    "en": "A medium-density sterile surgical drape for operative procedures. Used in prolonged interventions."
+  },
+  {
+    "id": 185,
+    "name": "Хирургическая простыня стерильная 200 × 160 (45 г/м²)",
+    "ru": "Хирургическая простыня повышенной плотности для операций с повышенными требованиями к защите. Используется в условиях интенсивной хирургии.",
+    "uz": "Yuqori himoya talablari mavjud operatsiyalar uchun mo‘ljallangan yuqori zichlikdagi steril jarrohlik choyshabi. Intensiv jarrohlik sharoitida qo‘llaniladi.",
+    "en": "A high-density sterile surgical drape for procedures requiring enhanced protection. Used in intensive surgical settings."
+  },
+  {
+    "id": 186,
+    "name": "Простыня хирургическая одноразовая (комплект для операций на позвоночнике)",
+    "ru": "Одноразовая хирургическая простыня для специализированных операций на позвоночнике. Используется для изоляции операционного поля.",
+    "uz": "Umurtqa pog‘onasi operatsiyalari uchun mo‘ljallangan bir martalik jarrohlik choyshabi. Operatsion maydonni izolyatsiya qilishda qo‘llaniladi.",
+    "en": "A disposable surgical drape designed for spinal surgery procedures. Used to isolate the operative field."
+  },
+  {
+    "id": 187,
+    "name": "Хлорактив-МАКС",
+    "ru": "Дезинфицирующее средство в таблетированной форме для приготовления рабочих растворов. Используется для обработки поверхностей и медицинских изделий.",
+    "uz": "Ishchi eritmalar tayyorlash uchun mo‘ljallangan tabletkali dezinfeksiya vositasi. Sirtlar va tibbiy buyumlarni dezinfeksiya qilishda qo‘llaniladi.",
+    "en": "A tablet-based disinfectant for preparing working solutions. Used for surface and medical device disinfection."
+  },
+  {
+    "id": 188,
+    "name": "Септодез 1 л",
+    "ru": "Жидкое дезинфицирующее средство для обработки поверхностей и оборудования. Применяется в медицинских учреждениях.",
+    "uz": "Sirtlar va jihozlarni ishlov berish uchun mo‘ljallangan suyuq dezinfeksiya vositasi. Tibbiyot muassasalarida qo‘llaniladi.",
+    "en": "A liquid disinfectant for treating surfaces and equipment. Used in healthcare facilities."
+  },
+  {
+    "id": 189,
+    "name": "АБК Экстра 1 л",
+    "ru": "Дезинфицирующее средство для санитарной обработки медицинских помещений. Используется в рамках инфекционного контроля.",
+    "uz": "Tibbiy xonalarni sanitariya ishlovidan o‘tkazish uchun mo‘ljallangan dezinfeksiya vositasi. Infeksion nazoratda qo‘llaniladi.",
+    "en": "A disinfectant for sanitary treatment of medical premises. Used as part of infection control measures."
+  },
+  {
+    "id": 190,
+    "name": "Антисептин 0,5 л",
+    "ru": "Антисептическое средство для обработки кожи и поверхностей. Используется при гигиенических и профилактических процедурах.",
+    "uz": "Teri va sirtlarni ishlov berish uchun mo‘ljallangan antiseptik vosita. Gigiyenik va profilaktik muolajalarda qo‘llaniladi.",
+    "en": "An antiseptic solution for skin and surface treatment. Used in hygienic and preventive procedures."
+  },
+  {
+    "id": 191,
+    "name": "Антисептин ОП 0,5 л",
+    "ru": "Антисептическое средство для обработки поверхностей и оборудования. Используется при санитарной обработке в медицинских учреждениях.",
+    "uz": "Sirtlar va jihozlarni dezinfeksiya qilish uchun mo‘ljallangan antiseptik vosita. Tibbiyot muassasalarida sanitariya ishlovida qo‘llaniladi.",
+    "en": "An antiseptic agent for treating surfaces and equipment. Used in sanitary processing in medical facilities."
+  },
+  {
+    "id": 192,
+    "name": "ДС-1 концентрат 0,5 л",
+    "ru": "Концентрированное дезинфицирующее средство для приготовления рабочих растворов. Применяется для обработки медицинских поверхностей.",
+    "uz": "Ishchi eritmalar tayyorlash uchun mo‘ljallangan konsentrlangan dezinfeksiya vositasi. Tibbiy sirtlarni ishlov berishda qo‘llaniladi.",
+    "en": "A concentrated disinfectant for preparing working solutions. Used for treating medical surfaces."
+  },
+  {
+    "id": 193,
+    "name": "Экстрадин концентрат 1 л",
+    "ru": "Концентрированное дезинфицирующее средство для санитарной обработки. Используется в медицинской и лабораторной практике.",
+    "uz": "Sanitariya ishlovi uchun mo‘ljallangan konsentrlangan dezinfeksiya vositasi. Tibbiy va laboratoriya amaliyotida qo‘llaniladi.",
+    "en": "A concentrated disinfectant for sanitary treatment. Used in medical and laboratory practice."
+  },
+  {
+    "id": 194,
+    "name": "Экстра Дез Плюс концентрат 1 л",
+    "ru": "Дезинфицирующее средство для интенсивной санитарной обработки помещений. Применяется при усиленных мерах инфекционного контроля.",
+    "uz": "Xonalarni intensiv sanitariya ishlovidan o‘tkazish uchun mo‘ljallangan dezinfeksiya vositasi. Kuchaytirilgan infeksion nazoratda qo‘llaniladi.",
+    "en": "A disinfectant for intensive sanitary treatment of premises. Used under enhanced infection control measures."
+  },
+  {
+    "id": 195,
+    "name": "Фенолфталеин 100 мл",
+    "ru": "Индикаторный раствор для контроля качества мойки и очистки. Используется в лабораторной и санитарной практике.",
+    "uz": "Yuvish va tozalash sifatini nazorat qilish uchun mo‘ljallangan indikator eritma. Laboratoriya va sanitariya amaliyotida qo‘llaniladi.",
+    "en": "An indicator solution for monitoring cleaning and washing quality. Used in laboratory and sanitary practice."
+  },
+  {
+    "id": 196,
+    "name": "Азопирам-С GTM 100 мл",
+    "ru": "Средство для контроля качества предстерилизационной очистки изделий. Используется в медицинских учреждениях.",
+    "uz": "Sterilizatsiyadan oldingi tozalash sifatini nazorat qilish uchun mo‘ljallangan vosita. Tibbiyot muassasalarida qo‘llaniladi.",
+    "en": "A reagent for monitoring the quality of pre-sterilization cleaning. Used in medical facilities."
+  },
+  {
+    "id": 197,
+    "name": "Ультразвуковой очиститель 2 л",
+    "ru": "Ультразвуковой очиститель для очистки медицинских инструментов. Используется для удаления загрязнений из труднодоступных зон.",
+    "uz": "Tibbiy asboblarni tozalash uchun mo‘ljallangan ultratovushli tozalagich. Qiyin yetiladigan joylardagi iflosliklarni yo‘qotishda ishlatiladi.",
+    "en": "An ultrasonic cleaner for cleaning medical instruments. Used to remove contaminants from hard-to-reach areas."
+  },
+  {
+    "id": 198,
+    "name": "Ультразвуковой очиститель 3 л",
+    "ru": "Ультразвуковой очиститель увеличенного объёма для медицинских инструментов. Применяется в клинической практике.",
+    "uz": "Tibbiy asboblar uchun mo‘ljallangan katta hajmli ultratovushli tozalagich. Klinik amaliyotda qo‘llaniladi.",
+    "en": "A larger-capacity ultrasonic cleaner for medical instruments. Used in clinical practice."
+  },
+  {
+    "id": 199,
+    "name": "Ультразвуковой очиститель 4,5 л",
+    "ru": "Ультразвуковой очиститель для интенсивной очистки инструментов. Используется в стерилизационных отделениях.",
+    "uz": "Asboblarni intensiv tozalash uchun mo‘ljallangan ultratovushli tozalagich. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "An ultrasonic cleaner for intensive instrument cleaning. Used in sterilization departments."
+  },
+  {
+    "id": 200,
+    "name": "Ультразвуковой очиститель 6 л",
+    "ru": "Ультразвуковой очиститель большого объёма для обработки медицинских инструментов. Подходит для постоянной эксплуатации.",
+    "uz": "Tibbiy asboblarni ishlov berish uchun mo‘ljallangan katta hajmli ultratovushli tozalagich. Doimiy foydalanish uchun mos.",
+    "en": "A high-capacity ultrasonic cleaner for processing medical instruments. Suitable for continuous use."
+  },
+  {
+    "id": 201,
+    "name": "Контейнер для утилизации 1 л",
+    "ru": "Пластиковый контейнер для сбора и утилизации медицинских отходов. Используется для безопасного хранения острых и биологически опасных материалов.",
+    "uz": "Tibbiy chiqindilarni yig‘ish va utilizatsiya qilish uchun mo‘ljallangan plastik konteyner. O‘tkir va biologik xavfli materiallarni xavfsiz saqlashda ishlatiladi.",
+    "en": "A plastic container for collection and disposal of medical waste. Used for safe storage of sharp and biohazardous materials."
+  },
+  {
+    "id": 202,
+    "name": "Контейнер для утилизации 2 л",
+    "ru": "Контейнер увеличенного объёма для утилизации медицинских отходов. Применяется в процедурных и лабораторных кабинетах.",
+    "uz": "Tibbiy chiqindilarni utilizatsiya qilish uchun mo‘ljallangan kattaroq hajmli konteyner. Protsedura va laboratoriya xonalarida qo‘llaniladi.",
+    "en": "A larger-capacity container for medical waste disposal. Used in procedure rooms and laboratories."
+  },
+  {
+    "id": 203,
+    "name": "Контейнер для утилизации 3 л",
+    "ru": "Контейнер для безопасного сбора использованных медицинских изделий. Используется при соблюдении санитарных норм.",
+    "uz": "Ishlatilgan tibbiy buyumlarni xavfsiz yig‘ish uchun mo‘ljallangan konteyner. Sanitariya qoidalariga rioya qilishda qo‘llaniladi.",
+    "en": "A container for safe collection of used medical devices. Used to comply with sanitary regulations."
+  },
+  {
+    "id": 204,
+    "name": "Контейнер для утилизации 4 л",
+    "ru": "Пластиковый контейнер для сбора медицинских отходов среднего объёма. Применяется в клиниках и диагностических центрах.",
+    "uz": "O‘rtacha hajmdagi tibbiy chiqindilarni yig‘ish uchun mo‘ljallangan plastik konteyner. Klinikalar va diagnostika markazlarida qo‘llaniladi.",
+    "en": "A plastic container for medium-volume medical waste collection. Used in clinics and diagnostic centers."
+  },
+  {
+    "id": 205,
+    "name": "Контейнер для утилизации 5 л",
+    "ru": "Контейнер большого объёма для утилизации медицинских отходов. Используется при интенсивной работе медицинских учреждений.",
+    "uz": "Tibbiy chiqindilarni utilizatsiya qilish uchun mo‘ljallangan katta hajmli konteyner. Tibbiyot muassasalarining intensiv faoliyatida qo‘llaniladi.",
+    "en": "A large-capacity container for medical waste disposal. Used in high-workload medical facilities."
+  },
+  {
+    "id": 206,
+    "name": "Журнал индикатора стерилизации",
+    "ru": "Журнал для регистрации результатов контроля стерилизации. Используется для ведения учёта в стерилизационных отделениях.",
+    "uz": "Sterilizatsiya nazorati natijalarini qayd etish uchun mo‘ljallangan jurnal. Sterilizatsiya bo‘limlarida hisob yuritishda qo‘llaniladi.",
+    "en": "A logbook for recording sterilization control results. Used for documentation in sterilization units."
+  },
+  {
+    "id": 207,
+    "name": "Индикатор внутренний паровой стерилизации 132/20",
+    "ru": "Внутренний индикатор для контроля параметров паровой стерилизации. Используется внутри упаковок с инструментами.",
+    "uz": "Bug‘li sterilizatsiya parametrlarini nazorat qilish uchun mo‘ljallangan ichki indikator. Asboblar qadoqlari ichida qo‘llaniladi.",
+    "en": "An internal indicator for monitoring steam sterilization parameters. Used inside instrument packs."
+  },
+  {
+    "id": 208,
+    "name": "Индикатор наружный паровой стерилизации 132/20",
+    "ru": "Наружный индикатор для визуального контроля процесса паровой стерилизации. Используется на упаковках инструментов.",
+    "uz": "Bug‘li sterilizatsiya jarayonini vizual nazorat qilish uchun mo‘ljallangan tashqi indikator. Asboblar qadoqlarida ishlatiladi.",
+    "en": "An external indicator for visual monitoring of steam sterilization. Used on instrument packaging."
+  },
+  {
+    "id": 209,
+    "name": "Индикатор паровой стерилизации 134/5",
+    "ru": "Универсальный индикатор для контроля режимов паровой стерилизации. Применяется в стерилизационных процессах.",
+    "uz": "Bug‘li sterilizatsiya rejimlarini nazorat qilish uchun mo‘ljallangan universal indikator. Sterilizatsiya jarayonlarida qo‘llaniladi.",
+    "en": "A universal indicator for monitoring steam sterilization cycles. Used in sterilization processes."
+  },
+  {
+    "id": 210,
+    "name": "Индикатор стерилизации \"Фарма-тест\" 134/5",
+    "ru": "Индикатор для контроля эффективности паровой стерилизации. Используется в медицинских учреждениях и лабораториях.",
+    "uz": "Bug‘li sterilizatsiya samaradorligini nazorat qilish uchun mo‘ljallangan indikator. Tibbiyot muassasalari va laboratoriyalarda qo‘llaniladi.",
+    "en": "An indicator for monitoring the effectiveness of steam sterilization. Used in medical facilities and laboratories."
+  },
+  {
+    "id": 211,
+    "name": "Индикатор стерилизации «Стерилан» 132/20 наружный",
+    "ru": "Наружный индикатор для визуального контроля паровой стерилизации. Используется для подтверждения прохождения стерилизационного цикла.",
+    "uz": "Bug‘li sterilizatsiya jarayonini vizual nazorat qilish uchun mo‘ljallangan tashqi indikator. Sterilizatsiya sikli o‘tilganini tasdiqlashda ishlatiladi.",
+    "en": "An external indicator for visual monitoring of steam sterilization. Used to confirm completion of the sterilization cycle."
+  },
+  {
+    "id": 212,
+    "name": "Индикатор стерилизации «Стерилан» УП-132/20 внутренний",
+    "ru": "Внутренний индикатор для контроля условий паровой стерилизации внутри упаковки. Применяется при стерилизации медицинских изделий.",
+    "uz": "Qadoq ichida bug‘li sterilizatsiya sharoitlarini nazorat qilish uchun mo‘ljallangan ichki indikator. Tibbiy buyumlarni sterilizatsiya qilishda qo‘llaniladi.",
+    "en": "An internal indicator for monitoring steam sterilization conditions inside packages. Used during medical device sterilization."
+  },
+  {
+    "id": 213,
+    "name": "Индикатор стерилизации «Стерилан» 180/60 наружный",
+    "ru": "Наружный индикатор для контроля режимов высокотемпературной стерилизации. Используется при термической обработке инструментов.",
+    "uz": "Yuqori haroratli sterilizatsiya rejimlarini nazorat qilish uchun mo‘ljallangan tashqi indikator. Asboblarni termik ishlov berishda qo‘llaniladi.",
+    "en": "An external indicator for monitoring high-temperature sterilization modes. Used during thermal processing of instruments."
+  },
+  {
+    "id": 214,
+    "name": "Индикатор стерилизации «Стерилан» УП-180/60 внутренний",
+    "ru": "Внутренний индикатор для контроля параметров стерилизации при высоких температурах. Применяется внутри стерилизационных упаковок.",
+    "uz": "Yuqori haroratda sterilizatsiya parametrlarini nazorat qilish uchun mo‘ljallangan ichki indikator. Sterilizatsiya qadoqlari ichida ishlatiladi.",
+    "en": "An internal indicator for monitoring sterilization parameters at high temperatures. Used inside sterilization packages."
+  },
+  {
+    "id": 215,
+    "name": "Индикатор стерилизации МедИС-В-180/60",
+    "ru": "Индикатор для контроля высокотемпературной стерилизации медицинских изделий. Используется в стерилизационных отделениях.",
+    "uz": "Tibbiy buyumlarni yuqori haroratda sterilizatsiya qilishni nazorat qilish uchun mo‘ljallangan indikator. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "An indicator for monitoring high-temperature sterilization of medical devices. Used in sterilization departments."
+  },
+  {
+    "id": 216,
+    "name": "Индикатор стерилизации Стеритест-ВЛ",
+    "ru": "Индикатор с журналом для контроля параметров стерилизации. Применяется для документирования стерилизационных процессов.",
+    "uz": "Sterilizatsiya parametrlarini nazorat qilish va qayd etish uchun mo‘ljallangan jurnal bilan indikator. Sterilizatsiya jarayonlarini hujjatlashtirishda ishlatiladi.",
+    "en": "A sterilization indicator with a logbook for monitoring parameters. Used for documentation of sterilization processes."
+  },
+  {
+    "id": 217,
+    "name": "Индикатор стерилизации МедИС-132/20",
+    "ru": "Индикатор для контроля паровой стерилизации медицинских изделий. Используется при стандартных стерилизационных циклах.",
+    "uz": "Tibbiy buyumlarning bug‘li sterilizatsiyasini nazorat qilish uchun mo‘ljallangan indikator. Standart sterilizatsiya sikllarida qo‘llaniladi.",
+    "en": "An indicator for monitoring steam sterilization of medical devices. Used in standard sterilization cycles."
+  },
+  {
+    "id": 218,
+    "name": "Индикатор стерилизации МедИС-132/20 (2000)",
+    "ru": "Индикатор для массового контроля паровой стерилизации. Используется в медицинских учреждениях с высоким объёмом стерилизации.",
+    "uz": "Bug‘li sterilizatsiyani ommaviy nazorat qilish uchun mo‘ljallangan indikator. Yuqori yuklama bilan ishlovchi tibbiyot muassasalarida qo‘llaniladi.",
+    "en": "An indicator for high-volume monitoring of steam sterilization. Used in medical facilities with high sterilization throughput."
+  },
+  {
+    "id": 219,
+    "name": "Индикатор стерилизации Стеритест-П-132/20",
+    "ru": "Индикатор для контроля паровой стерилизации с регистрацией результатов. Используется в клиниках и стерилизационных блоках.",
+    "uz": "Natijalarni qayd etish imkoniyatiga ega bug‘li sterilizatsiyani nazorat qilish indikatori. Klinikalar va sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "A steam sterilization indicator with result recording. Used in clinics and sterilization units."
+  },
+  {
+    "id": 220,
+    "name": "Индикатор стерилизации Интест-П-134/5",
+    "ru": "Индикатор для контроля режимов паровой стерилизации. Применяется при стерилизации медицинских инструментов.",
+    "uz": "Bug‘li sterilizatsiya rejimlarini nazorat qilish uchun mo‘ljallangan indikator. Tibbiy asboblarni sterilizatsiya qilishda qo‘llaniladi.",
+    "en": "An indicator for monitoring steam sterilization modes. Used during sterilization of medical instruments."
+  },
+  {
+    "id": 221,
+    "name": "Упаковочная машина PK100-C",
+    "ru": "Упаковочная машина для запечатывания и печати стерилизационных пакетов. Используется для подготовки медицинских инструментов к стерилизации.",
+    "uz": "Sterilizatsiya paketlarini yopish va belgilash uchun mo‘ljallangan qadoqlash mashinasi. Tibbiy asboblarni sterilizatsiyaga tayyorlashda qo‘llaniladi.",
+    "en": "A packaging machine for sealing and printing sterilization pouches. Used to prepare medical instruments for sterilization."
+  },
+  {
+    "id": 222,
+    "name": "Упаковочная машина PK100-A",
+    "ru": "Упаковочная машина для герметичного запечатывания стерилизационных упаковок. Применяется в стерилизационных отделениях.",
+    "uz": "Sterilizatsiya qadoqlarini germetik yopish uchun mo‘ljallangan qadoqlash mashinasi. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "A packaging machine for airtight sealing of sterilization packs. Used in sterilization departments."
+  },
+  {
+    "id": 223,
+    "name": "Упаковочная машина PK02-45",
+    "ru": "Компактная упаковочная машина для медицинских пакетов. Используется при подготовке инструментов к стерилизации.",
+    "uz": "Tibbiy paketlarni qadoqlash uchun mo‘ljallangan ixcham qadoqlash mashinasi. Asboblarni sterilizatsiyaga tayyorlashda ishlatiladi.",
+    "en": "A compact packaging machine for medical pouches. Used when preparing instruments for sterilization."
+  },
+  {
+    "id": 224,
+    "name": "Упаковочная машина PKD310AB",
+    "ru": "Упаковочная машина для запечатывания стерилизационных материалов. Применяется в медицинских и стоматологических клиниках.",
+    "uz": "Sterilizatsiya materiallarini yopish uchun mo‘ljallangan qadoqlash mashinasi. Tibbiy va stomatologik klinikalarda qo‘llaniladi.",
+    "en": "A packaging machine for sealing sterilization materials. Used in medical and dental clinics."
+  },
+  {
+    "id": 225,
+    "name": "Упаковочная машина PKD300AB",
+    "ru": "Машина для герметичного запечатывания медицинских стерилизационных пакетов. Используется при соблюдении стерильности инструментов.",
+    "uz": "Tibbiy sterilizatsiya paketlarini germetik yopish uchun mo‘ljallangan mashina. Asboblar steril holatini saqlashda qo‘llaniladi.",
+    "en": "A machine for airtight sealing of medical sterilization pouches. Used to maintain instrument sterility."
+  },
+  {
+    "id": 226,
+    "name": "Упаковочная машина SEAL BEST",
+    "ru": "Упаковочная машина для стерилизационных пакетов и рулонов. Применяется для подготовки медицинских изделий к стерилизации.",
+    "uz": "Sterilizatsiya paketlari va rulonlarini yopish uchun mo‘ljallangan qadoqlash mashinasi. Tibbiy buyumlarni sterilizatsiyaga tayyorlashda ishlatiladi.",
+    "en": "A packaging machine for sterilization pouches and rolls. Used to prepare medical devices for sterilization."
+  },
+  {
+    "id": 227,
+    "name": "Подставка для крафт-пакетов трёхслойная PK213",
+    "ru": "Подставка для удобного размещения стерилизационных крафт-пакетов. Используется для организации рабочего пространства.",
+    "uz": "Sterilizatsiya kraf-paketlarini qulay joylashtirish uchun mo‘ljallangan uch qavatli taglik. Ish joyini tartibga solishda qo‘llaniladi.",
+    "en": "A three-tier stand for organizing sterilization kraft pouches. Used to optimize workspace organization."
+  },
+  {
+    "id": 228,
+    "name": "Подставка для крафт-пакетов двухслойная PK212",
+    "ru": "Двухуровневая подставка для хранения стерилизационных пакетов. Применяется в стерилизационных и процедурных зонах.",
+    "uz": "Sterilizatsiya paketlarini saqlash uchun mo‘ljallangan ikki qavatli taglik. Sterilizatsiya va protsedura zonalarida qo‘llaniladi.",
+    "en": "A two-tier stand for storing sterilization pouches. Used in sterilization and procedure areas."
+  },
+  {
+    "id": 229,
+    "name": "Подставка для крафт-пакетов однослойная PK211",
+    "ru": "Одноуровневая подставка для размещения стерилизационных крафт-пакетов. Используется для упорядоченного хранения.",
+    "uz": "Sterilizatsiya kraf-paketlarini joylashtirish uchun mo‘ljallangan bir qavatli taglik. Tartibli saqlash uchun ishlatiladi.",
+    "en": "A single-tier stand for placing sterilization kraft pouches. Used for organized storage."
+  },
+  {
+    "id": 230,
+    "name": "Барьерная плёнка",
+    "ru": "Барьерная плёнка для защиты поверхностей от загрязнений. Используется при медицинских и диагностических процедурах.",
+    "uz": "Sirtlarni ifloslanishdan himoyalash uchun mo‘ljallangan to‘siq plyonkasi. Tibbiy va diagnostik muolajalarda qo‘llaniladi.",
+    "en": "A barrier film for protecting surfaces from contamination. Used during medical and diagnostic procedures."
+  },
+  {
+    "id": 231,
+    "name": "Крафт-пакет для стерилизации 50 мм × 200 м",
+    "ru": "Крафт-пакет в рулоне для упаковки медицинских инструментов перед стерилизацией. Используется для сохранения стерильности после обработки.",
+    "uz": "Sterilizatsiya oldidan tibbiy asboblarni qadoqlash uchun mo‘ljallangan rulonli kraft-paket. Ishlovdan so‘ng steril holatni saqlash uchun ishlatiladi.",
+    "en": "A roll kraft pouch for packaging medical instruments before sterilization. Used to maintain sterility after processing."
+  },
+  {
+    "id": 232,
+    "name": "Крафт-пакет для стерилизации 55 мм × 200 м",
+    "ru": "Стерилизационный крафт-пакет для мелких медицинских инструментов. Применяется в паровой стерилизации.",
+    "uz": "Kichik tibbiy asboblar uchun mo‘ljallangan sterilizatsiya kraft-paketi. Bug‘li sterilizatsiyada qo‘llaniladi.",
+    "en": "A sterilization kraft pouch for small medical instruments. Used in steam sterilization."
+  },
+  {
+    "id": 233,
+    "name": "Крафт-пакет для стерилизации 75 мм × 200 м",
+    "ru": "Крафт-пакет для упаковки инструментов среднего размера. Используется для стерилизации и последующего хранения.",
+    "uz": "O‘rtacha o‘lchamdagi asboblarni qadoqlash uchun mo‘ljallangan kraft-paket. Sterilizatsiya va keyingi saqlashda ishlatiladi.",
+    "en": "A kraft pouch for packaging medium-sized instruments. Used for sterilization and subsequent storage."
+  },
+  {
+    "id": 234,
+    "name": "Крафт-пакет для стерилизации 100 мм × 200 м",
+    "ru": "Стерилизационный крафт-пакет для медицинских изделий различного назначения. Применяется в медицинской практике.",
+    "uz": "Turli tibbiy buyumlar uchun mo‘ljallangan sterilizatsiya kraft-paketi. Tibbiy amaliyotda qo‘llaniladi.",
+    "en": "A sterilization kraft pouch for various medical devices. Used in medical practice."
+  },
+  {
+    "id": 235,
+    "name": "Крафт-пакет для стерилизации 150 мм × 200 м",
+    "ru": "Крафт-пакет увеличенной ширины для упаковки крупных инструментов. Используется при стерилизации хирургических изделий.",
+    "uz": "Katta asboblarni qadoqlash uchun mo‘ljallangan keng formatdagi kraft-paket. Jarrohlik buyumlarini sterilizatsiya qilishda qo‘llaniladi.",
+    "en": "A wide kraft pouch for packaging large instruments. Used in sterilization of surgical devices."
+  },
+  {
+    "id": 236,
+    "name": "Крафт-пакет для стерилизации 200 мм × 200 м",
+    "ru": "Крафт-пакет для объемных медицинских инструментов. Применяется для стерилизации и защиты от повторного загрязнения.",
+    "uz": "Hajmli tibbiy asboblar uchun mo‘ljallangan kraft-paket. Sterilizatsiya va qayta ifloslanishdan himoya qilishda ishlatiladi.",
+    "en": "A kraft pouch for bulky medical instruments. Used for sterilization and protection from recontamination."
+  },
+  {
+    "id": 237,
+    "name": "Крафт-пакет для стерилизации 250 мм × 200 м",
+    "ru": "Стерилизационный крафт-пакет для крупных медицинских изделий. Используется в стерилизационных отделениях.",
+    "uz": "Katta tibbiy buyumlar uchun mo‘ljallangan sterilizatsiya kraft-paketi. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "A sterilization kraft pouch for large medical devices. Used in sterilization departments."
+  },
+  {
+    "id": 238,
+    "name": "Крафт-пакет для стерилизации 300 мм × 200 м",
+    "ru": "Крафт-пакет большой ширины для упаковки наборов инструментов. Применяется при стерилизации комплектов.",
+    "uz": "Asboblar to‘plamlarini qadoqlash uchun mo‘ljallangan keng kraft-paket. Komplektlarni sterilizatsiya qilishda qo‘llaniladi.",
+    "en": "A wide kraft pouch for packaging instrument sets. Used in sterilization of kits."
+  },
+  {
+    "id": 239,
+    "name": "Крафт-пакет для стерилизации 350 мм × 200 м",
+    "ru": "Стерилизационный крафт-пакет для объемных комплектов инструментов. Используется для обеспечения стерильности.",
+    "uz": "Hajmli asboblar to‘plamlari uchun mo‘ljallangan sterilizatsiya kraft-paketi. Steril holatni taʼminlashda qo‘llaniladi.",
+    "en": "A sterilization kraft pouch for bulky instrument sets. Used to ensure sterility."
+  },
+  {
+    "id": 240,
+    "name": "Крафт-пакет для стерилизации 400 мм × 200 м",
+    "ru": "Крафт-пакет максимальной ширины для стерилизации крупных медицинских изделий. Применяется в хирургической практике.",
+    "uz": "Yirik tibbiy buyumlarni sterilizatsiya qilish uchun mo‘ljallangan maksimal kenglikdagi kraft-paket. Jarrohlik amaliyotida qo‘llaniladi.",
+    "en": "An extra-wide kraft pouch for sterilizing large medical devices. Used in surgical practice."
+  },
+  {
+    "id": 241,
+    "name": "Крафт-пакет для стерилизации 450 мм × 200 м",
+    "ru": "Крафт-пакет увеличенной ширины для стерилизации крупных медицинских изделий. Используется для сохранения стерильности после обработки.",
+    "uz": "Katta tibbiy buyumlarni sterilizatsiya qilish uchun mo‘ljallangan keng kraft-paket. Ishlovdan keyin steril holatni saqlashda qo‘llaniladi.",
+    "en": "A wide kraft pouch for sterilizing large medical devices. Used to maintain sterility after processing."
+  },
+  {
+    "id": 242,
+    "name": "Крафт-пакет для стерилизации 500 мм × 200 м",
+    "ru": "Стерилизационный крафт-пакет для объемных наборов инструментов. Применяется в стерилизационных отделениях.",
+    "uz": "Hajmli asboblar to‘plamlari uchun mo‘ljallangan sterilizatsiya kraft-paketi. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "A sterilization kraft pouch for bulky instrument sets. Used in sterilization departments."
+  },
+  {
+    "id": 243,
+    "name": "Самозапечатывающийся крафт-пакет 57 × 130 мм",
+    "ru": "Самозапечатывающийся крафт-пакет для стерилизации мелких медицинских изделий. Обеспечивает защиту инструмента после обработки.",
+    "uz": "Kichik tibbiy buyumlarni sterilizatsiya qilish uchun mo‘ljallangan o‘z-o‘zidan yopiladigan kraft-paket. Ishlovdan keyin himoya taʼminlaydi.",
+    "en": "A self-sealing kraft pouch for sterilizing small medical devices. Provides protection after processing."
+  },
+  {
+    "id": 244,
+    "name": "Самозапечатывающийся крафт-пакет 90 × 165 мм",
+    "ru": "Крафт-пакет с самозапечатывающимся клапаном для стерилизации инструментов. Используется в медицинской практике.",
+    "uz": "Asboblarni sterilizatsiya qilish uchun mo‘ljallangan o‘z-o‘zidan yopiladigan kraft-paket. Tibbiy amaliyotda qo‘llaniladi.",
+    "en": "A self-sealing kraft pouch for instrument sterilization. Used in medical practice."
+  },
+  {
+    "id": 245,
+    "name": "Самозапечатывающийся крафт-пакет 70 × 260 мм",
+    "ru": "Самозапечатывающийся стерилизационный пакет для медицинских изделий. Применяется для индивидуальной упаковки инструментов.",
+    "uz": "Tibbiy buyumlar uchun mo‘ljallangan o‘z-o‘zidan yopiladigan sterilizatsiya paketi. Asboblarni alohida qadoqlashda qo‘llaniladi.",
+    "en": "A self-sealing sterilization pouch for medical devices. Used for individual instrument packaging."
+  },
+  {
+    "id": 246,
+    "name": "Самозапечатывающийся крафт-пакет 90 × 260 мм",
+    "ru": "Крафт-пакет для стерилизации инструментов среднего размера. Используется для поддержания стерильности.",
+    "uz": "O‘rtacha o‘lchamdagi asboblarni sterilizatsiya qilish uchun mo‘ljallangan kraft-paket. Steril holatni saqlashda ishlatiladi.",
+    "en": "A kraft pouch for sterilizing medium-sized instruments. Used to maintain sterility."
+  },
+  {
+    "id": 247,
+    "name": "Самозапечатывающийся крафт-пакет 135 × 280 мм",
+    "ru": "Самозапечатывающийся стерилизационный пакет для наборов медицинских инструментов. Применяется в клиниках и кабинетах.",
+    "uz": "Tibbiy asboblar to‘plamlari uchun mo‘ljallangan o‘z-o‘zidan yopiladigan sterilizatsiya paketi. Klinikalar va kabinetlarda qo‘llaniladi.",
+    "en": "A self-sealing sterilization pouch for medical instrument sets. Used in clinics and medical offices."
+  },
+  {
+    "id": 248,
+    "name": "Самозапечатывающийся крафт-пакет 190 × 360 мм",
+    "ru": "Крафт-пакет большого формата для стерилизации объемных инструментов. Используется при хирургических процедурах.",
+    "uz": "Hajmli asboblarni sterilizatsiya qilish uchun mo‘ljallangan katta formatdagi kraft-paket. Jarrohlik muolajalarida qo‘llaniladi.",
+    "en": "A large-format kraft pouch for sterilizing bulky instruments. Used in surgical procedures."
+  },
+  {
+    "id": 249,
+    "name": "Самозапечатывающийся крафт-пакет 200 × 300 мм",
+    "ru": "Стерилизационный пакет для медицинских изделий среднего и крупного размера. Применяется для индивидуальной стерилизации.",
+    "uz": "O‘rtacha va katta o‘lchamdagi tibbiy buyumlar uchun mo‘ljallangan sterilizatsiya paketi. Individual sterilizatsiyada qo‘llaniladi.",
+    "en": "A sterilization pouch for medium and large medical devices. Used for individual sterilization."
+  },
+  {
+    "id": 250,
+    "name": "Самозапечатывающийся крафт-пакет 308 × 430 мм",
+    "ru": "Крафт-пакет увеличенного размера для стерилизации крупных медицинских инструментов. Используется в стерилизационных отделениях.",
+    "uz": "Katta tibbiy asboblarni sterilizatsiya qilish uchun mo‘ljallangan keng o‘lchamli kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "An oversized self-sealing kraft pouch for sterilizing large medical instruments. Used in sterilization departments."
+  },
+  {
+    "id": 251,
+    "name": "Самозапечатывающийся крафт-пакет 400 × 500 мм",
+    "ru": "Самозапечатывающийся стерилизационный пакет для крупных медицинских изделий. Используется для защиты стерильности после обработки.",
+    "uz": "Yirik tibbiy buyumlarni sterilizatsiya qilish uchun mo‘ljallangan o‘z-o‘zidan yopiladigan kraft-paket. Ishlovdan keyin steril holatni saqlaydi.",
+    "en": "A self-sealing sterilization pouch for large medical devices. Used to maintain sterility after processing."
+  },
+  {
+    "id": 252,
+    "name": "Самозапечатывающийся крафт-пакет 500 × 600 мм",
+    "ru": "Крафт-пакет большого формата для стерилизации объемных инструментов и наборов. Применяется в стерилизационных отделениях.",
+    "uz": "Hajmli asboblar va to‘plamlarni sterilizatsiya qilish uchun mo‘ljallangan katta formatdagi kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "A large-format self-sealing kraft pouch for sterilizing bulky instruments and sets. Used in sterilization departments."
+  },
+  {
+    "id": 253,
+    "name": "Индикатор для плазменной стерилизации (250 шт)",
+    "ru": "Индикатор для контроля процесса плазменной стерилизации медицинских изделий. Используется для подтверждения эффективности стерилизации.",
+    "uz": "Tibbiy buyumlarni plazmali sterilizatsiya qilish jarayonini nazorat qilish uchun mo‘ljallangan indikator. Sterilizatsiya samaradorligini tasdiqlashda ishlatiladi.",
+    "en": "An indicator for monitoring plasma sterilization of medical devices. Used to confirm sterilization effectiveness."
+  },
+  {
+    "id": 254,
+    "name": "Индикатор для плазменной стерилизации (200 шт)",
+    "ru": "Индикатор для визуального контроля параметров плазменной стерилизации. Применяется в стерилизационных отделениях.",
+    "uz": "Plazmali sterilizatsiya parametrlarini vizual nazorat qilish uchun mo‘ljallangan indikator. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "An indicator for visual monitoring of plasma sterilization parameters. Used in sterilization units."
+  },
+  {
+    "id": 255,
+    "name": "Индикатор для плазменной стерилизации (500 шт)",
+    "ru": "Индикатор для массового контроля плазменной стерилизации. Используется при высоком объёме стерилизационных циклов.",
+    "uz": "Plazmali sterilizatsiyani ommaviy nazorat qilish uchun mo‘ljallangan indikator. Yuqori yuklama bilan sterilizatsiya jarayonlarida qo‘llaniladi.",
+    "en": "An indicator for high-volume monitoring of plasma sterilization. Used in high-throughput sterilization processes."
+  },
+  {
+    "id": 256,
+    "name": "Лента индикаторная для плазменной стерилизации",
+    "ru": "Индикаторная лента для контроля прохождения плазменной стерилизации. Используется для маркировки и визуальной проверки.",
+    "uz": "Plazmali sterilizatsiya o‘tilganini nazorat qilish uchun mo‘ljallangan indikator lenta. Belgilash va vizual tekshiruvda ishlatiladi.",
+    "en": "An indicator tape for monitoring plasma sterilization cycles. Used for marking and visual verification."
+  },
+  {
+    "id": 257,
+    "name": "Нетканый материал для стерилизации",
+    "ru": "Нетканый материал для упаковки медицинских изделий перед стерилизацией. Используется для защиты и сохранения стерильности.",
+    "uz": "Sterilizatsiya oldidan tibbiy buyumlarni o‘rash uchun mo‘ljallangan to‘qilmagan material. Himoya va steril holatni saqlashda qo‘llaniladi.",
+    "en": "A nonwoven material for wrapping medical devices before sterilization. Used to protect and maintain sterility."
+  },
+  {
+    "id": 258,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 75 мм × 70 м",
+    "ru": "Крафт-пакет для упаковки медицинских изделий при плазменной стерилизации. Используется для низкотемпературной обработки.",
+    "uz": "Plazmali sterilizatsiyada tibbiy buyumlarni qadoqlash uchun mo‘ljallangan kraft-paket. Past haroratli ishlovda qo‘llaniladi.",
+    "en": "A kraft pouch for packaging medical devices during plasma sterilization. Used for low-temperature processing."
+  },
+  {
+    "id": 259,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 100 мм × 70 м",
+    "ru": "Стерилизационный крафт-пакет для плазменной обработки медицинских инструментов. Используется в стерилизационных процессах.",
+    "uz": "Tibbiy asboblarni plazmali sterilizatsiya qilish uchun mo‘ljallangan kraft-paket. Sterilizatsiya jarayonlarida qo‘llaniladi.",
+    "en": "A sterilization kraft pouch for plasma processing of medical instruments. Used in sterilization processes."
+  },
+  {
+    "id": 260,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 150 мм × 70 м",
+    "ru": "Крафт-пакет для стерилизации медицинских изделий среднего размера методом плазмы. Обеспечивает защиту инструмента после обработки.",
+    "uz": "O‘rtacha o‘lchamdagi tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun mo‘ljallangan kraft-paket. Ishlovdan keyin himoya taʼminlaydi.",
+    "en": "A kraft pouch for plasma sterilization of medium-sized medical devices. Provides protection after processing."
+  },
+  {
+    "id": 261,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 200 мм × 70 м",
+    "ru": "Крафт-пакет для упаковки медицинских изделий при плазменной стерилизации. Используется для низкотемпературной обработки инструментов.",
+    "uz": "Plazmali sterilizatsiya jarayonida tibbiy buyumlarni qadoqlash uchun mo‘ljallangan kraft-paket. Past haroratli ishlov berishda qo‘llaniladi.",
+    "en": "A kraft pouch for packaging medical devices during plasma sterilization. Used for low-temperature instrument processing."
+  },
+  {
+    "id": 262,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 250 мм × 70 м",
+    "ru": "Стерилизационный крафт-пакет для крупных медицинских изделий. Применяется при плазменной стерилизации.",
+    "uz": "Yirik tibbiy buyumlar uchun mo‘ljallangan plazmali sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada qo‘llaniladi.",
+    "en": "A plasma sterilization kraft pouch for large medical devices. Used in plasma sterilization processes."
+  },
+  {
+    "id": 263,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 300 мм × 70 м",
+    "ru": "Крафт-пакет увеличенной ширины для стерилизации объемных инструментов методом плазмы. Используется в стерилизационных отделениях.",
+    "uz": "Hajmli asboblarni plazma usulida sterilizatsiya qilish uchun mo‘ljallangan keng kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "A wide kraft pouch for plasma sterilization of bulky instruments. Used in sterilization departments."
+  },
+  {
+    "id": 264,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 350 мм × 70 м",
+    "ru": "Стерилизационный крафt-пакет для крупных наборов медицинских инструментов. Применяется для сохранения стерильности после обработки.",
+    "uz": "Katta tibbiy asboblar to‘plamlari uchun mo‘ljallangan plazmali sterilizatsiya kraft-paketi. Ishlovdan keyin steril holatni saqlaydi.",
+    "en": "A plasma sterilization kraft pouch for large medical instrument sets. Used to maintain sterility after processing."
+  },
+  {
+    "id": 265,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 400 мм × 70 м",
+    "ru": "Крафт-пакет максимальной ширины для плазменной стерилизации медицинских изделий. Используется при обработке объемных инструментов.",
+    "uz": "Tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun mo‘ljallangan maksimal kenglikdagi kraft-paket. Hajmli asboblar uchun ishlatiladi.",
+    "en": "An extra-wide kraft pouch for plasma sterilization of medical devices. Used for processing bulky instruments."
+  },
+  {
+    "id": 266,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 450 мм × 70 м",
+    "ru": "Стерилизационный крафт-пакет для крупных медицинских изделий. Применяется при плазменной стерилизации в клинической практике.",
+    "uz": "Yirik tibbiy buyumlar uchun mo‘ljallangan plazmali sterilizatsiya kraft-paketi. Klinik amaliyotda qo‘llaniladi.",
+    "en": "A plasma sterilization kraft pouch for large medical devices. Used in clinical practice."
+  },
+  {
+    "id": 267,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 500 мм × 70 м",
+    "ru": "Крафт-пакет большого формата для плазменной стерилизации объемных инструментов. Используется в стерилизационных отделениях.",
+    "uz": "Hajmli asboblarni plazma usulida sterilizatsiya qilish uchun mo‘ljallangan katta formatdagi kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "A large-format kraft pouch for plasma sterilization of bulky instruments. Used in sterilization departments."
+  },
+  {
+    "id": 268,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 75 мм × 100 м",
+    "ru": "Крафт-пакет для упаковки медицинских изделий малого размера при плазменной стерилизации. Используется для низкотемпературной обработки.",
+    "uz": "Kichik tibbiy buyumlarni plazmali sterilizatsiya qilish uchun mo‘ljallangan kraft-paket. Past haroratli ishlov berishda qo‘llaniladi.",
+    "en": "A kraft pouch for packaging small medical devices during plasma sterilization. Used for low-temperature processing."
+  },
+  {
+    "id": 269,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 100 мм × 100 м",
+    "ru": "Стерилизационный крафт-пакет для медицинских инструментов среднего размера. Применяется в плазменной стерилизации.",
+    "uz": "O‘rtacha o‘lchamdagi tibbiy asboblar uchun mo‘ljallangan plazmali sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada qo‘llaniladi.",
+    "en": "A plasma sterilization kraft pouch for medium-sized medical instruments. Used in plasma sterilization."
+  },
+  {
+    "id": 270,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 150 мм × 100 м",
+    "ru": "Крафт-пакет для стерилизации медицинских изделий среднего размера методом плазмы. Используется для сохранения стерильности.",
+    "uz": "O‘rtacha o‘lchamdagi tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun mo‘ljallangan kraft-paket. Steril holatni saqlashda qo‘llaniladi.",
+    "en": "A kraft pouch for plasma sterilization of medium-sized medical devices. Used to maintain sterility."
+  },
+  {
+    "id": 271,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 200 мм × 100 м",
+    "ru": "Крафт-пакет для упаковки медицинских изделий при плазменной стерилизации. Используется для низкотемпературной обработки инструментов.",
+    "uz": "Plazmali sterilizatsiya jarayonida tibbiy buyumlarni qadoqlash uchun mo‘ljallangan kraft-paket. Past haroratli ishlov berishda qo‘llaniladi.",
+    "en": "A kraft pouch for packaging medical devices during plasma sterilization. Used for low-temperature instrument processing."
+  },
+  {
+    "id": 272,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 250 мм × 100 м",
+    "ru": "Стерилизационный крафт-пакет для крупных медицинских изделий. Применяется при плазменной стерилизации.",
+    "uz": "Yirik tibbiy buyumlar uchun mo‘ljallangan plazmali sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada qo‘llaniladi.",
+    "en": "A plasma sterilization kraft pouch for large medical devices. Used in plasma sterilization."
+  },
+  {
+    "id": 273,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 300 мм × 100 м",
+    "ru": "Крафт-пакет увеличенной ширины для стерилизации объемных инструментов методом плазмы. Используется в стерилизационных отделениях.",
+    "uz": "Hajmli asboblarni plazma usulida sterilizatsiya qilish uchun mo‘ljallangan keng kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "A wide kraft pouch for plasma sterilization of bulky instruments. Used in sterilization departments."
+  },
+  {
+    "id": 274,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 350 мм × 100 м",
+    "ru": "Стерилизационный крафt-пакет для крупных наборов медицинских инструментов. Применяется для сохранения стерильности после обработки.",
+    "uz": "Katta tibbiy asboblar to‘plamlari uchun mo‘ljallangan plazmali sterilizatsiya kraft-paketi. Ishlovdan keyin steril holatni saqlaydi.",
+    "en": "A plasma sterilization kraft pouch for large medical instrument sets. Used to maintain sterility after processing."
+  },
+  {
+    "id": 275,
+    "name": "Крафт-пакет для плазменной стерилизации STANDART 400 мм × 100 м",
+    "ru": "Крафт-пакет максимальной ширины для плазменной стерилизации медицинских изделий. Используется при обработке объемных инструментов.",
+    "uz": "Tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun mo‘ljallangan maksimal kenglikdagi kraft-paket. Hajmli asboblar uchun ishlatiladi.",
+    "en": "An extra-wide kraft pouch for plasma sterilization of medical devices. Used for processing bulky instruments."
+  },
+  {
+    "id": 276,
+    "name": "Крафт-пакет для плазменной стерилизации PREMIUM 75 мм × 70 м",
+    "ru": "Крафт-пакет повышенного качества для плазменной стерилизации медицинских изделий. Применяется при низкотемпературной обработке.",
+    "uz": "Tibbiy buyumlarni plazmali sterilizatsiya qilish uchun mo‘ljallangan yuqori sifatli kraft-paket. Past haroratli ishlovda qo‘llaniladi.",
+    "en": "A premium-quality kraft pouch for plasma sterilization of medical devices. Used for low-temperature processing."
+  },
+  {
+    "id": 277,
+    "name": "Крафт-пакет для плазменной стерилизации PREMIUM 100 мм × 70 м",
+    "ru": "Стерилизационный крафт-пакет повышенной плотности для медицинских инструментов. Используется в плазменной стерилизации.",
+    "uz": "Tibbiy asboblar uchun mo‘ljallangan yuqori zichlikdagi plazmali sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada qo‘llaniladi.",
+    "en": "A high-density premium kraft pouch for plasma sterilization of medical instruments. Used in plasma sterilization."
+  },
+  {
+    "id": 278,
+    "name": "Крафт-пакет для плазменной стерилизации PREMIUM 150 мм × 70 м",
+    "ru": "Крафт-пакет для стерилизации медицинских изделий среднего размера методом плазмы. Обеспечивает защиту стерильности.",
+    "uz": "O‘rtacha o‘lchamdagi tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun mo‘ljallangan kraft-paket. Steril holatni himoyalaydi.",
+    "en": "A kraft pouch for plasma sterilization of medium-sized medical devices. Provides sterility protection."
+  },
+  {
+    "id": 279,
+    "name": "Крафт-пакет для плазменной стерилизации PREMIUM 200 мм × 70 м",
+    "ru": "Стерилизационный крафт-пакет для крупных медицинских изделий. Применяется при плазменной стерилизации в клиниках.",
+    "uz": "Yirik tibbiy buyumlar uchun mo‘ljallangan plazmali sterilizatsiya kraft-paketi. Klinik sharoitda qo‘llaniladi.",
+    "en": "A plasma sterilization kraft pouch for large medical devices. Used in clinical settings."
+  },
+  {
+    "id": 280,
+    "name": "Крафт-пакет для плазменной стерилизации PREMIUM 250 мм × 70 м",
+    "ru": "Крафт-пакет большого формата для плазменной стерилизации объемных инструментов. Используется в стерилизационных отделениях.",
+    "uz": "Hajmli asboblarni plazma usulida sterilizatsiya qilish uchun mo‘ljallangan katta formatdagi kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+    "en": "A large-format premium kraft pouch for plasma sterilization of bulky instruments. Used in sterilization departments."
+  },
+  {
+    "id": 281,
+    "name": "Крафт-пакет для плазменной стерилизации PREMIUM 300 мм × 70 м",
+    "ru": "Крафт-пакет увеличенной ширины для плазменной стерилизации крупных медицинских инструментов. Используется для сохранения стерильности после обработки.",
+    "uz": "Yirik tibbiy asboblarni plazma usulida sterilizatsiya qilish uchun mo‘ljallangan keng kraft-paket. Ishlovdan keyin steril holatni saqlaydi.",
+    "en": "A wide premium kraft pouch for plasma sterilization of large medical instruments. Used to maintain sterility after processing."
+  },
+  {
+    "id": 282,
+    "name": "Иглы спинальной анестезии Quincke 25G, 26G",
+    "ru": "Спинальные иглы типа Quincke для проведения спинальной анестезии. Обеспечивают контролируемое проникновение в субарахноидальное пространство.",
+    "uz": "Quincke turidagi spinal ignalar spinal anesteziya o‘tkazish uchun mo‘ljallangan. Subaraxnoidal bo‘shliqqa nazoratli kirishni taʼminlaydi.",
+    "en": "Quincke-type spinal needles for spinal anesthesia procedures. Designed for controlled entry into the subarachnoid space."
+  },
+  {
+    "id": 283,
+    "name": "Иглы спинальной анестезии Pencil Point 25G, 26G",
+    "ru": "Спинальные иглы с закруглённым наконечником для спинальной анестезии. Используются для снижения травматизации тканей.",
+    "uz": "Yumaloq uchli spinal ignalar spinal anesteziya uchun mo‘ljallangan. To‘qimalar shikastlanishini kamaytirish uchun qo‘llaniladi.",
+    "en": "Pencil-point spinal needles for spinal anesthesia. Used to reduce tissue trauma during puncture."
+  },
+  {
+    "id": 284,
+    "name": "Игла спинальная KD-FINE Quincke 26G",
+    "ru": "Спинальная игла типа Quincke для точного выполнения спинальной анестезии. Применяется в анестезиологической практике.",
+    "uz": "Spinal anesteziya uchun mo‘ljallangan Quincke turidagi spinal igna. Anesteziologiya amaliyotida qo‘llaniladi.",
+    "en": "A Quincke-type KD-FINE spinal needle for precise spinal anesthesia. Used in anesthesiology practice."
+  },
+  {
+    "id": 285,
+    "name": "Игла спинальная KD-FINE Pencil Point 25G, 26G",
+    "ru": "Спинальная игла с тупым кончиком для проведения анестезии. Используется для контролируемой пункции спинномозгового пространства.",
+    "uz": "Spinal anesteziya uchun mo‘ljallangan to‘mtoq uchli spinal igna. Orqa miya suyuqligi bo‘shlig‘iga nazoratli punktsiyada qo‘llaniladi.",
+    "en": "A pencil-point KD-FINE spinal needle for anesthesia procedures. Used for controlled puncture of the spinal space."
+  },
+  {
+    "id": 286,
+    "name": "Гель для УЗИ \"Акугель\" 5 кг",
+    "ru": "Ультразвуковой гель для улучшения проводимости сигнала между датчиком и кожей. Используется при диагностических УЗИ-исследованиях.",
+    "uz": "Ultratovush signali o‘tishini yaxshilash uchun mo‘ljallangan UZI geli. Diagnostik ultratovush tekshiruvlarida qo‘llaniladi.",
+    "en": "An ultrasound gel for improving signal transmission between the probe and skin. Used during diagnostic ultrasound examinations."
+  },
+  {
+    "id": 287,
+    "name": "Гель для УЗИ \"Акугель\" высокой вязкости 5 кг с дозатором",
+    "ru": "Ультразвуковой гель высокой вязкости для стабильного контакта датчика с кожей. Используется при длительных УЗИ-процедурах.",
+    "uz": "Sensor va teri orasida barqaror aloqa uchun mo‘ljallangan yuqori yopishqoqlikdagi UZI geli. Uzoq davom etuvchi UZI muolajalarida qo‘llaniladi.",
+    "en": "A high-viscosity ultrasound gel for stable probe-to-skin contact. Used during prolonged ultrasound procedures."
+  },
+  {
+    "id": 288,
+    "name": "Лента диаграммная для ЭКГ 80 × 20",
+    "ru": "Диаграммная лента для регистрации электрокардиограммы. Используется в электрокардиографических исследованиях.",
+    "uz": "Elektrokardiogrammani qayd etish uchun mo‘ljallangan diagramma lentasi. EKG tekshiruvlarida qo‘llaniladi.",
+    "en": "A chart paper roll for recording electrocardiograms. Used in ECG examinations."
+  },
+  {
+    "id": 289,
+    "name": "Лента диаграммная для ЭКГ 110 × 30",
+    "ru": "Диаграммная бумага для ЭКГ-аппаратов с расширенным форматом записи. Применяется в кардиологической диагностике.",
+    "uz": "Keng formatli yozuv uchun mo‘ljallangan EKG diagramma qog‘ozi. Kardiologik diagnostikada qo‘llaniladi.",
+    "en": "ECG chart paper with an extended recording format. Used in cardiology diagnostics."
+  },
+  {
+    "id": 290,
+    "name": "Лента диаграммная для ЭКГ 210 × 30",
+    "ru": "Диаграммная лента большого формата для электрокардиографов. Используется для детальной регистрации ЭКГ.",
+    "uz": "Elektrokardiograflar uchun mo‘ljallangan katta formatdagi diagramma lentasi. EKGni batafsil qayd etishda ishlatiladi.",
+    "en": "A large-format chart paper roll for electrocardiographs. Used for detailed ECG recording."
+  },
+  {
+    "id": 291,
+    "name": "Лента диаграммная для ЭКГ 215 × 30",
+    "ru": "Диаграммная лента для регистрации электрокардиограммы на ЭКГ-аппаратах. Используется для точной фиксации сердечного ритма.",
+    "uz": "EKG apparatlarida elektrokardiogrammani qayd etish uchun mo‘ljallangan diagramma lentasi. Yurak ritmini aniq qayd qilishda qo‘llaniladi.",
+    "en": "Chart paper for recording electrocardiograms on ECG devices. Used for accurate heart rhythm recording."
+  },
+  {
+    "id": 292,
+    "name": "Одноразовые простыни 20 г/м² в рулоне",
+    "ru": "Одноразовые простыни для защиты поверхностей при медицинских процедурах. Используются для соблюдения гигиены и предотвращения загрязнений.",
+    "uz": "Tibbiy muolajalar vaqtida sirtlarni himoyalash uchun mo‘ljallangan bir martalik choyshablar. Gigiyena va ifloslanishning oldini olishda qo‘llaniladi.",
+    "en": "Disposable sheets for protecting surfaces during medical procedures. Used to maintain hygiene and prevent contamination."
+  },
+  {
+    "id": 293,
+    "name": "Одноразовые простыни 20 г/м² (упаковка)",
+    "ru": "Одноразовые простыни для использования в медицинских и косметологических кабинетах. Обеспечивают барьерную защиту поверхностей.",
+    "uz": "Tibbiy va kosmetologiya xonalarida foydalanish uchun mo‘ljallangan bir martalik choyshablar. Sirtlar uchun to‘siq himoyani taʼminlaydi.",
+    "en": "Disposable sheets for use in medical and cosmetology rooms. Provide barrier protection for surfaces."
+  },
+  {
+    "id": 294,
+    "name": "Одноразовые простыни 80 × 200 рулонные UKM",
+    "ru": "Рулонные одноразовые простыни для покрытия кушеток и столов. Используются при диагностических и лечебных процедурах.",
+    "uz": "Kushetka va stollarni yopish uchun mo‘ljallangan rulonli bir martalik choyshablar. Diagnostik va davolash muolajalarida qo‘llaniladi.",
+    "en": "Roll-type disposable sheets for covering examination tables and couches. Used during diagnostic and therapeutic procedures."
+  },
+  {
+    "id": 295,
+    "name": "Салфетки одноразовые 15 г/м² в рулоне",
+    "ru": "Одноразовые салфетки для гигиенической обработки и защиты поверхностей. Используются в медицинской практике.",
+    "uz": "Gigiyenik ishlov va sirtlarni himoyalash uchun mo‘ljallangan bir martalik salfetkalar. Tibbiy amaliyotda qo‘llaniladi.",
+    "en": "Disposable wipes for hygienic treatment and surface protection. Used in medical practice."
+  },
+  {
+    "id": 296,
+    "name": "Одноразовое полотенце в рулоне 35 × 70",
+    "ru": "Одноразовые полотенца для гигиенического использования в медицинских учреждениях. Применяются при уходе за пациентами.",
+    "uz": "Tibbiyot muassasalarida gigiyenik foydalanish uchun mo‘ljallangan bir martalik sochiqlar. Bemor parvarishida qo‘llaniladi.",
+    "en": "Disposable towels for hygienic use in medical facilities. Used in patient care."
+  },
+  {
+    "id": 297,
+    "name": "Салфетки-нагрудники одноразовые",
+    "ru": "Одноразовые нагрудники для защиты одежды пациента во время процедур. Используются в стоматологической и медицинской практике.",
+    "uz": "Muolajalar vaqtida bemor kiyimini himoyalash uchun mo‘ljallangan bir martalik nagrudniklar. Stomatologik va tibbiy amaliyotda qo‘llaniladi.",
+    "en": "Disposable bibs for protecting patient clothing during procedures. Used in dental and medical practice."
+  },
+  {
+    "id": 298,
+    "name": "Нагрудники стоматологические одноразовые 45 × 33",
+    "ru": "Стоматологические нагрудники для защиты пациента от влаги и загрязнений. Используются при стоматологических манипуляциях.",
+    "uz": "Stomatologik muolajalar vaqtida bemorni namlik va ifloslanishdan himoyalash uchun mo‘ljallangan nagrudniklar. Qo‘llaniladi stomatologiyada.",
+    "en": "Disposable dental bibs for protecting patients from moisture and contaminants. Used during dental procedures."
+  },
+  {
+    "id": 299,
+    "name": "Спиртовые салфетки",
+    "ru": "Салфетки, пропитанные спиртовым раствором, для антисептической обработки кожи. Используются перед инъекциями и процедурами.",
+    "uz": "Teri antiseptik ishlovi uchun spirtli eritma bilan shimdirilgan salfetkalar. Inʼeksiya va muolajalar oldidan qo‘llaniladi.",
+    "en": "Alcohol swabs for antiseptic skin preparation. Used before injections and medical procedures."
+  },
+  {
+    "id": 300,
+    "name": "Шортики одноразовые для процедур",
+    "ru": "Одноразовые процедурные шорты для обеспечения гигиены и комфорта пациента. Используются при диагностических и лечебных манипуляциях.",
+    "uz": "Bemor gigiyenasi va qulayligini taʼminlash uchun mo‘ljallangan bir martalik protsedura shortiklari. Diagnostik va davolash muolajalarida qo‘llaniladi.",
+    "en": "Disposable procedure shorts for patient hygiene and comfort. Used during diagnostic and therapeutic procedures."
+  },
+  {
+    "id": 301,
+    "name": "Пробирка с активатором свертывания 5 мл (красная крышка)",
+    "ru": "Вакуумная пробирка с активатором свертывания для забора венозной крови. Используется для получения сыворотки при лабораторных исследованиях.",
+    "uz": "Venoz qon olish uchun mo‘ljallangan ivish faollashtiruvchili vakuum probirka. Laboratoriya tekshiruvlari uchun zardob olishda qo‘llaniladi.",
+    "en": "A vacuum blood collection tube with clot activator. Used to obtain serum for laboratory testing."
+  },
+  {
+    "id": 302,
+    "name": "Пробирка с активатором свертывания 6 мл (красная крышка)",
+    "ru": "Пробирка для забора крови с активатором свертывания. Применяется в клинико-диагностических лабораториях.",
+    "uz": "Ivish faollashtiruvchiga ega qon olish probirkasi. Klinik-diagnostik laboratoriyalarda qo‘llaniladi.",
+    "en": "A blood collection tube with clot activator. Used in clinical diagnostic laboratories."
+  },
+  {
+    "id": 303,
+    "name": "Пробирка с цитратом натрия 2,7 мл (синяя крышка)",
+    "ru": "Вакуумная пробирка с цитратом натрия для коагулологических исследований. Используется для оценки показателей свертываемости крови.",
+    "uz": "Qon ivish ko‘rsatkichlarini baholash uchun mo‘ljallangan natriy sitratli vakuum probirka. Koagulologik tahlillarda qo‘llaniladi.",
+    "en": "A vacuum tube with sodium citrate for coagulation studies. Used to assess blood clotting parameters."
+  },
+  {
+    "id": 304,
+    "name": "Пробирка с гелем и активатором свертывания 5 мл (желтая крышка)",
+    "ru": "Пробирка с гелевым разделителем и активатором свертывания для получения сыворотки. Используется в биохимических исследованиях.",
+    "uz": "Zardob olish uchun mo‘ljallangan gel ajratuvchi va ivish faollashtiruvchili probirka. Biokimyoviy tekshiruvlarda qo‘llaniladi.",
+    "en": "A blood collection tube with gel separator and clot activator. Used in biochemical laboratory testing."
+  },
+  {
+    "id": 305,
+    "name": "Пробирка с ЭДТА K3 3 мл (фиолетовая крышка)",
+    "ru": "Вакуумная пробирка с антикоагулянтом ЭДТА K3 для гематологических исследований. Используется для сохранения клеточного состава крови.",
+    "uz": "Gematologik tekshiruvlar uchun mo‘ljallangan EDTA K3 antikoagulyantli vakuum probirka. Qon hujayralarini saqlashda qo‘llaniladi.",
+    "en": "A vacuum tube with EDTA K3 anticoagulant for hematology tests. Used to preserve blood cell morphology."
+  },
+  {
+    "id": 306,
+    "name": "Пробирка с литий-гепарином 5 мл (зеленая крышка)",
+    "ru": "Пробирка с литий-гепарином для забора крови без свертывания. Используется при биохимических и клинических анализах.",
+    "uz": "Qon ivishini oldini olish uchun litiy-geparinli probirka. Biokimyoviy va klinik tahlillarda qo‘llaniladi.",
+    "en": "A blood collection tube with lithium heparin anticoagulant. Used in biochemical and clinical analyses."
+  },
+  {
+    "id": 307,
+    "name": "Пробирка с гелем и натрий-гепарином 8,5 мл",
+    "ru": "Пробирка с гелем и антикоагулянтом натрий-гепарин для разделения плазмы. Используется в лабораторной диагностике.",
+    "uz": "Plazmani ajratish uchun mo‘ljallangan gel va natriy-geparinli probirka. Laboratoriya diagnostikasida qo‘llaniladi.",
+    "en": "A blood tube with gel separator and sodium heparin. Used for plasma separation in laboratory diagnostics."
+  },
+  {
+    "id": 308,
+    "name": "Микроцентрифужная пробирка 1,5 мл (тип Эппендорф)",
+    "ru": "Микроцентрифужная пробирка для хранения и центрифугирования образцов. Используется в лабораторных и молекулярных исследованиях.",
+    "uz": "Namunalarni saqlash va sentrifugalash uchun mo‘ljallangan mikrotsentrifuga probirkasi. Laboratoriya va molekulyar tadqiqotlarda qo‘llaniladi.",
+    "en": "A microcentrifuge tube for sample storage and centrifugation. Used in laboratory and molecular research."
+  },
+  {
+    "id": 309,
+    "name": "Пробирка 1,5 мл с ЭДТА K3 для гематологических анализаторов",
+    "ru": "Пробирка с напылением ЭДТА K3 для автоматических гематологических анализов. Используется для стабильного анализа крови.",
+    "uz": "Avtomatik gematologik tahlillar uchun mo‘ljallangan EDTA K3 qoplamali probirka. Qon tahlilining barqarorligini taʼminlaydi.",
+    "en": "A 1.5 ml tube with EDTA K3 coating for hematology analyzers. Used for stable blood analysis."
+  },
+  {
+    "id": 310,
+    "name": "Игла-бабочка для вакуумных пробирок 22G, 23G",
+    "ru": "Игла-бабочка для забора венозной крови с использованием вакуумных систем. Обеспечивает удобство и контроль при венепункции.",
+    "uz": "Vakuum tizimlari yordamida venoz qon olish uchun mo‘ljallangan igna-babochka. Venepunktsiya vaqtida qulaylik va nazoratni taʼminlaydi.",
+    "en": "A butterfly needle for venous blood collection using vacuum systems. Provides control and ease during venipuncture."
+  },
+  {
+    "id": 311,
+    "name": "Иглы для вакуумного забора крови 22G, 23G",
+    "ru": "Иглы для вакуумных систем забора венозной крови. Используются для безопасного и контролируемого взятия образцов.",
+    "uz": "Venoz qon olish uchun mo‘ljallangan vakuum tizimlariga mos ignalar. Namunalarni xavfsiz va nazorat ostida olishda qo‘llaniladi.",
+    "en": "Needles for vacuum blood collection systems. Used for safe and controlled venous blood sampling."
+  },
+  {
+    "id": 312,
+    "name": "Держатель иглы для вакуумных пробирок",
+    "ru": "Пластиковый держатель для фиксации иглы при вакуумном заборе крови. Обеспечивает стабильность и удобство работы.",
+    "uz": "Vakuum qon olishda ignani mahkamlash uchun mo‘ljallangan plastik ushlagich. Ish jarayonida barqarorlik va qulaylikni taʼminlaydi.",
+    "en": "A plastic holder for securing needles during vacuum blood collection. Ensures stability and ease of use."
+  },
+  {
+    "id": 313,
+    "name": "Пипет-дозатор MicroPette Plus 20–200 мкл",
+    "ru": "Регулируемый пипет-дозатор для точного дозирования жидкостей малого объёма. Используется в лабораторной практике.",
+    "uz": "Kichik hajmdagi suyuqliklarni aniq dozalashtirish uchun mo‘ljallangan sozlanadigan pipet-dizator. Laboratoriya amaliyotida qo‘llaniladi.",
+    "en": "An adjustable micropipette for precise dispensing of small liquid volumes. Used in laboratory practice."
+  },
+  {
+    "id": 314,
+    "name": "Наконечники для пипеток 1000 мкл",
+    "ru": "Одноразовые наконечники для дозаторов объёмом до 1000 мкл. Используются для предотвращения перекрёстного загрязнения.",
+    "uz": "1000 mkl gacha bo‘lgan dozatorlar uchun mo‘ljallangan bir martalik pipet uchlari. O‘zaro ifloslanishni oldini olishda qo‘llaniladi.",
+    "en": "Disposable pipette tips for volumes up to 1000 µl. Used to prevent cross-contamination."
+  },
+  {
+    "id": 315,
+    "name": "Наконечники для дозаторов 200 мкл",
+    "ru": "Одноразовые наконечники для дозаторов малого объёма. Используются в аналитических и диагностических лабораториях.",
+    "uz": "Kichik hajmli dozatorlar uchun mo‘ljallangan bir martalik uchlar. Analitik va diagnostik laboratoriyalarda qo‘llaniladi.",
+    "en": "Disposable tips for low-volume pipettes. Used in analytical and diagnostic laboratories."
+  },
+  {
+    "id": 316,
+    "name": "Наконечники для дозаторов 1000 мкл",
+    "ru": "Пипеточные наконечники для точного дозирования жидкостей. Применяются в лабораторных исследованиях.",
+    "uz": "Suyuqliklarni aniq dozalashtirish uchun mo‘ljallangan pipet uchlari. Laboratoriya tadqiqotlarida qo‘llaniladi.",
+    "en": "Pipette tips for accurate liquid dispensing. Used in laboratory research."
+  },
+  {
+    "id": 317,
+    "name": "Контейнер для сбора биоматериалов 100 мл",
+    "ru": "Пластиковый контейнер для сбора и хранения биологических образцов. Используется в лабораторной диагностике.",
+    "uz": "Biologik namunalarni yig‘ish va saqlash uchun mo‘ljallangan plastik konteyner. Laboratoriya diagnostikasida qo‘llaniladi.",
+    "en": "A plastic container for collection and storage of biological samples. Used in laboratory diagnostics."
+  },
+  {
+    "id": 318,
+    "name": "Контейнер для сбора биоматериалов 100 мл с ложкой",
+    "ru": "Контейнер для сбора биоматериалов с встроенной ложкой. Обеспечивает удобство и гигиеничность забора образцов.",
+    "uz": "Biologik namunalarni yig‘ish uchun qoshiqchali konteyner. Namuna olishda qulaylik va gigiyenani taʼminlaydi.",
+    "en": "A specimen container with an integrated spoon. Provides convenient and hygienic sample collection."
+  },
+  {
+    "id": 319,
+    "name": "Контейнер для сбора биоматериалов 60 мл с ложкой",
+    "ru": "Компактный контейнер для сбора биологических образцов. Используется для лабораторных исследований.",
+    "uz": "Biologik namunalarni yig‘ish uchun mo‘ljallangan ixcham konteyner. Laboratoriya tekshiruvlarida qo‘llaniladi.",
+    "en": "A compact container for biological sample collection. Used in laboratory testing."
+  },
+  {
+    "id": 320,
+    "name": "Контейнер для сбора биоматериалов 60 мл",
+    "ru": "Контейнер для хранения и транспортировки биологических образцов. Применяется в клинической диагностике.",
+    "uz": "Biologik namunalarni saqlash va tashish uchun mo‘ljallangan konteyner. Klinik diagnostikada qo‘llaniladi.",
+    "en": "A container for storage and transport of biological samples. Used in clinical diagnostics."
+  },
+  {
+    "id": 321,
+    "name": "Жгут латексный",
+    "ru": "Латексный жгут для временного пережатия вен при заборе крови. Используется для облегчения венепункции.",
+    "uz": "Qon olish vaqtida venani vaqtincha qisish uchun mo‘ljallangan lateks jgut. Venepunktsiyani osonlashtirishda qo‘llaniladi.",
+    "en": "A latex tourniquet for temporary vein compression during blood collection. Used to facilitate venipuncture."
+  },
+  {
+    "id": 322,
+    "name": "Электрохирургический карандаш",
+    "ru": "Электрохирургический инструмент для рассечения и коагуляции тканей. Используется при хирургических вмешательствах.",
+    "uz": "To‘qimalarni kesish va koagulyatsiya qilish uchun mo‘ljallangan elektrojarrohlik qalami. Jarrohlik amaliyotlarida qo‘llaniladi.",
+    "en": "An electrosurgical pencil for tissue cutting and coagulation. Used in surgical procedures."
+  },
+  {
+    "id": 323,
+    "name": "Покровное стекло 18 × 18 мм",
+    "ru": "Покровное стекло для микроскопических исследований. Используется для защиты и фиксации исследуемого образца.",
+    "uz": "Mikroskopik tekshiruvlar uchun mo‘ljallangan yopuvchi oynacha. Namuna ustini yopish va himoyalashda qo‘llaniladi.",
+    "en": "A cover glass for microscopic examination. Used to protect and secure specimens on slides."
+  },
+  {
+    "id": 324,
+    "name": "Покровное стекло 24 × 24 мм",
+    "ru": "Покровное стекло увеличенного размера для микроскопии. Применяется при исследовании более крупных образцов.",
+    "uz": "Kattaroq namunalarni tekshirish uchun mo‘ljallangan katta o‘lchamli yopuvchi oynacha. Mikroskopiyada qo‘llaniladi.",
+    "en": "A larger cover glass for microscopy. Used when examining larger specimens."
+  },
+  {
+    "id": 325,
+    "name": "Предметное стекло без шлифованных краёв",
+    "ru": "Предметное стекло для подготовки микроскопических препаратов. Используется в лабораторной диагностике.",
+    "uz": "Mikroskopik preparatlar tayyorlash uchun mo‘ljallangan predmet oynasi. Laboratoriya diagnostikasida qo‘llaniladi.",
+    "en": "A microscope slide for preparing specimens. Used in laboratory diagnostics."
+  },
+  {
+    "id": 326,
+    "name": "Измеритель артериального давления LDH-MAXI",
+    "ru": "Прибор для неинвазивного измерения артериального давления. Используется в клинической и амбулаторной практике.",
+    "uz": "Arterial bosimni invaziv bo‘lmagan usulda o‘lchash uchun mo‘ljallangan qurilma. Klinik va ambulator amaliyotda qo‘llaniladi.",
+    "en": "A device for non-invasive blood pressure measurement. Used in clinical and outpatient settings."
+  },
+  {
+    "id": 327,
+    "name": "Измеритель артериального давления ИАД-01 «Адьютор»",
+    "ru": "Механический прибор для измерения артериального давления. Применяется при медицинских осмотрах.",
+    "uz": "Arterial bosimni o‘lchash uchun mo‘ljallangan mexanik qurilma. Tibbiy ko‘riklar vaqtida qo‘llaniladi.",
+    "en": "A mechanical blood pressure monitor. Used during medical examinations."
+  },
+  {
+    "id": 328,
+    "name": "Стетоскоп кардиологический Раппопорта BK 3003",
+    "ru": "Кардиологический стетоскоп для аускультации сердца и лёгких. Используется для диагностики сердечно-сосудистой и дыхательной систем.",
+    "uz": "Yurak va o‘pkani auskultatsiya qilish uchun mo‘ljallangan kardiologik stetoskop. Yurak-qon tomir va nafas tizimini baholashda qo‘llaniladi.",
+    "en": "A cardiology stethoscope for auscultation of heart and lung sounds. Used in cardiovascular and respiratory assessment."
+  },
+  {
+    "id": 329,
+    "name": "Термометр медицинский ртутный",
+    "ru": "Ртутный термометр для измерения температуры тела. Используется в медицинской практике для контроля состояния пациента.",
+    "uz": "Tana haroratini o‘lchash uchun mo‘ljallangan simobli tibbiy termometr. Bemor holatini nazorat qilishda qo‘llaniladi.",
+    "en": "A mercury medical thermometer for measuring body temperature. Used in clinical practice to monitor patient condition."
+  }
+]
+
+
+
+
+
+

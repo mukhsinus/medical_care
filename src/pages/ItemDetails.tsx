@@ -84,7 +84,9 @@ export default function ItemDetails() {
   }, [t]);
 
   const getTranslatedField = useCallback(
-    (key: string): string => {
+    (key?: string | null): string => {
+      if (!key || typeof key !== "string") return "";
+
       const cached = translationCache.current.get(key);
       if (cached) return cached;
 

@@ -147,6 +147,73 @@ export default function Contacts() {
 
           {/* CONTACT BUTTONS */}
           <div className="max-w-5xl mx-auto mb-16">
+            {/* OFFICES IN OTHER CITIES */}
+            <Card className="bg-card border-2 mb-8 py-6 px-4">
+              <CardHeader>
+                <CardTitle className="text-center text-2xl">
+                  {t.contacts.otherOffices}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="flex items-start gap-3 p-4 rounded-lg bg-muted/50">
+                    <div>
+                      <p className="font-semibold">{t.contacts.andijan}</p>
+                      <a href="tel:+998774043022" className="text-primary hover:underline text-sm">
+                        +998 77 404 3022
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3 p-4 rounded-lg bg-muted/50">
+                    <div>
+                      <p className="font-semibold">{t.contacts.namangan}</p>
+                      <a href="tel:+998774043022" className="text-primary hover:underline text-sm">
+                        +998 77 404 3022
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3 p-4 rounded-lg bg-muted/50">
+                    <div>
+                      <p className="font-semibold">{t.contacts.fergana}</p>
+                      <a href="tel:+998774043022" className="text-primary hover:underline text-sm">
+                        +998 77 404 3022
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3 p-4 rounded-lg bg-muted/50">
+                    <div>
+                      <p className="font-semibold">{t.contacts.samarkand}</p>
+                      <a href="tel:+998777053022" className="text-primary hover:underline text-sm">
+                        +998 77 705 3022
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3 p-4 rounded-lg bg-muted/50">
+                    <div>
+                      <p className="font-semibold">{t.contacts.bukhara}</p>
+                      <a href="tel:+998773773022" className="text-primary hover:underline text-sm">
+                        +998 77 377 3022
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3 p-4 rounded-lg bg-muted/50">
+                    <div>
+                      <p className="font-semibold">{t.contacts.navoi}</p>
+                      <a href="tel:+998773773022" className="text-primary hover:underline text-sm">
+                        +998 77 377 3022
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* GET IN TOUCH */}
             <Card className="bg-card border-2 py-6 px-4">
               <CardHeader>
                 <CardTitle className="text-center text-2xl">

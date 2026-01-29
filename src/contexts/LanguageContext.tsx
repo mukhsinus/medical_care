@@ -25,8 +25,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [locale, setLocaleState] = useState<Locale>(() => {
     const path = window.location.pathname;
     if (path.startsWith('/ru')) return 'ru';
-    if (path.startsWith('/uz')) return 'uz';
-    return 'en';
+    if (path.startsWith('/en')) return 'en';
+    return 'uz';
   });
 
   const setLocale = (newLocale: Locale) => {

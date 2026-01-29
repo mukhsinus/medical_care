@@ -517,6 +517,7 @@ export default function Catalog() {
     if (clamped === currentPage) return;
     setCurrentPage(clamped);
     updateUrl(activeCategory, searchTerm, clamped);
+    window.scrollTo(0, 0);
   };
 
   const navigateToItem = (itemId: number) => {

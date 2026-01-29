@@ -672,7 +672,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 30,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.30.name",
     descriptionKey: "items.30.description",
     imageBase: "Скарификатор копье",
@@ -774,7 +774,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 36,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.36.name",
     descriptionKey: "items.36.description",
     imageBase: "урогенитальный",
@@ -1816,7 +1816,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 96,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.96.name",
     descriptionKey: "items.96.description",
     imageBase: "хлорактив",
@@ -1824,7 +1824,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 97,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.97.name",
     descriptionKey: "items.97.description",
     imageBase: "Септодез 1 литр",
@@ -1832,7 +1832,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 98,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.98.name",
     descriptionKey: "items.98.description",
     imageBase: "АБК Экстра 1 литр",
@@ -1840,7 +1840,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 99,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.99.name",
     descriptionKey: "items.99.description",
     imageBase: "Антисептин 0,5 литр (марка А) с триггером",
@@ -1848,7 +1848,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 100,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.100.name",
     descriptionKey: "items.100.description",
     imageBase: "Антисептин ОП 0,5л (марка Б) с триггером",
@@ -1856,7 +1856,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 101,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.101.name",
     descriptionKey: "items.101.description",
     imageBase: "ДС 1 0,5л концентрат",
@@ -1864,7 +1864,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 102,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.102.name",
     descriptionKey: "items.102.description",
     imageBase: "Экстрадин 1л (Концентрат НОВЫЙ)",
@@ -1872,7 +1872,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 103,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.103.name",
     descriptionKey: "items.103.description",
     imageBase: "Экстра Дез плюс 1л (концентрат)",
@@ -1880,7 +1880,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 104,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.104.name",
     descriptionKey: "items.104.description",
     imageBase: "Фенолфталеин 100мл",
@@ -1888,7 +1888,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 105,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.105.name",
     descriptionKey: "items.105.description",
     imageBase: "АзопирамС-GTM (100 мл)",
@@ -1896,7 +1896,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 106,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.106.name",
     descriptionKey: "items.106.description",
     imageBases: [
@@ -1969,7 +1969,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 108,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.108.name",
     descriptionKey: "items.108.description",
     imageBase: "журнал индикатора",
@@ -1977,7 +1977,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 109,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.109.name",
     descriptionKey: "items.109.description",
     imageBase:
@@ -1986,7 +1986,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 110,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.110.name",
     descriptionKey: "items.110.description",
     imageBase:
@@ -1995,7 +1995,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 111,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.111.name",
     descriptionKey: "items.111.description",
     imageBase:
@@ -2004,7 +2004,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 112,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.112.name",
     descriptionKey: "items.112.description",
     imageBase: "",
@@ -2012,7 +2012,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 113,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.113.name",
     descriptionKey: "items.113.description",
     imageBase: "индикатор Стерилан уп-132-20(1000шт) ташки",
@@ -2020,7 +2020,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 114,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.114.name",
     descriptionKey: "items.114.description",
     imageBase: "индикатор Стерилан уп-132-20(1000шт) ички",
@@ -2028,7 +2028,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 115,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.115.name",
     descriptionKey: "items.115.description",
     imageBase: "индикатор Стерилан уп-180-60(1000шт) ташки",
@@ -2036,7 +2036,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 116,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.116.name",
     descriptionKey: "items.116.description",
     imageBase: "индикатор Стерилан уп-180-60(1000шт) ички",
@@ -2044,7 +2044,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 117,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.117.name",
     descriptionKey: "items.117.description",
     imageBase: "индикатор стерил Медис-В-180-60-1,1000",
@@ -2052,14 +2052,14 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 118,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.118.name",
     descriptionKey: "items.118.description",
     imageBase: "",
   },
   {
     id: 119,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.119.name",
     descriptionKey: "items.119.description",
     imageBase: "индикатор стерил Медис-В-132-20,1000",
@@ -2067,7 +2067,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 120,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.120.name",
     descriptionKey: "items.120.description",
     imageBase: "индикатор стерил Медис-В-132-20,1000",
@@ -2075,7 +2075,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 121,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.121.name",
     descriptionKey: "items.121.description",
     imageBase: "indikator vinar steritest-p-132-20-02",
@@ -2083,13 +2083,13 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 122,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.122.name",
     descriptionKey: "items.122.description",
   },
   {
     id: 123,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.123.name",
     descriptionKey: "items.123.description",
     imageBase: "",
@@ -2097,7 +2097,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 124,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.124.name",
     descriptionKey: "items.124.description",
     imageBase: "Упаковочная машина  (Запечатывание) PK100-A (2)",
@@ -2105,7 +2105,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 125,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.125.name",
     descriptionKey: "items.125.description",
     imageBase: "Упаковочная машина, модель PK02-45 (2)",
@@ -2113,7 +2113,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 126,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.126.name",
     descriptionKey: "items.126.description",
     imageBase: "",
@@ -2121,7 +2121,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 127,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.127.name",
     descriptionKey: "items.127.description",
     imageBase: "Упаковочная машина, модель PKD300AB (2)",
@@ -2129,7 +2129,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 128,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.128.name",
     descriptionKey: "items.128.description",
     imageBase: "seal320-upakovochnaya-mashina",
@@ -2137,7 +2137,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 129,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.129.name",
     descriptionKey: "items.129.description",
     imageBase: "",
@@ -2145,7 +2145,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 130,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.130.name",
     descriptionKey: "items.130.description",
     imageBase: "Двухслойная подставка для крафт пакетов, модель PK212",
@@ -2153,7 +2153,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 131,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.131.name",
     descriptionKey: "items.131.description",
     imageBase: "",
@@ -2169,7 +2169,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 133,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.133.name",
     descriptionKey: "items.133.description",
     imageBases: [
@@ -2245,7 +2245,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 134,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.134.name",
     descriptionKey: "items.134.description",
     imageBases: [
@@ -2307,7 +2307,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 135,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.135.name",
     descriptionKey: "items.135.description",
     imageBase: "индикатор для плазменной стерилизации (банка 250шт)",
@@ -2319,7 +2319,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 136,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.136.name",
     descriptionKey: "items.136.description",
     imageBase: "",
@@ -2343,7 +2343,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 139,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.139.name",
     imageBases: [
       "КРАФТ ПАКЕТ для Плазменный STANDART  75мм70 метр (2)",
@@ -2458,7 +2458,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 140,
-    category: "dressings",
+    category: "lab",
     nameKey: "items.140.name",
     imageBases: [
       "КРАФТ ПАКЕТ для Плазменный PREMIUM  75мм70 метр",
@@ -2540,7 +2540,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 145,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.145.name",
     descriptionKey: "items.145.description",
     imageBase: "Гель для узи Акугель 5кг в канистре-2",
@@ -2548,7 +2548,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 146,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.146.name",
     descriptionKey: "items.146.description",
     imageBase:
@@ -2557,7 +2557,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 147,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.147.name",
     descriptionKey: "items.147.description",
     imageBases: [
@@ -2621,7 +2621,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 149,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.149.name",
     descriptionKey: "items.149.description",
   },
@@ -2633,13 +2633,13 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 151,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.151.name",
     descriptionKey: "items.151.description",
   },
   {
     id: 152,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.152.name",
     descriptionKey: "items.152.description",
   },
@@ -2673,13 +2673,13 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 154,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.154.name",
     descriptionKey: "items.154.description",
   },
   {
     id: 155,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.155.name",
     descriptionKey: "items.155.description",
     imageBase: "спиртовые салфетки №100-2",
@@ -2700,7 +2700,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 157,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.157.name",
     descriptionKey: "items.157.description",
     imageBase: "пробирки с активатором сверт-я, красная крышка,13x75мм 5мл",
@@ -2708,7 +2708,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 158,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.158.name",
     descriptionKey: "items.158.description",
     imageBase: "пробирки с активатором сверт-я, красная крышка,13x75мм 6мл",
@@ -2716,7 +2716,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 159,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.159.name",
     descriptionKey: "items.159.description",
     imageBase: "пробирки с 3,2 цитратом натрия, синий крышка 13x75мм, 2,7мл-2",
@@ -2724,7 +2724,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 160,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.160.name",
     descriptionKey: "items.160.description",
     imageBase:
@@ -2733,7 +2733,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 161,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.161.name",
     descriptionKey: "items.161.description",
     imageBase: "пробирки с ЭДТА КЗ, фиолетовая крышка, 13x75мм, 3мл",
@@ -2741,7 +2741,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 162,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.162.name",
     descriptionKey: "items.162.description",
     imageBase: "пробирки  с литий-гепарином, зеленая крышка, 13x75мм 5мл-2",
@@ -2749,7 +2749,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 163,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.163.name",
     descriptionKey: "items.163.description",
     imageBase:
@@ -2758,7 +2758,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 164,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.164.name",
     descriptionKey: "items.164.description",
     imageBase:
@@ -2767,7 +2767,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 165,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.165.name",
     descriptionKey: "items.165.description",
     imageBase:
@@ -2776,7 +2776,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 166,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.166.name",
     descriptionKey: "items.166.description",
     imageBases: [
@@ -2792,7 +2792,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 167,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.167.name",
     descriptionKey: "items.167.description",
     imageBases: [
@@ -2813,7 +2813,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 168,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.168.name",
     descriptionKey: "items.168.description",
     imageBase: "Держатель иглы с защитной крышкой-2",
@@ -2821,7 +2821,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 169,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.169.name",
     descriptionKey: "items.169.description",
     imageBases: [
@@ -2832,7 +2832,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 170,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.170.name",
     descriptionKey: "items.170.description",
     imageBase: "наконечники для дозаторов 1000 мкл (в пачке 500 шт)",
@@ -2840,7 +2840,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 171,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.171.name",
     descriptionKey: "items.171.description",
     imageBase: "наконечники для дозаторов 200 мкл (в пачке 1000шт) желтая",
@@ -2848,7 +2848,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 172,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.172.name",
     descriptionKey: "items.172.description",
     imageBase: "наконечники для дозаторов 200 мкл (в пачке 1000шт) желтая",
@@ -2856,7 +2856,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 173,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.173.name",
     sizes: [
       "variants.sizes.60mlws",
@@ -2892,7 +2892,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 174,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.174.name",
     descriptionKey: "items.174.description",
     imageBases: ["жгут латексный", "жгут латексный-2"],
@@ -2900,7 +2900,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 175,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.175.name",
     descriptionKey: "items.175.description",
     imageBases: [
@@ -2923,7 +2923,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 177,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.177.name",
     descriptionKey: "items.177.description",
     imageBase: "Предметное стекло без шлиф.краями (в упак. 72 шт)",
@@ -2931,7 +2931,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 178,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.178.name",
     descriptionKey: "items.178.description",
     imageBases: [
@@ -2943,7 +2943,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 179,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.179.name",
     descriptionKey: "items.179.description",
     imageBases: [
@@ -2955,7 +2955,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 180,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.180.name",
     descriptionKey: "items.180.description",
     imageBase: "stetoskop",
@@ -2963,7 +2963,7 @@ export const allItems: CatalogItem[] = [
   },
   {
     id: 181,
-    category: "lab",
+    category: "dressings",
     nameKey: "items.181.name",
     descriptionKey: "items.181.description",
     imageBase: "термометр медицинский ртутный",

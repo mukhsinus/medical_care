@@ -73,7 +73,8 @@
   },
   "about": {
     "title": "About Medicare",
-    "mission": "Medicare is a leading medical supplies wholesaler in Uzbekistan, dedicated to providing healthcare facilities with high-quality, certified medical equipment and disposables.",
+    "subtitle": "Medicare is a reliable distribution company operating in the field of medical supplies in Uzbekistan.",
+    "mission": "Since 2018, Medicare has been supplying medical institutions, clinics, laboratories, and private medical centers with high-quality medical products. We operate based on the principles of quality, responsibility, honesty, and trust. We aim to build long-term and sustainable partnerships with every client.",
     "quality": "Quality Assurance",
     "qualityDesc": "All our products meet CE and ISO certification standards, ensuring safety and reliability.",
     "logistics": "Professional Logistics",
@@ -81,6 +82,14 @@
     "certification": "Certifications",
     "certificationDesc": "CE certified and ISO compliant products with full documentation.",
     "journeyTitle": "Our Journey",
+    "whyChooseTitle": "Why Choose Medicare",
+    "whyChooseList": [
+      "8+ years of professional experience",
+      "Wide and constantly updated product range",
+      "Quality control and certified products",
+      "Fast logistics and stable deliveries",
+      "Individual approach and long-term cooperation"
+    ],
     "imageAlt": "Warehouse with stacked medical supplies",
     "timeline": {
       "founded": "Company founded with a vision for quality healthcare distribution",
@@ -99,7 +108,7 @@
     "teamTitle": "Meet Our Expert Team",
     "teamDesc": "Over 150 dedicated professionals ensuring your medical supplies arrive on time, every time.",
     "ctaTitle": "Ready to Partner With Us?",
-    "ctaDesc": "Get in touch today and discover how we can support your healthcare needs.",
+    "ctaDesc": "MEDICARE is open to cooperation with public and private clinics, diagnostic centers, laboratories, and healthcare professionals.",
     "ceo": "Founder & CEO",
     "ceoDesc": "Visionary leader with over 15 years of experience shaping the future of our company.",
     "cto": "Chief Technology Officer (CTO)",

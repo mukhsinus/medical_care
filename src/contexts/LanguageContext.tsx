@@ -26,6 +26,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const path = window.location.pathname;
     if (path.startsWith('/ru')) return 'ru';
     if (path.startsWith('/en')) return 'en';
+    if (path.startsWith('/uz')) return 'uz';
+    
+    // Auto-detect browser language
+    const browserLang = navigator.language?.toLowerCase() || '';
+    
+    // Priority: uzbek > russian > english
+    if (browserLang.startsWith('uz')) return 'uz';
+    if (browserLang.startsWith('ru')) return 'ru';
+    if (browserLang.startsWith('en')) return 'en';
+    
+    // Default to uzbek
     return 'uz';
   });
 

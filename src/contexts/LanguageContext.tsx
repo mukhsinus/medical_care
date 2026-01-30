@@ -25,8 +25,19 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [locale, setLocaleState] = useState<Locale>(() => {
     const path = window.location.pathname;
     if (path.startsWith('/ru')) return 'ru';
+    if (path.startsWith('/en')) return 'en';
     if (path.startsWith('/uz')) return 'uz';
-    return 'en';
+    
+    // Auto-detect browser language
+    const browserLang = navigator.language?.toLowerCase() || '';
+    
+    // Priority: uzbek > russian > english
+    if (browserLang.startsWith('uz')) return 'uz';
+    if (browserLang.startsWith('ru')) return 'ru';
+    if (browserLang.startsWith('en')) return 'en';
+    
+    // Default to uzbek
+    return 'uz';
   });
 
   const setLocale = (newLocale: Locale) => {
@@ -41,6 +52,15 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   useEffect(() => {
     document.documentElement.lang = locale;
+  }, [locale]);
+
+  // If the current path doesn't include a locale prefix, replace URL to include detected locale
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (!/^\/(en|ru|uz)(\/|$)/.test(path)) {
+      const newPath = path === '/' ? `/${locale}` : `/${locale}${path}`;
+      window.history.replaceState({}, '', newPath);
+    }
   }, [locale]);
 
   const value: LanguageContextType = {

@@ -31,10 +31,10 @@ export default function About() {
   ];
 
   const timeline = [
-    { year: "2008", event: t.about.timeline.founded },
-    { year: "2015", event: t.about.timeline.expanded },
+    { year: "2018", event: t.about.timeline.founded },
+    { year: "2022", event: t.about.timeline.expanded },
     { year: "2020", event: t.about.timeline.certified },
-    { year: "2024", event: t.about.timeline.serving },
+    { year: "2026", event: t.about.timeline.serving },
   ];
 
   return (
@@ -52,9 +52,10 @@ export default function About() {
           </div>
 
           {/* MISSION */}
-          <p className="max-w-3xl mx-auto mb-16 text-lg text-muted-foreground text-center leading-relaxed">
-            {t.about.mission}
-          </p>
+          <div className="max-w-3xl mx-auto mb-16 text-lg text-muted-foreground text-center leading-relaxed space-y-4">
+            <p>{t.about.subtitle}</p>
+            <p>{t.about.mission}</p>
+          </div>
 
           {/* IMAGE + CARDS */}
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-stretch mb-20">
@@ -126,6 +127,25 @@ export default function About() {
                   </div>
                   <div className="flex-1 pl-6 border-l-2 border-primary/20 group-hover:border-primary/50 transition-colors">
                     <p className="text-foreground">{m.event}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* WHY CHOOSE MEDICARE */}
+          <div className="max-w-4xl mx-auto mb-20">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+              {t.about.whyChooseTitle}
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {t.about.whyChooseList.map((item, i) => (
+                <div key={i} className="flex gap-4 items-start group">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors mt-1">
+                    <div className="w-2 h-2 rounded-full bg-primary"></div>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-foreground font-medium">{item}</p>
                   </div>
                 </div>
               ))}

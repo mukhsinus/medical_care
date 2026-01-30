@@ -13,29 +13,38 @@ export const SEO = ({ title, description, path }: SEOProps) => {
   const currentUrl = `${baseUrl}/${locale}${path}`;
   
   const alternateLocales = ['en', 'ru', 'uz'].filter(l => l !== locale);
+  const hrefLangMap: Record<string, string> = {
+    'en': 'en',
+    'ru': 'ru',
+    'uz': 'uz'
+  };
 
   return (
     <Helmet>
       <html lang={locale} />
       <title>{title} | Medicare</title>
       <meta name="description" content={description} />
+      <meta name="content-language" content={locale} />
       
       <link rel="canonical" href={currentUrl} />
       
+      {/* Hreflang tags for all locales including default */}
+      <link rel="alternate" hrefLang={hrefLangMap[locale]} href={currentUrl} />
       {alternateLocales.map(altLocale => (
         <link
           key={altLocale}
           rel="alternate"
-          hrefLang={altLocale}
+          hrefLang={hrefLangMap[altLocale]}
           href={`${baseUrl}/${altLocale}${path}`}
         />
       ))}
-      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}/en${path}`} />
+      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}/uz${path}`} />
       
       <meta property="og:title" content={`${title} | Medicare`} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:type" content="website" />
+      <meta property="og:locale" content={locale === 'en' ? 'en_US' : locale === 'ru' ? 'ru_RU' : 'uz_UZ'} />
       
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={`${title} | Medicare`} />

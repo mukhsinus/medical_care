@@ -73,7 +73,8 @@
   },
   "about": {
     "title": "Medicare haqida",
-    "mission": "Medicare - O'zbekistonda yetakchi tibbiy buyumlar ulgurji etkazib beruvchisi bo'lib, tibbiy muassasalarni yuqori sifatli sertifikatlangan tibbiy jihozlar va sarflanadigan materiallar bilan ta'minlashga ixtisoslashgan.",
+    "subtitle": "Medicare - O‘zbekistonda tibbiy buyumlarni yetkazib berish sohasida faoliyat yurituvchi ishonchli distribyutor kompaniya.",
+    "mission": "Medicare kompaniyasi 2018-yildan beri tibbiyot muassasalari, klinikalar, laboratoriyalar va xususiy tibbiyot markazlarini sifatli tibbiy mahsulotlar bilan ta’minlab kelmoqda. Biz sifat, mas’uliyat, halollik va ishonch tamoyillariga asoslanib ishlaymiz. Har bir mijoz bilan uzoq muddatli va barqaror hamkorlikni maqsad qilamiz.",
     "quality": "Sifat kafolati",
     "qualityDesc": "Barcha mahsulotlarimiz CE va ISO sertifikatlash standartlariga mos keladi, xavfsizlik va ishonchlilikni ta'minlaydi.",
     "logistics": "Professional logistika",
@@ -81,6 +82,14 @@
     "certification": "Sertifikatlar",
     "certificationDesc": "CE sertifikatlangan va ISO talablariga mos mahsulotlar to'liq hujjatlar bilan.",
     "journeyTitle": "Bizning yoʻlimiz",
+    "whyChooseTitle": "Nima uchun Medicare ni tanlashadi",
+    "whyChooseList": [
+      "8 yildan ortiq professional tajriba",
+      "Keng va doimiy yangilanib boradigan assortimenti",
+      "Sifat nazorati va sertifikatlangan mahsulotlar",
+      "Tezkor logistika va barqaror etkazib berish",
+      "Shaxsiy yondashish va uzoq muddatli hamkorlik"
+    ],
     "imageAlt": "Tibbiy buyumlar bilan toʻldirilgan omborxona",
     "timeline": {
       "founded": "Sifatli tibbiy taqsimot vizyoni bilan kompaniya tashkil etildi",
@@ -242,6 +251,13 @@
     "addressValue": "Toshkent, O'zbekiston",
     "hours": "Ish vaqti",
     "hoursValue": "Dush-Jum: 9:00 - 18:00",
+    "otherOffices": "Boshqa shaharlardagi ofislar",
+    "andijan": "Andijon",
+    "namangan": "Namangan",
+    "fergana": "Farg'ona",
+    "samarkand": "Samarqand",
+    "bukhara": "Buxoro",
+    "navoi": "Navoiy",
     "getInTouch": "Bog'laning",
     "telegram": "Telegram",
     "instagram": "Instagram",

@@ -39,6 +39,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const paymentRoutes = require('./routes/payment');
 const mockRoutes = require('./routes/mock');
+const paycomRoutes = require('./routes/paycomWebhook');
 
 
 // Connect to MongoDB and start server
@@ -52,6 +53,7 @@ async function start() {
     app.use('/api/auth', authRoutes);
     app.use('/api/user', userRoutes);
     app.use('/api/payments', paymentRoutes);
+    app.use('/api/paycom', paycomRoutes);
     app.use('/mock', mockRoutes);
 
     // health

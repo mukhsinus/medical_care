@@ -549,7 +549,8 @@
     "10": {
       "name": "Insulin syringes 1 ml \"Healthline\"",
       "description": "An insulin syringe designed for subcutaneous insulin administration. Ensures dose control during regular use."
-    }, "11": {
+    },
+    "11": {
       "name": "50 ml syringe KD-JECT III",
       "description": {
         "withoutneedleLuerLock": "A large-volume syringe without a needle featuring a Luer Lock connection. Used for fluid transfer, irrigation, and medical systems.",
@@ -681,7 +682,8 @@
     "36": {
       "name": "Urogenital probe",
       "description": "A urogenital probe for diagnostic and gynecological procedures. Used for biological sample collection."
-    },"37": {
+    },
+    "37": {
       "name": "Endotracheal tube 3.0 mm",
       "description": {
         "3mm": "A small-diameter endotracheal tube for maintaining airway patency. Used in anesthesiology and intensive care.",
@@ -780,7 +782,8 @@
         "1p25cm": "A polyethylene-based medical adhesive plaster for securing dressings. Suitable for everyday wound care.",
         "2p5cm": "An adhesive plaster for reliable fixation of dressings and medical devices. Used for various dressing needs."
       }
-    },"54": {
+    },
+    "54": {
       "name": "Non-woven adhesive plaster",
       "description": {
         "10b15": "A non-woven medical plaster for securing and protecting wound surfaces. Used after medical procedures.",
@@ -796,7 +799,7 @@
         "5cm": "A wide medical adhesive plaster for reliable fixation of medical devices. Used during long-term dressings."
       }
     },
-     "56": {
+    "56": {
       "name": "Sterile gauze bandage",
       "description": {
         "5m": "A sterile gauze bandage for wound care and protection. Used for dressings with increased cleanliness requirements.",
@@ -811,7 +814,7 @@
       }
     },
     "58": {
-      "name": "Non-sterile woven bandage 7 m \"SARBONTEKS\"",
+      "name": "Non-sterile woven bandage 7 m",
       "description": "A woven bandage for securing dressings and supporting soft tissues. Used after injuries and procedures."
     },
     "59": {
@@ -915,7 +918,8 @@
         "16b14": "Sterile gauze pads for wound protection and cleaning. Used in dressings.",
         "45b29": "Sterile gauze pads for surgical and dressing procedures. Ensure absorption of wound exudate."
       }
-    }, "73": {
+    },
+    "73": {
       "name": "Disposable polyethylene shoe covers",
       "description": "Disposable shoe covers for protecting premises from outdoor contamination. Used in medical facilities."
     },
@@ -1021,7 +1025,8 @@
     "95": {
       "name": "Disposable surgical drape (spine surgery set)",
       "description": "A disposable surgical drape for specialized spinal operations. Used to isolate the operative field."
-    },"96": {
+    },
+    "96": {
       "name": "Chloractiv-MAX",
       "description": "A tablet-based disinfectant for preparing working solutions. Used for surface and medical device disinfection."
     },
@@ -1139,7 +1144,8 @@
     "122": {
       "name": "Sterilization indicator Intest-P-134/5",
       "description": "An indicator for monitoring steam sterilization modes. Used in sterilization of medical instruments."
-    }, "123": {
+    },
+    "123": {
       "name": "Packaging machine PK100-C",
       "description": "A packaging machine for sealing and printing sterilization pouches. Used to prepare medical instruments for sterilization."
     },
@@ -1437,6 +1443,26 @@
     "181": {
       "name": "Mercury medical thermometer",
       "description": "Mercury thermometer for measuring body temperature. Used in medical practice to monitor patient condition."
+    },
+    "182": {
+      "name": "Hygienic Face Mask \"Clinic Clean\"",
+      "description": "Three-layer hygienic protective face mask. Soft, breathable non-woven material. Comfortable elastic ear loops. Adjustable nose strip."
+    },
+    "183": {
+      "name": "Children’s Hygienic Face Mask",
+      "description": "Three-layer hygienic protective face mask with decorative print. Soft, breathable non-woven material. Comfortable elastic ear loops. Adjustable nose strip."
+    },
+    "184": {
+      "name": "Children’s Hygienic Face Mask",
+      "description": "Three-layer hygienic protective face mask with decorative print. Soft, breathable non-woven material. Comfortable elastic ear loops. Adjustable nose strip."
+    },
+    "185": {
+      "name": "Hygienic Face Mask (Blue)",
+      "description": "Three-layer hygienic protective face mask. Soft, breathable non-woven material. Comfortable elastic ear loops. Adjustable nose bridge. Color: blue. Pack of 50 pieces."
+    },
+    "186": {
+      "name": "Hygienic Face Mask",
+      "description": "Three-layer hygienic protective face mask. Soft, breathable non-woven material. Comfortable elastic ear loops. Adjustable nose bridge. Color: blue. Pack of 50 pieces."
     }
   },
   "forgot_password": {

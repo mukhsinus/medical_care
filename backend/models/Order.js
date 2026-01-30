@@ -39,6 +39,9 @@ const orderSchema = new mongoose.Schema(
       default: "pending",
     },
 
+    // IKPU коды товаров (для Payme мультивендорной системы)
+    itemIkpuCodes: [{ type: String }], // массив IKPU кодов товаров в заказе
+
     providerTransactionId: { type: String }, // transaction code from provider
     providerRawResponse: { type: Object }, // useful for debugging
     callbackVerified: { type: Boolean, default: false },

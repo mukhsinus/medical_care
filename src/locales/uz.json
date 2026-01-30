@@ -471,941 +471,961 @@
       "chromicmet3p5": "Xrom katgut, ip uzunligi - 75 sm; qalinligi - 2-0 (Met3.5), kesish ignasi: 30 mm, 1/2 doira"
     }
   },
-  
+
   "items": {
     "1": {
-  "name": "UKM shpritslari",
-  "description": {
-    "1ml": "Dori vositalarini aniq dozada kiritish uchun mo‘ljallangan kichik hajmli bir martalik shprits. Teri ostiga va mushak ichiga inʼeksiya qilish uchun mos.",
-    "2ml": "Hajmi 2 ml gacha bo‘lgan dori vositalarini aniq kiritish uchun mo‘ljallangan bir martalik shprits. Turli maqsaddagi inʼeksiyalar uchun mos.",
-    "5ml": "O‘rtacha hajmdagi dori vositalarini kiritish uchun shprits. Klinik va ambulator amaliyotda qo‘llaniladi.",
-    "10ml": "Standart tibbiy muolajalar uchun mo‘ljallangan o‘rta va katta hajmli shprits. Dori eritmalarini kiritish uchun mos.",
-    "10mlwtoutneedle": "Igna­siz 10 ml hajmli shprits bo‘lib, suyuqliklarni quyish va yuvish uchun mo‘ljallangan. Kateterlar va zondlar bilan birga ishlatiladi.",
-    "20ml": "Katta hajmli shprits suyuqliklarni kiritish va aspiratsiya qilish uchun mo‘ljallangan. Klinik va diagnostik muolajalarda qo‘llaniladi.",
-    "60mlLL": "Luer Lock ulanishiga ega katta hajmli shprits bo‘lib, nasadkalarni ishonchli mahkamlashni taʼminlaydi. Yuvish, aspiratsiya va kateterlar bilan ishlashda qo‘llaniladi.",
-    "60mlCT": "Kateter uchli katta hajmli shprits suyuqliklarni kiritish va chiqarish uchun ishlatiladi. Bo‘shliqlarni yuvishda va zondlar bilan ishlashda qo‘llaniladi."
-  }
-},
-"2": {
-  "name": "MFA shpritslari",
-  "description": {
-    "1ml": "1 ml hajmli shprits kichik dozadagi preparatlarni aniq kiritishni taʼminlaydi. Ambulator va klinik amaliyotda qo‘llaniladi.",
-    "2ml": "2 ml hajmli bir martalik shprits dori vositalarini kiritish uchun mo‘ljallangan. Inʼeksion muolajalarning keng turiga mos.",
-    "5ml": "5 ml hajmli bir martalik shprits standart davolash muolajalari uchun mo‘ljallangan. Inʼeksiyalarning keng turida qo‘llaniladi.",
-    "10ml": "10 ml hajmli bir martalik shprits klinik muolajalar uchun mo‘ljallangan. Katta hajmdagi preparatlarni kiritish uchun mos."
-  }
-},
-"3": {
-  "name": "WEGO shpritslari",
-  "description": {
-    "1ml": "Aniq shkalaga ega kichik hajmli bir martalik shprits. Nozik tibbiy manipulyatsiyalar uchun mos.",
-    "2ml": "Kichik va o‘rtacha hajmdagi inʼeksiyalar uchun shprits. Kundalik tibbiy amaliyotda qo‘llaniladi.",
-    "5ml": "5 ml hajmli shprits standart inʼeksion muolajalar uchun mo‘ljallangan. Eritmalar va suspenziyalarni kiritish uchun mos.",
-    "10ml": "Katta hajmli shprits standart tibbiy inʼeksiyalar uchun ishlatiladi. Tomir ichiga kiritish uchun mos.",
-    "20ml": "Katta hajmli shprits dori eritmalarini kiritish va yuvish uchun ishlatiladi. Klinik va protsedura muolajalarida qo‘llaniladi.",
-    "50ml": "Katta hajmli shprits suyuqliklarni kiritish va chiqarish uchun mo‘ljallangan. Yuvish va aspiratsiya muolajalari uchun mos."
-  }
-},
-"4": {
-  "name": "UNIJECT shpritslari",
-  "description": {
-    "1ml": "Dori vositalarini aniq dozada kiritish uchun mo‘ljallangan kichik hajmli shprits. Yuqori aniqlik talab etilganda qo‘llaniladi.",
-    "2p5ml": "Mushak ichiga va teri ostiga inʼeksiya qilish uchun mo‘ljallangan o‘rtacha hajmli shprits. Standart dozalarning qulay kiritilishini taʼminlaydi.",
-    "5ml": "Dori eritmalarini kiritish uchun mo‘ljallangan o‘rtacha hajmli shprits. Mushak ichiga va tomir ichiga inʼeksiyalarda ishlatiladi.",
-    "10ml": "Katta hajmli shprits dori eritmalarini kiritish uchun mo‘ljallangan. Tomir ichiga va infuzion muolajalarda qo‘llaniladi.",
-    "20ml": "20 ml hajmli bir martalik shprits katta hajmdagi suyuqliklarni kiritish uchun mo‘ljallangan. Infuzion va yordamchi muolajalarda qo‘llaniladi."
-  }
-},
-"5": {
-  "name": "Healthline shpritslari",
-  "description": {
-    "2ml": "Standart inʼeksiyalar uchun mo‘ljallangan o‘rtacha hajmli shprits. Davolash va profilaktik tibbiy muolajalarda qo‘llaniladi.",
-    "3ml": "3 ml hajmli shprits standart inʼeksion muolajalarda keng qo‘llaniladi. Dori vositalarini qulay dozada kiritishni taʼminlaydi.",
-    "5ml": "Aniq va o‘qilishi oson shkala dozani nazorat qilishni yengillashtiradi. O‘rtacha hajmdagi inʼeksiyalar uchun mos.",
-    "10ml": "10 ml hajmli shprits standart inʼeksiyalar va muolajalar uchun mo‘ljallangan. Preparatlarni qulay va nazorat ostida kiritishni taʼminlaydi.",
-    "20ml": "Katta hajmli shprits klinik manipulyatsiyalar va yuvish muolajalari uchun mo‘ljallangan. Dori eritmalari bilan ishlashda qo‘llaniladi."
-  }
-},
-"6": {
-  "name": "2 ml bolalar shpritslari \"KIDDI\"",
-  "description": "2 ml hajmli shprits bo‘lib, pediatriyada qo‘llash uchun mo‘ljallangan. Bolalarga dori vositalarini aniq va nazorat ostida kiritishni taʼminlaydi."
-},
-"7": {
-  "name": "Westcom shpritslari",
-  "description": {
-    "2p5ml": "Standart dozadagi dori vositalarini kiritish uchun mo‘ljallangan o‘rtacha hajmli shprits. Mushak ichiga va teri ostiga inʼeksiyalar uchun mos.",
-    "5p5ml": "Kengaytirilgan o‘rtacha hajmli shprits bo‘lib, dori vositalarini kiritishda aniq hajm nazoratini taʼminlaydi.",
-    "10p5ml": "Katta hajmli shprits dori eritmalarini kiritish uchun mo‘ljallangan. Klinik va protsedura muolajalarida qo‘llaniladi."
-  }
-},
-"8": {
-  "name": "KDM insulin shpritslari",
-  "description": {
-    "0p3ml": "Insulinni aniq kiritish uchun mo‘ljallangan kichik hajmli insulin shpritsi. Qandli diabetda kichik dozalarni nazorat qilish uchun mos.",
-    "0p5ml": "Insulinni kiritish uchun mo‘ljallangan o‘rtacha kichik hajmli shprits. Muntazam inʼeksiyalar uchun qulay dozani taʼminlaydi.",
-    "1ml12mm": "12 mm ignaga ega 1 ml hajmli insulin shpritsi. Standart teri osti inʼeksiyalari uchun ishlatiladi.",
-    "1ml8mm": "8 mm qisqa ignaga ega 1 ml hajmli insulin shpritsi. Minimal chuqurlikdagi teri osti inʼeksiyalari uchun mos."
-  }
-},
-"9": {
-  "name": "1 ml insulin shpritslari \"UKM\"",
-  "description": "Insulinni aniq dozada kiritish uchun mo‘ljallangan standart hajmli insulin shpritsi. Kundalik terapiyada qo‘llaniladi."
-},
-"10": {
-  "name": "1 ml insulin shpritslari \"Healthline\"",
-  "description": "Insulinni teri ostiga kiritish uchun mo‘ljallangan insulin shpritsi. Muntazam qo‘llashda doza nazoratini taʼminlaydi."
-},
-"11": {
-  "name": "KD-JECT III shpritsi",
-  "description": {
-    "withoutneedleLuerLock": "Luer Lock ulanishiga ega, ignasiz katta hajmli shprits. Quyish, yuvish va tibbiy tizimlar bilan ishlashda qo‘llaniladi.",
-    "withneedleWithCap": "Ignasiz uchli katta hajmli shprits bo‘lib, suyuqliklarni kiritish va chiqarish uchun ishlatiladi. Yuvish va aspiratsiyada qo‘llaniladi.",
-    "withneedleWithoutCap100ml": "Juda katta hajmli ignasiz shprits bo‘lib, quyish va yuvish uchun mo‘ljallangan. Zondlar va kateterlar bilan ishlashda qo‘llaniladi."
-  }
-},
-"12": {
-  "name": "50 ml ignali shprits \"LDH\"",
-  "description": "Igna bilan jihozlangan katta hajmli shprits bo‘lib, suyuqliklarni kiritish va aspiratsiya qilish uchun ishlatiladi. Klinik va protsedura muolajalarida qo‘llaniladi."
-},
-"13": {
-  "name": "Steril igna 27G / 30G",
-  "description": "Kichik diametrli steril bir martalik igna. Preparatlarni teri ostiga va teri ichiga kiritish uchun mos."
-},
-"14": {
-  "name": "Infuzion tizim \"Westcom\"",
-  "description": "Tomir ichiga eritmalarni kiritish uchun mo‘ljallangan infuzion tizim. Klinik amaliyotda tomchilatib infuziyalarda qo‘llaniladi."
-},
-"15": {
-  "name": "Infuzion tizim \"WEGO\"",
-  "description": "Infuzion eritmalarni nazorat ostida tomir ichiga kiritish uchun tizim. Statsionar va ambulator sharoitlarda qo‘llaniladi."
-},
-"16": {
-  "name": "Infuzion tizim \"MC UNISET\"",
-  "description": "Standart tomchilatib infuziyalar uchun mo‘ljallangan infuzion tizim. Eritmalarning bir maromda uzatilishini taʼminlaydi."
-},
-"17": {
-  "name": "Transfuzion tizim",
-  "description": "Qon va qon o‘rnini bosuvchi suyuqliklarni quyish uchun mo‘ljallangan transfuzion tizim. Gemotransfuziya muolajalarida qo‘llaniladi."
-},
-"18": {
-  "name": "18G ignali transfuzion tizim",
-  "description": "18G ignaga ega transfuzion tizim bo‘lib, qon quyish uchun mo‘ljallangan. Transfuziya vaqtida barqaror oqimni taʼminlaydi."
-},
-"19": {
-  "name": "Infuzion tizim TBL-150",
-  "description": "Tomir ichiga eritmalarni kiritish uchun mo‘ljallangan infuzion tizim. Standart infuzion muolajalarda qo‘llaniladi."
-},
-"20": {
-  "name": "Nitril qo‘lqoplar \"UNIGLOVES\"",
-  "description": "Tibbiy manipulyatsiyalar vaqtida qo‘llarni himoya qilish uchun mo‘ljallangan bir martalik nitril qo‘lqoplar. Biologik suyuqliklar bilan kontakt xavfini kamaytiradi."
-},
-"21": {
-  "name": "Nitril qo‘lqoplar \"ADRAS GLOVES\"",
-  "description": "Tibbiy va diagnostik muolajalar uchun mo‘ljallangan bir martalik nitril qo‘lqoplar. Biologik muhitlar bilan kontakt paytida qo‘llarni himoya qiladi."
-},
-"22": {
-  "name": "Nitril qo‘lqoplar \"UNIGLOVES Premium\"",
-  "description": "Yuqori zichlikdagi nitril qo‘lqoplar bo‘lib, ishonchli qo‘l himoyasi talab etiladigan tibbiy muolajalarda qo‘llaniladi."
-},
-"23": {
-  "name": "Steril jarrohlik qo‘lqoplari \"Dentafil\"",
-  "description": "Invaziv muolajalar uchun mo‘ljallangan steril jarrohlik qo‘lqoplari. Operatsion va steril sharoitlarda qo‘llaniladi."
-},
-"24": {
-  "name": "Tomir ichki kateter",
-  "description": "Venoz tizimga qisqa muddatli kirish uchun mo‘ljallangan tomir ichki kateter. Infuziya va dori vositalarini kiritishda ishlatiladi."
-},
-"25": {
-  "name": "Tomir ichki kateter \"HEALFLON\"",
-  "description": "Tomir ichiga eritmalar va preparatlarni kiritish uchun mo‘ljallangan kateter. Infuzion va davolash amaliyotida qo‘llaniladi."
-},
-"26": {
-  "name": "Tomir ichki kateter \"KD-FIX\"",
-  "description": "Dori vositalari va infuzion eritmalarni nazorat ostida kiritish uchun mo‘ljallangan tomir ichki kateter. Uzoq muddatli muolajalarda ishlatiladi."
-},
-"27": {
-  "name": "«Kapalak» kateter \"KD-FLY\"",
-  "description": "Qisqa muddatli venoz kirish uchun mo‘ljallangan «kapalak» turidagi kateter. Qon olish va preparatlarni kiritishda qo‘llaniladi."
-},
-"28": {
-  "name": "«Kapalak» kateter \"Healthline\"",
-  "description": "Periferik venoz kirish uchun mo‘ljallangan kateter. Inʼeksiya va diagnostik muolajalarda ishlatiladi."
-},
-"29": {
-  "name": "Bolalar uchun kislorod kanülasi \"BEROTUBE\"",
-  "description": "Bolalar uchun mo‘ljallangan kislorod kanülasi. Pediatriyada kislorod terapiyasida qo‘llaniladi."
-},
-"30": {
-  "name": "Kopʼyo tipidagi skarifikator",
-  "description": "Kapillyar qon olishda terini teshib o‘tish uchun mo‘ljallangan bir martalik skarifikator. Laborator diagnostikada qo‘llaniladi."
-},
-"31": {
-  "name": "Ikki yo‘lli Foley kateteri",
-  "description": "Siydik pufagini drenajlash uchun mo‘ljallangan ikki yo‘lli Foley kateteri. Qisqa va uzoq muddatli kateterizatsiyada ishlatiladi."
-},
-"32": {
-  "name": "Ikki yo‘lli Foley kateteri \"KDM\"",
-  "description": "Siydikni nazorat ostida chiqarish uchun mo‘ljallangan ikki yo‘lli Foley kateteri. Urologik amaliyotda qo‘llaniladi."
-},
-"33": {
-  "name": "Ikki yo‘lli Foley kateteri",
-  "description": "Steril ikki yo‘lli Foley kateteri siydik kateterizatsiyasi uchun mo‘ljallangan. Statsionar sharoitlarda foydalanish uchun mos."
-},
-"34": {
-  "name": "Steril Nelaton kateteri",
-  "description": "Bir martalik kateterizatsiya uchun mo‘ljallangan to‘g‘ri steril Nelaton kateteri. Siydikni vaqtincha chiqarishda ishlatiladi."
-},
-"35": {
-  "name": "2000 ml siydik qabul qilgich",
-  "description": "Siydik yig‘ish uchun mo‘ljallangan katta hajmli siydik qabul qilgich. Urologik kateterlar bilan birga ishlatiladi."
-},
-"36": {
-  "name": "Urogenital zond",
-  "description": "Diagnostik va ginekologik muolajalar uchun mo‘ljallangan urogenital zond. Biomaterial olishda qo‘llaniladi."
-},
-"37": {
-  "name": "Endotraxeal naycha",
-  "description": {
-    "3mm": "Nafas yo‘llari o‘tkazuvchanligini taʼminlash uchun mo‘ljallangan kichik diametrli endotraxeal naycha. Anesteziologiya va reanimatsiyada qo‘llaniladi.",
-    "3p5mm": "Nafas yo‘llarini nazorat qilish uchun mo‘ljallangan endotraxeal naycha. Kichik yoshdagi bemorlarda intubatsiyada ishlatiladi.",
-    "4mm": "O‘pka ventilyatsiyasini taʼminlash uchun mo‘ljallangan endotraxeal naycha. Anesteziya va shoshilinch holatlarda qo‘llaniladi.",
-    "4p5mm": "Intubatsiya uchun mo‘ljallangan o‘rtacha kichik diametrli endotraxeal naycha. Nafas funksiyalarini qo‘llab-quvvatlaydi.",
-    "5mm": "Nafas yo‘llari o‘tkazuvchanligini taʼminlash uchun mo‘ljallangan endotraxeal naycha. Anesteziya va sunʼiy nafas oldirishda ishlatiladi.",
-    "5p5mm": "O‘rtacha yoshdagi bemorlarda nafas yo‘llarini nazorat qilish uchun endotraxeal naycha. Reanimatsiyada qo‘llaniladi.",
-    "6mm": "Nafas funksiyalarini taʼminlash uchun mo‘ljallangan endotraxeal naycha. Rejalashtirilgan va shoshilinch intubatsiyada ishlatiladi.",
-    "6p5mm": "O‘pka ventilyatsiyasi va nafas yo‘llarini himoyalash uchun endotraxeal naycha. Anesteziologiyada qo‘llaniladi.",
-    "7mm": "Kattalar uchun standart diametrli endotraxeal naycha. Intubatsiya va sunʼiy nafas oldirishda ishlatiladi.",
-    "7p5mm": "Kattalar uchun kattaroq diametrli endotraxeal naycha. Samarali o‘pka ventilyatsiyasini taʼminlaydi.",
-    "8mm": "Kattalar uchun katta diametrli endotraxeal naycha. Operatsiyalar va reanimatsiyada qo‘llaniladi.",
-    "8p5mm": "Nafas yo‘llari o‘tkazuvchanligini taʼminlash uchun kattaroq diametrli endotraxeal naycha. Murakkab intubatsiyada ishlatiladi."
-  }
-},
-"38": {
-  "name": "Endotraxeal naycha \"MEDIK PLAST\"",
-  "description": "Turli yoshdagi bemorlarni intubatsiya qilish uchun mo‘ljallangan endotraxeal naycha. Anesteziyada nafas yo‘llarini nazorat qilish uchun ishlatiladi."
-},
-"39": {
-  "name": "Steril oshqozon zondi",
-  "description": "Oshqozon tarkibini kiritish va chiqarish uchun mo‘ljallangan steril oshqozon zondi. Diagnostik va davolash muolajalarida qo‘llaniladi."
-},
-"40": {
-  "name": "Nazogastral oshqozon zondi",
-  "description": "Oziqlantirish va oshqozon tarkibini chiqarish uchun mo‘ljallangan nazogastral zond. Yutish buzilishi bo‘lgan bemorlarni davolash va parvarishda ishlatiladi."
-},
-"41": {
-  "name": "Steril kindik qisqichi",
-  "description": "Yangi tug‘ilgan chaqaloqlarda kindikni qisish uchun mo‘ljallangan steril kindik qisqichi. Tug‘ruqdan so‘ng akusherlik amaliyotida qo‘llaniladi."
-},
-"42": {
-  "name": "Bir martalik Eyra shpateli",
-  "description": "Ginekologik ko‘riklar uchun mo‘ljallangan bir martalik Eyra shpateli. Mazok olish va diagnostik muolajalarda ishlatiladi."
-},
-"43": {
-  "name": "Universal zond",
-  "description": "Diagnostik va ginekologik muolajalar uchun mo‘ljallangan universal zond. Biomaterial olishda qo‘llaniladi."
-},
-"44": {
-  "name": "Kusko tipidagi ginekologik ko‘zgu",
-  "description": "Bachadon bo‘ynini ko‘rikdan o‘tkazish uchun mo‘ljallangan Kуско turidagi ginekologik ko‘zgu. Diagnostik va profilaktik tekshiruvlarda ishlatiladi."
-},
-"45": {
-  "name": "Fiksatorli Kusko ginekologik ko‘zgu",
-  "description": "Vaginal bo‘shliqni barqaror ochib turish uchun fiksatorga ega ginekologik ko‘zgu. Ko‘rik va muolajalarni osonlashtiradi."
-},
-"46": {
-  "name": "Ginekologik to‘plam",
-  "description": "Ko‘rik va diagnostik muolajalar uchun mo‘ljallangan bir martalik ginekologik to‘plam. Ambulator amaliyotda qo‘llaniladi."
-},
-"47": {
-  "name": "Bir martalik skalpel pichog‘i",
-  "description": "To‘qimalarni aniq kesish uchun mo‘ljallangan bir martalik jarrohlik skalpel pichog‘i. Operativ aralashuvlarda qo‘llaniladi."
-},
-"48": {
-  "name": "Bir martalik skalpel",
-  "description": "Kesish ishlarini bajarish uchun mo‘ljallangan bir martalik jarrohlik skalpeli. Jarrohlik amaliyotida qo‘llaniladi."
-},
-"49": {
-  "name": "ONE AID №100 leykoplastiri",
-  "description": "Bog‘lovchi materiallarni mahkamlash va terini himoyalash uchun mo‘ljallangan tibbiy leykoplastir. Bog‘lash va mayda shikastlarda qo‘llaniladi."
-},
-"50": {
-  "name": "ONE AID №500 leykoplastiri",
-  "description": "Bog‘lovchi materiallarni mahkamlash uchun mo‘ljallangan tibbiy leykoplastir. Terini himoyalash va doka materiallarini ushlab turishda ishlatiladi."
-},
-"51": {
-  "name": "Bolalar uchun ONE AID leykoplastiri",
-  "description": "Bolalar terisidagi mayda shikastlarni himoyalash uchun mo‘ljallangan bolalar leykoplastiri. Tirnalishlar va kichik yaralarni davolashda qo‘llaniladi."
-},
-"52": {
-  "name": "Mozol plastiri",
-  "description": "Terini ishqalanish va bosimdan himoyalash uchun mo‘ljallangan mozol plastiri. Mozollarni oldini olish va parvarish qilishda ishlatiladi."
-},
-"53": {
-  "name": "Polietilen asosidagi plastir",
-  "description": {
-    "1p25cm": "Bog‘lovchi materiallarni mahkamlash uchun mo‘ljallangan polietilen asosidagi tibbiy plastir. Kundalik bog‘lashlarda foydalaniladi.",
-    "2p5cm": "Bog‘lovchi materiallar va tibbiy buyumlarni ishonchli mahkamlash uchun plastir. Turli murakkablikdagi bog‘lashlarda qo‘llaniladi."
-  }
-},
-"54": {
-  "name": "To‘qilmagan asosdagi plastir",
-  "description": {
-    "10b15": "Yara yuzalarini mahkamlash va himoyalash uchun mo‘ljallangan to‘qilmagan tibbiy plastir. Muolajalardan keyingi bog‘lashlarda ishlatiladi.",
-    "10b20": "Kengroq teri yuzalarini yopish va himoyalash uchun tibbiy plastir. O‘rtacha yaralarni bog‘lashda qo‘llaniladi.",
-    "10b30": "Kattalashtirilgan o‘lchamdagi plastir bo‘lib, teri shikastlarini himoyalash va mahkamlash uchun mo‘ljallangan. Operatsiyadan keyingi parvarishda qo‘llaniladi."
-  }
-},
-"55": {
-  "name": "MEDIK PLAST plastiri",
-  "description": "Bog‘lovchi materiallar va kateterlarni mahkamlash uchun mo‘ljallangan tibbiy plastir. Klinik va ambulator amaliyotda ishlatiladi."
-},
-"56": {
-  "name": "Steril doka binti",
-  "description": {
-    "5m": "Yaralarni davolash va himoyalash uchun mo‘ljallangan steril doka binti. Tozalik talabi yuqori bo‘lgan bog‘lashlarda qo‘llaniladi.",
-    "7m": "Yara ajralmalarini himoyalash va shimib olish uchun steril doka binti. Steril bog‘lashlarda ishlatiladi."
-  }
-},
-"57": {
-  "name": "Steril bo‘lmagan doka binti \"SARBONTEKS\"",
-  "description": {
-    "5m": "Bog‘lovchi materiallarni mahkamlash va teri shikastlarini himoyalash uchun doka binti. Kundalik bog‘lashlarda qo‘llaniladi.",
-    "7m": "Kattaroq tana qismlarida bog‘lash va qo‘llab-quvvatlash uchun mo‘ljallangan doka binti. Keng maydonlarda ishlatiladi."
-  }
-},
-"58": {
-  "name": "Steril bo‘lmagan to‘qilgan bint 7 m x 14 sm \"SARBONTEKS\"",
-  "description": "Bog‘lovchi materiallarni mahkamlash va yumshoq to‘qimalarni qo‘llab-quvvatlash uchun mo‘ljallangan to‘qilgan bint. Jarohatlar va muolajalardan keyin qo‘llaniladi."
-},
-"59": {
-  "name": "Steril to‘qilgan bint 7 m x 14 sm \"SARBONTEKS\"",
-  "description": "Aseptika talablari yuqori bo‘lgan bog‘lashlar uchun steril to‘qilgan bint. Operatsion yaralarni parvarishlashda ishlatiladi."
-},
-"60": {
-  "name": "Steril bo‘lmagan doka binti",
-  "description": "Bog‘lovchi materiallarni mahkamlash va yaralarni himoyalash uchun doka binti. Uy va tibbiy sharoitlarda foydalanish uchun mos."
-},
-"61": {
-  "name": "Steril bo‘lmagan to‘qilgan bint",
-  "description": {
-    "5m": "Yumshoq to‘qimalarni qo‘llab-quvvatlash va mahkamlash uchun to‘qilgan bint. Jarohatlar va reabilitatsiyada qo‘llaniladi.",
-    "7m": "Uzunligi kattaroq bo‘lgan to‘qilgan bint. Bog‘lash va jarohatlarda ishlatiladi."
-  }
-},
-"62": {
-  "name": "Steril to‘qilgan bint 7 m",
-  "description": "Aseptik bog‘lashlar uchun mo‘ljallangan steril to‘qilgan bint. Operatsiyadan keyingi yaralarni davolashda qo‘llaniladi."
-},
-"63": {
-  "name": "Gipsli bint 2,7 m × 15 sm",
-  "description": "Suyak sinishlari va jarohatlarda qo‘l-oyoqlarni immobilizatsiya qilish uchun mo‘ljallangan gipsli bint. Gips bog‘lamlarini shakllantirishda ishlatiladi."
-},
-"64": {
-  "name": "Steril bo‘lmagan paxta",
-  "description": {
-    "25g": "Gigiyenik va yordamchi muolajalar uchun mo‘ljallangan steril bo‘lmagan tibbiy paxta. Teri ishlovida qo‘llaniladi.",
-    "50g": "Gigiyenik ishlov va yordamchi muolajalar uchun tibbiy paxta. Kundalik foydalanish uchun mos.",
-    "100g": "Kattaroq hajmdagi paxta tibbiy va gigiyenik muolajalar uchun. Bemorlarni parvarishlashda ishlatiladi.",
-    "250g": "Tibbiyot muassasalari uchun mo‘ljallangan katta hajmdagi paxta. Keng ko‘lamli gigiyenik muolajalarda qo‘llaniladi."
-  }
-},
-"65": {
-  "name": "Steril bo‘lmagan paxta \"SARBONTEKS\"",
-  "description": {
-    "25g": "Teri parvarishi va tibbiy muolajalar uchun steril bo‘lmagan paxta. Ambulator amaliyotda qo‘llaniladi.",
-    "50g": "Teri ishlovi va parvarish uchun mo‘ljallangan tibbiy paxta. Bog‘lash va sanitariya muolajalarida ishlatiladi.",
-    "100g": "Teri ishlovi va yordamchi muolajalar uchun tibbiy paxta. Doimiy foydalanish uchun mos.",
-    "250g": "Intensiv foydalanish uchun steril bo‘lmagan tibbiy paxta. Klinik amaliyotda qo‘llaniladi."
-  }
-},
-"66": {
-  "name": "Steril paxta",
-  "description": {
-    "25g": "Yaralar va inʼeksiya joylarini ishlov berish uchun mo‘ljallangan steril tibbiy paxta. Aseptik muolajalarda qo‘llaniladi.",
-    "50g": "Yaralar va teri yuzalarini ishlov berish uchun steril tibbiy paxta. Bog‘lash va aseptik muolajalarda ishlatiladi."
-  }
-},
-"67": {
-  "name": "Paxta \"Cotton Club\"",
-  "description": {
-    "25gRoll": "Gigiyenik va parvarish muolajalari uchun rulondagi tibbiy paxta. Teri ishlovi va tibbiy manipulyatsiyalar uchun mos.",
-    "25g": "Terini gigiyenik ishlov berish uchun tibbiy paxta. Kundalik tibbiy amaliyotda ishlatiladi.",
-    "50gRoll": "Bemorlarni parvarishlash va tibbiy muolajalar uchun kattaroq hajmdagi paxta. Doimiy foydalanish uchun mos.",
-    "50gBalls": "Teri va inʼeksiya joylarini ishlov berish uchun paxta sharchalari. Kosmetologiya va tibbiyotda qo‘llaniladi.",
-    "100gRoll": "Tibbiy muassasalarda foydalanish uchun katta hajmdagi rulon paxta. Parvarish va gigiyena muolajalarida ishlatiladi.",
-    "250gRoll": "Intensiv tibbiy foydalanish uchun mo‘ljallangan katta hajmdagi paxta. Ommaviy parvarish muolajalarida qo‘llaniladi."
-  }
-},
-"68": {
-  "name": "Bo‘laklardagi doka",
-  "description": {
-    "1b90": "Bog‘lash va yaralarni ishlov berish uchun mo‘ljallangan doka. Yara ajralmalarini shimib olish va himoyalashda ishlatiladi.",
-    "2b90": "Kengroq tana qismlarida bog‘lash uchun kattaroq doka. Davolash amaliyotida qo‘llaniladi.",
-    "3b84": "Katta yuzalarda yaralarni mahkamlash va himoyalash uchun doka. Bog‘lash va parvarishda ishlatiladi.",
-    "3b90": "Keng teri yuzalarida yaralarni bog‘lash va himoyalash uchun doka. Yara ajralmalarini shimib oladi.",
-    "5b84": "Yaralarni ishlov berish va himoyalash uchun uzunroq doka. Tibbiyot muassasalarida qo‘llaniladi.",
-    "5b90": "Bog‘lovchi materiallarni mahkamlash va yara yuzalarini himoyalash uchun doka. Operatsiyadan keyingi parvarishda ishlatiladi.",
-    "10b90": "Keng yara yuzalarini ishlov berish va himoyalash uchun doka. Bemorlarni parvarishlashda qo‘llaniladi."
-  }
-},
-"69": {
-  "name": "Bo‘laklardagi doka \"SARBONTEKS\"",
-  "description": {
-    "1b90": "Bog‘lash va terini sanitariya ishlovidan o‘tkazish uchun doka. Kundalik tibbiy muolajalarda ishlatiladi.",
-    "2b90": "Yaralarni himoyalash va ishlov berish uchun uzunroq doka. Davolash va profilaktikada qo‘llaniladi.",
-    "3b90": "Katta tana qismlarida bog‘lash uchun doka. Yara yuzalarini shimib olish va himoyalashda ishlatiladi.",
-    "5b90": "Keng formatdagi tibbiy bog‘lashlar uchun doka. Katta yaralarni parvarishlashda qo‘llaniladi.",
-    "10b90": "Tibbiyot muassasalarida foydalanish uchun katta formatdagi doka. Bemorlarni parvarishlashda ishlatiladi."
-  }
-},
-"70": {
-  "name": "GOST bo‘yicha bo‘laklardagi doka \"SARBONTEKS\"",
-  "description": {
-    "5b90": "Yuqori sifat talablariga javob beruvchi bog‘lash doka. Yaralarni tibbiy parvarishda qo‘llaniladi.",
-    "10b90": "Tibbiyot muassasalarida intensiv foydalanish uchun uzun doka. Katta yuzalarda bog‘lash uchun mos."
-  }
-},
-"71": {
-  "name": "Steril doka salfetkalari",
-  "description": {
-    "16b14": "Yaralarni ishlov berish va bog‘lash uchun steril doka salfetkalari. Aseptik muolajalarda qo‘llaniladi.",
-    "45b29": "Kattaroq o‘lchamdagi steril doka salfetkalari. Jarrohlik va bog‘lash muolajalarida ishlatiladi."
-  }
-},
-"72": {
-  "name": "Steril doka salfetkalari \"SARBONTEKS\"",
-  "description": {
-    "16b14": "Yara yuzalarini tozalash va himoyalash uchun steril doka salfetkalari. Bog‘lashlarda qo‘llaniladi.",
-    "45b29": "Jarrohlik va bog‘lash muolajalari uchun steril doka salfetkalari. Yara ajralmalarini samarali shimib oladi."
-  }
-},
-"73": {
-  "name": "Bir martalik polietilen baxilalar",
-  "description": "Xonalarni tashqi iflosliklardan himoyalash uchun bir martalik baxilalar. Tibbiyot muassasalarida ishlatiladi."
-},
-"74": {
-  "name": "Bir martalik baxilalar №500",
-  "description": "Ommaviy foydalanish uchun mo‘ljallangan bir martalik baxilalar. Sanitariya rejimini taʼminlashda qo‘llaniladi."
-},
-"75": {
-  "name": "Bir martalik qalpoqlar \"Clinic Clean\"",
-  "description": "Sochlarni himoyalash va gigiyenani taʼminlash uchun mo‘ljallangan bir martalik tibbiy qalpoqlar. Davolash va muolaja zonalarida ishlatiladi."
-},
-"76": {
-  "name": "Bir martalik qalpoqlar",
-  "description": "Xodimlar va bemorlarni sanitariya jihatdan himoyalash uchun bir martalik qalpoqlar. Tibbiyot muassasalarida qo‘llaniladi."
-},
-"77": {
-  "name": "Bir martalik ko‘k rangli qalpoqlar",
-  "description": "Tibbiy muhitda gigiyenani saqlash uchun mo‘ljallangan bir martalik qalpoqlar. Diagnostik va davolash muolajalarida ishlatiladi."
-},
-"78": {
-  "name": "Bir martalik polietilen qalpoqlar",
-  "description": "Sochlarni himoyalash va sanitariya qoidalariga rioya qilish uchun polietilen bir martalik qalpoqlar. Tibbiy xonalarda ishlatiladi."
-},
-"79": {
-  "name": "Bir martalik qora va oq qalpoqlar",
-  "description": "Gigiyenani saqlash uchun mo‘ljallangan bir martalik tibbiy qalpoqlar. Davolash muassasalari va muolaja zonalarida qo‘llaniladi."
-},
-"80": {
-  "name": "Burunni yuvish uchun oliva",
-  "description": "Burun yo‘llarini yuvish uchun mo‘ljallangan oliva. Otorinolaringologiyada gigiyenik va davolovchi muolajalarda ishlatiladi."
-},
-"81": {
-  "name": "Bir martalik quloq voronkalari",
-  "description": "Tashqi eshitish yo‘lini ko‘rikdan o‘tkazish uchun bir martalik quloq voronkalari. LOR diagnostikasida qo‘llaniladi."
-},
-"82": {
-  "name": "Bodomchalarni yuvish uchun kanüla",
-  "description": "Bodomcha lakunalarini yuvish uchun mo‘ljallangan kanüla. LOR davolovchi muolajalarida ishlatiladi."
-},
-"83": {
-  "name": "Burun va burun-halqum uchun tampon-zond",
-  "description": "Burun va burun-halqumdan namunalar olish uchun tampon-zond. Diagnostik tekshiruvlarda qo‘llaniladi."
-},
-"84": {
-  "name": "Bir martalik LOR shpateli",
-  "description": "Og‘iz bo‘shlig‘i va halqumni ko‘rikdan o‘tkazish uchun bir martalik shpatel. LOR diagnostikasida ishlatiladi."
-},
-"85": {
-  "name": "Stomatologik so‘lak so‘rg‘ich",
-  "description": "Og‘iz bo‘shlig‘idan so‘lak va suyuqliklarni chiqarish uchun stomatologik so‘rg‘ich. Stomatologik muolajalarda ishlatiladi."
-},
-"86": {
-  "name": "Bir martalik stomatologik to‘plam",
-  "description": "Ko‘rik va muolajalar uchun bir martalik stomatologik to‘plam. Bemorlarni qabul qilishda gigiyenani taʼminlash uchun ishlatiladi."
-},
-"87": {
-  "name": "Stomatologik paxta valiklari",
-  "description": "Namlikni shimib olish va izolyatsiya qilish uchun stomatologik paxta valiklari. Davolash va profilaktik muolajalarda qo‘llaniladi."
-},
-"88": {
-  "name": "Steril jarrohlik komplekti",
-  "description": {
-    "35g": "Operatsiyalar va invaziv muolajalar uchun mo‘ljallangan steril jarrohlik komplekti. Operatsion xonada aseptikani taʼminlaydi.",
-    "45g": "Zichligi oshirilgan jarrohlik komplekti. Steril jarrohlik muolajalarida qo‘llaniladi."
-  }
-},
-"89": {
-  "name": "Steril jarrohlik komplekti 35 g \"UKM\"",
-  "description": "Standart operatsion muolajalar uchun mo‘ljallangan steril jarrohlik komplekti. Bemor va tibbiyot xodimlarini himoyalaydi."
-},
-"90": {
-  "name": "Steril jarrohlik xalat 35 g \"UKM\"",
-  "description": "Operatsiyalar uchun mo‘ljallangan steril jarrohlik xalati. Sanitariya-gigiyena talablariga rioya qilish uchun ishlatiladi."
-},
-"91": {
-  "name": "Jarrohlik xalati 37 g/m²",
-  "description": "Tibbiy muolajalarda xodimlarni himoyalash uchun jarrohlik xalati. Operatsion va muolaja zonalarida qo‘llaniladi."
-},
-"92": {
-  "name": "Steril jarrohlik xalati",
-  "description": {
-    "25gmsq": "Qisqa muddatli operatsiyalar va muolajalar uchun steril jarrohlik xalati. Aseptika talablariga rioya qilinadi.",
-    "35gmsq": "Operatsion aralashuvlar uchun steril jarrohlik xalati. Xodimlar uchun ishonchli himoya taʼminlaydi.",
-    "45gmsq": "Uzoq davom etadigan operatsiyalar uchun yuqori zichlikdagi jarrohlik xalati. Yuqori himoya talablari sharoitida ishlatiladi."
-  }
-},
-"93": {
-  "name": "Steril jarrohlik choyshabi UKM",
-  "description": {
-    "80b20025g": "Operatsion maydonni izolyatsiya qilish uchun mo‘ljallangan steril jarrohlik choyshabi. Jarrohlik amaliyotida ishlatiladi.",
-    "160b20035g": "Kengaytirilgan operatsion maydonni yopish uchun kattaroq jarrohlik choyshabi. Murakkab operatsiyalarda qo‘llaniladi.",
-    "80b20035g": "Operatsion maydonni izolyatsiya qilish uchun steril jarrohlik choyshabi. Invaziv muolajalarda qo‘llaniladi."
-  }
-},
-"94": {
-  "name": "Steril jarrohlik choyshabi Nest Med Tech",
-  "description": {
-    "200b16025g": "Bemor va operatsion maydonni himoyalash uchun steril jarrohlik choyshabi. Standart operatsiyalarda ishlatiladi.",
-    "200b16035g": "O‘rtacha zichlikdagi jarrohlik choyshabi. Uzoq davom etadigan operatsiyalarda qo‘llaniladi.",
-    "200b16045g": "Yuqori himoya talab etiladigan operatsiyalar uchun zich jarrohlik choyshabi. Intensiv jarrohlik sharoitida ishlatiladi."
-  }
-},
-"95": {
-  "name": "Bir martalik jarrohlik choyshabi (umurtqa pog‘onasi operatsiyalari uchun)",
-  "description": "Umurtqa pog‘onasida bajariladigan maxsus operatsiyalar uchun mo‘ljallangan bir martalik jarrohlik choyshabi. Operatsion maydonni izolyatsiya qilishda ishlatiladi."
-},
-"96": {
-  "name": "Xloraktiv-MAKS",
-  "description": "Ishchi eritmalar tayyorlash uchun tabletkali dezinfeksiyalovchi vosita. Yuzalar va tibbiy buyumlarni ishlov berishda qo‘llaniladi."
-},
-"97": {
-  "name": "Septodez 1 l",
-  "description": "Yuzalar va jihozlarni dezinfeksiya qilish uchun suyuq vosita. Tibbiyot muassasalarida qo‘llaniladi."
-},
-"98": {
-  "name": "ABK Ekstra 1 l",
-  "description": "Tibbiy xonalarni sanitariya ishlovidan o‘tkazish uchun dezinfeksiyalovchi vosita. Infeksiya nazorati doirasida ishlatiladi."
-},
-"99": {
-  "name": "Antiseptin 0,5 l",
-  "description": "Teri va yuzalarni ishlov berish uchun antiseptik vosita. Gigiyenik va profilaktik muolajalarda qo‘llaniladi."
-},
-"100": {
-  "name": "Antiseptin OP 0,5 l",
-  "description": "Yuzalar va jihozlarni ishlov berish uchun antiseptik vosita. Tibbiyot muassasalarida sanitariya ishlovida qo‘llaniladi."
-},
-"101": {
-  "name": "DS-1 konsentrat 0,5 l",
-  "description": "Ishchi eritmalar tayyorlash uchun mo‘ljallangan konsentrlangan dezinfeksiyalovchi vosita. Tibbiy yuzalarni ishlov berishda qo‘llaniladi."
-},
-"102": {
-  "name": "Ekstradin konsentrat 1 l",
-  "description": "Sanitariya ishlovi uchun mo‘ljallangan konsentrlangan dezinfeksiyalovchi vosita. Tibbiy va laboratoriya amaliyotida ishlatiladi."
-},
-"103": {
-  "name": "Ekstra Dez Plyus konsentrat 1 l",
-  "description": "Xonalarni intensiv sanitariya ishlovidan o‘tkazish uchun dezinfeksiyalovchi vosita. Infeksiya nazoratining kuchaytirilgan choralarida qo‘llaniladi."
-},
-"104": {
-  "name": "Fenolftalein 100 ml",
-  "description": "Yuvish va tozalash sifatini nazorat qilish uchun indikator eritma. Laboratoriya va sanitariya amaliyotida ishlatiladi."
-},
-"105": {
-  "name": "Azopiram-S GTM 100 ml",
-  "description": "Sterilizatsiyadan oldingi tozalash sifatini nazorat qilish uchun vosita. Tibbiyot muassasalarida qo‘llaniladi."
-},
-"106": {
-  "name": "Ultratovushli tozalagich",
-  "description": {
-    "2l": "Tibbiy asboblarni tozalash uchun ultratovushli tozalagich. Yetib borish qiyin bo‘lgan joylardagi iflosliklarni ketkazishda ishlatiladi.",
-    "3l": "Kengaytirilgan hajmli ultratovushli tozalagich tibbiy asboblar uchun. Klinik amaliyotda qo‘llaniladi.",
-    "4p5l": "Asboblarni intensiv tozalash uchun ultratovushli tozalagich. Sterilizatsiya bo‘limlarida ishlatiladi.",
-    "6l": "Katta hajmli ultratovushli tozalagich tibbiy asboblarni ishlov berish uchun. Doimiy ekspluatatsiya uchun mos."
-  }
-},
-"107": {
-  "name": "Utilizatsiya uchun konteyner",
-  "description": {
-    "1l": "Tibbiy chiqindilarni yig‘ish va utilizatsiya qilish uchun plastik konteyner. O‘tkir va biologik xavfli materiallarni xavfsiz saqlashda ishlatiladi.",
-    "2l": "Kengaytirilgan hajmli konteyner tibbiy chiqindilarni utilizatsiya qilish uchun. Muolaja va laboratoriya xonalarida qo‘llaniladi.",
-    "3l": "Ishlatilgan tibbiy buyumlarni xavfsiz yig‘ish uchun konteyner. Sanitariya meʼyorlariga rioya qilgan holda ishlatiladi.",
-    "4l": "O‘rtacha hajmdagi tibbiy chiqindilarni yig‘ish uchun plastik konteyner. Klinikalar va diagnostika markazlarida qo‘llaniladi.",
-    "5l": "Katta hajmli tibbiy chiqindilarni utilizatsiya qilish uchun konteyner. Tibbiyot muassasalarining intensiv ishida ishlatiladi."
-  }
-},
-"108": {
-  "name": "Sterilizatsiya indikatorlari jurnali",
-  "description": "Sterilizatsiya nazorati natijalarini qayd etish uchun jurnal. Sterilizatsiya bo‘limlarida hisob yuritish uchun ishlatiladi."
-},
-"109": {
-  "name": "Bug‘li sterilizatsiya uchun ichki indikator 132/20",
-  "description": "Bug‘li sterilizatsiya parametrlarini nazorat qilish uchun ichki indikator. Asboblar bilan qadoqlar ichida ishlatiladi."
-},
-"110": {
-  "name": "Bug‘li sterilizatsiya uchun tashqi indikator 132/20",
-  "description": "Bug‘li sterilizatsiya jarayonini vizual nazorat qilish uchun tashqi indikator. Asbob qadoqlarida ishlatiladi."
-},
-"111": {
-  "name": "Bug‘li sterilizatsiya indikatori 134/5",
-  "description": "Bug‘li sterilizatsiya rejimlarini nazorat qilish uchun universal indikator. Sterilizatsiya jarayonlarida qo‘llaniladi."
-},
-"112": {
-  "name": "Sterilizatsiya indikatori \"Farma-test\" 134/5",
-  "description": "Bug‘li sterilizatsiya samaradorligini nazorat qilish uchun indikator. Tibbiyot muassasalari va laboratoriyalarda ishlatiladi."
-},
-"113": {
-  "name": "Sterilizatsiya indikatori \"Sterilan\" 132/20 tashqi",
-  "description": "Bug‘li sterilizatsiyani vizual nazorat qilish uchun tashqi indikator. Sterilizatsiya sikli o‘tilganini tasdiqlashda ishlatiladi."
-},
-"114": {
-  "name": "Sterilizatsiya indikatori \"Sterilan\" UP-132/20 ichki",
-  "description": "Qadoq ichida bug‘li sterilizatsiya sharoitlarini nazorat qilish uchun ichki indikator. Tibbiy buyumlarni sterilizatsiyada qo‘llaniladi."
-},
-"115": {
-  "name": "Sterilizatsiya indikatori \"Sterilan\" 180/60 tashqi",
-  "description": "Yuqori haroratli sterilizatsiya rejimlarini nazorat qilish uchun tashqi indikator. Asboblarni termik ishlov berishda qo‘llaniladi."
-},
-"116": {
-  "name": "Sterilizatsiya indikatori \"Sterilan\" UP-180/60 ichki",
-  "description": "Yuqori haroratda sterilizatsiya parametrlarini nazorat qilish uchun ichki indikator. Sterilizatsiya qadoqlari ichida qo‘llaniladi."
-},
-"117": {
-  "name": "Sterilizatsiya indikatori MedIS-V-180/60",
-  "description": "Tibbiy buyumlarning yuqori haroratli sterilizatsiyasini nazorat qilish uchun indikator. Sterilizatsiya bo‘limlarida ishlatiladi."
-},
-"118": {
-  "name": "Sterilizatsiya indikatori Steritest-VL",
-  "description": "Sterilizatsiya parametrlarini nazorat qilish va hujjatlashtirish uchun jurnal bilan indikator. Sterilizatsiya jarayonlarini qayd etishda qo‘llaniladi."
-},
-"119": {
-  "name": "Sterilizatsiya indikatori MedIS-132/20",
-  "description": "Tibbiy buyumlarning bug‘li sterilizatsiyasini nazorat qilish uchun indikator. Standart sterilizatsiya sikllarida ishlatiladi."
-},
-"120": {
-  "name": "Sterilizatsiya indikatori MedIS-132/20 (2000)",
-  "description": "Bug‘li sterilizatsiyani ommaviy nazorat qilish uchun indikator. Sterilizatsiya hajmi yuqori bo‘lgan muassasalarda qo‘llaniladi."
-},
-"121": {
-  "name": "Sterilizatsiya indikatori Steritest-P-132/20",
-  "description": "Natijalarni qayd etish bilan bug‘li sterilizatsiyani nazorat qilish uchun indikator. Klinikalar va sterilizatsiya bloklarida ishlatiladi."
-},
-"122": {
-  "name": "Sterilizatsiya indikatori Intest-P-134/5",
-  "description": "Bug‘li sterilizatsiya rejimlarini nazorat qilish uchun indikator. Tibbiy asboblarni sterilizatsiyada qo‘llaniladi."
-},
-"123": {
-  "name": "Qadoqlash mashinasi PK100-C",
-  "description": "Sterilizatsiya paketlarini yopish va bosib chiqarish uchun qadoqlash mashinasi. Asboblarni sterilizatsiyaga tayyorlashda ishlatiladi."
-},
-"124": {
-  "name": "Qadoqlash mashinasi PK100-A",
-  "description": "Sterilizatsiya qadoqlarini germetik yopish uchun qadoqlash mashinasi. Sterilizatsiya bo‘limlarida qo‘llaniladi."
-},
-"125": {
-  "name": "Qadoqlash mashinasi PK02-45",
-  "description": "Tibbiy paketlar uchun ixcham qadoqlash mashinasi. Asboblarni sterilizatsiyaga tayyorlashda ishlatiladi."
-},
-"126": {
-  "name": "Qadoqlash mashinasi PKD310AB",
-  "description": "Sterilizatsiya materiallarini yopish uchun qadoqlash mashinasi. Tibbiy va stomatologik klinikalarda qo‘llaniladi."
-},
-"127": {
-  "name": "Qadoqlash mashinasi PKD300AB",
-  "description": "Tibbiy sterilizatsiya paketlarini germetik yopish mashinasi. Asboblar sterilligini taʼminlashda ishlatiladi."
-},
-"128": {
-  "name": "Qadoqlash mashinasi SEAL BEST",
-  "description": "Sterilizatsiya paketlari va rulonlari uchun qadoqlash mashinasi. Tibbiy buyumlarni sterilizatsiyaga tayyorlashda qo‘llaniladi."
-},
-"129": {
-  "name": "Uch qavatli kraft-paketlar uchun taglik PK213",
-  "description": "Sterilizatsiya kraft-paketlarini qulay joylashtirish uchun taglik. Ish joyini tashkil etishda ishlatiladi."
-},
-"130": {
-  "name": "Ikki qavatli kraft-paketlar uchun taglik PK212",
-  "description": "Sterilizatsiya paketlarini saqlash uchun ikki darajali taglik. Sterilizatsiya va muolaja zonalarida qo‘llaniladi."
-},
-"131": {
-  "name": "Bir qavatli kraft-paketlar uchun taglik PK211",
-  "description": "Sterilizatsiya kraft-paketlarini joylashtirish uchun bir darajali taglik. Tartibli saqlash uchun ishlatiladi."
-},
-"132": {
-  "name": "To‘siq plyonkasi",
-  "description": "Yuzalarni ifloslanishdan himoyalash uchun mo‘ljallangan to‘siq plyonkasi. Tibbiy va diagnostik muolajalarda qo‘llaniladi."
-},
-"133": {
-  "name": "Sterilizatsiya uchun kraft-paket",
-  "description": {
-    "50b200": "Sterilizatsiyadan oldin tibbiy asboblarni qadoqlash uchun rulondagi kraft-paket. Ishlovdan keyin sterillikni saqlaydi.",
-    "55b200": "Kichik tibbiy asboblar uchun sterilizatsiya kraft-paketi. Bug‘li sterilizatsiyada qo‘llaniladi.",
-    "75b200": "O‘rtacha o‘lchamdagi asboblarni qadoqlash uchun kraft-paket. Sterilizatsiya va saqlashda ishlatiladi.",
-    "100b200": "Turli maqsadli tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Tibbiy amaliyotda qo‘llaniladi.",
-    "150b200": "Katta asboblarni qadoqlash uchun keng kraft-paket. Jarrohlik buyumlarini sterilizatsiyada ishlatiladi.",
-    "200b200": "Hajmli tibbiy asboblar uchun kraft-paket. Sterilizatsiya va qayta ifloslanishdan himoyalashda qo‘llaniladi.",
-    "250b200": "Yirik tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Sterilizatsiya bo‘limlarida ishlatiladi.",
-    "300b200": "Asboblar to‘plamlarini qadoqlash uchun keng kraft-paket. Komplektlarni sterilizatsiyada qo‘llaniladi.",
-    "350b200": "Hajmli asboblar to‘plamlari uchun sterilizatsiya kraft-paketi. Sterillikni taʼminlashda ishlatiladi.",
-    "400b200": "Yirik tibbiy buyumlarni sterilizatsiya qilish uchun maksimal kenglikdagi kraft-paket. Jarrohlik amaliyotida qo‘llaniladi.",
-    "450b200": "Katta tibbiy buyumlar uchun kengaytirilgan kraft-paket. Ishlovdan keyin sterillikni saqlaydi.",
-    "500b200": "Hajmli asboblar to‘plamlari uchun sterilizatsiya kraft-paketi. Sterilizatsiya bo‘limlarida ishlatiladi."
-  }
-},
-"134": {
-  "name": "O‘z-o‘zidan yopiladigan kraft-paket",
-  "description": {
-    "57b130": "Kichik tibbiy buyumlarni sterilizatsiya qilish uchun o‘z-o‘zidan yopiladigan kraft-paket. Ishlovdan keyin asbobni himoyalaydi.",
-    "90b165": "Sterilizatsiya uchun o‘z-o‘zidan yopiladigan klapanli kraft-paket. Tibbiy amaliyotda qo‘llaniladi.",
-    "70b260": "Tibbiy buyumlar uchun o‘z-o‘zidan yopiladigan sterilizatsiya paketi. Asboblarni individual qadoqlashda ishlatiladi.",
-    "90b260": "O‘rtacha o‘lchamdagi asboblarni sterilizatsiya qilish uchun kraft-paket. Sterillikni saqlash uchun ishlatiladi.",
-    "135b280": "Tibbiy asboblar to‘plamlari uchun o‘z-o‘zidan yopiladigan sterilizatsiya paketi. Klinikalar va kabinetlarda qo‘llaniladi.",
-    "190b360": "Hajmli asboblarni sterilizatsiya qilish uchun katta formatdagi kraft-paket. Jarrohlik muolajalarida ishlatiladi.",
-    "200b300": "O‘rtacha va katta tibbiy buyumlar uchun sterilizatsiya paketi. Individual sterilizatsiyada qo‘llaniladi.",
-    "308b430": "Yirik tibbiy asboblarni sterilizatsiya qilish uchun kattalashtirilgan kraft-paket. Sterilizatsiya bo‘limlarida ishlatiladi.",
-    "400b500": "Yirik tibbiy buyumlar uchun o‘z-o‘zidan yopiladigan sterilizatsiya paketi. Ishlovdan keyin sterillikni himoyalaydi.",
-    "500b600": "Hajmli asboblar va to‘plamlarni sterilizatsiya qilish uchun katta formatdagi kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi."
-  }
-},
-"135": {
-  "name": "Plazmali sterilizatsiya uchun indikator",
-  "description": "Tibbiy buyumlarni plazmali sterilizatsiya jarayonini nazorat qilish uchun indikator. Sterilizatsiya samaradorligini tasdiqlashda ishlatiladi."
-},
-"136": {
-  "name": "Plazmali sterilizatsiya uchun indikator (500 dona)",
-  "description": "Plazmali sterilizatsiyani ommaviy nazorat qilish uchun indikator. Sterilizatsiya sikllari hajmi yuqori bo‘lganda qo‘llaniladi."
-},
-"137": {
-  "name": "Plazmali sterilizatsiya uchun indikatorli lenta",
-  "description": "Plazmali sterilizatsiyadan o‘tishni nazorat qilish uchun indikatorli lenta. Belgilash va vizual tekshiruvda ishlatiladi."
-},
-"138": {
-  "name": "Sterilizatsiya uchun to‘qilmagan material",
-  "description": "Sterilizatsiyadan oldin tibbiy buyumlarni qadoqlash uchun to‘qilmagan material. Himoya va sterillikni saqlash uchun ishlatiladi."
-},
-"139": {
-  "name": "Plazmali sterilizatsiya uchun kraft-paket STANDART",
-  "description": {
-    "75b70": "Plazmali sterilizatsiyada tibbiy buyumlarni qadoqlash uchun kraft-paket. Past haroratli ishlovda qo‘llaniladi.",
-    "100b70": "Tibbiy asboblar uchun sterilizatsiya kraft-paketi. Sterilizatsiya jarayonlarida ishlatiladi.",
-    "150b70": "O‘rtacha o‘lchamdagi tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun kraft-paket. Ishlovdan keyin himoyani taʼminlaydi.",
-    "200b70": "Plazmali sterilizatsiyada tibbiy buyumlarni qadoqlash uchun kraft-paket. Asboblarni past haroratda ishlov berishda qo‘llaniladi.",
-    "250b70": "Yirik tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada ishlatiladi.",
-    "300b70": "Plazma usulida hajmli asboblarni sterilizatsiya qilish uchun keng kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
-    "350b70": "Yirik asboblar to‘plamlari uchun sterilizatsiya kraft-paketi. Ishlovdan keyin sterillikni saqlaydi.",
-    "400b70": "Plazmali sterilizatsiya uchun maksimal kenglikdagi kraft-paket. Hajmli asboblarni ishlov berishda qo‘llaniladi.",
-    "450b70": "Yirik tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Klinik amaliyotda plazmali sterilizatsiyada ishlatiladi.",
-    "500b70": "Hajmli asboblar uchun katta formatdagi plazmali sterilizatsiya kraft-paketi. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
-    "75b100": "Kichik tibbiy buyumlarni plazmali sterilizatsiyada qadoqlash uchun kraft-paket. Past haroratli ishlovda qo‘llaniladi.",
-    "100b100": "O‘rtacha o‘lchamdagi asboblar uchun sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada ishlatiladi.",
-    "150b100": "O‘rtacha tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun kraft-paket. Sterillikni saqlash uchun ishlatiladi.",
-    "200b100": "Plazmali sterilizatsiyada tibbiy buyumlarni qadoqlash uchun kraft-paket. Asboblarni past haroratda ishlov berishda qo‘llaniladi.",
-    "250b100": "Yirik tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada ishlatiladi.",
-    "300b100": "Plazma usulida hajmli asboblarni sterilizatsiya qilish uchun keng kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
-    "350b100": "Yirik asboblar to‘plamlari uchun sterilizatsiya kraft-paketi. Ishlovdan keyin sterillikni saqlaydi.",
-    "400b100": "Plazmali sterilizatsiya uchun maksimal kenglikdagi kraft-paket. Hajmli asboblarni ishlov berishda qo‘llaniladi."
-  }
-},
-"140": {
-  "name": "Plazmali sterilizatsiya uchun kraft-paket PREMIUM",
-  "description": {
-    "75b70": "Tibbiy buyumlarni plazmali sterilizatsiya qilish uchun yuqori sifatli kraft-paket. Past haroratli ishlovda qo‘llaniladi.",
-    "100b70": "Tibbiy asboblar uchun zichligi oshirilgan sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada ishlatiladi.",
-    "150b70": "O‘rtacha tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun kraft-paket. Sterillikni ishonchli saqlaydi.",
-    "200b70": "Yirik tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Klinik sharoitda plazmali sterilizatsiyada qo‘llaniladi.",
-    "250b70": "Hajmli asboblarni plazmali sterilizatsiya qilish uchun katta formatdagi kraft-paket. Sterilizatsiya bo‘limlarida ishlatiladi.",
-    "300b70": "Yirik tibbiy asboblarni plazmali sterilizatsiya qilish uchun keng kraft-paket. Ishlovdan keyin sterillikni saqlaydi."
-  }
-},
-"141": {
-  "name": "Spinal anesteziya ignalari Quincke 25G, 26G",
-  "description": "Quincke turidagi spinal ignalar spinal anesteziya o‘tkazish uchun. Subaraxnoidal bo‘shliqqa nazorat ostida kirishni taʼminlaydi."
-},
-"142": {
-  "name": "Spinal anesteziya ignalari Pencil Point 25G, 26G",
-  "description": "Yumaloq uchli spinal ignalar spinal anesteziya uchun. To‘qimalarning shikastlanishini kamaytirish uchun ishlatiladi."
-},
-"143": {
-  "name": "Spinal igna KD-FINE Quincke 26G",
-  "description": "Quincke turidagi spinal igna spinal anesteziyani aniq bajarish uchun. Anesteziologik amaliyotda qo‘llaniladi."
-},
-"144": {
-  "name": "Spinal igna KD-FINE Pencil Point 25G, 26G",
-  "description": "To‘mtoq uchli spinal igna anesteziya o‘tkazish uchun. Orqa miya bo‘shlig‘ini nazorat ostida punksiya qilishda ishlatiladi."
-},
-"145": {
-  "name": "UZI geli \"Akugel\" 5 kg",
-  "description": "Datchik va teri o‘rtasida signal o‘tkazuvchanligini yaxshilash uchun ultratovush geli. Diagnostik UZI tekshiruvlarida ishlatiladi."
-},
-"146": {
-  "name": "Yuqori yopishqoqlikdagi UZI geli \"Akugel\" 5 kg dozator bilan",
-  "description": "Datchik va teri o‘rtasida barqaror kontaktni taʼminlovchi yuqori yopishqoqlikdagi ultratovush geli. Uzoq davom etadigan UZI muolajalarida ishlatiladi."
-},
-"147": {
-  "name": "EKG uchun diagramma lentasi",
-  "description": {
-    "80b20": "Elektrokardiogrammani qayd etish uchun diagramma lentasi. Elektrokardiografik tekshiruvlarda ishlatiladi.",
-    "110b30": "Yozuv formati kengaytirilgan EKG apparatlari uchun diagramma qog‘ozi. Kardiologik diagnostikada qo‘llaniladi.",
-    "210b30": "Elektrokardiograflar uchun katta formatdagi diagramma lentasi. EKGni batafsil qayd etishda ishlatiladi.",
-    "215b30": "EKG apparatlarida elektrokardiogrammani qayd etish uchun diagramma lentasi. Yurak ritmini aniq qayd etadi."
-  }
-},
-"148": {
-  "name": "Bir martalik choyshablar 20 g/m² rulonda",
-  "description": "Tibbiy muolajalar vaqtida yuzalarni himoyalash uchun bir martalik choyshablar. Gigiyenani taʼminlash va ifloslanishni oldini olishda ishlatiladi."
-},
-"149": {
-  "name": "Bir martalik choyshablar 20 g/m² (qadoq)",
-  "description": "Tibbiy va kosmetologik xonalarda foydalanish uchun bir martalik choyshablar. Yuzalar uchun to‘siqli himoya taʼminlaydi."
-},
-"150": {
-  "name": "Bir martalik choyshablar 80 × 200 rulonli UKM",
-  "description": "Kushetkalar va stollarni yopish uchun rulonli bir martalik choyshablar. Diagnostik va davolovchi muolajalarda ishlatiladi."
-},
-"151": {
-  "name": "Bir martalik salfetkalar 15 g/m² rulonda",
-  "description": "Gigiyenik ishlov berish va yuzalarni himoyalash uchun bir martalik salfetkalar. Tibbiy amaliyotda qo‘llaniladi."
-},
-"152": {
-  "name": "Bir martalik sochiq rulonda 35 × 70",
-  "description": "Tibbiyot muassasalarida gigiyenik foydalanish uchun bir martalik sochiqlar. Bemorlarni parvarishlashda qo‘llaniladi."
-},
-"153": {
-  "name": "Bir martalik ko‘krakchalar-salfetkalar",
-  "description": "Muolajalar vaqtida bemor kiyimini himoyalash uchun bir martalik ko‘krakchalar. Stomatologik va tibbiy amaliyotda ishlatiladi."
-},
-"154": {
-  "name": "Bir martalik stomatologik ko‘krakchalar 45 × 33",
-  "description": "Bemorni namlik va ifloslanishdan himoyalash uchun stomatologik ko‘krakchalar. Stomatologik muolajalarda qo‘llaniladi."
-},
-"155": {
-  "name": "Spirtli salfetkalar",
-  "description": "Teri antiseptik ishlovi uchun spirtli eritma bilan shimdirilgan salfetkalar. Inʼeksiya va muolajalardan oldin ishlatiladi."
-},
-"156": {
-  "name": "Muolajalar uchun bir martalik shortiklar",
-  "description": "Bemor gigiyenasi va qulayligini taʼminlash uchun bir martalik muolaja shortiklari. Diagnostik va davolovchi manipulyatsiyalarda qo‘llaniladi."
-},
-"157": {
-  "name": "Qon ivishini faollashtiruvchi probirka 5 ml (qizil qopqoq)",
-  "description": "Venoz qon olish uchun ivish faollashtiruvchiga ega vakuum probirka. Laborator tekshiruvlarda zardob olish uchun ishlatiladi."
-},
-"158": {
-  "name": "Qon ivishini faollashtiruvchi probirka 6 ml (qizil qopqoq)",
-  "description": "Ivish faollashtiruvchiga ega qon olish probirkasi. Klinik-diagnostik laboratoriyalarda qo‘llaniladi."
-},
-"159": {
-  "name": "Natriy sitratli probirka 2,7 ml (ko‘k qopqoq)",
-  "description": "Koagulologik tekshiruvlar uchun natriy sitratli vakuum probirka. Qon ivuvchanligi ko‘rsatkichlarini baholashda ishlatiladi."
-},
-"160": {
-  "name": "Gel va ivish faollashtiruvchiga ega probirka 5 ml (sariq qopqoq)",
-  "description": "Zardob olish uchun gel ajratgich va ivish faollashtiruvchiga ega probirka. Biokimyoviy tadqiqotlarda qo‘llaniladi."
-},
-"161": {
-  "name": "EDTA K3 li probirka 3 ml (binafsha qopqoq)",
-  "description": "Gematologik tekshiruvlar uchun EDTA K3 antikoagulyantiga ega vakuum probirka. Qon hujayra tarkibini saqlash uchun ishlatiladi."
-},
-"162": {
-  "name": "Litiy-geparinli probirka 5 ml (yashil qopqoq)",
-  "description": "Qonni ivishsiz olish uchun litiy-geparinli probirka. Biokimyoviy va klinik tahlillarda qo‘llaniladi."
-},
-"163": {
-  "name": "Gel va natriy-geparinli probirka 8,5 ml",
-  "description": "Plazmani ajratish uchun gel va natriy-geparin antikoagulyantiga ega probirka. Laborator diagnostikada ishlatiladi."
-},
-"164": {
-  "name": "Mikrosentrifuga probirkasi 1,5 ml (Eppendorf turi)",
-  "description": "Namunalarni saqlash va sentrifugalash uchun mikrosentrifuga probirkasi. Laboratoriya va molekulyar tadqiqotlarda qo‘llaniladi."
-},
-"165": {
-  "name": "Gematologik analizatorlar uchun EDTA K3 li 1,5 ml probirka",
-  "description": "Avtomatik gematologik tahlillar uchun EDTA K3 qoplamali probirka. Qonning barqaror tahlilini taʼminlaydi."
-},
-"166": {
-  "name": "Vakuum probirkalar uchun kapalak-igna 22G, 23G",
-  "description": "Vakuum tizimlari yordamida venoz qon olish uchun kapalak-igna. Venepunksiyada qulaylik va nazoratni taʼminlaydi."
-},
-"167": {
-  "name": "Vakuum qon olish uchun ignalar 22G, 23G",
-  "description": "Venoz qonni vakuum tizimlari orqali olish uchun ignalar. Namunalarni xavfsiz va nazorat ostida olishda qo‘llaniladi."
-},
-"168": {
-  "name": "Vakuum probirkalar uchun igna ushlagichi",
-  "description": "Vakuum qon olishda ignani mahkamlash uchun plastik ushlagich. Ish jarayonida barqarorlik va qulaylikni taʼminlaydi."
-},
-"169": {
-  "name": "Pipet-dozator MicroPette Plus 20–200 mkl",
-  "description": "Kichik hajmdagi suyuqliklarni aniq dozlash uchun sozlanadigan pipet-dozator. Laboratoriya amaliyotida ishlatiladi."
-},
-"170": {
-  "name": "Pipetkalar uchun uchlar 1000 mkl",
-  "description": "1000 mkl gacha bo‘lgan dozatorlar uchun bir martalik uchlar. Kross-kontaminatsiyani oldini olish uchun ishlatiladi."
-},
-"171": {
-  "name": "Dozatorlar uchun uchlar 200 mkl",
-  "description": "Kichik hajmli dozatorlar uchun bir martalik uchlar. Analitik va diagnostik laboratoriyalarda qo‘llaniladi."
-},
-"172": {
-  "name": "Dozatorlar uchun uchlar 1000 mkl",
-  "description": "Suyuqliklarni aniq dozlash uchun pipetka uchlari. Laboratoriya tadqiqotlarida ishlatiladi."
-},
-"173": {
-  "name": "Biomateriallarni yig‘ish uchun konteyner",
-  "description": {
-    "100ml": "Biologik namunalarni yig‘ish va saqlash uchun plastik konteyner. Laboratoriya diagnostikasida qo‘llaniladi.",
-    "100mlWS": "Ichki qoshiqchali biomaterial yig‘ish konteyneri. Namunalarni qulay va gigiyenik olishni taʼminlaydi.",
-    "60ml": "Biologik namunalarni saqlash va tashish uchun konteyner. Klinik diagnostikada ishlatiladi.",
-    "60mlWS": "Biologik namunalarni yig‘ish uchun ixcham konteyner. Laboratoriya tadqiqotlarida qo‘llaniladi."
-  }
-},
-"174": {
-  "name": "Lateks jgut",
-  "description": "Qon olish vaqtida venalarni vaqtincha qisish uchun lateks jgut. Venepunksiyani osonlashtirish uchun ishlatiladi."
-},
-"175": {
-  "name": "Elektrojarrohlik qalam",
-  "description": "To‘qimalarni kesish va koagulyatsiya qilish uchun elektrojarrohlik asbobi. Jarrohlik aralashuvlarida qo‘llaniladi."
-},
-"176": {
-  "name": "Qoplovchi oynacha",
-  "description": {
-    "18b18": "Mikroskopik tadqiqotlar uchun qoplovchi oynacha. Namuna himoyasi va mahkamlash uchun ishlatiladi.",
-    "24b24": "Kattaroq o‘lchamdagi qoplovchi oynacha mikroskopiya uchun. Yirik namunalarni tekshirishda qo‘llaniladi."
-  }
-},
-"177": {
-  "name": "Silliqlanmagan chetli predmet oynasi",
-  "description": "Mikroskopik preparatlar tayyorlash uchun predmet oynasi. Laboratoriya diagnostikasida ishlatiladi."
-},
-"178": {
-  "name": "Arterial bosim o‘lchagich LDH-MAXI",
-  "description": "Arterial bosimni noinvaziv o‘lchash uchun moslama. Klinik va ambulator amaliyotda qo‘llaniladi."
-},
-"179": {
-  "name": "Arterial bosim o‘lchagich IAD-01 «Adyutor»",
-  "description": "Arterial bosimni o‘lchash uchun mexanik moslama. Tibbiy ko‘riklarda qo‘llaniladi."
-},
-"180": {
-  "name": "Kardiologik stetoskop Rappoport BK 3003",
-  "description": "Yurak va o‘pkani auskultatsiya qilish uchun kardiologik stetoskop. Yurak-qon tomir va nafas tizimini diagnostika qilishda ishlatiladi."
-},
-"181": {
-  "name": "Tibbiy simobli termometr",
-  "description": "Tana haroratini o‘lchash uchun simobli termometr. Bemor holatini nazorat qilishda tibbiy amaliyotda qo‘llaniladi."
-}
-}
-,
+      "name": "UKM shpritslari",
+      "description": {
+        "1ml": "Dori vositalarini aniq dozada kiritish uchun mo‘ljallangan kichik hajmli bir martalik shprits. Teri ostiga va mushak ichiga inʼeksiya qilish uchun mos.",
+        "2ml": "Hajmi 2 ml gacha bo‘lgan dori vositalarini aniq kiritish uchun mo‘ljallangan bir martalik shprits. Turli maqsaddagi inʼeksiyalar uchun mos.",
+        "5ml": "O‘rtacha hajmdagi dori vositalarini kiritish uchun shprits. Klinik va ambulator amaliyotda qo‘llaniladi.",
+        "10ml": "Standart tibbiy muolajalar uchun mo‘ljallangan o‘rta va katta hajmli shprits. Dori eritmalarini kiritish uchun mos.",
+        "10mlwtoutneedle": "Igna­siz 10 ml hajmli shprits bo‘lib, suyuqliklarni quyish va yuvish uchun mo‘ljallangan. Kateterlar va zondlar bilan birga ishlatiladi.",
+        "20ml": "Katta hajmli shprits suyuqliklarni kiritish va aspiratsiya qilish uchun mo‘ljallangan. Klinik va diagnostik muolajalarda qo‘llaniladi.",
+        "60mlLL": "Luer Lock ulanishiga ega katta hajmli shprits bo‘lib, nasadkalarni ishonchli mahkamlashni taʼminlaydi. Yuvish, aspiratsiya va kateterlar bilan ishlashda qo‘llaniladi.",
+        "60mlCT": "Kateter uchli katta hajmli shprits suyuqliklarni kiritish va chiqarish uchun ishlatiladi. Bo‘shliqlarni yuvishda va zondlar bilan ishlashda qo‘llaniladi."
+      }
+    },
+    "2": {
+      "name": "MFA shpritslari",
+      "description": {
+        "1ml": "1 ml hajmli shprits kichik dozadagi preparatlarni aniq kiritishni taʼminlaydi. Ambulator va klinik amaliyotda qo‘llaniladi.",
+        "2ml": "2 ml hajmli bir martalik shprits dori vositalarini kiritish uchun mo‘ljallangan. Inʼeksion muolajalarning keng turiga mos.",
+        "5ml": "5 ml hajmli bir martalik shprits standart davolash muolajalari uchun mo‘ljallangan. Inʼeksiyalarning keng turida qo‘llaniladi.",
+        "10ml": "10 ml hajmli bir martalik shprits klinik muolajalar uchun mo‘ljallangan. Katta hajmdagi preparatlarni kiritish uchun mos."
+      }
+    },
+    "3": {
+      "name": "WEGO shpritslari",
+      "description": {
+        "1ml": "Aniq shkalaga ega kichik hajmli bir martalik shprits. Nozik tibbiy manipulyatsiyalar uchun mos.",
+        "2ml": "Kichik va o‘rtacha hajmdagi inʼeksiyalar uchun shprits. Kundalik tibbiy amaliyotda qo‘llaniladi.",
+        "5ml": "5 ml hajmli shprits standart inʼeksion muolajalar uchun mo‘ljallangan. Eritmalar va suspenziyalarni kiritish uchun mos.",
+        "10ml": "Katta hajmli shprits standart tibbiy inʼeksiyalar uchun ishlatiladi. Tomir ichiga kiritish uchun mos.",
+        "20ml": "Katta hajmli shprits dori eritmalarini kiritish va yuvish uchun ishlatiladi. Klinik va protsedura muolajalarida qo‘llaniladi.",
+        "50ml": "Katta hajmli shprits suyuqliklarni kiritish va chiqarish uchun mo‘ljallangan. Yuvish va aspiratsiya muolajalari uchun mos."
+      }
+    },
+    "4": {
+      "name": "UNIJECT shpritslari",
+      "description": {
+        "1ml": "Dori vositalarini aniq dozada kiritish uchun mo‘ljallangan kichik hajmli shprits. Yuqori aniqlik talab etilganda qo‘llaniladi.",
+        "2p5ml": "Mushak ichiga va teri ostiga inʼeksiya qilish uchun mo‘ljallangan o‘rtacha hajmli shprits. Standart dozalarning qulay kiritilishini taʼminlaydi.",
+        "5ml": "Dori eritmalarini kiritish uchun mo‘ljallangan o‘rtacha hajmli shprits. Mushak ichiga va tomir ichiga inʼeksiyalarda ishlatiladi.",
+        "10ml": "Katta hajmli shprits dori eritmalarini kiritish uchun mo‘ljallangan. Tomir ichiga va infuzion muolajalarda qo‘llaniladi.",
+        "20ml": "20 ml hajmli bir martalik shprits katta hajmdagi suyuqliklarni kiritish uchun mo‘ljallangan. Infuzion va yordamchi muolajalarda qo‘llaniladi."
+      }
+    },
+    "5": {
+      "name": "Healthline shpritslari",
+      "description": {
+        "2ml": "Standart inʼeksiyalar uchun mo‘ljallangan o‘rtacha hajmli shprits. Davolash va profilaktik tibbiy muolajalarda qo‘llaniladi.",
+        "3ml": "3 ml hajmli shprits standart inʼeksion muolajalarda keng qo‘llaniladi. Dori vositalarini qulay dozada kiritishni taʼminlaydi.",
+        "5ml": "Aniq va o‘qilishi oson shkala dozani nazorat qilishni yengillashtiradi. O‘rtacha hajmdagi inʼeksiyalar uchun mos.",
+        "10ml": "10 ml hajmli shprits standart inʼeksiyalar va muolajalar uchun mo‘ljallangan. Preparatlarni qulay va nazorat ostida kiritishni taʼminlaydi.",
+        "20ml": "Katta hajmli shprits klinik manipulyatsiyalar va yuvish muolajalari uchun mo‘ljallangan. Dori eritmalari bilan ishlashda qo‘llaniladi."
+      }
+    },
+    "6": {
+      "name": "2 ml bolalar shpritslari \"KIDDI\"",
+      "description": "2 ml hajmli shprits bo‘lib, pediatriyada qo‘llash uchun mo‘ljallangan. Bolalarga dori vositalarini aniq va nazorat ostida kiritishni taʼminlaydi."
+    },
+    "7": {
+      "name": "Westcom shpritslari",
+      "description": {
+        "2p5ml": "Standart dozadagi dori vositalarini kiritish uchun mo‘ljallangan o‘rtacha hajmli shprits. Mushak ichiga va teri ostiga inʼeksiyalar uchun mos.",
+        "5p5ml": "Kengaytirilgan o‘rtacha hajmli shprits bo‘lib, dori vositalarini kiritishda aniq hajm nazoratini taʼminlaydi.",
+        "10p5ml": "Katta hajmli shprits dori eritmalarini kiritish uchun mo‘ljallangan. Klinik va protsedura muolajalarida qo‘llaniladi."
+      }
+    },
+    "8": {
+      "name": "KDM insulin shpritslari",
+      "description": {
+        "0p3ml": "Insulinni aniq kiritish uchun mo‘ljallangan kichik hajmli insulin shpritsi. Qandli diabetda kichik dozalarni nazorat qilish uchun mos.",
+        "0p5ml": "Insulinni kiritish uchun mo‘ljallangan o‘rtacha kichik hajmli shprits. Muntazam inʼeksiyalar uchun qulay dozani taʼminlaydi.",
+        "1ml12mm": "12 mm ignaga ega 1 ml hajmli insulin shpritsi. Standart teri osti inʼeksiyalari uchun ishlatiladi.",
+        "1ml8mm": "8 mm qisqa ignaga ega 1 ml hajmli insulin shpritsi. Minimal chuqurlikdagi teri osti inʼeksiyalari uchun mos."
+      }
+    },
+    "9": {
+      "name": "1 ml insulin shpritslari \"UKM\"",
+      "description": "Insulinni aniq dozada kiritish uchun mo‘ljallangan standart hajmli insulin shpritsi. Kundalik terapiyada qo‘llaniladi."
+    },
+    "10": {
+      "name": "1 ml insulin shpritslari \"Healthline\"",
+      "description": "Insulinni teri ostiga kiritish uchun mo‘ljallangan insulin shpritsi. Muntazam qo‘llashda doza nazoratini taʼminlaydi."
+    },
+    "11": {
+      "name": "KD-JECT III shpritsi",
+      "description": {
+        "withoutneedleLuerLock": "Luer Lock ulanishiga ega, ignasiz katta hajmli shprits. Quyish, yuvish va tibbiy tizimlar bilan ishlashda qo‘llaniladi.",
+        "withneedleWithCap": "Ignasiz uchli katta hajmli shprits bo‘lib, suyuqliklarni kiritish va chiqarish uchun ishlatiladi. Yuvish va aspiratsiyada qo‘llaniladi.",
+        "withneedleWithoutCap100ml": "Juda katta hajmli ignasiz shprits bo‘lib, quyish va yuvish uchun mo‘ljallangan. Zondlar va kateterlar bilan ishlashda qo‘llaniladi."
+      }
+    },
+    "12": {
+      "name": "50 ml ignali shprits \"LDH\"",
+      "description": "Igna bilan jihozlangan katta hajmli shprits bo‘lib, suyuqliklarni kiritish va aspiratsiya qilish uchun ishlatiladi. Klinik va protsedura muolajalarida qo‘llaniladi."
+    },
+    "13": {
+      "name": "Steril igna 27G / 30G",
+      "description": "Kichik diametrli steril bir martalik igna. Preparatlarni teri ostiga va teri ichiga kiritish uchun mos."
+    },
+    "14": {
+      "name": "Infuzion tizim \"Westcom\"",
+      "description": "Tomir ichiga eritmalarni kiritish uchun mo‘ljallangan infuzion tizim. Klinik amaliyotda tomchilatib infuziyalarda qo‘llaniladi."
+    },
+    "15": {
+      "name": "Infuzion tizim \"WEGO\"",
+      "description": "Infuzion eritmalarni nazorat ostida tomir ichiga kiritish uchun tizim. Statsionar va ambulator sharoitlarda qo‘llaniladi."
+    },
+    "16": {
+      "name": "Infuzion tizim \"MC UNISET\"",
+      "description": "Standart tomchilatib infuziyalar uchun mo‘ljallangan infuzion tizim. Eritmalarning bir maromda uzatilishini taʼminlaydi."
+    },
+    "17": {
+      "name": "Transfuzion tizim",
+      "description": "Qon va qon o‘rnini bosuvchi suyuqliklarni quyish uchun mo‘ljallangan transfuzion tizim. Gemotransfuziya muolajalarida qo‘llaniladi."
+    },
+    "18": {
+      "name": "18G ignali transfuzion tizim",
+      "description": "18G ignaga ega transfuzion tizim bo‘lib, qon quyish uchun mo‘ljallangan. Transfuziya vaqtida barqaror oqimni taʼminlaydi."
+    },
+    "19": {
+      "name": "Infuzion tizim TBL-150",
+      "description": "Tomir ichiga eritmalarni kiritish uchun mo‘ljallangan infuzion tizim. Standart infuzion muolajalarda qo‘llaniladi."
+    },
+    "20": {
+      "name": "Nitril qo‘lqoplar \"UNIGLOVES\"",
+      "description": "Tibbiy manipulyatsiyalar vaqtida qo‘llarni himoya qilish uchun mo‘ljallangan bir martalik nitril qo‘lqoplar. Biologik suyuqliklar bilan kontakt xavfini kamaytiradi."
+    },
+    "21": {
+      "name": "Nitril qo‘lqoplar \"ADRAS GLOVES\"",
+      "description": "Tibbiy va diagnostik muolajalar uchun mo‘ljallangan bir martalik nitril qo‘lqoplar. Biologik muhitlar bilan kontakt paytida qo‘llarni himoya qiladi."
+    },
+    "22": {
+      "name": "Nitril qo‘lqoplar \"UNIGLOVES Premium\"",
+      "description": "Yuqori zichlikdagi nitril qo‘lqoplar bo‘lib, ishonchli qo‘l himoyasi talab etiladigan tibbiy muolajalarda qo‘llaniladi."
+    },
+    "23": {
+      "name": "Steril jarrohlik qo‘lqoplari \"Dentafil\"",
+      "description": "Invaziv muolajalar uchun mo‘ljallangan steril jarrohlik qo‘lqoplari. Operatsion va steril sharoitlarda qo‘llaniladi."
+    },
+    "24": {
+      "name": "Tomir ichki kateter",
+      "description": "Venoz tizimga qisqa muddatli kirish uchun mo‘ljallangan tomir ichki kateter. Infuziya va dori vositalarini kiritishda ishlatiladi."
+    },
+    "25": {
+      "name": "Tomir ichki kateter \"HEALFLON\"",
+      "description": "Tomir ichiga eritmalar va preparatlarni kiritish uchun mo‘ljallangan kateter. Infuzion va davolash amaliyotida qo‘llaniladi."
+    },
+    "26": {
+      "name": "Tomir ichki kateter \"KD-FIX\"",
+      "description": "Dori vositalari va infuzion eritmalarni nazorat ostida kiritish uchun mo‘ljallangan tomir ichki kateter. Uzoq muddatli muolajalarda ishlatiladi."
+    },
+    "27": {
+      "name": "«Kapalak» kateter \"KD-FLY\"",
+      "description": "Qisqa muddatli venoz kirish uchun mo‘ljallangan «kapalak» turidagi kateter. Qon olish va preparatlarni kiritishda qo‘llaniladi."
+    },
+    "28": {
+      "name": "«Kapalak» kateter \"Healthline\"",
+      "description": "Periferik venoz kirish uchun mo‘ljallangan kateter. Inʼeksiya va diagnostik muolajalarda ishlatiladi."
+    },
+    "29": {
+      "name": "Bolalar uchun kislorod kanülasi \"BEROTUBE\"",
+      "description": "Bolalar uchun mo‘ljallangan kislorod kanülasi. Pediatriyada kislorod terapiyasida qo‘llaniladi."
+    },
+    "30": {
+      "name": "Kopʼyo tipidagi skarifikator",
+      "description": "Kapillyar qon olishda terini teshib o‘tish uchun mo‘ljallangan bir martalik skarifikator. Laborator diagnostikada qo‘llaniladi."
+    },
+    "31": {
+      "name": "Ikki yo‘lli Foley kateteri",
+      "description": "Siydik pufagini drenajlash uchun mo‘ljallangan ikki yo‘lli Foley kateteri. Qisqa va uzoq muddatli kateterizatsiyada ishlatiladi."
+    },
+    "32": {
+      "name": "Ikki yo‘lli Foley kateteri \"KDM\"",
+      "description": "Siydikni nazorat ostida chiqarish uchun mo‘ljallangan ikki yo‘lli Foley kateteri. Urologik amaliyotda qo‘llaniladi."
+    },
+    "33": {
+      "name": "Ikki yo‘lli Foley kateteri",
+      "description": "Steril ikki yo‘lli Foley kateteri siydik kateterizatsiyasi uchun mo‘ljallangan. Statsionar sharoitlarda foydalanish uchun mos."
+    },
+    "34": {
+      "name": "Steril Nelaton kateteri",
+      "description": "Bir martalik kateterizatsiya uchun mo‘ljallangan to‘g‘ri steril Nelaton kateteri. Siydikni vaqtincha chiqarishda ishlatiladi."
+    },
+    "35": {
+      "name": "2000 ml siydik qabul qilgich",
+      "description": "Siydik yig‘ish uchun mo‘ljallangan katta hajmli siydik qabul qilgich. Urologik kateterlar bilan birga ishlatiladi."
+    },
+    "36": {
+      "name": "Urogenital zond",
+      "description": "Diagnostik va ginekologik muolajalar uchun mo‘ljallangan urogenital zond. Biomaterial olishda qo‘llaniladi."
+    },
+    "37": {
+      "name": "Endotraxeal naycha",
+      "description": {
+        "3mm": "Nafas yo‘llari o‘tkazuvchanligini taʼminlash uchun mo‘ljallangan kichik diametrli endotraxeal naycha. Anesteziologiya va reanimatsiyada qo‘llaniladi.",
+        "3p5mm": "Nafas yo‘llarini nazorat qilish uchun mo‘ljallangan endotraxeal naycha. Kichik yoshdagi bemorlarda intubatsiyada ishlatiladi.",
+        "4mm": "O‘pka ventilyatsiyasini taʼminlash uchun mo‘ljallangan endotraxeal naycha. Anesteziya va shoshilinch holatlarda qo‘llaniladi.",
+        "4p5mm": "Intubatsiya uchun mo‘ljallangan o‘rtacha kichik diametrli endotraxeal naycha. Nafas funksiyalarini qo‘llab-quvvatlaydi.",
+        "5mm": "Nafas yo‘llari o‘tkazuvchanligini taʼminlash uchun mo‘ljallangan endotraxeal naycha. Anesteziya va sunʼiy nafas oldirishda ishlatiladi.",
+        "5p5mm": "O‘rtacha yoshdagi bemorlarda nafas yo‘llarini nazorat qilish uchun endotraxeal naycha. Reanimatsiyada qo‘llaniladi.",
+        "6mm": "Nafas funksiyalarini taʼminlash uchun mo‘ljallangan endotraxeal naycha. Rejalashtirilgan va shoshilinch intubatsiyada ishlatiladi.",
+        "6p5mm": "O‘pka ventilyatsiyasi va nafas yo‘llarini himoyalash uchun endotraxeal naycha. Anesteziologiyada qo‘llaniladi.",
+        "7mm": "Kattalar uchun standart diametrli endotraxeal naycha. Intubatsiya va sunʼiy nafas oldirishda ishlatiladi.",
+        "7p5mm": "Kattalar uchun kattaroq diametrli endotraxeal naycha. Samarali o‘pka ventilyatsiyasini taʼminlaydi.",
+        "8mm": "Kattalar uchun katta diametrli endotraxeal naycha. Operatsiyalar va reanimatsiyada qo‘llaniladi.",
+        "8p5mm": "Nafas yo‘llari o‘tkazuvchanligini taʼminlash uchun kattaroq diametrli endotraxeal naycha. Murakkab intubatsiyada ishlatiladi."
+      }
+    },
+    "38": {
+      "name": "Endotraxeal naycha \"MEDIK PLAST\"",
+      "description": "Turli yoshdagi bemorlarni intubatsiya qilish uchun mo‘ljallangan endotraxeal naycha. Anesteziyada nafas yo‘llarini nazorat qilish uchun ishlatiladi."
+    },
+    "39": {
+      "name": "Steril oshqozon zondi",
+      "description": "Oshqozon tarkibini kiritish va chiqarish uchun mo‘ljallangan steril oshqozon zondi. Diagnostik va davolash muolajalarida qo‘llaniladi."
+    },
+    "40": {
+      "name": "Nazogastral oshqozon zondi",
+      "description": "Oziqlantirish va oshqozon tarkibini chiqarish uchun mo‘ljallangan nazogastral zond. Yutish buzilishi bo‘lgan bemorlarni davolash va parvarishda ishlatiladi."
+    },
+    "41": {
+      "name": "Steril kindik qisqichi",
+      "description": "Yangi tug‘ilgan chaqaloqlarda kindikni qisish uchun mo‘ljallangan steril kindik qisqichi. Tug‘ruqdan so‘ng akusherlik amaliyotida qo‘llaniladi."
+    },
+    "42": {
+      "name": "Bir martalik Eyra shpateli",
+      "description": "Ginekologik ko‘riklar uchun mo‘ljallangan bir martalik Eyra shpateli. Mazok olish va diagnostik muolajalarda ishlatiladi."
+    },
+    "43": {
+      "name": "Universal zond",
+      "description": "Diagnostik va ginekologik muolajalar uchun mo‘ljallangan universal zond. Biomaterial olishda qo‘llaniladi."
+    },
+    "44": {
+      "name": "Kusko tipidagi ginekologik ko‘zgu",
+      "description": "Bachadon bo‘ynini ko‘rikdan o‘tkazish uchun mo‘ljallangan Kуско turidagi ginekologik ko‘zgu. Diagnostik va profilaktik tekshiruvlarda ishlatiladi."
+    },
+    "45": {
+      "name": "Fiksatorli Kusko ginekologik ko‘zgu",
+      "description": "Vaginal bo‘shliqni barqaror ochib turish uchun fiksatorga ega ginekologik ko‘zgu. Ko‘rik va muolajalarni osonlashtiradi."
+    },
+    "46": {
+      "name": "Ginekologik to‘plam",
+      "description": "Ko‘rik va diagnostik muolajalar uchun mo‘ljallangan bir martalik ginekologik to‘plam. Ambulator amaliyotda qo‘llaniladi."
+    },
+    "47": {
+      "name": "Bir martalik skalpel pichog‘i",
+      "description": "To‘qimalarni aniq kesish uchun mo‘ljallangan bir martalik jarrohlik skalpel pichog‘i. Operativ aralashuvlarda qo‘llaniladi."
+    },
+    "48": {
+      "name": "Bir martalik skalpel",
+      "description": "Kesish ishlarini bajarish uchun mo‘ljallangan bir martalik jarrohlik skalpeli. Jarrohlik amaliyotida qo‘llaniladi."
+    },
+    "49": {
+      "name": "ONE AID №100 leykoplastiri",
+      "description": "Bog‘lovchi materiallarni mahkamlash va terini himoyalash uchun mo‘ljallangan tibbiy leykoplastir. Bog‘lash va mayda shikastlarda qo‘llaniladi."
+    },
+    "50": {
+      "name": "ONE AID №500 leykoplastiri",
+      "description": "Bog‘lovchi materiallarni mahkamlash uchun mo‘ljallangan tibbiy leykoplastir. Terini himoyalash va doka materiallarini ushlab turishda ishlatiladi."
+    },
+    "51": {
+      "name": "Bolalar uchun ONE AID leykoplastiri",
+      "description": "Bolalar terisidagi mayda shikastlarni himoyalash uchun mo‘ljallangan bolalar leykoplastiri. Tirnalishlar va kichik yaralarni davolashda qo‘llaniladi."
+    },
+    "52": {
+      "name": "Mozol plastiri",
+      "description": "Terini ishqalanish va bosimdan himoyalash uchun mo‘ljallangan mozol plastiri. Mozollarni oldini olish va parvarish qilishda ishlatiladi."
+    },
+    "53": {
+      "name": "Polietilen asosidagi plastir",
+      "description": {
+        "1p25cm": "Bog‘lovchi materiallarni mahkamlash uchun mo‘ljallangan polietilen asosidagi tibbiy plastir. Kundalik bog‘lashlarda foydalaniladi.",
+        "2p5cm": "Bog‘lovchi materiallar va tibbiy buyumlarni ishonchli mahkamlash uchun plastir. Turli murakkablikdagi bog‘lashlarda qo‘llaniladi."
+      }
+    },
+    "54": {
+      "name": "To‘qilmagan asosdagi plastir",
+      "description": {
+        "10b15": "Yara yuzalarini mahkamlash va himoyalash uchun mo‘ljallangan to‘qilmagan tibbiy plastir. Muolajalardan keyingi bog‘lashlarda ishlatiladi.",
+        "10b20": "Kengroq teri yuzalarini yopish va himoyalash uchun tibbiy plastir. O‘rtacha yaralarni bog‘lashda qo‘llaniladi.",
+        "10b30": "Kattalashtirilgan o‘lchamdagi plastir bo‘lib, teri shikastlarini himoyalash va mahkamlash uchun mo‘ljallangan. Operatsiyadan keyingi parvarishda qo‘llaniladi."
+      }
+    },
+    "55": {
+      "name": "MEDIK PLAST plastiri",
+      "description": "Bog‘lovchi materiallar va kateterlarni mahkamlash uchun mo‘ljallangan tibbiy plastir. Klinik va ambulator amaliyotda ishlatiladi."
+    },
+    "56": {
+      "name": "Steril doka binti",
+      "description": {
+        "5m": "Yaralarni davolash va himoyalash uchun mo‘ljallangan steril doka binti. Tozalik talabi yuqori bo‘lgan bog‘lashlarda qo‘llaniladi.",
+        "7m": "Yara ajralmalarini himoyalash va shimib olish uchun steril doka binti. Steril bog‘lashlarda ishlatiladi."
+      }
+    },
+    "57": {
+      "name": "Steril bo‘lmagan doka binti \"SARBONTEKS\"",
+      "description": {
+        "5m": "Bog‘lovchi materiallarni mahkamlash va teri shikastlarini himoyalash uchun doka binti. Kundalik bog‘lashlarda qo‘llaniladi.",
+        "7m": "Kattaroq tana qismlarida bog‘lash va qo‘llab-quvvatlash uchun mo‘ljallangan doka binti. Keng maydonlarda ishlatiladi."
+      }
+    },
+    "58": {
+      "name": "Steril bo‘lmagan to‘qilgan bint 7 m x 14 sm",
+      "description": "Bog‘lovchi materiallarni mahkamlash va yumshoq to‘qimalarni qo‘llab-quvvatlash uchun mo‘ljallangan to‘qilgan bint. Jarohatlar va muolajalardan keyin qo‘llaniladi."
+    },
+    "59": {
+      "name": "Steril to‘qilgan bint 7 m x 14 sm \"SARBONTEKS\"",
+      "description": "Aseptika talablari yuqori bo‘lgan bog‘lashlar uchun steril to‘qilgan bint. Operatsion yaralarni parvarishlashda ishlatiladi."
+    },
+    "60": {
+      "name": "Steril bo‘lmagan doka binti",
+      "description": "Bog‘lovchi materiallarni mahkamlash va yaralarni himoyalash uchun doka binti. Uy va tibbiy sharoitlarda foydalanish uchun mos."
+    },
+    "61": {
+      "name": "Steril bo‘lmagan to‘qilgan bint",
+      "description": {
+        "5m": "Yumshoq to‘qimalarni qo‘llab-quvvatlash va mahkamlash uchun to‘qilgan bint. Jarohatlar va reabilitatsiyada qo‘llaniladi.",
+        "7m": "Uzunligi kattaroq bo‘lgan to‘qilgan bint. Bog‘lash va jarohatlarda ishlatiladi."
+      }
+    },
+    "62": {
+      "name": "Steril to‘qilgan bint 7 m",
+      "description": "Aseptik bog‘lashlar uchun mo‘ljallangan steril to‘qilgan bint. Operatsiyadan keyingi yaralarni davolashda qo‘llaniladi."
+    },
+    "63": {
+      "name": "Gipsli bint 2,7 m × 15 sm",
+      "description": "Suyak sinishlari va jarohatlarda qo‘l-oyoqlarni immobilizatsiya qilish uchun mo‘ljallangan gipsli bint. Gips bog‘lamlarini shakllantirishda ishlatiladi."
+    },
+    "64": {
+      "name": "Steril bo‘lmagan paxta",
+      "description": {
+        "25g": "Gigiyenik va yordamchi muolajalar uchun mo‘ljallangan steril bo‘lmagan tibbiy paxta. Teri ishlovida qo‘llaniladi.",
+        "50g": "Gigiyenik ishlov va yordamchi muolajalar uchun tibbiy paxta. Kundalik foydalanish uchun mos.",
+        "100g": "Kattaroq hajmdagi paxta tibbiy va gigiyenik muolajalar uchun. Bemorlarni parvarishlashda ishlatiladi.",
+        "250g": "Tibbiyot muassasalari uchun mo‘ljallangan katta hajmdagi paxta. Keng ko‘lamli gigiyenik muolajalarda qo‘llaniladi."
+      }
+    },
+    "65": {
+      "name": "Steril bo‘lmagan paxta \"SARBONTEKS\"",
+      "description": {
+        "25g": "Teri parvarishi va tibbiy muolajalar uchun steril bo‘lmagan paxta. Ambulator amaliyotda qo‘llaniladi.",
+        "50g": "Teri ishlovi va parvarish uchun mo‘ljallangan tibbiy paxta. Bog‘lash va sanitariya muolajalarida ishlatiladi.",
+        "100g": "Teri ishlovi va yordamchi muolajalar uchun tibbiy paxta. Doimiy foydalanish uchun mos.",
+        "250g": "Intensiv foydalanish uchun steril bo‘lmagan tibbiy paxta. Klinik amaliyotda qo‘llaniladi."
+      }
+    },
+    "66": {
+      "name": "Steril paxta",
+      "description": {
+        "25g": "Yaralar va inʼeksiya joylarini ishlov berish uchun mo‘ljallangan steril tibbiy paxta. Aseptik muolajalarda qo‘llaniladi.",
+        "50g": "Yaralar va teri yuzalarini ishlov berish uchun steril tibbiy paxta. Bog‘lash va aseptik muolajalarda ishlatiladi."
+      }
+    },
+    "67": {
+      "name": "Paxta \"Cotton Club\"",
+      "description": {
+        "25gRoll": "Gigiyenik va parvarish muolajalari uchun rulondagi tibbiy paxta. Teri ishlovi va tibbiy manipulyatsiyalar uchun mos.",
+        "25g": "Terini gigiyenik ishlov berish uchun tibbiy paxta. Kundalik tibbiy amaliyotda ishlatiladi.",
+        "50gRoll": "Bemorlarni parvarishlash va tibbiy muolajalar uchun kattaroq hajmdagi paxta. Doimiy foydalanish uchun mos.",
+        "50gBalls": "Teri va inʼeksiya joylarini ishlov berish uchun paxta sharchalari. Kosmetologiya va tibbiyotda qo‘llaniladi.",
+        "100gRoll": "Tibbiy muassasalarda foydalanish uchun katta hajmdagi rulon paxta. Parvarish va gigiyena muolajalarida ishlatiladi.",
+        "250gRoll": "Intensiv tibbiy foydalanish uchun mo‘ljallangan katta hajmdagi paxta. Ommaviy parvarish muolajalarida qo‘llaniladi."
+      }
+    },
+    "68": {
+      "name": "Bo‘laklardagi doka",
+      "description": {
+        "1b90": "Bog‘lash va yaralarni ishlov berish uchun mo‘ljallangan doka. Yara ajralmalarini shimib olish va himoyalashda ishlatiladi.",
+        "2b90": "Kengroq tana qismlarida bog‘lash uchun kattaroq doka. Davolash amaliyotida qo‘llaniladi.",
+        "3b84": "Katta yuzalarda yaralarni mahkamlash va himoyalash uchun doka. Bog‘lash va parvarishda ishlatiladi.",
+        "3b90": "Keng teri yuzalarida yaralarni bog‘lash va himoyalash uchun doka. Yara ajralmalarini shimib oladi.",
+        "5b84": "Yaralarni ishlov berish va himoyalash uchun uzunroq doka. Tibbiyot muassasalarida qo‘llaniladi.",
+        "5b90": "Bog‘lovchi materiallarni mahkamlash va yara yuzalarini himoyalash uchun doka. Operatsiyadan keyingi parvarishda ishlatiladi.",
+        "10b90": "Keng yara yuzalarini ishlov berish va himoyalash uchun doka. Bemorlarni parvarishlashda qo‘llaniladi."
+      }
+    },
+    "69": {
+      "name": "Bo‘laklardagi doka \"SARBONTEKS\"",
+      "description": {
+        "1b90": "Bog‘lash va terini sanitariya ishlovidan o‘tkazish uchun doka. Kundalik tibbiy muolajalarda ishlatiladi.",
+        "2b90": "Yaralarni himoyalash va ishlov berish uchun uzunroq doka. Davolash va profilaktikada qo‘llaniladi.",
+        "3b90": "Katta tana qismlarida bog‘lash uchun doka. Yara yuzalarini shimib olish va himoyalashda ishlatiladi.",
+        "5b90": "Keng formatdagi tibbiy bog‘lashlar uchun doka. Katta yaralarni parvarishlashda qo‘llaniladi.",
+        "10b90": "Tibbiyot muassasalarida foydalanish uchun katta formatdagi doka. Bemorlarni parvarishlashda ishlatiladi."
+      }
+    },
+    "70": {
+      "name": "GOST bo‘yicha bo‘laklardagi doka \"SARBONTEKS\"",
+      "description": {
+        "5b90": "Yuqori sifat talablariga javob beruvchi bog‘lash doka. Yaralarni tibbiy parvarishda qo‘llaniladi.",
+        "10b90": "Tibbiyot muassasalarida intensiv foydalanish uchun uzun doka. Katta yuzalarda bog‘lash uchun mos."
+      }
+    },
+    "71": {
+      "name": "Steril doka salfetkalari",
+      "description": {
+        "16b14": "Yaralarni ishlov berish va bog‘lash uchun steril doka salfetkalari. Aseptik muolajalarda qo‘llaniladi.",
+        "45b29": "Kattaroq o‘lchamdagi steril doka salfetkalari. Jarrohlik va bog‘lash muolajalarida ishlatiladi."
+      }
+    },
+    "72": {
+      "name": "Steril doka salfetkalari \"SARBONTEKS\"",
+      "description": {
+        "16b14": "Yara yuzalarini tozalash va himoyalash uchun steril doka salfetkalari. Bog‘lashlarda qo‘llaniladi.",
+        "45b29": "Jarrohlik va bog‘lash muolajalari uchun steril doka salfetkalari. Yara ajralmalarini samarali shimib oladi."
+      }
+    },
+    "73": {
+      "name": "Bir martalik polietilen baxilalar",
+      "description": "Xonalarni tashqi iflosliklardan himoyalash uchun bir martalik baxilalar. Tibbiyot muassasalarida ishlatiladi."
+    },
+    "74": {
+      "name": "Bir martalik baxilalar №500",
+      "description": "Ommaviy foydalanish uchun mo‘ljallangan bir martalik baxilalar. Sanitariya rejimini taʼminlashda qo‘llaniladi."
+    },
+    "75": {
+      "name": "Bir martalik qalpoqlar \"Clinic Clean\"",
+      "description": "Sochlarni himoyalash va gigiyenani taʼminlash uchun mo‘ljallangan bir martalik tibbiy qalpoqlar. Davolash va muolaja zonalarida ishlatiladi."
+    },
+    "76": {
+      "name": "Bir martalik qalpoqlar",
+      "description": "Xodimlar va bemorlarni sanitariya jihatdan himoyalash uchun bir martalik qalpoqlar. Tibbiyot muassasalarida qo‘llaniladi."
+    },
+    "77": {
+      "name": "Bir martalik ko‘k rangli qalpoqlar",
+      "description": "Tibbiy muhitda gigiyenani saqlash uchun mo‘ljallangan bir martalik qalpoqlar. Diagnostik va davolash muolajalarida ishlatiladi."
+    },
+    "78": {
+      "name": "Bir martalik polietilen qalpoqlar",
+      "description": "Sochlarni himoyalash va sanitariya qoidalariga rioya qilish uchun polietilen bir martalik qalpoqlar. Tibbiy xonalarda ishlatiladi."
+    },
+    "79": {
+      "name": "Bir martalik qora va oq qalpoqlar",
+      "description": "Gigiyenani saqlash uchun mo‘ljallangan bir martalik tibbiy qalpoqlar. Davolash muassasalari va muolaja zonalarida qo‘llaniladi."
+    },
+    "80": {
+      "name": "Burunni yuvish uchun oliva",
+      "description": "Burun yo‘llarini yuvish uchun mo‘ljallangan oliva. Otorinolaringologiyada gigiyenik va davolovchi muolajalarda ishlatiladi."
+    },
+    "81": {
+      "name": "Bir martalik quloq voronkalari",
+      "description": "Tashqi eshitish yo‘lini ko‘rikdan o‘tkazish uchun bir martalik quloq voronkalari. LOR diagnostikasida qo‘llaniladi."
+    },
+    "82": {
+      "name": "Bodomchalarni yuvish uchun kanüla",
+      "description": "Bodomcha lakunalarini yuvish uchun mo‘ljallangan kanüla. LOR davolovchi muolajalarida ishlatiladi."
+    },
+    "83": {
+      "name": "Burun va burun-halqum uchun tampon-zond",
+      "description": "Burun va burun-halqumdan namunalar olish uchun tampon-zond. Diagnostik tekshiruvlarda qo‘llaniladi."
+    },
+    "84": {
+      "name": "Bir martalik LOR shpateli",
+      "description": "Og‘iz bo‘shlig‘i va halqumni ko‘rikdan o‘tkazish uchun bir martalik shpatel. LOR diagnostikasida ishlatiladi."
+    },
+    "85": {
+      "name": "Stomatologik so‘lak so‘rg‘ich",
+      "description": "Og‘iz bo‘shlig‘idan so‘lak va suyuqliklarni chiqarish uchun stomatologik so‘rg‘ich. Stomatologik muolajalarda ishlatiladi."
+    },
+    "86": {
+      "name": "Bir martalik stomatologik to‘plam",
+      "description": "Ko‘rik va muolajalar uchun bir martalik stomatologik to‘plam. Bemorlarni qabul qilishda gigiyenani taʼminlash uchun ishlatiladi."
+    },
+    "87": {
+      "name": "Stomatologik paxta valiklari",
+      "description": "Namlikni shimib olish va izolyatsiya qilish uchun stomatologik paxta valiklari. Davolash va profilaktik muolajalarda qo‘llaniladi."
+    },
+    "88": {
+      "name": "Steril jarrohlik komplekti",
+      "description": {
+        "35g": "Operatsiyalar va invaziv muolajalar uchun mo‘ljallangan steril jarrohlik komplekti. Operatsion xonada aseptikani taʼminlaydi.",
+        "45g": "Zichligi oshirilgan jarrohlik komplekti. Steril jarrohlik muolajalarida qo‘llaniladi."
+      }
+    },
+    "89": {
+      "name": "Steril jarrohlik komplekti 35 g \"UKM\"",
+      "description": "Standart operatsion muolajalar uchun mo‘ljallangan steril jarrohlik komplekti. Bemor va tibbiyot xodimlarini himoyalaydi."
+    },
+    "90": {
+      "name": "Steril jarrohlik xalat 35 g \"UKM\"",
+      "description": "Operatsiyalar uchun mo‘ljallangan steril jarrohlik xalati. Sanitariya-gigiyena talablariga rioya qilish uchun ishlatiladi."
+    },
+    "91": {
+      "name": "Jarrohlik xalati 37 g/m²",
+      "description": "Tibbiy muolajalarda xodimlarni himoyalash uchun jarrohlik xalati. Operatsion va muolaja zonalarida qo‘llaniladi."
+    },
+    "92": {
+      "name": "Steril jarrohlik xalati",
+      "description": {
+        "25gmsq": "Qisqa muddatli operatsiyalar va muolajalar uchun steril jarrohlik xalati. Aseptika talablariga rioya qilinadi.",
+        "35gmsq": "Operatsion aralashuvlar uchun steril jarrohlik xalati. Xodimlar uchun ishonchli himoya taʼminlaydi.",
+        "45gmsq": "Uzoq davom etadigan operatsiyalar uchun yuqori zichlikdagi jarrohlik xalati. Yuqori himoya talablari sharoitida ishlatiladi."
+      }
+    },
+    "93": {
+      "name": "Steril jarrohlik choyshabi UKM",
+      "description": {
+        "80b20025g": "Operatsion maydonni izolyatsiya qilish uchun mo‘ljallangan steril jarrohlik choyshabi. Jarrohlik amaliyotida ishlatiladi.",
+        "160b20035g": "Kengaytirilgan operatsion maydonni yopish uchun kattaroq jarrohlik choyshabi. Murakkab operatsiyalarda qo‘llaniladi.",
+        "80b20035g": "Operatsion maydonni izolyatsiya qilish uchun steril jarrohlik choyshabi. Invaziv muolajalarda qo‘llaniladi."
+      }
+    },
+    "94": {
+      "name": "Steril jarrohlik choyshabi Nest Med Tech",
+      "description": {
+        "200b16025g": "Bemor va operatsion maydonni himoyalash uchun steril jarrohlik choyshabi. Standart operatsiyalarda ishlatiladi.",
+        "200b16035g": "O‘rtacha zichlikdagi jarrohlik choyshabi. Uzoq davom etadigan operatsiyalarda qo‘llaniladi.",
+        "200b16045g": "Yuqori himoya talab etiladigan operatsiyalar uchun zich jarrohlik choyshabi. Intensiv jarrohlik sharoitida ishlatiladi."
+      }
+    },
+    "95": {
+      "name": "Bir martalik jarrohlik choyshabi (umurtqa pog‘onasi operatsiyalari uchun)",
+      "description": "Umurtqa pog‘onasida bajariladigan maxsus operatsiyalar uchun mo‘ljallangan bir martalik jarrohlik choyshabi. Operatsion maydonni izolyatsiya qilishda ishlatiladi."
+    },
+    "96": {
+      "name": "Xloraktiv-MAKS",
+      "description": "Ishchi eritmalar tayyorlash uchun tabletkali dezinfeksiyalovchi vosita. Yuzalar va tibbiy buyumlarni ishlov berishda qo‘llaniladi."
+    },
+    "97": {
+      "name": "Septodez 1 l",
+      "description": "Yuzalar va jihozlarni dezinfeksiya qilish uchun suyuq vosita. Tibbiyot muassasalarida qo‘llaniladi."
+    },
+    "98": {
+      "name": "ABK Ekstra 1 l",
+      "description": "Tibbiy xonalarni sanitariya ishlovidan o‘tkazish uchun dezinfeksiyalovchi vosita. Infeksiya nazorati doirasida ishlatiladi."
+    },
+    "99": {
+      "name": "Antiseptin 0,5 l",
+      "description": "Teri va yuzalarni ishlov berish uchun antiseptik vosita. Gigiyenik va profilaktik muolajalarda qo‘llaniladi."
+    },
+    "100": {
+      "name": "Antiseptin OP 0,5 l",
+      "description": "Yuzalar va jihozlarni ishlov berish uchun antiseptik vosita. Tibbiyot muassasalarida sanitariya ishlovida qo‘llaniladi."
+    },
+    "101": {
+      "name": "DS-1 konsentrat 0,5 l",
+      "description": "Ishchi eritmalar tayyorlash uchun mo‘ljallangan konsentrlangan dezinfeksiyalovchi vosita. Tibbiy yuzalarni ishlov berishda qo‘llaniladi."
+    },
+    "102": {
+      "name": "Ekstradin konsentrat 1 l",
+      "description": "Sanitariya ishlovi uchun mo‘ljallangan konsentrlangan dezinfeksiyalovchi vosita. Tibbiy va laboratoriya amaliyotida ishlatiladi."
+    },
+    "103": {
+      "name": "Ekstra Dez Plyus konsentrat 1 l",
+      "description": "Xonalarni intensiv sanitariya ishlovidan o‘tkazish uchun dezinfeksiyalovchi vosita. Infeksiya nazoratining kuchaytirilgan choralarida qo‘llaniladi."
+    },
+    "104": {
+      "name": "Fenolftalein 100 ml",
+      "description": "Yuvish va tozalash sifatini nazorat qilish uchun indikator eritma. Laboratoriya va sanitariya amaliyotida ishlatiladi."
+    },
+    "105": {
+      "name": "Azopiram-S GTM 100 ml",
+      "description": "Sterilizatsiyadan oldingi tozalash sifatini nazorat qilish uchun vosita. Tibbiyot muassasalarida qo‘llaniladi."
+    },
+    "106": {
+      "name": "Ultratovushli tozalagich",
+      "description": {
+        "2l": "Tibbiy asboblarni tozalash uchun ultratovushli tozalagich. Yetib borish qiyin bo‘lgan joylardagi iflosliklarni ketkazishda ishlatiladi.",
+        "3l": "Kengaytirilgan hajmli ultratovushli tozalagich tibbiy asboblar uchun. Klinik amaliyotda qo‘llaniladi.",
+        "4p5l": "Asboblarni intensiv tozalash uchun ultratovushli tozalagich. Sterilizatsiya bo‘limlarida ishlatiladi.",
+        "6l": "Katta hajmli ultratovushli tozalagich tibbiy asboblarni ishlov berish uchun. Doimiy ekspluatatsiya uchun mos."
+      }
+    },
+    "107": {
+      "name": "Utilizatsiya uchun konteyner",
+      "description": {
+        "1l": "Tibbiy chiqindilarni yig‘ish va utilizatsiya qilish uchun plastik konteyner. O‘tkir va biologik xavfli materiallarni xavfsiz saqlashda ishlatiladi.",
+        "2l": "Kengaytirilgan hajmli konteyner tibbiy chiqindilarni utilizatsiya qilish uchun. Muolaja va laboratoriya xonalarida qo‘llaniladi.",
+        "3l": "Ishlatilgan tibbiy buyumlarni xavfsiz yig‘ish uchun konteyner. Sanitariya meʼyorlariga rioya qilgan holda ishlatiladi.",
+        "4l": "O‘rtacha hajmdagi tibbiy chiqindilarni yig‘ish uchun plastik konteyner. Klinikalar va diagnostika markazlarida qo‘llaniladi.",
+        "5l": "Katta hajmli tibbiy chiqindilarni utilizatsiya qilish uchun konteyner. Tibbiyot muassasalarining intensiv ishida ishlatiladi."
+      }
+    },
+    "108": {
+      "name": "Sterilizatsiya indikatorlari jurnali",
+      "description": "Sterilizatsiya nazorati natijalarini qayd etish uchun jurnal. Sterilizatsiya bo‘limlarida hisob yuritish uchun ishlatiladi."
+    },
+    "109": {
+      "name": "Bug‘li sterilizatsiya uchun ichki indikator 132/20",
+      "description": "Bug‘li sterilizatsiya parametrlarini nazorat qilish uchun ichki indikator. Asboblar bilan qadoqlar ichida ishlatiladi."
+    },
+    "110": {
+      "name": "Bug‘li sterilizatsiya uchun tashqi indikator 132/20",
+      "description": "Bug‘li sterilizatsiya jarayonini vizual nazorat qilish uchun tashqi indikator. Asbob qadoqlarida ishlatiladi."
+    },
+    "111": {
+      "name": "Bug‘li sterilizatsiya indikatori 134/5",
+      "description": "Bug‘li sterilizatsiya rejimlarini nazorat qilish uchun universal indikator. Sterilizatsiya jarayonlarida qo‘llaniladi."
+    },
+    "112": {
+      "name": "Sterilizatsiya indikatori \"Farma-test\" 134/5",
+      "description": "Bug‘li sterilizatsiya samaradorligini nazorat qilish uchun indikator. Tibbiyot muassasalari va laboratoriyalarda ishlatiladi."
+    },
+    "113": {
+      "name": "Sterilizatsiya indikatori \"Sterilan\" 132/20 tashqi",
+      "description": "Bug‘li sterilizatsiyani vizual nazorat qilish uchun tashqi indikator. Sterilizatsiya sikli o‘tilganini tasdiqlashda ishlatiladi."
+    },
+    "114": {
+      "name": "Sterilizatsiya indikatori \"Sterilan\" UP-132/20 ichki",
+      "description": "Qadoq ichida bug‘li sterilizatsiya sharoitlarini nazorat qilish uchun ichki indikator. Tibbiy buyumlarni sterilizatsiyada qo‘llaniladi."
+    },
+    "115": {
+      "name": "Sterilizatsiya indikatori \"Sterilan\" 180/60 tashqi",
+      "description": "Yuqori haroratli sterilizatsiya rejimlarini nazorat qilish uchun tashqi indikator. Asboblarni termik ishlov berishda qo‘llaniladi."
+    },
+    "116": {
+      "name": "Sterilizatsiya indikatori \"Sterilan\" UP-180/60 ichki",
+      "description": "Yuqori haroratda sterilizatsiya parametrlarini nazorat qilish uchun ichki indikator. Sterilizatsiya qadoqlari ichida qo‘llaniladi."
+    },
+    "117": {
+      "name": "Sterilizatsiya indikatori MedIS-V-180/60",
+      "description": "Tibbiy buyumlarning yuqori haroratli sterilizatsiyasini nazorat qilish uchun indikator. Sterilizatsiya bo‘limlarida ishlatiladi."
+    },
+    "118": {
+      "name": "Sterilizatsiya indikatori Steritest-VL",
+      "description": "Sterilizatsiya parametrlarini nazorat qilish va hujjatlashtirish uchun jurnal bilan indikator. Sterilizatsiya jarayonlarini qayd etishda qo‘llaniladi."
+    },
+    "119": {
+      "name": "Sterilizatsiya indikatori MedIS-132/20",
+      "description": "Tibbiy buyumlarning bug‘li sterilizatsiyasini nazorat qilish uchun indikator. Standart sterilizatsiya sikllarida ishlatiladi."
+    },
+    "120": {
+      "name": "Sterilizatsiya indikatori MedIS-132/20 (2000)",
+      "description": "Bug‘li sterilizatsiyani ommaviy nazorat qilish uchun indikator. Sterilizatsiya hajmi yuqori bo‘lgan muassasalarda qo‘llaniladi."
+    },
+    "121": {
+      "name": "Sterilizatsiya indikatori Steritest-P-132/20",
+      "description": "Natijalarni qayd etish bilan bug‘li sterilizatsiyani nazorat qilish uchun indikator. Klinikalar va sterilizatsiya bloklarida ishlatiladi."
+    },
+    "122": {
+      "name": "Sterilizatsiya indikatori Intest-P-134/5",
+      "description": "Bug‘li sterilizatsiya rejimlarini nazorat qilish uchun indikator. Tibbiy asboblarni sterilizatsiyada qo‘llaniladi."
+    },
+    "123": {
+      "name": "Qadoqlash mashinasi PK100-C",
+      "description": "Sterilizatsiya paketlarini yopish va bosib chiqarish uchun qadoqlash mashinasi. Asboblarni sterilizatsiyaga tayyorlashda ishlatiladi."
+    },
+    "124": {
+      "name": "Qadoqlash mashinasi PK100-A",
+      "description": "Sterilizatsiya qadoqlarini germetik yopish uchun qadoqlash mashinasi. Sterilizatsiya bo‘limlarida qo‘llaniladi."
+    },
+    "125": {
+      "name": "Qadoqlash mashinasi PK02-45",
+      "description": "Tibbiy paketlar uchun ixcham qadoqlash mashinasi. Asboblarni sterilizatsiyaga tayyorlashda ishlatiladi."
+    },
+    "126": {
+      "name": "Qadoqlash mashinasi PKD310AB",
+      "description": "Sterilizatsiya materiallarini yopish uchun qadoqlash mashinasi. Tibbiy va stomatologik klinikalarda qo‘llaniladi."
+    },
+    "127": {
+      "name": "Qadoqlash mashinasi PKD300AB",
+      "description": "Tibbiy sterilizatsiya paketlarini germetik yopish mashinasi. Asboblar sterilligini taʼminlashda ishlatiladi."
+    },
+    "128": {
+      "name": "Qadoqlash mashinasi SEAL BEST",
+      "description": "Sterilizatsiya paketlari va rulonlari uchun qadoqlash mashinasi. Tibbiy buyumlarni sterilizatsiyaga tayyorlashda qo‘llaniladi."
+    },
+    "129": {
+      "name": "Uch qavatli kraft-paketlar uchun taglik PK213",
+      "description": "Sterilizatsiya kraft-paketlarini qulay joylashtirish uchun taglik. Ish joyini tashkil etishda ishlatiladi."
+    },
+    "130": {
+      "name": "Ikki qavatli kraft-paketlar uchun taglik PK212",
+      "description": "Sterilizatsiya paketlarini saqlash uchun ikki darajali taglik. Sterilizatsiya va muolaja zonalarida qo‘llaniladi."
+    },
+    "131": {
+      "name": "Bir qavatli kraft-paketlar uchun taglik PK211",
+      "description": "Sterilizatsiya kraft-paketlarini joylashtirish uchun bir darajali taglik. Tartibli saqlash uchun ishlatiladi."
+    },
+    "132": {
+      "name": "To‘siq plyonkasi",
+      "description": "Yuzalarni ifloslanishdan himoyalash uchun mo‘ljallangan to‘siq plyonkasi. Tibbiy va diagnostik muolajalarda qo‘llaniladi."
+    },
+    "133": {
+      "name": "Sterilizatsiya uchun kraft-paket",
+      "description": {
+        "50b200": "Sterilizatsiyadan oldin tibbiy asboblarni qadoqlash uchun rulondagi kraft-paket. Ishlovdan keyin sterillikni saqlaydi.",
+        "55b200": "Kichik tibbiy asboblar uchun sterilizatsiya kraft-paketi. Bug‘li sterilizatsiyada qo‘llaniladi.",
+        "75b200": "O‘rtacha o‘lchamdagi asboblarni qadoqlash uchun kraft-paket. Sterilizatsiya va saqlashda ishlatiladi.",
+        "100b200": "Turli maqsadli tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Tibbiy amaliyotda qo‘llaniladi.",
+        "150b200": "Katta asboblarni qadoqlash uchun keng kraft-paket. Jarrohlik buyumlarini sterilizatsiyada ishlatiladi.",
+        "200b200": "Hajmli tibbiy asboblar uchun kraft-paket. Sterilizatsiya va qayta ifloslanishdan himoyalashda qo‘llaniladi.",
+        "250b200": "Yirik tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Sterilizatsiya bo‘limlarida ishlatiladi.",
+        "300b200": "Asboblar to‘plamlarini qadoqlash uchun keng kraft-paket. Komplektlarni sterilizatsiyada qo‘llaniladi.",
+        "350b200": "Hajmli asboblar to‘plamlari uchun sterilizatsiya kraft-paketi. Sterillikni taʼminlashda ishlatiladi.",
+        "400b200": "Yirik tibbiy buyumlarni sterilizatsiya qilish uchun maksimal kenglikdagi kraft-paket. Jarrohlik amaliyotida qo‘llaniladi.",
+        "450b200": "Katta tibbiy buyumlar uchun kengaytirilgan kraft-paket. Ishlovdan keyin sterillikni saqlaydi.",
+        "500b200": "Hajmli asboblar to‘plamlari uchun sterilizatsiya kraft-paketi. Sterilizatsiya bo‘limlarida ishlatiladi."
+      }
+    },
+    "134": {
+      "name": "O‘z-o‘zidan yopiladigan kraft-paket",
+      "description": {
+        "57b130": "Kichik tibbiy buyumlarni sterilizatsiya qilish uchun o‘z-o‘zidan yopiladigan kraft-paket. Ishlovdan keyin asbobni himoyalaydi.",
+        "90b165": "Sterilizatsiya uchun o‘z-o‘zidan yopiladigan klapanli kraft-paket. Tibbiy amaliyotda qo‘llaniladi.",
+        "70b260": "Tibbiy buyumlar uchun o‘z-o‘zidan yopiladigan sterilizatsiya paketi. Asboblarni individual qadoqlashda ishlatiladi.",
+        "90b260": "O‘rtacha o‘lchamdagi asboblarni sterilizatsiya qilish uchun kraft-paket. Sterillikni saqlash uchun ishlatiladi.",
+        "135b280": "Tibbiy asboblar to‘plamlari uchun o‘z-o‘zidan yopiladigan sterilizatsiya paketi. Klinikalar va kabinetlarda qo‘llaniladi.",
+        "190b360": "Hajmli asboblarni sterilizatsiya qilish uchun katta formatdagi kraft-paket. Jarrohlik muolajalarida ishlatiladi.",
+        "200b300": "O‘rtacha va katta tibbiy buyumlar uchun sterilizatsiya paketi. Individual sterilizatsiyada qo‘llaniladi.",
+        "308b430": "Yirik tibbiy asboblarni sterilizatsiya qilish uchun kattalashtirilgan kraft-paket. Sterilizatsiya bo‘limlarida ishlatiladi.",
+        "400b500": "Yirik tibbiy buyumlar uchun o‘z-o‘zidan yopiladigan sterilizatsiya paketi. Ishlovdan keyin sterillikni himoyalaydi.",
+        "500b600": "Hajmli asboblar va to‘plamlarni sterilizatsiya qilish uchun katta formatdagi kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi."
+      }
+    },
+    "135": {
+      "name": "Plazmali sterilizatsiya uchun indikator",
+      "description": "Tibbiy buyumlarni plazmali sterilizatsiya jarayonini nazorat qilish uchun indikator. Sterilizatsiya samaradorligini tasdiqlashda ishlatiladi."
+    },
+    "136": {
+      "name": "Plazmali sterilizatsiya uchun indikator (500 dona)",
+      "description": "Plazmali sterilizatsiyani ommaviy nazorat qilish uchun indikator. Sterilizatsiya sikllari hajmi yuqori bo‘lganda qo‘llaniladi."
+    },
+    "137": {
+      "name": "Plazmali sterilizatsiya uchun indikatorli lenta",
+      "description": "Plazmali sterilizatsiyadan o‘tishni nazorat qilish uchun indikatorli lenta. Belgilash va vizual tekshiruvda ishlatiladi."
+    },
+    "138": {
+      "name": "Sterilizatsiya uchun to‘qilmagan material",
+      "description": "Sterilizatsiyadan oldin tibbiy buyumlarni qadoqlash uchun to‘qilmagan material. Himoya va sterillikni saqlash uchun ishlatiladi."
+    },
+    "139": {
+      "name": "Plazmali sterilizatsiya uchun kraft-paket STANDART",
+      "description": {
+        "75b70": "Plazmali sterilizatsiyada tibbiy buyumlarni qadoqlash uchun kraft-paket. Past haroratli ishlovda qo‘llaniladi.",
+        "100b70": "Tibbiy asboblar uchun sterilizatsiya kraft-paketi. Sterilizatsiya jarayonlarida ishlatiladi.",
+        "150b70": "O‘rtacha o‘lchamdagi tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun kraft-paket. Ishlovdan keyin himoyani taʼminlaydi.",
+        "200b70": "Plazmali sterilizatsiyada tibbiy buyumlarni qadoqlash uchun kraft-paket. Asboblarni past haroratda ishlov berishda qo‘llaniladi.",
+        "250b70": "Yirik tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada ishlatiladi.",
+        "300b70": "Plazma usulida hajmli asboblarni sterilizatsiya qilish uchun keng kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+        "350b70": "Yirik asboblar to‘plamlari uchun sterilizatsiya kraft-paketi. Ishlovdan keyin sterillikni saqlaydi.",
+        "400b70": "Plazmali sterilizatsiya uchun maksimal kenglikdagi kraft-paket. Hajmli asboblarni ishlov berishda qo‘llaniladi.",
+        "450b70": "Yirik tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Klinik amaliyotda plazmali sterilizatsiyada ishlatiladi.",
+        "500b70": "Hajmli asboblar uchun katta formatdagi plazmali sterilizatsiya kraft-paketi. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+        "75b100": "Kichik tibbiy buyumlarni plazmali sterilizatsiyada qadoqlash uchun kraft-paket. Past haroratli ishlovda qo‘llaniladi.",
+        "100b100": "O‘rtacha o‘lchamdagi asboblar uchun sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada ishlatiladi.",
+        "150b100": "O‘rtacha tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun kraft-paket. Sterillikni saqlash uchun ishlatiladi.",
+        "200b100": "Plazmali sterilizatsiyada tibbiy buyumlarni qadoqlash uchun kraft-paket. Asboblarni past haroratda ishlov berishda qo‘llaniladi.",
+        "250b100": "Yirik tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada ishlatiladi.",
+        "300b100": "Plazma usulida hajmli asboblarni sterilizatsiya qilish uchun keng kraft-paket. Sterilizatsiya bo‘limlarida qo‘llaniladi.",
+        "350b100": "Yirik asboblar to‘plamlari uchun sterilizatsiya kraft-paketi. Ishlovdan keyin sterillikni saqlaydi.",
+        "400b100": "Plazmali sterilizatsiya uchun maksimal kenglikdagi kraft-paket. Hajmli asboblarni ishlov berishda qo‘llaniladi."
+      }
+    },
+    "140": {
+      "name": "Plazmali sterilizatsiya uchun kraft-paket PREMIUM",
+      "description": {
+        "75b70": "Tibbiy buyumlarni plazmali sterilizatsiya qilish uchun yuqori sifatli kraft-paket. Past haroratli ishlovda qo‘llaniladi.",
+        "100b70": "Tibbiy asboblar uchun zichligi oshirilgan sterilizatsiya kraft-paketi. Plazmali sterilizatsiyada ishlatiladi.",
+        "150b70": "O‘rtacha tibbiy buyumlarni plazma usulida sterilizatsiya qilish uchun kraft-paket. Sterillikni ishonchli saqlaydi.",
+        "200b70": "Yirik tibbiy buyumlar uchun sterilizatsiya kraft-paketi. Klinik sharoitda plazmali sterilizatsiyada qo‘llaniladi.",
+        "250b70": "Hajmli asboblarni plazmali sterilizatsiya qilish uchun katta formatdagi kraft-paket. Sterilizatsiya bo‘limlarida ishlatiladi.",
+        "300b70": "Yirik tibbiy asboblarni plazmali sterilizatsiya qilish uchun keng kraft-paket. Ishlovdan keyin sterillikni saqlaydi."
+      }
+    },
+    "141": {
+      "name": "Spinal anesteziya ignalari Quincke 25G, 26G",
+      "description": "Quincke turidagi spinal ignalar spinal anesteziya o‘tkazish uchun. Subaraxnoidal bo‘shliqqa nazorat ostida kirishni taʼminlaydi."
+    },
+    "142": {
+      "name": "Spinal anesteziya ignalari Pencil Point 25G, 26G",
+      "description": "Yumaloq uchli spinal ignalar spinal anesteziya uchun. To‘qimalarning shikastlanishini kamaytirish uchun ishlatiladi."
+    },
+    "143": {
+      "name": "Spinal igna KD-FINE Quincke 26G",
+      "description": "Quincke turidagi spinal igna spinal anesteziyani aniq bajarish uchun. Anesteziologik amaliyotda qo‘llaniladi."
+    },
+    "144": {
+      "name": "Spinal igna KD-FINE Pencil Point 25G, 26G",
+      "description": "To‘mtoq uchli spinal igna anesteziya o‘tkazish uchun. Orqa miya bo‘shlig‘ini nazorat ostida punksiya qilishda ishlatiladi."
+    },
+    "145": {
+      "name": "UZI geli \"Akugel\" 5 kg",
+      "description": "Datchik va teri o‘rtasida signal o‘tkazuvchanligini yaxshilash uchun ultratovush geli. Diagnostik UZI tekshiruvlarida ishlatiladi."
+    },
+    "146": {
+      "name": "Yuqori yopishqoqlikdagi UZI geli \"Akugel\" 5 kg dozator bilan",
+      "description": "Datchik va teri o‘rtasida barqaror kontaktni taʼminlovchi yuqori yopishqoqlikdagi ultratovush geli. Uzoq davom etadigan UZI muolajalarida ishlatiladi."
+    },
+    "147": {
+      "name": "EKG uchun diagramma lentasi",
+      "description": {
+        "80b20": "Elektrokardiogrammani qayd etish uchun diagramma lentasi. Elektrokardiografik tekshiruvlarda ishlatiladi.",
+        "110b30": "Yozuv formati kengaytirilgan EKG apparatlari uchun diagramma qog‘ozi. Kardiologik diagnostikada qo‘llaniladi.",
+        "210b30": "Elektrokardiograflar uchun katta formatdagi diagramma lentasi. EKGni batafsil qayd etishda ishlatiladi.",
+        "215b30": "EKG apparatlarida elektrokardiogrammani qayd etish uchun diagramma lentasi. Yurak ritmini aniq qayd etadi."
+      }
+    },
+    "148": {
+      "name": "Bir martalik choyshablar 20 g/m² rulonda",
+      "description": "Tibbiy muolajalar vaqtida yuzalarni himoyalash uchun bir martalik choyshablar. Gigiyenani taʼminlash va ifloslanishni oldini olishda ishlatiladi."
+    },
+    "149": {
+      "name": "Bir martalik choyshablar 20 g/m² (qadoq)",
+      "description": "Tibbiy va kosmetologik xonalarda foydalanish uchun bir martalik choyshablar. Yuzalar uchun to‘siqli himoya taʼminlaydi."
+    },
+    "150": {
+      "name": "Bir martalik choyshablar 80 × 200 rulonli UKM",
+      "description": "Kushetkalar va stollarni yopish uchun rulonli bir martalik choyshablar. Diagnostik va davolovchi muolajalarda ishlatiladi."
+    },
+    "151": {
+      "name": "Bir martalik salfetkalar 15 g/m² rulonda",
+      "description": "Gigiyenik ishlov berish va yuzalarni himoyalash uchun bir martalik salfetkalar. Tibbiy amaliyotda qo‘llaniladi."
+    },
+    "152": {
+      "name": "Bir martalik sochiq rulonda 35 × 70",
+      "description": "Tibbiyot muassasalarida gigiyenik foydalanish uchun bir martalik sochiqlar. Bemorlarni parvarishlashda qo‘llaniladi."
+    },
+    "153": {
+      "name": "Bir martalik ko‘krakchalar-salfetkalar",
+      "description": "Muolajalar vaqtida bemor kiyimini himoyalash uchun bir martalik ko‘krakchalar. Stomatologik va tibbiy amaliyotda ishlatiladi."
+    },
+    "154": {
+      "name": "Bir martalik stomatologik ko‘krakchalar 45 × 33",
+      "description": "Bemorni namlik va ifloslanishdan himoyalash uchun stomatologik ko‘krakchalar. Stomatologik muolajalarda qo‘llaniladi."
+    },
+    "155": {
+      "name": "Spirtli salfetkalar",
+      "description": "Teri antiseptik ishlovi uchun spirtli eritma bilan shimdirilgan salfetkalar. Inʼeksiya va muolajalardan oldin ishlatiladi."
+    },
+    "156": {
+      "name": "Muolajalar uchun bir martalik shortiklar",
+      "description": "Bemor gigiyenasi va qulayligini taʼminlash uchun bir martalik muolaja shortiklari. Diagnostik va davolovchi manipulyatsiyalarda qo‘llaniladi."
+    },
+    "157": {
+      "name": "Qon ivishini faollashtiruvchi probirka 5 ml (qizil qopqoq)",
+      "description": "Venoz qon olish uchun ivish faollashtiruvchiga ega vakuum probirka. Laborator tekshiruvlarda zardob olish uchun ishlatiladi."
+    },
+    "158": {
+      "name": "Qon ivishini faollashtiruvchi probirka 6 ml (qizil qopqoq)",
+      "description": "Ivish faollashtiruvchiga ega qon olish probirkasi. Klinik-diagnostik laboratoriyalarda qo‘llaniladi."
+    },
+    "159": {
+      "name": "Natriy sitratli probirka 2,7 ml (ko‘k qopqoq)",
+      "description": "Koagulologik tekshiruvlar uchun natriy sitratli vakuum probirka. Qon ivuvchanligi ko‘rsatkichlarini baholashda ishlatiladi."
+    },
+    "160": {
+      "name": "Gel va ivish faollashtiruvchiga ega probirka 5 ml (sariq qopqoq)",
+      "description": "Zardob olish uchun gel ajratgich va ivish faollashtiruvchiga ega probirka. Biokimyoviy tadqiqotlarda qo‘llaniladi."
+    },
+    "161": {
+      "name": "EDTA K3 li probirka 3 ml (binafsha qopqoq)",
+      "description": "Gematologik tekshiruvlar uchun EDTA K3 antikoagulyantiga ega vakuum probirka. Qon hujayra tarkibini saqlash uchun ishlatiladi."
+    },
+    "162": {
+      "name": "Litiy-geparinli probirka 5 ml (yashil qopqoq)",
+      "description": "Qonni ivishsiz olish uchun litiy-geparinli probirka. Biokimyoviy va klinik tahlillarda qo‘llaniladi."
+    },
+    "163": {
+      "name": "Gel va natriy-geparinli probirka 8,5 ml",
+      "description": "Plazmani ajratish uchun gel va natriy-geparin antikoagulyantiga ega probirka. Laborator diagnostikada ishlatiladi."
+    },
+    "164": {
+      "name": "Mikrosentrifuga probirkasi 1,5 ml (Eppendorf turi)",
+      "description": "Namunalarni saqlash va sentrifugalash uchun mikrosentrifuga probirkasi. Laboratoriya va molekulyar tadqiqotlarda qo‘llaniladi."
+    },
+    "165": {
+      "name": "Gematologik analizatorlar uchun EDTA K3 li 1,5 ml probirka",
+      "description": "Avtomatik gematologik tahlillar uchun EDTA K3 qoplamali probirka. Qonning barqaror tahlilini taʼminlaydi."
+    },
+    "166": {
+      "name": "Vakuum probirkalar uchun kapalak-igna 22G, 23G",
+      "description": "Vakuum tizimlari yordamida venoz qon olish uchun kapalak-igna. Venepunksiyada qulaylik va nazoratni taʼminlaydi."
+    },
+    "167": {
+      "name": "Vakuum qon olish uchun ignalar 22G, 23G",
+      "description": "Venoz qonni vakuum tizimlari orqali olish uchun ignalar. Namunalarni xavfsiz va nazorat ostida olishda qo‘llaniladi."
+    },
+    "168": {
+      "name": "Vakuum probirkalar uchun igna ushlagichi",
+      "description": "Vakuum qon olishda ignani mahkamlash uchun plastik ushlagich. Ish jarayonida barqarorlik va qulaylikni taʼminlaydi."
+    },
+    "169": {
+      "name": "Pipet-dozator MicroPette Plus 20–200 mkl",
+      "description": "Kichik hajmdagi suyuqliklarni aniq dozlash uchun sozlanadigan pipet-dozator. Laboratoriya amaliyotida ishlatiladi."
+    },
+    "170": {
+      "name": "Pipetkalar uchun uchlar 1000 mkl",
+      "description": "1000 mkl gacha bo‘lgan dozatorlar uchun bir martalik uchlar. Kross-kontaminatsiyani oldini olish uchun ishlatiladi."
+    },
+    "171": {
+      "name": "Dozatorlar uchun uchlar 200 mkl",
+      "description": "Kichik hajmli dozatorlar uchun bir martalik uchlar. Analitik va diagnostik laboratoriyalarda qo‘llaniladi."
+    },
+    "172": {
+      "name": "Dozatorlar uchun uchlar 1000 mkl",
+      "description": "Suyuqliklarni aniq dozlash uchun pipetka uchlari. Laboratoriya tadqiqotlarida ishlatiladi."
+    },
+    "173": {
+      "name": "Biomateriallarni yig‘ish uchun konteyner",
+      "description": {
+        "100ml": "Biologik namunalarni yig‘ish va saqlash uchun plastik konteyner. Laboratoriya diagnostikasida qo‘llaniladi.",
+        "100mlWS": "Ichki qoshiqchali biomaterial yig‘ish konteyneri. Namunalarni qulay va gigiyenik olishni taʼminlaydi.",
+        "60ml": "Biologik namunalarni saqlash va tashish uchun konteyner. Klinik diagnostikada ishlatiladi.",
+        "60mlWS": "Biologik namunalarni yig‘ish uchun ixcham konteyner. Laboratoriya tadqiqotlarida qo‘llaniladi."
+      }
+    },
+    "174": {
+      "name": "Lateks jgut",
+      "description": "Qon olish vaqtida venalarni vaqtincha qisish uchun lateks jgut. Venepunksiyani osonlashtirish uchun ishlatiladi."
+    },
+    "175": {
+      "name": "Elektrojarrohlik qalam",
+      "description": "To‘qimalarni kesish va koagulyatsiya qilish uchun elektrojarrohlik asbobi. Jarrohlik aralashuvlarida qo‘llaniladi."
+    },
+    "176": {
+      "name": "Qoplovchi oynacha",
+      "description": {
+        "18b18": "Mikroskopik tadqiqotlar uchun qoplovchi oynacha. Namuna himoyasi va mahkamlash uchun ishlatiladi.",
+        "24b24": "Kattaroq o‘lchamdagi qoplovchi oynacha mikroskopiya uchun. Yirik namunalarni tekshirishda qo‘llaniladi."
+      }
+    },
+    "177": {
+      "name": "Silliqlanmagan chetli predmet oynasi",
+      "description": "Mikroskopik preparatlar tayyorlash uchun predmet oynasi. Laboratoriya diagnostikasida ishlatiladi."
+    },
+    "178": {
+      "name": "Arterial bosim o‘lchagich LDH-MAXI",
+      "description": "Arterial bosimni noinvaziv o‘lchash uchun moslama. Klinik va ambulator amaliyotda qo‘llaniladi."
+    },
+    "179": {
+      "name": "Arterial bosim o‘lchagich IAD-01 «Adyutor»",
+      "description": "Arterial bosimni o‘lchash uchun mexanik moslama. Tibbiy ko‘riklarda qo‘llaniladi."
+    },
+    "180": {
+      "name": "Kardiologik stetoskop Rappoport BK 3003",
+      "description": "Yurak va o‘pkani auskultatsiya qilish uchun kardiologik stetoskop. Yurak-qon tomir va nafas tizimini diagnostika qilishda ishlatiladi."
+    },
+    "181": {
+      "name": "Tibbiy simobli termometr",
+      "description": "Tana haroratini o‘lchash uchun simobli termometr. Bemor holatini nazorat qilishda tibbiy amaliyotda qo‘llaniladi."
+    },
+
+    "182": {
+      "name": "Gigiyenik niqob \"Clinic Clean\"",
+      "description": "Uch qatlamli gigiyenik himoya niqobi. Yumshoq, havo o'tkazuvchi to‘qilmagan material. Qulay elastik quloq ilgaklari. Moslanadigan burun plastinasi."
+    },
+    "183": {
+      "name": "Bolalar uchun gigiyenik niqob",
+      "description": "Dekorativ rasmli uch qatlamli gigiyenik himoya niqobi. Yumshoq, havo o'tkazuvchi to‘qilmagan material. Qulay elastik quloq ilgaklari. Moslanadigan burun plastinasi."
+    },
+    "184": {
+      "name": "Bolalar uchun gigiyenik niqob",
+      "description": "Dekorativ rasmli uch qatlamli gigiyenik himoya niqobi. Yumshoq, havo o'tkazuvchi to‘qilmagan material. Qulay elastik quloq ilgaklari. Moslanadigan burun plastinasi."
+    },
+    "185": {
+      "name": "Gigiyenik niqob (ko‘k rang)",
+      "description": "Uch qatlamli gigiyenik himoya niqobi. Yumshoq va nafas oladigan to‘qilmagan material. Qulay elastik quloq ilgaklari. Moslanadigan burun qismi. Rang: ko‘k. Qadoqda 50 dona."
+    },
+    "186": {
+      "name": "Gigiyenik niqob",
+      "description": "Uch qatlamli gigiyenik himoya niqobi. Yumshoq va nafas oladigan to‘qilmagan material. Qulay elastik quloq ilgaklari. Moslanadigan burun qismi. Rang: ko‘k. Qadoqda 50 dona."
+    }
+  },
   "forgot_password": {
     "title": "Parolni unutdingizmi",
     "description": "Elektron pochtangizni kiriting, va biz parolingizni qayta o'rnatish uchun havolani yuboramiz.",

@@ -29,6 +29,50 @@ exports.createOrderAndInitPayment = async (req, res) => {
     }
     console.log('👉 First item:', items[0]);
 
+    // Проверяем что у всех товаров есть IKPU код (для Payme)
+    if (provider === "payme") {
+      for (const item of items) {
+        let itemIkpuCode = null;
+        
+        // 1. Сначала проверяем вариант-уровневый IKPU (если есть цвет + размер комбинация)
+        if (item.color && item.size && item.variantIkpuCodes) {
+          const variantKey = `${item.color}_${item.size}`;
+          itemIkpuCode = item.variantIkpuCodes[variantKey];
+        }
+        
+        // 2. Если нет вариант-уровневого IKPU, используем общий IKPU товара
+        if (!itemIkpuCode && item.ikpuCode) {
+          itemIkpuCode = item.ikpuCode;
+        }
+        
+        // 3. Если IKPU всё еще не найден - ошибка
+        if (!itemIkpuCode) {
+          return res.status(400).json({ 
+            message: "Item missing IKPU code for Payme payment",
+            itemId: item.id,
+            details: item.color && item.size ? 
+              `No variant IKPU for color='${item.color}' and size='${item.size}'. Set in variantIkpuCodes or ikpuCode.` :
+              "No ikpuCode or variantIkpuCodes defined"
+          });
+        }
+        
+        // Добавляем рассчитанный IKPU обратно в item для последующего использования
+        item._resolvedIkpuCode = itemIkpuCode;
+      }
+      
+      // Если разные товары имеют разные IKPU коды - это ошибка
+      // (простая модель: один заказ -> один IKPU, один vendora)
+      const ikpuCodes = [...new Set(items.map(i => i._resolvedIkpuCode))];
+      if (ikpuCodes.length > 1) {
+        console.warn('⚠️ Multiple IKPU codes in order:', ikpuCodes);
+        return res.status(400).json({ 
+          message: "Items from different merchants cannot be purchased together",
+          ikpuCodes: ikpuCodes,
+          details: "All items in a single order must belong to the same vendor (same IKPU code)"
+        });
+      }
+    }
+
     // 1) Create order in DB
     const order = await Order.create({
       userId,
@@ -37,6 +81,8 @@ exports.createOrderAndInitPayment = async (req, res) => {
       currency: "UZS",
       paymentProvider: provider,
       paymentStatus: "pending",
+      // Сохраняем IKPU коды товаров (рассчитанные IKPU для каждого товара)
+      itemIkpuCodes: provider === "payme" ? items.map(i => i._resolvedIkpuCode) : undefined,
       meta: {
         userAgent: req.headers["user-agent"],
         ip: req.ip,
@@ -51,8 +97,15 @@ exports.createOrderAndInitPayment = async (req, res) => {
     let paymentInitData;
 
     if (provider === "payme") {
+      // Используем IKPU код первого товара (так как они все одинаковые после валидации)
+      const itemIkpuCode = items[0]._resolvedIkpuCode;
+      const paymeTestMode = process.env.PAYME_TEST_MODE === 'true';
+      const paymeGateway = paymeTestMode 
+        ? "https://checkout.test.paycom.uz"
+        : "https://checkout.paycom.uz";
+      
       paymentInitData = {
-        redirectUrl: `${backendBase}/mock/payme-gateway?orderId=${order._id}`,
+        redirectUrl: `${paymeGateway}/${itemIkpuCode}?orderId=${order._id}&amount=${Math.round(amount * 100)}`,
       };
     } else if (provider === "click") {
       const clickServiceId = process.env.CLICK_SERVICE_ID;
@@ -90,49 +143,183 @@ exports.createOrderAndInitPayment = async (req, res) => {
   }
 };
 
-// PAYME CALLBACK (skeleton)
+// PAYME CALLBACK - API RECEIVER
+// Documentation: https://paycom.uz/ru/developers/api/checkout/
 exports.paymeCallback = async (req, res) => {
+  const isTest = process.env.PAYME_TEST_MODE === 'true';
+  
+  const requestTime = new Date().toISOString();
+  console.log('\n=== PAYME CALLBACK REQUEST ===');
+  console.log('Time:', requestTime);
+  console.log('Body:', JSON.stringify(req.body, null, 2));
+
   try {
     const payload = req.body;
+    const method = payload?.method;
+    const params = payload?.params;
+    const requestId = payload?.id;
 
-    const orderId = payload?.order_id; // TODO: adjust to real field name
-    const transactionId = payload?.transaction_id;
+    // Verify authorization (using API key)
+    const authHeader = req.headers['authorization'];
+    const expectedAuth = `Basic ${Buffer.from(`:${process.env.PAYME_KEY}`).toString('base64')}`;
 
-    const order = await Order.findById(orderId);
-    if (!order) {
-      return res.status(404).json({ error: "Order not found" });
+    if (!isTest && authHeader !== expectedAuth) {
+      console.error('Authorization failed');
+      const response = {
+        jsonrpc: "2.0",
+        error: {
+          code: -32504,
+          message: "Insufficient privilege to perform this method.",
+        },
+        id: requestId,
+      };
+      console.log('Response:', JSON.stringify(response, null, 2));
+      return res.json(response);
     }
 
-    // TODO: verify Payme signature, amount, etc.
-    order.paymentStatus = "paid";
-    order.providerTransactionId = transactionId;
-    await order.save();
+    if (isTest) {
+      console.log('⚠️ PAYME TEST MODE: authorization check skipped');
+    }
 
-    // Send Telegram notification on successful payment
-    try {
-      const user = await User.findById(order.userId);
-      if (user) {
-        const itemsList = order.items
-          .map(
-            (item) =>
-              `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
-                item.price * item.quantity
-              ).toLocaleString("uz-UZ")} UZS`
-          )
-          .join("\n");
+    // Method: CheckPerformTransaction (проверка перед оплатой)
+    if (method === "CheckPerformTransaction") {
+      console.log('Method: CheckPerformTransaction');
+      const account = params?.account;
+      const amount = params?.amount; // в тийинах (1 УЗС = 100 тийинов)
+      const orderId = account?.orderId;
 
-        const addr = user.address
-          ? `${user.address.house ? user.address.house + ", " : ""}${
-              user.address.street || ""
-            }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
-          : "Not provided";
+      const order = await Order.findById(orderId);
+      if (!order) {
+        console.error('Order not found:', orderId);
+        const response = {
+          jsonrpc: "2.0",
+          error: {
+            code: -31050,
+            message: "Order not found",
+          },
+          id: requestId,
+        };
+        console.log('Response:', JSON.stringify(response, null, 2));
+        return res.json(response);
+      }
 
-        const orderMessage = `
+      // Check amount (in tiyins)
+      if (Math.round(order.amount * 100) !== Math.round(amount)) {
+        console.error('Amount mismatch. Expected:', order.amount * 100, 'Received:', amount);
+        const response = {
+          jsonrpc: "2.0",
+          error: {
+            code: -31001,
+            message: "Invalid amount",
+          },
+          id: requestId,
+        };
+        console.log('Response:', JSON.stringify(response, null, 2));
+        return res.json(response);
+      }
+
+      // Check if already paid
+      if (order.paymentStatus === 'paid') {
+        console.log('Order already paid');
+        const response = {
+          jsonrpc: "2.0",
+          error: {
+            code: -31099,
+            message: "Order already paid",
+          },
+          id: requestId,
+        };
+        console.log('Response:', JSON.stringify(response, null, 2));
+        return res.json(response);
+      }
+
+      console.log('✅ CheckPerformTransaction validation passed');
+      const response = {
+        jsonrpc: "2.0",
+        result: {
+          allow: true,
+        },
+        id: requestId,
+      };
+      console.log('Response:', JSON.stringify(response, null, 2));
+      return res.json(response);
+    }
+
+    // Method: PerformTransaction (выполнение платежа)
+    if (method === "PerformTransaction") {
+      console.log('Method: PerformTransaction');
+      const account = params?.account;
+      const amount = params?.amount;
+      const transactionId = params?.id; // Payme transaction ID
+      const time = params?.time;
+      const orderId = account?.orderId;
+
+      const order = await Order.findById(orderId);
+      if (!order) {
+        console.error('Order not found:', orderId);
+        const response = {
+          jsonrpc: "2.0",
+          error: {
+            code: -31050,
+            message: "Order not found",
+          },
+          id: requestId,
+        };
+        console.log('Response:', JSON.stringify(response, null, 2));
+        return res.json(response);
+      }
+
+      // Check if already paid
+      if (order.paymentStatus === 'paid') {
+        if (order.providerTransactionId === String(transactionId)) {
+          console.log('Idempotent response - same transaction already paid');
+          const response = {
+            jsonrpc: "2.0",
+            result: {
+              transaction: String(transactionId),
+              perform_time: Math.floor(Date.now() / 1000),
+              transaction_time: time,
+              state: 2, // COMPLETED
+            },
+            id: requestId,
+          };
+          console.log('Response:', JSON.stringify(response, null, 2));
+          return res.json(response);
+        }
+      }
+
+      // Mark as paid
+      order.paymentStatus = "paid";
+      order.providerTransactionId = transactionId;
+      await order.save();
+      console.log('Order marked as paid:', order._id);
+
+      // Send Telegram notification on successful payment
+      try {
+        const user = await User.findById(order.userId);
+        if (user) {
+          const itemsList = order.items
+            .map(
+              (item) =>
+                `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
+                  item.price * item.quantity
+                ).toLocaleString("uz-UZ")} UZS`
+            )
+            .join("\n");
+
+          const addr = user.address
+            ? `${user.address.house ? user.address.house + ", " : ""}${
+                user.address.street || ""
+              }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
+            : "Not provided";
+
+          const orderMessage = `
 <b>🛒 New Order Placed</b>
 
 <b>Order ID:</b> ${order._id}
 <b>Payment Status:</b> ✅ Paid
 <b>Provider:</b> ${order.paymentProvider}
+<b>Payme Trans ID:</b> ${transactionId}
 
 <b>Customer:</b>
 • Name: ${user.name}
@@ -147,16 +334,90 @@ ${itemsList}
 
 <b>Time:</b> ${new Date().toISOString()}
 `;
-        sendNotification(orderMessage);
+          sendNotification(orderMessage);
+        }
+      } catch (e) {
+        console.error("Telegram notification failed (non-blocking):", e?.message);
       }
-    } catch (e) {
-      console.error("Telegram notification failed (non-blocking):", e?.message);
+
+      console.log('✅ PerformTransaction successful');
+      const response = {
+        jsonrpc: "2.0",
+        result: {
+          transaction: String(transactionId),
+          perform_time: Math.floor(Date.now() / 1000),
+          transaction_time: time,
+          state: 2, // COMPLETED
+        },
+        id: requestId,
+      };
+      console.log('Response:', JSON.stringify(response, null, 2));
+      return res.json(response);
     }
 
-    return res.json({ result: "success" }); // TODO: real Payme format
+    // Method: CancelTransaction (отмена платежа)
+    if (method === "CancelTransaction") {
+      console.log('Method: CancelTransaction');
+      const transactionId = params?.id;
+
+      const order = await Order.findOne({ providerTransactionId: transactionId });
+      if (!order) {
+        console.error('Transaction not found:', transactionId);
+        const response = {
+          jsonrpc: "2.0",
+          error: {
+            code: -31007,
+            message: "Transaction not found",
+          },
+          id: requestId,
+        };
+        console.log('Response:', JSON.stringify(response, null, 2));
+        return res.json(response);
+      }
+
+      order.paymentStatus = "cancelled";
+      await order.save();
+      console.log('Order cancelled:', order._id);
+
+      const response = {
+        jsonrpc: "2.0",
+        result: {
+          transaction: String(transactionId),
+          cancel_time: Math.floor(Date.now() / 1000),
+          state: -2, // CANCELLED
+        },
+        id: requestId,
+      };
+      console.log('Response:', JSON.stringify(response, null, 2));
+      console.log('=== END PAYME CALLBACK ===\n');
+      return res.json(response);
+    }
+
+    // Unknown method
+    console.error('Unknown method:', method);
+    const response = {
+      jsonrpc: "2.0",
+      error: {
+        code: -32601,
+        message: "Method not found",
+      },
+      id: requestId,
+    };
+    console.log('Response:', JSON.stringify(response, null, 2));
+    return res.json(response);
   } catch (err) {
     console.error("paymeCallback error:", err);
-    res.status(500).json({ error: "Server error" });
+    const response = {
+      jsonrpc: "2.0",
+      error: {
+        code: -32603,
+        message: "Internal error",
+      },
+      id: req.body?.id,
+    };
+    console.log('Error Response:', JSON.stringify(response, null, 2));
+    console.log('=== END PAYME CALLBACK (ERROR) ===\n');
+    res.json(response);
   }
 };
 

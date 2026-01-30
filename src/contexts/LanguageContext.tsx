@@ -54,6 +54,15 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     document.documentElement.lang = locale;
   }, [locale]);
 
+  // If the current path doesn't include a locale prefix, replace URL to include detected locale
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (!/^\/(en|ru|uz)(\/|$)/.test(path)) {
+      const newPath = path === '/' ? `/${locale}` : `/${locale}${path}`;
+      window.history.replaceState({}, '', newPath);
+    }
+  }, [locale]);
+
   const value: LanguageContextType = {
     locale,
     setLocale,

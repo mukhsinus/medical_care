@@ -63,13 +63,17 @@ function clearRefreshCookie(res) {
 async function handleRegister(req, res) {
   try {
     const { name, email, phone, password } = req.body;
+    
+    console.log("[SIGNUP] Received body:", { name, email, phone, password });
 
     if (!name || !email || !password) {
+      console.log("[SIGNUP] ❌ Missing required fields:", { name: !!name, email: !!email, password: !!password });
       return res.status(400).json({ message: "name, email, password required" });
     }
 
     const exists = await User.findOne({ email });
     if (exists) {
+      console.log("[SIGNUP] ❌ User already exists:", email);
       return res.status(400).json({ message: "User already exists" });
     }
 
@@ -84,6 +88,8 @@ async function handleRegister(req, res) {
         `<b>New user</b>\n👤 ${name}\n📧 ${email}\n🆔 ${user._id}`
       );
     } catch (_) {}
+
+    console.log("[SIGNUP] ✅ User created:", { id: user._id, email });
 
     return res.status(201).json({
       token: accessToken,

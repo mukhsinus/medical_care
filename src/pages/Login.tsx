@@ -98,13 +98,15 @@ const Login: React.FC = () => {
 
   React.useEffect(() => {
     if (loginMutation.isError) {
-      setError(t.login?.error || "Invalid credentials");
+      const error = loginMutation.error as any;
+      setError(error?.response?.data?.message || t.login?.error || "Invalid credentials");
     }
   }, [loginMutation.isError, t.login?.error]);
 
   React.useEffect(() => {
     if (signupMutation.isError) {
-      setError(t.signup?.error || "Sign-up failed");
+      const error = signupMutation.error as any;
+      setError(error?.response?.data?.message || t.signup?.error || "Sign-up failed");
     }
   }, [signupMutation.isError, t.signup?.error]);
 

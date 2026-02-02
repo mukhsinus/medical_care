@@ -6,7 +6,11 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const PORT = process.env.PORT || 8090;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/medical_care';
+const MONGO_URI = process.env.MONGO_URI;
+if (!MONGO_URI) {
+  console.error('MONGO_URI not configured');
+  process.exit(1);
+}
 const FRONTEND_URL = process.env.FRONTEND_URL || '*';
 const authMiddleware = require('./middleware/auth');
 const User = require('./models/User');
@@ -45,9 +49,7 @@ const paycomRoutes = require('./routes/paycomWebhook');
 // Connect to MongoDB and start server
 async function start() {
   try {
-    await mongoose.connect(MONGO_URI, {
-      // options left default for mongoose v6+
-    });
+    await mongoose.connect(MONGO_URI);
     console.log('Connected to MongoDB');
 
     app.use('/api/auth', authRoutes);

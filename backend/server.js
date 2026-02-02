@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const PORT = process.env.PORT || 8090;
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/medical_care";
+const MONGO_URI = process.env.MONGO_URI;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -16,12 +16,23 @@ if (!JWT_SECRET) {
   process.exit(1);
 }
 
+if (!MONGO_URI) {
+  console.error("❌ MONGO_URI is not defined");
+  process.exit(1);
+}
+
 const app = express();
 
+/* -------------------------
+   Core middlewares
+------------------------- */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+/* -------------------------
+   CORS (CORRECT)
+------------------------- */
 const ALLOWED_ORIGINS = [
   "https://medicare.uz",
   "https://www.medicare.uz",
@@ -32,9 +43,9 @@ const ALLOWED_ORIGINS = [
 app.use(
   cors({
     origin: (origin, cb) => {
-      if (!origin) return cb(null, true);
+      if (!origin) return cb(null, true); // curl, health, server-to-server
       if (ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
-      return cb(new Error("CORS blocked: " + origin));
+      return cb(new Error("Not allowed by CORS"));
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
@@ -45,6 +56,9 @@ app.use(
 
 app.options("*", cors());
 
+/* -------------------------
+   Routes
+------------------------- */
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const paymentRoutes = require("./routes/payment");
@@ -57,35 +71,69 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/paycom", paycomRoutes);
 app.use("/mock", mockRoutes);
 
+/* -------------------------
+   Health check
+------------------------- */
 app.get("/api/health", (req, res) => {
-  res.json({ ok: true, env: NODE_ENV, time: new Date().toISOString() });
+  res.json({
+    ok: true,
+    env: NODE_ENV,
+    time: new Date().toISOString(),
+  });
 });
 
+/* -------------------------
+   Error handler
+------------------------- */
 app.use((err, req, res, next) => {
+  console.error("[ERROR]", err.message);
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-const server = app.listen(PORT, "0.0.0.0");
+/* -------------------------
+   Start server
+------------------------- */
+const server = app.listen(PORT, "0.0.0.0", () => {
+  console.log(`[START] Server running on 0.0.0.0:${PORT}`);
+  console.log(`[ENV] ${NODE_ENV}`);
+});
 
+/* -------------------------
+   MongoDB
+------------------------- */
 (async () => {
   try {
+    console.log("[MONGO] Connecting...");
     await mongoose.connect(MONGO_URI, {
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
       retryWrites: true,
       w: "majority",
     });
+<<<<<<< HEAD
     console.log("✅ MongoDB connected successfully");
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);
     console.error("MONGO_URI:", MONGO_URI);
     console.error("NODE_ENV:", NODE_ENV);
+=======
+    console.log("[MONGO] Connected");
+  } catch (err) {
+    console.error("[MONGO] Connection failed:", err.message);
+>>>>>>> 3e444057dfefdbd2c22b4526e440923a2aecb46f
     process.exit(1);
   }
 })();
 
+/* -------------------------
+   Graceful shutdown
+------------------------- */
 process.on("SIGTERM", () => {
+  console.log("[SHUTDOWN] SIGTERM received");
   server.close(() => {
-    mongoose.connection.close(false, () => process.exit(0));
+    mongoose.connection.close(false, () => {
+      console.log("[SHUTDOWN] Mongo closed");
+      process.exit(0);
+    });
   });
 });

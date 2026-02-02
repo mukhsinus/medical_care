@@ -1,9 +1,10 @@
 import axios from "axios";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://api.medicare.uz";
+// ✅ Always use subdomain for production
+const API_BASE = "https://api.medicare.uz";
 
 if (!API_BASE) {
-  throw new Error("VITE_API_BASE_URL is not defined");
+  throw new Error("API_BASE is not defined");
 }
 
 /**

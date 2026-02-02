@@ -42,6 +42,7 @@ async function createAndSendRefreshToken(res, user, req) {
     httpOnly: true,
     secure: true,
     sameSite: "None",
+    domain: ".medicare.uz",
     path: "/",
     maxAge: REFRESH_DAYS * 24 * 60 * 60 * 1000,
   });
@@ -52,6 +53,7 @@ function clearRefreshCookie(res) {
     httpOnly: true,
     secure: true,
     sameSite: "None",
+    domain: ".medicare.uz",
     path: "/",
   });
 }
@@ -123,6 +125,7 @@ router.post("/login", async (req, res) => {
 
     const accessToken = createAccessToken(user._id);
     await createAndSendRefreshToken(res, user, req);
+    console.log("[LOGIN] ✅ Refresh cookie should be set");
 
     return res.json({
       token: accessToken,

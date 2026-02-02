@@ -143,13 +143,22 @@ router.post("/login", async (req, res) => {
 
 router.post("/refresh", async (req, res) => {
   try {
+    console.log("[REFRESH] Cookies received:", Object.keys(req.cookies || {}));
+    console.log("[REFRESH] All cookies:", req.cookies);
+    console.log("[REFRESH] Looking for cookie name:", REFRESH_COOKIE_NAME);
+    
     const value = req.cookies?.[REFRESH_COOKIE_NAME];
-    if (!value) return res.status(401).json({ message: "No refresh token" });
+    if (!value) {
+      console.log("[REFRESH] ❌ No refresh token found");
+      return res.status(401).json({ message: "No refresh token" });
+    }
 
+    console.log("[REFRESH] ✅ Token found, validating...");
     const stored = await RefreshToken.findOne({ token: value });
     if (!stored || stored.expiresAt < new Date()) {
       if (stored) await RefreshToken.deleteOne({ token: value });
       clearRefreshCookie(res);
+      console.log("[REFRESH] ❌ Token invalid or expired");
       return res.status(401).json({ message: "Refresh invalid" });
     }
 
@@ -157,6 +166,7 @@ router.post("/refresh", async (req, res) => {
     if (!user) {
       await RefreshToken.deleteOne({ token: value });
       clearRefreshCookie(res);
+      console.log("[REFRESH] ❌ User not found");
       return res.status(401).json({ message: "User not found" });
     }
 

@@ -33,7 +33,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      FRONTEND_URL,            // https://medicare.uz
+      process.env.FRONTEND_URL,            // https://medicare.uz
       "https://www.medicare.uz"
     ],
     credentials: true,
@@ -41,9 +41,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-// IMPORTANT: allow preflight
-app.options("*", cors());
 
 /**
  * ------------------------

@@ -56,7 +56,8 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
     };
     if (token) headers.Authorization = `Bearer ${token}`;
 
-    fetch("http://localhost:8090/api/me", {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    fetch(`${API_BASE_URL}/api/me`, {
       method: "GET",
       headers,
       credentials: "include",

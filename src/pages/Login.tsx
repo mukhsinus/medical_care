@@ -9,73 +9,51 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
+import api from '@/api';
 import { Mail, Lock, UserPlus, AlertCircle, User, Phone, Eye, EyeOff } from 'lucide-react';
 
 
-const loginUser = async ({ nameOrEmail, password }: { nameOrEmail: string; password: string }) => {
-  // send identifier field for backend to recognize
-  const payload = { identifier: nameOrEmail, password };
-  
-  console.log('=== LOGIN DEBUG ===');
-  console.log('Payload being sent:', JSON.stringify(payload));
-  console.log('Payload keys:', Object.keys(payload));
-  console.log('Password length:', password.length);
-  console.log('Password type:', typeof password);
+  type LoginPayload = {
+    nameOrEmail: string;
+    password: string;
+  };
 
-  const response = await fetch('http://localhost:8090/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify(payload),
-  });
-  
-  console.log('Response status:', response.status);
-  console.log('Response headers:', Array.from(response.headers.entries()));
-  
-  const data = await response.json();
-  console.log('Response body:', data);
-  console.log('================');
-  
-  if (!response.ok) {
-    throw new Error(data.message || 'Login failed');
-  }
-  return data;
-};
+  type SignupPayload = {
+    name: string;
+    email: string;
+    phone?: string;
+    password: string;
+  };
 
+  /**
+   * LOGIN
+   */
+  export const loginUser = async ({ nameOrEmail, password }: LoginPayload) => {
+    const payload = {
+      identifier: nameOrEmail,
+      password,
+    };
 
-const signupUser = async ({
-  name,
-  email,
-  phone,
-  password,
-}: { name: string; email: string; phone?: string; password: string }) => {
-  const payload = { name, email, phone, password };
-  
-  console.log('=== SIGNUP DEBUG ===');
-  console.log('Signup payload:', JSON.stringify(payload));
-  console.log('Email:', email, 'Type:', typeof email);
-  console.log('Name:', name, 'Type:', typeof name);
-  
-  const response = await fetch('http://localhost:8090/api/auth/signup', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-  
-  console.log('Signup response status:', response.status);
-  
-  if (!response.ok) {
-    const errorData = await response.json();
-    console.log('Signup error:', errorData);
-    console.log('===================');
-    throw new Error(errorData.message || 'Sign-up failed');
-  }
-  
-  const data = await response.json();
-  console.log('Signup response data:', data);
-  console.log('===================');
-  return data;
-};
+    const { data } = await api.post('/api/auth/login', payload);
+
+    return data;
+  };
+
+  /**
+   * SIGN UP
+   */
+  export const signupUser = async ({ name, email, phone, password }: SignupPayload) => {
+    const payload = {
+      name,
+      email,
+      phone,
+      password,
+    };
+
+    const { data } = await api.post('/api/auth/signup', payload);
+
+    return data;
+  };
 
 const Login: React.FC = () => {
   const { locale, t } = useLanguage();

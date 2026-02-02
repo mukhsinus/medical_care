@@ -41,7 +41,7 @@ async function createAndSendRefreshToken(res, user, req) {
   res.cookie(REFRESH_COOKIE_NAME, value, {
     httpOnly: true,
     secure: true,
-    sameSite: "None",
+    sameSite: "lax",
     domain: ".medicare.uz",
     path: "/",
     maxAge: REFRESH_DAYS * 24 * 60 * 60 * 1000,
@@ -52,7 +52,7 @@ function clearRefreshCookie(res) {
   res.clearCookie(REFRESH_COOKIE_NAME, {
     httpOnly: true,
     secure: true,
-    sameSite: "None",
+    sameSite: "lax",
     domain: ".medicare.uz",
     path: "/",
   });

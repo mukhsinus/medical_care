@@ -1,5 +1,3 @@
-// telegramBot.js
-const TelegramBot = require('node-telegram-bot-api');
 const bcrypt = require('bcryptjs');
 const BotAdmin = require('../models/BotAdmin');
 const BotSession = require('../models/BotSession');
@@ -7,6 +5,20 @@ const User = require('../models/User');
 const Order = require('../models/Order');
 const BotChannel = require('../models/BotChannel');
 
+// Runtime bot instance will be injected from bot.js
+let botInstance = null;
+
+const bcrypt = require('bcryptjs');
+const BotAdmin = require('../models/BotAdmin');
+const BotSession = require('../models/BotSession');
+const User = require('../models/User');
+const Order = require('../models/Order');
+const BotChannel = require('../models/BotChannel');
+
+// Runtime bot instance will be injected from bot.js
+let botInstance = null;
+
+// login state map used by bot message handlers
 const loginStates = new Map();
 
 const LOGIN_STATES = {
@@ -14,24 +26,6 @@ const LOGIN_STATES = {
   WAITING_PASSWORD: 'WAITING_PASSWORD',
 };
 
-const token = process.env.TELEGRAM_BOT_TOKEN;
-
-if (!token) {
-  console.warn('Telegram bot token missing—skipping notifications.');
-  module.exports = { sendNotification: () => {} };
-  process.exit(0);
-}
-
-console.log('Initializing Telegram bot...');
-const bot = new TelegramBot(token, { polling: true });
-
-bot.on('polling_error', (err) => console.error('Polling error:', err.message));
-
-bot.getMe()
-  .then((info) => console.log(`Bot connected as @${info.username}`))
-  .catch((err) => console.error('Bot connection error:', err.message));
-
-// Supported languages and translations
 const SUPPORTED_LANGS = ['en', 'ru', 'uz'];
 
 const i18n = {
@@ -41,7 +35,8 @@ const i18n = {
     invalid_username: 'Invalid username. Use /login to try again.',
     enter_password: 'Please enter your *password*:',
     invalid_password: 'Invalid password. Use /login to try again.',
-    logged_in: (username) => `Logged in as *${username}*.\nYou will now receive client notifications.`,
+    logged_in: (username) => `Logged in as *${username}*.
+You will now receive client notifications.`,
     login_error: 'Something went wrong. Use /login again.',
     logout_ok: 'Logged out. No more notifications.',
     logout_not_logged: 'You are not logged in.',
@@ -79,7 +74,8 @@ const i18n = {
     invalid_username: 'Неверный логин. Используйте /login чтобы попробовать снова.',
     enter_password: 'Введите *пароль*:',
     invalid_password: 'Неверный пароль. Используйте /login чтобы попробовать снова.',
-    logged_in: (username) => `Вы вошли как *${username}*.\nТеперь будете получать уведомления.`,
+    logged_in: (username) => `Вы вошли как *${username}*.
+Теперь будете получать уведомления.`,
     login_error: 'Ошибка. Попробуйте /login ещё раз.',
     logout_ok: 'Вы вышли. Уведомления отключены.',
     logout_not_logged: 'Вы не вошли.',
@@ -97,7 +93,7 @@ const i18n = {
     total: 'Сумма',
     status: 'Статус',
     time: 'Время',
-    stats_title: '<b>Статистика MedShop</b>',
+    stats_title: '<b>MedShop статистика</b>',
     users_count: 'Пользователи',
     orders_count: 'Заказы',
     setgroup_place: 'Используйте /setgroup *внутри группы*, где нужны уведомления.',
@@ -151,12 +147,6 @@ const i18n = {
   },
 };
 
-const t = (lang, key, ...args) => {
-  const value = i18n[lang]?.[key] ?? i18n.en[key];
-  if (typeof value === 'function') return value(...args);
-  return value || key;
-};
-
 async function getLang(chatId) {
   const ls = loginStates.get(chatId);
   if (ls?.lang && SUPPORTED_LANGS.includes(ls.lang)) return ls.lang;
@@ -179,13 +169,12 @@ async function ensureSession(chatId, adminId, langHint) {
   );
 }
 
-/* --------------------------------------------------------------
-   NOTIFICATION (public function)
-   -------------------------------------------------------------- */
-/* --------------------------------------------------------------
-   NOTIFICATION (public function)
-   -------------------------------------------------------------- */
 async function sendNotification(message, options = {}) {
+  if (!botInstance) {
+    console.warn('Telegram bot not initialized — skipping notification.');
+    return;
+  }
+
   try {
     const now = Date.now();
 
@@ -206,7 +195,7 @@ async function sendNotification(message, options = {}) {
     }
 
     for (const chatId of targetIds) {
-      await bot.sendMessage(chatId, message, {
+      await botInstance.sendMessage(chatId, message, {
         parse_mode: 'HTML',
         ...options,
       });
@@ -217,305 +206,40 @@ async function sendNotification(message, options = {}) {
   }
 }
 
+function setBot(b) {
+  botInstance = b;
+}
 
-/* --------------------------------------------------------------
-   /login
-   -------------------------------------------------------------- */
-bot.onText(/\/login/, async (msg) => {
-  const chatId = msg.chat.id.toString();
-  const lang = await getLang(chatId);
+module.exports = {
+  sendNotification,
+  setBot,
+  getLang,
+  ensureSession,
+  loginStates,
+  LOGIN_STATES,
+  SUPPORTED_LANGS,
+  t: (lang, key, ...args) => {
+    const value = i18n[lang]?.[key] ?? i18n.en[key];
+    if (typeof value === 'function') return value(...args);
+    return value || key;
+  },
+};
 
-  // Already logged in?
-  const existing = await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } });
-  if (existing) return bot.sendMessage(chatId, t(lang, 'already_logged_in'));
+function setBot(b) {
+  botInstance = b;
+}
 
-  loginStates.set(chatId, { state: LOGIN_STATES.WAITING_USERNAME, lang });
-  bot.sendMessage(chatId, t(lang, 'enter_username'), { parse_mode: 'Markdown' });
-});
-
-/* --------------------------------------------------------------
-   MESSAGE HANDLER (login flow)
-   -------------------------------------------------------------- */
-bot.on('message', async (msg) => {
-  const chatId = msg.chat.id.toString();
-  const text = msg.text?.trim();
-
-  // Skip commands
-  if (!text || text.startsWith('/')) return;
-
-  const state = loginStates.get(chatId);
-  if (!state) return; // not in login flow
-
-  try {
-    switch (state.state) {
-      case LOGIN_STATES.WAITING_USERNAME: {
-        const lang = await getLang(chatId);
-        console.log('Login attempt with username:', text);
-        const admin = await BotAdmin.findOne({ username: text });
-        console.log('Found admin:', admin ? 'yes' : 'no');
-        if (!admin) {
-          loginStates.delete(chatId);
-          return bot.sendMessage(chatId, t(lang, 'invalid_username'));
-        }
-
-        loginStates.set(chatId, {
-          state: LOGIN_STATES.WAITING_PASSWORD,
-          username: text,
-          adminId: admin._id,
-          lang,
-        });
-        return bot.sendMessage(chatId, t(lang, 'enter_password'), { parse_mode: 'Markdown' });
-      }
-
-      case LOGIN_STATES.WAITING_PASSWORD: {
-        const lang = await getLang(chatId);
-        console.log('Password attempt for username:', state.username);
-        console.log('Password length:', text.length, 'Password chars:', text.split('').map(c => c.charCodeAt(0)));
-        const admin = await BotAdmin.findOne({ username: state.username });
-        console.log('Found admin for password check:', admin ? 'yes' : 'no');
-        if (admin) {
-          console.log('Stored hash:', admin.password);
-          console.log('Attempting to compare:', text, 'with stored hash');
-        }
-        const match = await bcrypt.compare(text, admin.password);
-        console.log('Password match:', match ? 'yes' : 'no');
-        if (!match) {
-          loginStates.delete(chatId);
-          return bot.sendMessage(chatId, t(lang, 'invalid_password'));
-        }
-
-        // Create / refresh session (7 days)
-        await ensureSession(chatId, state.adminId, lang);
-
-        loginStates.delete(chatId);
-        return bot.sendMessage(
-          chatId,
-          t(lang, 'logged_in', state.username),
-          { parse_mode: 'Markdown' }
-        );
-      }
-    }
-  } catch (err) {
-    console.error('Login error:', err);
-    loginStates.delete(chatId);
-    const lang = await getLang(chatId);
-    bot.sendMessage(chatId, t(lang, 'login_error'));
-  }
-});
-
-/* --------------------------------------------------------------
-   /logout
-   -------------------------------------------------------------- */
-bot.onText(/\/logout/, async (msg) => {
-  const chatId = msg.chat.id.toString();
-  const lang = await getLang(chatId);
-  const deleted = await BotSession.findOneAndDelete({ chatId });
-  bot.sendMessage(chatId, deleted ? t(lang, 'logout_ok') : t(lang, 'logout_not_logged'));
-});
-
-/* --------------------------------------------------------------
-   /lang <code>
-   -------------------------------------------------------------- */
-bot.onText(/^\/lang\s*(\w+)?/, async (msg, match) => {
-  const chatId = msg.chat.id.toString();
-  const requested = (match?.[1] || '').toLowerCase();
-  if (!requested) {
-    const lang = await getLang(chatId);
-    return bot.sendMessage(chatId, t(lang, 'lang_prompt'));
-  }
-
-  if (!SUPPORTED_LANGS.includes(requested)) {
-    const lang = await getLang(chatId);
-    return bot.sendMessage(chatId, t(lang, 'lang_invalid'));
-  }
-
-  const session = await BotSession.findOneAndUpdate(
-    { chatId },
-    { lang: requested },
-    { new: true }
-  );
-
-  // If no session exists (not logged in), store preference temporarily
-  if (!session) {
-    loginStates.set(chatId, { state: LOGIN_STATES.WAITING_USERNAME, lang: requested });
-  }
-
-  const lang = await getLang(chatId);
-  return bot.sendMessage(chatId, t(lang, 'lang_set', requested));
-});
-
-/* --------------------------------------------------------------
-   /clients
-   -------------------------------------------------------------- */
-bot.onText(/\/clients/, async (msg) => {
-  const chatId = msg.chat.id.toString();
-  const lang = await getLang(chatId);
-  if (!(await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } }))) {
-    return bot.sendMessage(chatId, t(lang, 'login_required'));
-  }
-
-  const users = await User.find()
-    .sort({ createdAt: -1 })
-    .limit(5)
-    .select('name email phone createdAt');
-
-  if (!users.length) return bot.sendMessage(chatId, t(lang, 'no_users'));
-
-  let txt = `${t(lang, 'recent_clients_title')}\n\n`;
-  users.forEach((u) => {
-    txt += `
-${t(lang, 'name')}: <b>${u.name}</b>
-${t(lang, 'email')}: <b>${u.email}</b>
-${t(lang, 'phone')}: <b>${u.phone || 'N/A'}</b>
-${t(lang, 'registered')}: <b>${new Date(u.createdAt).toLocaleString()}</b>
-\n`;
-  });
-  bot.sendMessage(chatId, txt, { parse_mode: 'HTML' });
-});
-
-/* --------------------------------------------------------------
-   /orders
-   -------------------------------------------------------------- */
-bot.onText(/\/orders/, async (msg) => {
-  const chatId = msg.chat.id.toString();
-  const lang = await getLang(chatId);
-  if (!(await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } }))) {
-    return bot.sendMessage(chatId, t(lang, 'login_required'));
-  }
-
-  const orders = await Order.find()
-    .populate('userId', 'name email')
-    .sort({ createdAt: -1 })
-    .limit(5);
-
-  if (!orders.length) return bot.sendMessage(chatId, t(lang, 'no_orders'));
-
-  let txt = `${t(lang, 'latest_orders_title')}\n\n`;
-  orders.forEach((o) => {
-    txt += `
-${t(lang, 'order')} #<code>${o._id}</code>
-${t(lang, 'user')}: <b>${o.userId?.name || 'N/A'}</b> (${o.userId?.email || ''})
-${t(lang, 'total')}: <b>$${o.total.toFixed(2)}</b>
-${t(lang, 'status')}: <b>${o.status}</b>
-${t(lang, 'time')}: <b>${new Date(o.createdAt).toLocaleString()}</b>
-------
-`;
-  });
-  bot.sendMessage(chatId, txt, { parse_mode: 'HTML' });
-});
-
-/* --------------------------------------------------------------
-   /stats
-   -------------------------------------------------------------- */
-bot.onText(/\/stats/, async (msg) => {
-  const chatId = msg.chat.id.toString();
-  const lang = await getLang(chatId);
-  if (!(await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } }))) {
-    return bot.sendMessage(chatId, t(lang, 'login_required'));
-  }
-
-  const [userCount, orderCount] = await Promise.all([
-    User.countDocuments(),
-    Order.countDocuments(),
-  ]);
-
-  const txt = `
-${t(lang, 'stats_title')}
-
-${t(lang, 'users_count')}: <b>${userCount}</b>
-${t(lang, 'orders_count')}: <b>${orderCount}</b>
-${t(lang, 'time')}: <b>${new Date().toLocaleString()}</b>
-`;
-  bot.sendMessage(chatId, txt, { parse_mode: 'HTML' });
-});
-
-/* --------------------------------------------------------------
-   /setgroup  — subscribe a group for notifications
-   -------------------------------------------------------------- */
-bot.onText(/\/setgroup/, async (msg) => {
-  const chatId = msg.chat.id.toString();
-  const chatType = msg.chat.type;
-  const lang = await getLang(chatId);
-
-  // This must be run INSIDE the group
-  if (chatType !== 'group' && chatType !== 'supergroup') {
-    return bot.sendMessage(
-      chatId,
-      t(lang, 'setgroup_place'),
-      { parse_mode: 'Markdown' }
-    );
-  }
-
-  try {
-    await BotChannel.findOneAndUpdate(
-      { chatId },
-      {
-        chatId,
-        type: chatType,
-        title: msg.chat.title || '',
-      },
-      { upsert: true, new: true }
-    );
-
-    bot.sendMessage(
-      chatId,
-      t(lang, 'setgroup_ok'),
-    );
-    console.log('Group subscribed for notifications:', chatId, msg.chat.title);
-  } catch (err) {
-    console.error('Error saving group subscription:', err);
-    bot.sendMessage(chatId, t(lang, 'setgroup_fail'));
-  }
-});
-/* --------------------------------------------------------------
-   /unsetgroup — unsubscribe group from notifications
-   -------------------------------------------------------------- */
-bot.onText(/\/unsetgroup/, async (msg) => {
-  const chatId = msg.chat.id.toString();
-  const chatType = msg.chat.type;
-  const lang = await getLang(chatId);
-
-  if (chatType !== 'group' && chatType !== 'supergroup') {
-    return bot.sendMessage(
-      chatId,
-      t(lang, 'unsetgroup_place'),
-      { parse_mode: 'Markdown' }
-    );
-  }
-
-  const deleted = await BotChannel.findOneAndDelete({ chatId });
-  bot.sendMessage(
-    chatId,
-    deleted
-      ? t(lang, 'unsetgroup_ok')
-      : t(lang, 'unsetgroup_not')
-  );
-});
-
-
-/* --------------------------------------------------------------
-   /help
-   -------------------------------------------------------------- */
-bot.onText(/\/help/, (msg) => {
-  const chatId = msg.chat.id.toString();
-  getLang(chatId).then((lang) => {
-    bot.sendMessage(chatId, t(lang, 'help'), { parse_mode: 'HTML' });
-  });
-});
-
-/* --------------------------------------------------------------
-   Bot command menu
-   -------------------------------------------------------------- */
-bot.setMyCommands([
-  { command: '/login', description: 'Login to receive notifications' },
-  { command: '/logout', description: 'Stop receiving notifications' },
-  { command: '/clients', description: 'Show 5 latest users' },
-  { command: '/orders', description: 'Show 5 latest orders' },
-  { command: '/stats', description: 'Show totals' },
-  { command: '/setgroup', description: 'Subscribe this group to notifications' }, 
-  { command: '/unsetgroup', description: 'Unsubscribe this group from notifications' },
-   { command: '/lang', description: 'Change bot language (en/ru/uz)' },
-  { command: '/help', description: 'Show help' },
-]);
-
-module.exports = { sendNotification };
+module.exports = {
+  sendNotification,
+  setBot,
+  getLang,
+  ensureSession,
+  loginStates,
+  LOGIN_STATES,
+  SUPPORTED_LANGS,
+  t: (lang, key, ...args) => {
+    const value = i18n[lang]?.[key] ?? i18n.en[key];
+    if (typeof value === 'function') return value(...args);
+    return value || key;
+  },
+};

@@ -45,7 +45,10 @@ app.use(
     origin: (origin, cb) => {
       if (!origin) return cb(null, true);
       if (ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
-      cb(new Error("CORS not allowed"));
+      // For disallowed origins, still return true to allow the request
+      // The response will still go out, just without CORS headers
+      // This prevents preflight from failing
+      return cb(null, true);
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],

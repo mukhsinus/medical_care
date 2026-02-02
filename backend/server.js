@@ -56,6 +56,7 @@ app.use(
 
 // Explicit preflight handler
 app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.path}`);
   if (req.method === "OPTIONS") {
     res.sendStatus(204);
   } else {
@@ -93,8 +94,16 @@ app.get("/api/health", (req, res) => {
    Error handler
 ------------------------- */
 app.use((err, req, res, next) => {
-  console.error("[ERROR]", err.message);
-  res.status(500).json({ error: "Internal Server Error" });
+  console.error("[ERROR] Unhandled error:", err);
+  res.status(500).json({ error: "Internal Server Error", message: err.message });
+});
+
+/* -------------------------
+   404 handler
+------------------------- */
+app.use((req, res) => {
+  console.warn(`[404] ${req.method} ${req.path}`);
+  res.status(404).json({ error: "Not Found" });
 });
 
 /* -------------------------
@@ -103,6 +112,17 @@ app.use((err, req, res, next) => {
 const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`[START] Server running on 0.0.0.0:${PORT}`);
   console.log(`[ENV] ${NODE_ENV}`);
+});
+
+/* ======================== CATCH UNHANDLED ERRORS ======================== */
+process.on("uncaughtException", (error) => {
+  console.error("[UNCAUGHT EXCEPTION]", error);
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("[UNHANDLED REJECTION]", reason);
+  process.exit(1);
 });
 
 /* -------------------------

@@ -12,6 +12,13 @@ const FRONTEND_URL = process.env.FRONTEND_URL || '*';
 const authMiddleware = require('./middleware/auth');
 const User = require('./models/User');
 
+// Routes
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const paymentRoutes = require('./routes/payment');
+const mockRoutes = require('./routes/mock');
+const paycomRoutes = require('./routes/paycomWebhook');
+
 // Debug logging
 console.log('[STARTUP] Backend starting...');
 console.log('[STARTUP] Node version:', process.version);

@@ -8,15 +8,10 @@ const cors = require("cors");
 
 const PORT = process.env.PORT || 8090;
 const MONGO_URI = process.env.MONGO_URI;
-const FRONTEND_URL = process.env.FRONTEND_URL;
+
 
 if (!MONGO_URI) {
   console.error("❌ MONGO_URI not configured");
-  process.exit(1);
-}
-
-if (!FRONTEND_URL) {
-  console.error("❌ FRONTEND_URL not configured");
   process.exit(1);
 }
 
@@ -25,37 +20,36 @@ const User = require("./models/User");
 
 const app = express();
 
-/**
- * ------------------------
- * CORS — MUST be FIRST
- * ------------------------
- */
 app.use(
   cors({
-    origin: [
-      process.env.FRONTEND_URL,            // https://medicare.uz
-      "https://www.medicare.uz"
-    ],
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "https://medicare.uz",
+        "https://www.medicare.uz",
+      ];
+
+      // allow server-to-server / curl / health checks
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
-    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-/**
- * ------------------------
- * Middleware
- * ------------------------
- */
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-/**
- * ------------------------
- * Routes
- * ------------------------
- */
+
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const paymentRoutes = require("./routes/payment");
@@ -68,11 +62,7 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/paycom", paycomRoutes);
 app.use("/mock", mockRoutes);
 
-/**
- * ------------------------
- * Protected profile
- * ------------------------
- */
+
 app.get("/api/me", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select(

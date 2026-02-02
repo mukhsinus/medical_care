@@ -1,9 +1,10 @@
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
-const express = require('express');
-const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 8090;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/medical_care';
@@ -18,6 +19,36 @@ console.log('[STARTUP] Environment variables loaded:', !!process.env.MONGO_URI);
 
 
 const app = express();
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "https://medicare.uz",
+        "https://www.medicare.uz",
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+      ];
+
+      // allow server-to-server / curl / health checks
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked: ${origin}`));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -34,27 +65,45 @@ app.use(cors({
 console.log('[CORS] Middleware loaded');
 
 
-app.get('/api/me', authMiddleware, async (req, res) => {
+app.get("/api/me", authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('-password -resetPasswordToken -resetPasswordExpires');
-    if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
-    return res.json({ user });
+    const user = await User.findById(req.userId).select(
+      "-password -resetPasswordToken -resetPasswordExpires"
+    );
+    if (!user) {
+      return res.status(404).json({ message: "Пользователь не найден" });
+    }
+    res.json({ user });
   } catch (err) {
-    console.error('GET /api/me error:', err);
-    return res.status(500).json({ message: 'Ошибка при получении профиля' });
+    console.error("GET /api/me error:", err);
+    res.status(500).json({ message: "Ошибка при получении профиля" });
   }
 });
 
+/**
+ * ------------------------
+ * Health check
+ * ------------------------
+ */
+app.get("/api/health", (req, res) =>
+  res.json({ ok: true, time: new Date() })
+);
 
-// Routes
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/user');
-const paymentRoutes = require('./routes/payment');
-const mockRoutes = require('./routes/mock');
-const paycomRoutes = require('./routes/paycomWebhook');
+/**
+ * ------------------------
+ * Global error handler
+ * ------------------------
+ */
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err);
+  res.status(500).json({ error: "Internal Server Error" });
+});
 
-
-// Connect to MongoDB and start server
+/**
+ * ------------------------
+ * Start server
+ * ------------------------
+ */
 async function start() {
   try {
     console.log(`[INFO] Connecting to MongoDB: ${MONGO_URI.replace(/:[^:/@]*@/, ':***@')}`);

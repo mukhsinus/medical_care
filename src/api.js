@@ -1,62 +1,107 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_BASE = 'http://localhost:8090'; // поменяй если нужно
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
+if (!API_BASE) {
+  throw new Error("VITE_API_BASE_URL is not defined");
+}
+
+/**
+ * Axios instance
+ */
 const api = axios.create({
   baseURL: API_BASE,
-  withCredentials: true, // КЛЮЧЕВОЕ: отправляем httpOnly cookie (refreshToken)
+  withCredentials: true, // IMPORTANT: allow httpOnly refresh cookie
 });
 
-// in-memory access token
+/**
+ * In-memory access token
+ * (dies on refresh — that’s OK)
+ */
 let accessToken = null;
-export function setAccessToken(token) { accessToken = token; }
-export function clearAccessToken() { accessToken = null; }
 
-// Request interceptor — добавляем Authorization, если есть access token
+export function setAccessToken(token) {
+  accessToken = token;
+}
+
+export function clearAccessToken() {
+  accessToken = null;
+}
+
+/**
+ * Auth routes where refresh MUST NOT run
+ */
+const AUTH_ROUTES = [
+  "/api/auth/login",
+  "/api/auth/signup",
+  "/api/auth/forgot-password",
+  "/api/auth/reset-password",
+];
+
+/**
+ * Request interceptor
+ * Adds Authorization header if access token exists
+ */
 api.interceptors.request.use(
-  cfg => {
-    if (accessToken) cfg.headers['Authorization'] = `Bearer ${accessToken}`;
-    return cfg;
+  (config) => {
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
   },
-  err => Promise.reject(err)
+  (error) => Promise.reject(error)
 );
 
-// Response interceptor — при 401 делаем refresh и повторяем запрос
+/**
+ * Response interceptor
+ * Refresh token ONLY for protected routes
+ */
 api.interceptors.response.use(
-  res => res,
-  async error => {
+  (response) => response,
+  async (error) => {
     const original = error.config;
     if (!original) return Promise.reject(error);
 
-    if (error.response && error.response.status === 401 && !original._retry) {
+    const isAuthRoute = AUTH_ROUTES.some((route) =>
+      original.url?.includes(route)
+    );
+
+    if (
+      error.response?.status === 401 &&
+      !original._retry &&
+      !isAuthRoute
+    ) {
       original._retry = true;
+
       try {
-        const resp = await axios.post(
-          `${API_BASE}/api/auth/refresh`,
-          {},
-          { withCredentials: true }
-        );
+        // IMPORTANT: must match backend method (POST here)
+        const resp = await api.post("/api/auth/refresh");
         const newToken = resp.data.token;
+
         setAccessToken(newToken);
-        original.headers['Authorization'] = `Bearer ${newToken}`;
-        return axios(original);
-      } catch (e) {
+        original.headers.Authorization = `Bearer ${newToken}`;
+
+        return api(original);
+      } catch (refreshError) {
         clearAccessToken();
-        return Promise.reject(e);
+        return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   }
 );
 
-// 🚀 Payment helper
+/**
+ * Payments helper
+ */
 export async function startPayment({ items, amount, provider }) {
-  const res = await api.post('/api/payments/create', {
+  const res = await api.post("/api/payments/create", {
     items,
     amount,
     provider,
   });
-  return res.data; // { message, orderId, provider, paymentInitData }
+  return res.data;
 }
 
 export default api;

@@ -62,12 +62,13 @@ import api, { startPayment } from "@/api";
 
 const fetchUserProfile = async (): Promise<{ user: UserProfile }> => {
   const token = localStorage.getItem("authToken");
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
   };
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const response = await fetch("http://localhost:8090/api/me", {
+  const response = await fetch(`${API_BASE_URL}/api/me`, {
     method: "GET",
     headers,
     credentials: "include",
@@ -78,11 +79,12 @@ const fetchUserProfile = async (): Promise<{ user: UserProfile }> => {
 };
 
 const fetchUserOrders = async () => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem("authToken");
   const headers: any = { "Content-Type": "application/json" };
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const response = await fetch("http://localhost:8090/api/user/orders", {
+  const response = await fetch(`${API_BASE_URL}/api/user/orders`, {
     method: "GET",
     headers,
     credentials: "include",
@@ -102,11 +104,12 @@ const updateUserProfile = async (data: {
     zip?: string;
   };
 }) => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem("authToken");
   const headers: any = { "Content-Type": "application/json" };
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const response = await fetch("http://localhost:8090/api/user/profile", {
+  const response = await fetch(`${API_BASE_URL}/api/user/profile`, {
     method: "PATCH",
     headers,
     credentials: "include",
@@ -126,11 +129,12 @@ const updateUserProfile = async (data: {
 };
 
 const changePassword = async (data: { current: string; new: string }) => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem("authToken");
   const headers: any = { "Content-Type": "application/json" };
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const response = await fetch("http://localhost:8090/api/user/password", {
+  const response = await fetch(`${API_BASE_URL}/api/user/password`, {
     method: "PATCH",
     headers,
     credentials: "include",
@@ -148,9 +152,9 @@ const changePassword = async (data: { current: string; new: string }) => {
   }
   return response.json();
 };
-
 const logoutUser = async () => {
-  await fetch("http://localhost:8090/api/auth/logout", {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  await fetch(`${API_BASE_URL}/api/auth/logout`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },

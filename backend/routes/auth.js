@@ -38,6 +38,7 @@ async function createAndSendRefreshToken(res, user, req) {
     expiresAt: new Date(Date.now() + REFRESH_DAYS * 24 * 60 * 60 * 1000),
   });
 
+  // Still set cookie as fallback for browsers that support it
   res.cookie(REFRESH_COOKIE_NAME, value, {
     httpOnly: true,
     secure: true,
@@ -46,6 +47,9 @@ async function createAndSendRefreshToken(res, user, req) {
     path: "/",
     maxAge: REFRESH_DAYS * 24 * 60 * 60 * 1000,
   });
+
+  // Return token for storage in localStorage (Safari compatibility)
+  return value;
 }
 
 function clearRefreshCookie(res) {
@@ -64,7 +68,8 @@ async function handleRegister(req, res) {
   try {
     const { name, email, phone, password } = req.body;
     
-    console.log("[SIGNUP] Received body:", { name, email, phone, password });
+    // Log only non-sensitive data
+    console.log("[SIGNUP] Received signup request for:", { name, email, hasPassword: !!password });
 
     if (!name || !email || !password) {
       console.log("[SIGNUP] ❌ Missing required fields:", { name: !!name, email: !!email, password: !!password });
@@ -81,7 +86,7 @@ async function handleRegister(req, res) {
     const user = await User.create({ name, email, phone, password: hash });
 
     const accessToken = createAccessToken(user._id);
-    await createAndSendRefreshToken(res, user, req);
+    const refreshToken = await createAndSendRefreshToken(res, user, req);
 
     try {
       sendNotification(
@@ -92,7 +97,8 @@ async function handleRegister(req, res) {
     console.log("[SIGNUP] ✅ User created:", { id: user._id, email });
 
     return res.status(201).json({
-      token: accessToken,
+      accessToken,
+      refreshToken,
       user: {
         id: user._id,
         name: user.name,
@@ -116,6 +122,8 @@ router.post("/login", async (req, res) => {
     const { identifier, nameOrEmail, email, password } = req.body || {};
     const loginId = (identifier || nameOrEmail || email || "").trim();
 
+    console.log("[LOGIN] Login attempt for:", loginId);
+
     if (!loginId || !password) {
       return res.status(400).json({ message: "identifier and password required" });
     }
@@ -130,11 +138,12 @@ router.post("/login", async (req, res) => {
     if (!ok) return res.status(400).json({ message: "Invalid credentials" });
 
     const accessToken = createAccessToken(user._id);
-    await createAndSendRefreshToken(res, user, req);
-    console.log("[LOGIN] ✅ Refresh cookie should be set");
+    const refreshToken = await createAndSendRefreshToken(res, user, req);
+    console.log("[LOGIN] ✅ Refresh cookie set for user:", user._id);
 
     return res.json({
-      token: accessToken,
+      accessToken,
+      refreshToken,
       user: {
         id: user._id,
         name: user.name,
@@ -152,13 +161,13 @@ router.post("/login", async (req, res) => {
 
 router.post("/refresh", async (req, res) => {
   try {
-    console.log("[REFRESH] Cookies received:", Object.keys(req.cookies || {}));
-    console.log("[REFRESH] All cookies:", req.cookies);
-    console.log("[REFRESH] Looking for cookie name:", REFRESH_COOKIE_NAME);
+    // Try to get token from body first (for Safari), then from cookie (fallback)
+    let value = req.body?.refreshToken || req.cookies?.[REFRESH_COOKIE_NAME];
     
-    const value = req.cookies?.[REFRESH_COOKIE_NAME];
+    console.log("[REFRESH] Attempting token refresh. Has body token:", !!req.body?.refreshToken, "Has cookie token:", !!req.cookies?.[REFRESH_COOKIE_NAME]);
+    
     if (!value) {
-      console.log("[REFRESH] ❌ No refresh token found");
+      console.log("[REFRESH] ❌ No refresh token found in body or cookies");
       return res.status(401).json({ message: "No refresh token" });
     }
 
@@ -180,12 +189,13 @@ router.post("/refresh", async (req, res) => {
     }
 
     await RefreshToken.deleteOne({ token: value });
-    await createAndSendRefreshToken(res, user, req);
+    const newRefreshToken = await createAndSendRefreshToken(res, user, req);
 
     const accessToken = createAccessToken(user._id);
 
     return res.json({
-      token: accessToken,
+      accessToken,
+      refreshToken: newRefreshToken,
       user: {
         id: user._id,
         name: user.name,

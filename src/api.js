@@ -12,12 +12,12 @@ if (!API_BASE) {
  */
 const api = axios.create({
   baseURL: API_BASE,
-  withCredentials: true, // IMPORTANT: allow httpOnly refresh cookie
+  withCredentials: true, // Allow cookies as fallback
 });
 
 /**
  * In-memory access token
- * (dies on refresh — that’s OK)
+ * (dies on refresh — that's OK)
  */
 let accessToken = null;
 
@@ -27,6 +27,21 @@ export function setAccessToken(token) {
 
 export function clearAccessToken() {
   accessToken = null;
+}
+
+/**
+ * Refresh token storage (localStorage for Safari compatibility)
+ */
+export function setRefreshToken(token) {
+  localStorage.setItem("refreshToken", token);
+}
+
+export function getRefreshToken() {
+  return localStorage.getItem("refreshToken");
+}
+
+export function clearRefreshToken() {
+  localStorage.removeItem("refreshToken");
 }
 
 /**
@@ -55,7 +70,8 @@ api.interceptors.request.use(
 
 /**
  * Response interceptor
- * Refresh token ONLY for protected routes
+ * Refresh token for protected routes
+ * Works with both cookie-based and body-based refresh tokens
  */
 api.interceptors.response.use(
   (response) => response,
@@ -79,20 +95,28 @@ api.interceptors.response.use(
       original._retry = true;
 
       try {
-        // ✅ CRITICAL: withCredentials must be true to send cookies
+        const refreshToken = getRefreshToken();
+        
+        // ✅ Send refresh token in body (Safari compatible)
+        // Cookies are sent automatically as fallback
         const resp = await api.post(
           "/api/auth/refresh",
-          {},
+          { refreshToken },
           { withCredentials: true }
         );
-        const newToken = resp.data.token;
+        
+        const newAccessToken = resp.data.accessToken;
+        const newRefreshToken = resp.data.refreshToken;
 
-        setAccessToken(newToken);
-        original.headers.Authorization = `Bearer ${newToken}`;
+        setAccessToken(newAccessToken);
+        if (newRefreshToken) setRefreshToken(newRefreshToken);
+        
+        original.headers.Authorization = `Bearer ${newAccessToken}`;
 
         return api(original);
       } catch (refreshError) {
         clearAccessToken();
+        clearRefreshToken();
         return Promise.reject(refreshError);
       }
     }

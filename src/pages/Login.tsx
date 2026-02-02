@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
-import api from '@/api';
+import api, { setAccessToken, setRefreshToken } from '@/api';
 import { Mail, Lock, UserPlus, AlertCircle, User, Phone, Eye, EyeOff } from 'lucide-react';
 
 
@@ -75,10 +75,10 @@ const Login: React.FC = () => {
 
   const loginMutation = useMutation({
     mutationFn: loginUser,
-    onSuccess: async () => {
-      // IMPORTANT:
-      // Do NOT store token here
-      // Cookie is already set by backend
+    onSuccess: async (data) => {
+      // Store tokens for Safari compatibility
+      if (data.accessToken) setAccessToken(data.accessToken);
+      if (data.refreshToken) setRefreshToken(data.refreshToken);
 
       setError(null);
       navigate(`/${locale}/account`);
@@ -87,8 +87,11 @@ const Login: React.FC = () => {
 
   const signupMutation = useMutation({
     mutationFn: signupUser,
-    onSuccess: async () => {
-      // Same rule — cookie only
+    onSuccess: async (data) => {
+      // Store tokens for Safari compatibility
+      if (data.accessToken) setAccessToken(data.accessToken);
+      if (data.refreshToken) setRefreshToken(data.refreshToken);
+
       setError(null);
       navigate(`/${locale}/account`);
     },

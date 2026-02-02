@@ -61,7 +61,7 @@ import {
 import api, { startPayment } from "@/api";
 
 const fetchUserProfile = async (): Promise<{ user: UserProfile }> => {
-  const response = await api.get("/api/me");
+  const response = await api.get("/api/user/me");
   return response.data;
 };
 
@@ -86,7 +86,10 @@ const updateUserProfile = async (data: {
 };
 
 const changePassword = async (data: { current: string; new: string }) => {
-  const response = await api.patch("/api/user/password", data);
+  const response = await api.patch("/api/user/password", {
+    currentPassword: data.current,
+    newPassword: data.new,
+  });
   return response.data;
 };
 

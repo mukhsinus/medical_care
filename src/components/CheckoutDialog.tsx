@@ -52,7 +52,7 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
     }
 
     api
-      .get("/api/me")
+      .get("/api/user/me")
       .then((res) => setFreshUser(res.data.user))
       .catch(() => setFreshUser(user));
   }, [open, user]);

@@ -66,16 +66,24 @@ api.interceptors.response.use(
       original.url?.includes(route)
     );
 
+    // 🚨 CRITICAL: Don't retry refresh itself
+    const isRefreshRoute = original.url?.includes("/api/auth/refresh");
+
     if (
       error.response?.status === 401 &&
       !original._retry &&
-      !isAuthRoute
+      !isAuthRoute &&
+      !isRefreshRoute
     ) {
       original._retry = true;
 
       try {
-        // IMPORTANT: must match backend method (POST here)
-        const resp = await api.post("/api/auth/refresh");
+        // ✅ CRITICAL: withCredentials must be true to send cookies
+        const resp = await api.post(
+          "/api/auth/refresh",
+          {},
+          { withCredentials: true }
+        );
         const newToken = resp.data.token;
 
         setAccessToken(newToken);

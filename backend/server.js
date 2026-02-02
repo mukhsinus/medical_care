@@ -9,6 +9,12 @@ const cors = require("cors");
 const PORT = process.env.PORT || 8090;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/medical_care";
 const NODE_ENV = process.env.NODE_ENV || "development";
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  console.error("❌ FATAL: JWT_SECRET environment variable is not set");
+  process.exit(1);
+}
 
 const app = express();
 
@@ -28,7 +34,7 @@ app.use(
     origin: (origin, cb) => {
       if (!origin) return cb(null, true);
       if (ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
-      return cb(null, false);
+      return cb(new Error("CORS blocked: " + origin));
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
@@ -37,10 +43,7 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  if (req.method === "OPTIONS") return res.sendStatus(204);
-  next();
-});
+app.options("*", cors());
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
@@ -72,7 +75,13 @@ const server = app.listen(PORT, "0.0.0.0");
       retryWrites: true,
       w: "majority",
     });
-  } catch {}
+    console.log("✅ MongoDB connected successfully");
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error.message);
+    console.error("MONGO_URI:", MONGO_URI);
+    console.error("NODE_ENV:", NODE_ENV);
+    process.exit(1);
+  }
 })();
 
 process.on("SIGTERM", () => {

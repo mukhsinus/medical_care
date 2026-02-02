@@ -110,17 +110,11 @@ const server = app.listen(PORT, "0.0.0.0", () => {
       retryWrites: true,
       w: "majority",
     });
-<<<<<<< HEAD
     console.log("✅ MongoDB connected successfully");
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);
     console.error("MONGO_URI:", MONGO_URI);
     console.error("NODE_ENV:", NODE_ENV);
-=======
-    console.log("[MONGO] Connected");
-  } catch (err) {
-    console.error("[MONGO] Connection failed:", err.message);
->>>>>>> 3e444057dfefdbd2c22b4526e440923a2aecb46f
     process.exit(1);
   }
 })();

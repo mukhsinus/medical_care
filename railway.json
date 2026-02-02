@@ -1,0 +1,19 @@
+{
+  "services": {
+    "backend": {
+      "root": "./backend",
+      "buildCommand": "npm install",
+      "startCommand": "npm start",
+      "port": 8090,
+      "healthCheckUrl": "/api/health",
+      "healthCheckInterval": 30,
+      "environmentVariables": {
+        "NODE_ENV": "production",
+        "PORT": "8090"
+      }
+    }
+  },
+  "mongodb": {
+    "version": "7.0"
+  }
+}

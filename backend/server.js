@@ -11,15 +11,27 @@ const FRONTEND_URL = process.env.FRONTEND_URL || '*';
 const authMiddleware = require('./middleware/auth');
 const User = require('./models/User');
 
+// Debug logging
+console.log('[STARTUP] Backend starting...');
+console.log('[STARTUP] Node version:', process.version);
+console.log('[STARTUP] Environment variables loaded:', !!process.env.MONGO_URI);
+
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// CORS Configuration
+console.log(`[CORS] Allowed Origin: ${FRONTEND_URL}`);
 app.use(cors({
   origin: FRONTEND_URL,
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+  exposedHeaders: ['Content-Type', 'Set-Cookie']
 }));
+console.log('[CORS] Middleware loaded');
 
 
 app.get('/api/me', authMiddleware, async (req, res) => {
@@ -45,10 +57,17 @@ const paycomRoutes = require('./routes/paycomWebhook');
 // Connect to MongoDB and start server
 async function start() {
   try {
+    console.log(`[INFO] Connecting to MongoDB: ${MONGO_URI.replace(/:[^:/@]*@/, ':***@')}`);
+    console.log(`[INFO] Frontend URL: ${FRONTEND_URL}`);
+    console.log(`[INFO] Environment: ${process.env.NODE_ENV || 'development'}`);
+    
     await mongoose.connect(MONGO_URI, {
-      // options left default for mongoose v6+
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      retryWrites: true,
+      w: 'majority'
     });
-    console.log('Connected to MongoDB');
+    console.log('[SUCCESS] Connected to MongoDB');
 
     app.use('/api/auth', authRoutes);
     app.use('/api/user', userRoutes);
@@ -57,18 +76,32 @@ async function start() {
     app.use('/mock', mockRoutes);
 
     // health
-    app.get('/api/health', (req, res) => res.json({ ok: true, time: new Date() }));
+    app.get('/api/health', (req, res) => res.json({ ok: true, time: new Date(), environment: process.env.NODE_ENV || 'development' }));
 
     app.use((err, req, res, next) => {
-      console.error('Unhandled error:', err);
+      console.error('[ERROR] Unhandled error:', err);
       res.status(500).json({ error: 'Internal Server Error' });
     });
 
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Server listening on port ${PORT}`);
+    const server = app.listen(PORT, '0.0.0.0', () => {
+      console.log(`[SUCCESS] Server listening on 0.0.0.0:${PORT}`);
     });
+
+    // Graceful shutdown
+    process.on('SIGTERM', () => {
+      console.log('[INFO] SIGTERM signal received: closing HTTP server');
+      server.close(() => {
+        console.log('[INFO] HTTP server closed');
+        mongoose.connection.close(false, () => {
+          console.log('[INFO] MongoDB connection closed');
+          process.exit(0);
+        });
+      });
+    });
+
   } catch (err) {
-    console.error('Failed to start server:', err);
+    console.error('[ERROR] Failed to start server:', err.message);
+    console.error('[ERROR] Stack:', err.stack);
     process.exit(1);
   }
 }

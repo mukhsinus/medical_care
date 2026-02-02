@@ -20,35 +20,6 @@ console.log('[STARTUP] Environment variables loaded:', !!process.env.MONGO_URI);
 
 const app = express();
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      const allowedOrigins = [
-        "https://medicare.uz",
-        "https://www.medicare.uz",
-        "http://localhost:8080",
-        "http://127.0.0.1:8080",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-      ];
-
-      // allow server-to-server / curl / health checks
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(new Error(`CORS blocked: ${origin}`));
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -56,9 +27,27 @@ app.use(cookieParser());
 // CORS Configuration
 console.log(`[CORS] Allowed Origin: ${FRONTEND_URL}`);
 app.use(cors({
-  origin: FRONTEND_URL,
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      "https://medicare.uz",
+      "https://www.medicare.uz",
+      "http://localhost:8080",
+      "http://127.0.0.1:8080",
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+    ];
+
+    // allow server-to-server / curl / health checks
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS blocked: ${origin}`));
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
   exposedHeaders: ['Content-Type', 'Set-Cookie']
 }));
@@ -106,6 +95,10 @@ app.use((err, req, res, next) => {
  */
 async function start() {
   try {
+    // Debug MONGO_URI
+    console.log(`[DEBUG] MONGO_URI value (first 50 chars): ${MONGO_URI.substring(0, 50)}`);
+    console.log(`[DEBUG] MONGO_URI length: ${MONGO_URI.length}`);
+    
     console.log(`[INFO] Connecting to MongoDB: ${MONGO_URI.replace(/:[^:/@]*@/, ':***@')}`);
     console.log(`[INFO] Frontend URL: ${FRONTEND_URL}`);
     console.log(`[INFO] Environment: ${process.env.NODE_ENV || 'development'}`);

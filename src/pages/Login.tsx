@@ -13,70 +13,72 @@ import api from '@/api';
 import { Mail, Lock, UserPlus, AlertCircle, User, Phone, Eye, EyeOff } from 'lucide-react';
 
 
-  type LoginPayload = {
-    nameOrEmail: string;
-    password: string;
+/* ===================== TYPES ===================== */
+
+type LoginPayload = {
+  nameOrEmail: string;
+  password: string;
+};
+
+type SignupPayload = {
+  name: string;
+  email: string;
+  phone?: string;
+  password: string;
+};
+
+/* ===================== API CALLS ===================== */
+
+// LOGIN
+const loginUser = async ({ nameOrEmail, password }: LoginPayload) => {
+  const payload = {
+    identifier: nameOrEmail,
+    password,
   };
 
-  type SignupPayload = {
-    name: string;
-    email: string;
-    phone?: string;
-    password: string;
+  const { data } = await api.post("/api/auth/login", payload);
+  return data;
+};
+
+// SIGNUP
+const signupUser = async ({ name, email, phone, password }: SignupPayload) => {
+  const payload = {
+    name,
+    email,
+    phone,
+    password,
   };
 
-  /**
-   * LOGIN
-   */
-  export const loginUser = async ({ nameOrEmail, password }: LoginPayload) => {
-    const payload = {
-      identifier: nameOrEmail,
-      password,
-    };
+  const { data } = await api.post("/api/auth/signup", payload);
+  return data;
+};
 
-    const { data } = await api.post('/api/auth/login', payload);
-
-    return data;
-  };
-
-  /**
-   * SIGN UP
-   */
-  export const signupUser = async ({ name, email, phone, password }: SignupPayload) => {
-    const payload = {
-      name,
-      email,
-      phone,
-      password,
-    };
-
-    const { data } = await api.post('/api/auth/signup', payload);
-
-    return data;
-  };
+/* ===================== COMPONENT ===================== */
 
 const Login: React.FC = () => {
   const { locale, t } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
+
   const [isLogin, setIsLogin] = useState(true);
-  const [nameOrEmail, setNameOrEmail] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
+  const [nameOrEmail, setNameOrEmail] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
+  /* ===================== MUTATIONS ===================== */
+
   const loginMutation = useMutation({
     mutationFn: loginUser,
-    onSuccess: (data) => {
-      // save token as fallback if provided by backend
-      if (data?.token) localStorage.setItem('authToken', data.token);
-      // otherwise rely on httpOnly cookie
-      else localStorage.removeItem('authToken');
+    onSuccess: async () => {
+      // IMPORTANT:
+      // Do NOT store token here
+      // Cookie is already set by backend
 
       setError(null);
       navigate(`/${locale}/account`);
@@ -85,25 +87,28 @@ const Login: React.FC = () => {
 
   const signupMutation = useMutation({
     mutationFn: signupUser,
-    onSuccess: (data) => {
-      localStorage.setItem('authToken', data.token);
+    onSuccess: async () => {
+      // Same rule — cookie only
       setError(null);
       navigate(`/${locale}/account`);
     },
   });
 
-  // Handle mutation errors with current translation context
+  /* ===================== ERROR HANDLING ===================== */
+
   React.useEffect(() => {
     if (loginMutation.isError) {
-      setError(t.login?.error || 'Invalid credentials');
+      setError(t.login?.error || "Invalid credentials");
     }
   }, [loginMutation.isError, t.login?.error]);
 
   React.useEffect(() => {
     if (signupMutation.isError) {
-      setError(t.signup?.error || 'Sign-up failed');
+      setError(t.signup?.error || "Sign-up failed");
     }
   }, [signupMutation.isError, t.signup?.error]);
+
+  /* ===================== SUBMIT ===================== */
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,17 +116,17 @@ const Login: React.FC = () => {
 
     if (isLogin) {
       if (!nameOrEmail || !password) {
-        setError(t.login?.error || 'Please fill in all required fields');
+        setError(t.login?.error || "Please fill in all required fields");
         return;
       }
       loginMutation.mutate({ nameOrEmail, password });
     } else {
       if (!name || !email || !password || !repeatPassword) {
-        setError(t.signup?.error || 'Please fill in all required fields');
+        setError(t.signup?.error || "Please fill in all required fields");
         return;
       }
       if (password !== repeatPassword) {
-        setError(t.signup?.password_mismatch || 'Passwords do not match');
+        setError(t.signup?.password_mismatch || "Passwords do not match");
         return;
       }
       signupMutation.mutate({ name, email, phone, password });

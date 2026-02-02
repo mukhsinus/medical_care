@@ -36,8 +36,8 @@ async function createAndSendRefreshToken(res, user, req) {
 
   res.cookie(REFRESH_COOKIE_NAME, refreshValue, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    secure: true,
+    sameSite: 'None',
     maxAge: REFRESH_DAYS * 24 * 60 * 60 * 1000
   });
 }
@@ -96,8 +96,8 @@ async function handleRegister(req, res) {
     // keep legacy token cookie too (optional)
     res.cookie(COOKIE_NAME, accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'None',
       maxAge: 15 * 60 * 1000, // short-living cookie for access
     });
 
@@ -136,8 +136,8 @@ router.post('/login', async (req, res) => {
     // set short access cookie (optional / compatibility)
     res.cookie(COOKIE_NAME, accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'None',
       maxAge: 15 * 60 * 1000
     });
 
@@ -185,8 +185,8 @@ router.post('/refresh', async (req, res) => {
     // set short access cookie (optional)
     res.cookie(COOKIE_NAME, newAccess, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'None',
       maxAge: 15 * 60 * 1000
     });
 
@@ -279,8 +279,8 @@ router.post('/reset-password', async (req, res) => {
 
     res.cookie(COOKIE_NAME, newAccess, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'None',
       maxAge: 15 * 60 * 1000,
     });
 

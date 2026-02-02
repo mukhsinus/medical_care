@@ -16,7 +16,16 @@ const {
   cancelTransaction,
   buildReceiptDetail
 } = require("../services/paycomMerchantAPI");
-const { allItems } = require("../../src/data/CatalogData");
+
+// Try to load CatalogData - it's optional for Paycom webhook
+let allItems = [];
+try {
+  const catalogData = require("../../src/data/CatalogData");
+  allItems = catalogData.allItems || [];
+} catch (err) {
+  console.log('[INFO] CatalogData not available (expected in production)');
+}
+
 const { sendNotification } = require("../utils/telegramNotifier");
 
 /**

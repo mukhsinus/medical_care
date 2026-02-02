@@ -54,16 +54,6 @@ app.use(
   })
 );
 
-// Explicit preflight handler
-app.use((req, res, next) => {
-  console.log(`[${req.method}] ${req.path}`);
-  if (req.method === "OPTIONS") {
-    res.sendStatus(204);
-  } else {
-    next();
-  }
-});
-
 /* -------------------------
    Routes
 ------------------------- */

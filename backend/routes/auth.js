@@ -1,296 +1,259 @@
 // backend/routes/auth.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-console.log('>> auth routes loaded')
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-const sendEmail = require('../utils/sendEmail');
-const User = require('../models/User');
-const RefreshToken = require('../models/RefreshToken');
-const { sendNotification } = require('../utils/telegramNotifier');
-const { v4: uuidv4 } = require('uuid');
 
-const ACCESS_TTL = '15m'; // access token TTL
-const REFRESH_DAYS = 30; // refresh token lifetime in days
-const REFRESH_COOKIE_NAME = 'refreshToken';
-const COOKIE_NAME = process.env.COOKIE_NAME || 'token'; // legacy cookie, kept for compatibility
+console.log(">> auth routes loaded");
 
-// helper: создать access JWT
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+const { v4: uuidv4 } = require("uuid");
+
+const sendEmail = require("../utils/sendEmail");
+const { sendNotification } = require("../utils/telegramNotifier");
+
+const User = require("../models/User");
+const RefreshToken = require("../models/RefreshToken");
+
+const ACCESS_TTL = "15m";
+const REFRESH_DAYS = 30;
+const REFRESH_COOKIE_NAME = "refreshToken";
+
+/* ===================== HELPERS ===================== */
+
 function createAccessToken(userId) {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: ACCESS_TTL });
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+    expiresIn: ACCESS_TTL,
+  });
 }
 
-// helper: создать и сохранить refresh token, выставить cookie
 async function createAndSendRefreshToken(res, user, req) {
-  const refreshValue = uuidv4() + '.' + crypto.randomBytes(32).toString('hex');
-  const expiresAt = new Date(Date.now() + REFRESH_DAYS * 24 * 60 * 60 * 1000);
+  const value = uuidv4() + "." + crypto.randomBytes(32).toString("hex");
 
   await RefreshToken.create({
-    token: refreshValue,
+    token: value,
     userId: user._id,
     ip: req.ip,
-    userAgent: req.get('User-Agent'),
-    expiresAt
+    userAgent: req.get("User-Agent"),
+    expiresAt: new Date(Date.now() + REFRESH_DAYS * 24 * 60 * 60 * 1000),
   });
 
-  res.cookie(REFRESH_COOKIE_NAME, refreshValue, {
+  res.cookie(REFRESH_COOKIE_NAME, value, {
     httpOnly: true,
     secure: true,
-    sameSite: 'None',
-    maxAge: REFRESH_DAYS * 24 * 60 * 60 * 1000
+    sameSite: "None",
+    path: "/",
+    maxAge: REFRESH_DAYS * 24 * 60 * 60 * 1000,
   });
 }
 
-// helper: revoke refresh token (remove from DB + clear cookie)
-async function revokeRefreshToken(res, tokenValue) {
-  if (tokenValue) {
-    try {
-      await RefreshToken.deleteOne({ token: tokenValue });
-    } catch (e) {
-      console.error('Failed to delete refresh token:', e && e.message);
-    }
-  }
-  res.clearCookie(REFRESH_COOKIE_NAME);
+function clearRefreshCookie(res) {
+  res.clearCookie(REFRESH_COOKIE_NAME, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    path: "/",
+  });
 }
 
-// ===== Register (signup) =====
+/* ===================== SIGNUP ===================== */
+
 async function handleRegister(req, res) {
   try {
     const { name, email, phone, password } = req.body;
+
     if (!name || !email || !password) {
-      return res.status(400).json({ message: 'name, email и password обязательны' });
+      return res.status(400).json({ message: "name, email, password required" });
     }
 
-    const existing = await User.findOne({ email });
-    if (existing) {
-      return res.status(400).json({ message: 'Пользователь с такой почтой уже есть' });
+    const exists = await User.findOne({ email });
+    if (exists) {
+      return res.status(400).json({ message: "User already exists" });
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
+    const hash = await bcrypt.hash(password, 10);
+    const user = await User.create({ name, email, phone, password: hash });
 
-    const user = new User({ name, email, phone, password: hash });
-    await user.save();
-
-    // create access token and refresh token
     const accessToken = createAccessToken(user._id);
     await createAndSendRefreshToken(res, user, req);
 
-    // non-blocking telegram
     try {
-      const regMessage = `
-<b>New User Registration</b>
-
-👤 <b>Name:</b> ${name}
-📧 <b>Email:</b> ${email}
-📱 <b>Phone:</b> ${phone || 'Not provided'}
-🆔 <b>User ID:</b> ${user._id}
-⏰ <b>Time:</b> ${new Date().toISOString()}
-`;
-      sendNotification(regMessage);
-    } catch (e) {
-      console.error('Telegram notification failed (non-blocking):', e && e.message);
-    }
-
-    // keep legacy token cookie too (optional)
-    res.cookie(COOKIE_NAME, accessToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'None',
-      maxAge: 15 * 60 * 1000, // short-living cookie for access
-    });
+      sendNotification(
+        `<b>New user</b>\n👤 ${name}\n📧 ${email}\n🆔 ${user._id}`
+      );
+    } catch (_) {}
 
     return res.status(201).json({
       token: accessToken,
-      user: { id: user._id, name: user.name, email: user.email, phone: user.phone || '' }
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone || "",
+      },
     });
   } catch (err) {
-    console.error('REGISTER ERROR:', err);
-    return res.status(500).json({ message: 'Ошибка регистрации' });
+    console.error("REGISTER ERROR:", err);
+    res.status(500).json({ message: "Registration failed" });
   }
 }
 
-router.post('/register', handleRegister);
-router.post('/signup', handleRegister);
+router.post("/signup", handleRegister);
+router.post("/register", handleRegister);
 
-// ===== Login =====
-router.post('/login', async (req, res) => {
+/* ===================== LOGIN ===================== */
+
+router.post("/login", async (req, res) => {
   try {
     const { identifier, nameOrEmail, email, password } = req.body || {};
     const loginId = (identifier || nameOrEmail || email || "").trim();
+
     if (!loginId || !password) {
-      return res.status(400).json({ message: 'identifier и password обязательны' });
+      return res.status(400).json({ message: "identifier and password required" });
     }
 
-    const user = await User.findOne({ $or: [{ email: loginId }, { name: loginId }] });
-    if (!user) return res.status(400).json({ message: 'Неверные данные' });
+    const user = await User.findOne({
+      $or: [{ email: loginId }, { name: loginId }],
+    });
 
-    const matched = await bcrypt.compare(password, user.password);
-    if (!matched) return res.status(400).json({ message: 'Неверные данные' });
+    if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
-    // Create tokens
+    const ok = await bcrypt.compare(password, user.password);
+    if (!ok) return res.status(400).json({ message: "Invalid credentials" });
+
     const accessToken = createAccessToken(user._id);
     await createAndSendRefreshToken(res, user, req);
 
-    // set short access cookie (optional / compatibility)
-    res.cookie(COOKIE_NAME, accessToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'None',
-      maxAge: 15 * 60 * 1000
-    });
-
     return res.json({
       token: accessToken,
-      user: { id: user._id, name: user.name, email: user.email, phone: user.phone || '' }
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone || "",
+      },
     });
   } catch (err) {
-    console.error('LOGIN ERROR:', err);
-    res.status(500).json({ message: 'Ошибка логина' });
+    console.error("LOGIN ERROR:", err);
+    res.status(500).json({ message: "Login failed" });
   }
 });
 
-// ===== Refresh endpoint =====
-router.post('/refresh', async (req, res) => {
+/* ===================== REFRESH ===================== */
+
+router.post("/refresh", async (req, res) => {
   try {
-    const refreshFromCookie = req.cookies?.[REFRESH_COOKIE_NAME];
-    if (!refreshFromCookie) return res.status(401).json({ message: 'No refresh token' });
+    const value = req.cookies?.[REFRESH_COOKIE_NAME];
+    if (!value) return res.status(401).json({ message: "No refresh token" });
 
-    const stored = await RefreshToken.findOne({ token: refreshFromCookie });
-    if (!stored) {
-      // cookie present but not in DB => clear cookie
-      res.clearCookie(REFRESH_COOKIE_NAME);
-      return res.status(401).json({ message: 'Refresh token invalid' });
-    }
-
-    if (stored.expiresAt < new Date()) {
-      await RefreshToken.deleteOne({ token: refreshFromCookie });
-      res.clearCookie(REFRESH_COOKIE_NAME);
-      return res.status(401).json({ message: 'Refresh token expired' });
+    const stored = await RefreshToken.findOne({ token: value });
+    if (!stored || stored.expiresAt < new Date()) {
+      if (stored) await RefreshToken.deleteOne({ token: value });
+      clearRefreshCookie(res);
+      return res.status(401).json({ message: "Refresh invalid" });
     }
 
     const user = await User.findById(stored.userId);
     if (!user) {
-      await RefreshToken.deleteOne({ token: refreshFromCookie });
-      res.clearCookie(REFRESH_COOKIE_NAME);
-      return res.status(401).json({ message: 'User not found' });
+      await RefreshToken.deleteOne({ token: value });
+      clearRefreshCookie(res);
+      return res.status(401).json({ message: "User not found" });
     }
 
-    // rotation: delete old refresh token and issue a new one
-    await RefreshToken.deleteOne({ token: refreshFromCookie });
+    await RefreshToken.deleteOne({ token: value });
     await createAndSendRefreshToken(res, user, req);
 
-    const newAccess = createAccessToken(user._id);
-    // set short access cookie (optional)
-    res.cookie(COOKIE_NAME, newAccess, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'None',
-      maxAge: 15 * 60 * 1000
-    });
+    const accessToken = createAccessToken(user._id);
 
     return res.json({
-      token: newAccess,
-      user: { id: user._id, name: user.name, email: user.email, phone: user.phone || '' }
+      token: accessToken,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone || "",
+      },
     });
   } catch (err) {
-    console.error('REFRESH ERROR:', err);
-    res.status(500).json({ message: 'Refresh failed' });
+    console.error("REFRESH ERROR:", err);
+    res.status(500).json({ message: "Refresh failed" });
   }
 });
 
-// ===== Logout =====
-router.post('/logout', async (req, res) => {
+/* ===================== LOGOUT ===================== */
+
+router.post("/logout", async (req, res) => {
   try {
-    const refreshFromCookie = req.cookies?.[REFRESH_COOKIE_NAME];
-    if (refreshFromCookie) {
-      await RefreshToken.deleteOne({ token: refreshFromCookie });
-    }
-    res.clearCookie(REFRESH_COOKIE_NAME);
-    res.clearCookie(COOKIE_NAME);
-    return res.json({ message: 'Logged out' });
+    const value = req.cookies?.[REFRESH_COOKIE_NAME];
+    if (value) await RefreshToken.deleteOne({ token: value });
+
+    clearRefreshCookie(res);
+    res.json({ message: "Logged out" });
   } catch (err) {
-    console.error('LOGOUT ERROR:', err);
-    res.status(500).json({ message: 'Logout failed' });
+    console.error("LOGOUT ERROR:", err);
+    res.status(500).json({ message: "Logout failed" });
   }
 });
 
-/**
- * FORGOT PASSWORD (unchanged behavior)
- */
-router.post('/forgot-password', async (req, res) => {
+/* ===================== FORGOT PASSWORD ===================== */
+
+router.post("/forgot-password", async (req, res) => {
   try {
     const { email } = req.body;
-    if (!email) return res.status(400).json({ message: 'Нужна почта' });
+    if (!email) return res.status(400).json({ message: "Email required" });
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Пользователь с такой почтой не найден' });
+    if (!user) return res.status(400).json({ message: "User not found" });
 
-    const resetToken = crypto.randomBytes(32).toString('hex');
-    const hashed = crypto.createHash('sha256').update(resetToken).digest('hex');
-
-    user.resetPasswordToken = hashed;
-    user.resetPasswordExpires = Date.now() + 3600 * 1000; // 1 час
+    const token = crypto.randomBytes(32).toString("hex");
+    user.resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");
+    user.resetPasswordExpires = Date.now() + 3600 * 1000;
     await user.save();
 
-    const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}&id=${user._id}`;
-
-    const message = `Привет, ${user.name}!\n\nЧтобы сбросить пароль, перейди по ссылке:\n\n${resetUrl}\n\nЕсли ты не просил сброс — просто проигнорируй.`;
-
+    const url = `${process.env.FRONTEND_URL}/reset-password?token=${token}&id=${user._id}`;
     await sendEmail({
       to: user.email,
-      subject: 'Сброс пароля',
-      text: message,
+      subject: "Password reset",
+      text: `Reset link:\n${url}`,
     });
 
-    return res.json({ message: 'Письмо для сброса отправлено. Проверь почту.' });
+    res.json({ message: "Reset email sent" });
   } catch (err) {
-    console.error('FORGOT PASSWORD ERROR:', err);
-    res.status(500).json({ message: 'Ошибка при запросе сброса пароля' });
+    console.error("FORGOT PASSWORD ERROR:", err);
+    res.status(500).json({ message: "Failed" });
   }
 });
 
-/**
- * RESET PASSWORD (unchanged)
- */
-router.post('/reset-password', async (req, res) => {
+/* ===================== RESET PASSWORD ===================== */
+
+router.post("/reset-password", async (req, res) => {
   try {
     const { token, id, password } = req.body;
-    if (!token || !id || !password) return res.status(400).json({ message: 'Токен, id и password обязательны' });
+    if (!token || !id || !password) {
+      return res.status(400).json({ message: "Invalid request" });
+    }
 
-    const hashed = crypto.createHash('sha256').update(token).digest('hex');
-
+    const hashed = crypto.createHash("sha256").update(token).digest("hex");
     const user = await User.findOne({
       _id: id,
       resetPasswordToken: hashed,
-      resetPasswordExpires: { $gt: Date.now() }
+      resetPasswordExpires: { $gt: Date.now() },
     });
-    if (!user) return res.status(400).json({ message: 'Токен неверный или устарел' });
 
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
+    if (!user) return res.status(400).json({ message: "Token invalid" });
+
+    user.password = await bcrypt.hash(password, 10);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
     await user.save();
 
-    const newAccess = createAccessToken(user._id);
+    const accessToken = createAccessToken(user._id);
     await createAndSendRefreshToken(res, user, req);
 
-    res.cookie(COOKIE_NAME, newAccess, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'None',
-      maxAge: 15 * 60 * 1000,
-    });
-
-    return res.json({
-      token: newAccess,
-      message: 'Пароль обновлён'
-    });
+    res.json({ token: accessToken, message: "Password updated" });
   } catch (err) {
-    console.error('RESET PASSWORD ERROR:', err);
-    res.status(500).json({ message: 'Ошибка при сбросе пароля' });
+    console.error("RESET PASSWORD ERROR:", err);
+    res.status(500).json({ message: "Reset failed" });
   }
 });
 

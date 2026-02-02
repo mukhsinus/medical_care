@@ -67,11 +67,47 @@ app.use((req, res, next) => {
 /* -------------------------
    Routes
 ------------------------- */
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
-const paymentRoutes = require("./routes/payment");
-const paycomRoutes = require("./routes/paycomWebhook");
-const mockRoutes = require("./routes/mock");
+let authRoutes, userRoutes, paymentRoutes, paycomRoutes, mockRoutes;
+
+try {
+  authRoutes = require("./routes/auth");
+  console.log("[ROUTES] ✅ auth loaded");
+} catch (e) {
+  console.error("[ROUTES] ❌ auth failed:", e.message);
+  process.exit(1);
+}
+
+try {
+  userRoutes = require("./routes/user");
+  console.log("[ROUTES] ✅ user loaded");
+} catch (e) {
+  console.error("[ROUTES] ❌ user failed:", e.message);
+  process.exit(1);
+}
+
+try {
+  paymentRoutes = require("./routes/payment");
+  console.log("[ROUTES] ✅ payment loaded");
+} catch (e) {
+  console.error("[ROUTES] ❌ payment failed:", e.message);
+  process.exit(1);
+}
+
+try {
+  paycomRoutes = require("./routes/paycomWebhook");
+  console.log("[ROUTES] ✅ paycom loaded");
+} catch (e) {
+  console.error("[ROUTES] ❌ paycom failed:", e.message);
+  process.exit(1);
+}
+
+try {
+  mockRoutes = require("./routes/mock");
+  console.log("[ROUTES] ✅ mock loaded");
+} catch (e) {
+  console.error("[ROUTES] ❌ mock failed:", e.message);
+  process.exit(1);
+}
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);

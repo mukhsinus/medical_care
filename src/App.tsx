@@ -23,7 +23,7 @@ import NotFound from "./pages/NotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 
-import api, { setAccessToken, clearAccessToken } from "./api";
+import api, { setAccessToken, setRefreshToken, clearAccessToken, initializeAuth } from "./api";
 
 const queryClient = new QueryClient();
 
@@ -48,9 +48,12 @@ function AuthProvider({ children }) {
 
     (async () => {
       try {
-        const res = await api.post("/api/auth/refresh");
-        const { token, user } = res.data || {};
-        if (token) setAccessToken(token);
+        // Initialize auth from refresh token if available
+        await initializeAuth();
+        
+        // Fetch current user profile
+        const res = await api.get("/api/user/me");
+        const { user } = res.data || {};
         if (mounted) setUser(user || null);
       } catch {
         if (mounted) setUser(null);
@@ -64,8 +67,9 @@ function AuthProvider({ children }) {
 
   const login = useCallback(async (data) => {
     const res = await api.post("/api/auth/login", data);
-    const { token, user } = res.data || {};
-    if (token) setAccessToken(token);
+    const { accessToken, refreshToken, user } = res.data || {};
+    if (accessToken) setAccessToken(accessToken);
+    if (refreshToken) setRefreshToken(refreshToken);
     setUser(user || null);
     return user;
   }, []);

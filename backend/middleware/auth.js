@@ -25,7 +25,7 @@ module.exports = function (req, res, next) {
     req.tokenSource = token.length > 500 ? 'header' : 'cookie'; // для дебага (необязательно)
     next();
   } catch (err) {
-    console.error('Invalid token:', err.message);
+    console.error('[AUTH] Invalid token:', err.message, 'Token:', token?.substring(0, 50) + '...');
     return res.status(401).json({ 
       message: 'Токен недействителен или просрочен',
       debug: process.env.NODE_ENV === 'development' ? err.message : undefined

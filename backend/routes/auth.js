@@ -193,6 +193,7 @@ router.post("/refresh", async (req, res) => {
 
     const accessToken = createAccessToken(user._id);
 
+    console.log("[REFRESH] ✅ Successfully created new tokens");
     return res.json({
       accessToken,
       refreshToken: newRefreshToken,

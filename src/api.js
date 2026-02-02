@@ -126,15 +126,38 @@ api.interceptors.response.use(
 );
 
 /**
- * Payments helper
+ * Initialize auth on app load
+ * If we have a refresh token but no access token, get a fresh one
  */
-export async function startPayment({ items, amount, provider }) {
-  const res = await api.post("/api/payments/create", {
-    items,
-    amount,
-    provider,
-  });
-  return res.data;
+export async function initializeAuth() {
+  const refreshToken = getRefreshToken();
+  
+  if (refreshToken && !accessToken) {
+    try {
+      console.log("[AUTH] Initializing from refresh token...");
+      const resp = await api.post(
+        "/api/auth/refresh",
+        { refreshToken },
+        { withCredentials: true }
+      );
+      
+      const newAccessToken = resp.data.accessToken;
+      const newRefreshToken = resp.data.refreshToken;
+      
+      setAccessToken(newAccessToken);
+      if (newRefreshToken) setRefreshToken(newRefreshToken);
+      
+      console.log("[AUTH] ✅ Re-authenticated from refresh token");
+      return true;
+    } catch (error) {
+      console.log("[AUTH] ❌ Failed to re-authenticate, clearing tokens");
+      clearAccessToken();
+      clearRefreshToken();
+      return false;
+    }
+  }
+  
+  return !!accessToken;
 }
 
 export default api;

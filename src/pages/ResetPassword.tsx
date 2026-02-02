@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { Lock, AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
+import api from '@/api';
 
 const ResetPassword: React.FC = () => {
   const { locale, t } = useLanguage();
@@ -52,19 +53,8 @@ const ResetPassword: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-      const response = await fetch(`${API_BASE_URL}/api/auth/reset-password`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ token, id, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to reset password');
-      }
+      const response = await api.post('/api/auth/reset-password', { token, id, password });
+      const data = response.data;
 
       // Save token if provided
       if (data?.token) {
@@ -78,7 +68,7 @@ const ResetPassword: React.FC = () => {
         navigate(`/${locale}/account`);
       }, 2000);
     } catch (err: any) {
-      setError(err.message || t.reset_password?.error || 'An error occurred');
+      setError(err.response?.data?.message || err.message || t.reset_password?.error || 'An error occurred');
     } finally {
       setIsLoading(false);
     }

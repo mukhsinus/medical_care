@@ -218,6 +218,7 @@
     "personalInfo": "Personal Information",
     "basket": "Basket",
     "phone": "Phone",
+    "email": "Email",
     "notProvided": "Not provided",
     "changePassword": "Change Password",
     "name": "Name",
@@ -233,7 +234,17 @@
     "house": "House/Apartment",
     "street": "Street",
     "city": "City",
-    "zip": "Postal Code"
+    "zip": "Postal Code",
+    "profile_updated_title": "Profile Updated",
+    "profile_updated_desc": "Your information has been successfully updated.",
+    "profile_update_error_title": "Update Failed",
+    "profile_update_error_desc": "There was a problem updating your profile. Please try again.",
+    "password_changed_title": "Password Updated",
+    "password_changed_desc": "Your password has been successfully changed.",
+    "password_change_error_title": "Error",
+    "password_change_error_desc": "Could not change password.",
+    "password_mismatch_title": "Passwords Don't Match",
+    "password_mismatch_desc": "New password and confirmation must be the same."
   },
   "contacts": {
     "text": "Our team is always ready to help. Contact our specialists in the way that’s most convenient for you — we’ll suggest the best solutions for your clinic.",

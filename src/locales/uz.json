@@ -223,6 +223,7 @@
     "personalInfo": "Shaxsiy ma'lumotlar",
     "basket": "Savat",
     "phone": "Telefon",
+    "email": "Elektron pochta",
     "notProvided": "Ko'rsatilmagan",
     "changePassword": "Parolni o'zgartirish",
     "name": "Ism",
@@ -238,7 +239,17 @@
     "house": "Uy/Kvartira",
     "street": "Ko'cha",
     "city": "Shahar",
-    "zip": "Pochta indeksi"
+    "zip": "Pochta indeksi",
+    "profile_updated_title": "Profil yangilandi",
+    "profile_updated_desc": "Sizning ma'lumotlar muvaffaqiyatli yangilandi.",
+    "profile_update_error_title": "Yangilash xatosi",
+    "profile_update_error_desc": "Profilni yangilashda muammo yuz berdi. Iltimos qayta urinib ko'ring.",
+    "password_changed_title": "Parol o'zgartirildi",
+    "password_changed_desc": "Sizning parol muvaffaqiyatli o'zgartirildi.",
+    "password_change_error_title": "Xato",
+    "password_change_error_desc": "Parolni o'zgartirib bo'lmadi.",
+    "password_mismatch_title": "Parollar mos kelmaydi",
+    "password_mismatch_desc": "Yangi parol va tasdiqlash bir xil bo'lishi kerak."
   },
   "contacts": {
     "text": "Bizning jamoamiz doimo yordam berishga tayyor. Mutaxassislarimiz bilan sizga qulay usulda bog‘laning — klinikangiz uchun eng maqbul yechimlarni tavsiya etamiz.",

@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { Mail, ArrowLeft, AlertCircle, CheckCircle } from 'lucide-react';
+import api from '@/api';
 
 const ForgotPassword: React.FC = () => {
   const { locale, t } = useLanguage();
@@ -31,23 +32,11 @@ const ForgotPassword: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-      const response = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to send reset email');
-      }
-
+      await api.post('/api/auth/forgot-password', { email });
       setSuccess(true);
       setEmail('');
     } catch (err: any) {
-      setError(err.message || t.forgot_password?.error || 'An error occurred');
+      setError(err.response?.data?.message || err.message || t.forgot_password?.error || 'An error occurred');
     } finally {
       setIsLoading(false);
     }

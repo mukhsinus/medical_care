@@ -6,6 +6,7 @@ import { useAuth } from "@/App";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { startPayment, PaymentProvider } from "@/api";
+import api from "@/api";
 import {
   Dialog,
   DialogContent,
@@ -50,20 +51,9 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
       return;
     }
 
-    const token = localStorage.getItem("authToken");
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-    };
-    if (token) headers.Authorization = `Bearer ${token}`;
-
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    fetch(`${API_BASE_URL}/api/me`, {
-      method: "GET",
-      headers,
-      credentials: "include",
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject()))
-      .then((data) => setFreshUser(data.user))
+    api
+      .get("/api/me")
+      .then((res) => setFreshUser(res.data.user))
       .catch(() => setFreshUser(user));
   }, [open, user]);
 

@@ -61,36 +61,13 @@ import {
 import api, { startPayment } from "@/api";
 
 const fetchUserProfile = async (): Promise<{ user: UserProfile }> => {
-  const token = localStorage.getItem("authToken");
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-  };
-  if (token) headers.Authorization = `Bearer ${token}`;
-
-  const response = await fetch(`${API_BASE_URL}/api/me`, {
-    method: "GET",
-    headers,
-    credentials: "include",
-  });
-
-  if (!response.ok) throw new Error("Failed to fetch user profile");
-  return response.json();
+  const response = await api.get("/api/me");
+  return response.data;
 };
 
 const fetchUserOrders = async () => {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-  const token = localStorage.getItem("authToken");
-  const headers: any = { "Content-Type": "application/json" };
-  if (token) headers.Authorization = `Bearer ${token}`;
-
-  const response = await fetch(`${API_BASE_URL}/api/user/orders`, {
-    method: "GET",
-    headers,
-    credentials: "include",
-  });
-  if (!response.ok) throw new Error("Failed to fetch orders");
-  return response.json();
+  const response = await api.get("/api/user/orders");
+  return response.data;
 };
 
 const updateUserProfile = async (data: {
@@ -104,61 +81,17 @@ const updateUserProfile = async (data: {
     zip?: string;
   };
 }) => {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-  const token = localStorage.getItem("authToken");
-  const headers: any = { "Content-Type": "application/json" };
-  if (token) headers.Authorization = `Bearer ${token}`;
-
-  const response = await fetch(`${API_BASE_URL}/api/user/profile`, {
-    method: "PATCH",
-    headers,
-    credentials: "include",
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) {
-    let errMsg = "Failed to update profile";
-    try {
-      const err = await response.json();
-      if (err?.message) errMsg = err.message;
-    } catch {
-      // ignore JSON parse error
-    }
-    throw new Error(errMsg);
-  }
-  return response.json();
+  const response = await api.patch("/api/user/profile", data);
+  return response.data;
 };
 
 const changePassword = async (data: { current: string; new: string }) => {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-  const token = localStorage.getItem("authToken");
-  const headers: any = { "Content-Type": "application/json" };
-  if (token) headers.Authorization = `Bearer ${token}`;
-
-  const response = await fetch(`${API_BASE_URL}/api/user/password`, {
-    method: "PATCH",
-    headers,
-    credentials: "include",
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) {
-    let errMsg = "Failed to change password";
-    try {
-      const err = await response.json();
-      if (err?.message) errMsg = err.message;
-    } catch {
-      // ignore
-    }
-    throw new Error(errMsg);
-  }
-  return response.json();
+  const response = await api.patch("/api/user/password", data);
+  return response.data;
 };
+
 const logoutUser = async () => {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-  await fetch(`${API_BASE_URL}/api/auth/logout`, {
-    method: "POST",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-  });
+  await api.post("/api/auth/logout");
   localStorage.removeItem("authToken");
 };
 
@@ -712,7 +645,7 @@ const Account: React.FC = () => {
                                         variant="outline"
                                         size="sm"
                                         onClick={() =>
-                                          handleQuantityChange(p.id, -1)
+                                          handleQuantityChange(String(p.id), -1)
                                         }
                                       >
                                         <Minus className="h-4 w-4" />
@@ -726,7 +659,7 @@ const Account: React.FC = () => {
                                         variant="outline"
                                         size="sm"
                                         onClick={() =>
-                                          handleQuantityChange(p.id, +1)
+                                          handleQuantityChange(String(p.id), +1)
                                         }
                                       >
                                         <Plus className="h-4 w-4" />

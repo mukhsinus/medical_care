@@ -17,7 +17,7 @@ router.use(auth);
 router.get("/me", async (req, res) => {
   try {
     const user = await User.findById(req.userId).select(
-      "-password -resetPasswordToken -resetPasswordExpires +address"
+      "-password -resetPasswordToken -resetPasswordExpires"
     );
     if (!user)
       return res.status(404).json({ message: "Пользователь не найден" });

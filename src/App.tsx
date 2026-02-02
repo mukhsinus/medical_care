@@ -48,14 +48,29 @@ function AuthProvider({ children }) {
 
     (async () => {
       try {
-        // Initialize auth from refresh token if available
-        await initializeAuth();
+        console.log("[APP] Initializing auth...");
         
-        // Fetch current user profile
-        const res = await api.get("/api/user/me");
-        const { user } = res.data || {};
-        if (mounted) setUser(user || null);
-      } catch {
+        // Initialize auth from refresh token if available
+        const authSuccess = await initializeAuth();
+        console.log("[APP] Auth initialization result:", authSuccess);
+        
+        // Only fetch user profile if auth was successful
+        if (authSuccess) {
+          try {
+            const res = await api.get("/api/user/me");
+            const { user } = res.data || {};
+            if (mounted) setUser(user || null);
+            console.log("[APP] ✅ User profile loaded");
+          } catch (err) {
+            console.error("[APP] Failed to fetch user profile:", err.message);
+            if (mounted) setUser(null);
+          }
+        } else {
+          console.log("[APP] Auth initialization failed, user not logged in");
+          if (mounted) setUser(null);
+        }
+      } catch (err) {
+        console.error("[APP] Auth initialization error:", err);
         if (mounted) setUser(null);
       } finally {
         if (mounted) setAuthLoaded(true);

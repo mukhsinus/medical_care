@@ -21,6 +21,12 @@ const api = axios.create({
  */
 let accessToken = null;
 
+/**
+ * Auth initialization state (prevents concurrent refresh attempts)
+ */
+let isInitializing = false;
+let initializePromise = null;
+
 export function setAccessToken(token) {
   accessToken = token;
 }
@@ -57,9 +63,15 @@ const AUTH_ROUTES = [
 /**
  * Request interceptor
  * Adds Authorization header if access token exists
+ * On first request, waits for auth initialization
  */
 api.interceptors.request.use(
-  (config) => {
+  async (config) => {
+    // Wait for initialization to complete if it's happening
+    if (isInitializing && initializePromise) {
+      await initializePromise;
+    }
+    
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -97,6 +109,15 @@ api.interceptors.response.use(
       try {
         const refreshToken = getRefreshToken();
         
+        if (!refreshToken) {
+          console.log("[INTERCEPTOR] ❌ No refresh token available");
+          clearAccessToken();
+          clearRefreshToken();
+          return Promise.reject(error);
+        }
+        
+        console.log("[INTERCEPTOR] Attempting to refresh token...");
+        
         // ✅ Send refresh token in body (Safari compatible)
         // Cookies are sent automatically as fallback
         const resp = await api.post(
@@ -105,16 +126,24 @@ api.interceptors.response.use(
           { withCredentials: true }
         );
         
-        const newAccessToken = resp.data.accessToken;
+        // Handle both old and new response structures
+        const newAccessToken = resp.data.accessToken || resp.data.token;
         const newRefreshToken = resp.data.refreshToken;
+        
+        if (!newAccessToken) {
+          console.error("[INTERCEPTOR] ❌ No accessToken in refresh response", resp.data);
+          throw new Error("Invalid refresh response");
+        }
 
         setAccessToken(newAccessToken);
         if (newRefreshToken) setRefreshToken(newRefreshToken);
         
+        console.log("[INTERCEPTOR] ✅ Token refreshed successfully");
         original.headers.Authorization = `Bearer ${newAccessToken}`;
 
         return api(original);
       } catch (refreshError) {
+        console.error("[INTERCEPTOR] ❌ Refresh failed:", refreshError.message);
         clearAccessToken();
         clearRefreshToken();
         return Promise.reject(refreshError);
@@ -130,34 +159,57 @@ api.interceptors.response.use(
  * If we have a refresh token but no access token, get a fresh one
  */
 export async function initializeAuth() {
-  const refreshToken = getRefreshToken();
-  
-  if (refreshToken && !accessToken) {
-    try {
-      console.log("[AUTH] Initializing from refresh token...");
-      const resp = await api.post(
-        "/api/auth/refresh",
-        { refreshToken },
-        { withCredentials: true }
-      );
-      
-      const newAccessToken = resp.data.accessToken;
-      const newRefreshToken = resp.data.refreshToken;
-      
-      setAccessToken(newAccessToken);
-      if (newRefreshToken) setRefreshToken(newRefreshToken);
-      
-      console.log("[AUTH] ✅ Re-authenticated from refresh token");
-      return true;
-    } catch (error) {
-      console.log("[AUTH] ❌ Failed to re-authenticate, clearing tokens");
-      clearAccessToken();
-      clearRefreshToken();
-      return false;
-    }
+  // Prevent concurrent initialization attempts
+  if (isInitializing) {
+    return initializePromise;
   }
+
+  isInitializing = true;
   
-  return !!accessToken;
+  initializePromise = (async () => {
+    const refreshToken = getRefreshToken();
+    
+    if (refreshToken && !accessToken) {
+      try {
+        console.log("[AUTH] Initializing from refresh token stored in localStorage");
+        const resp = await api.post(
+          "/api/auth/refresh",
+          { refreshToken },
+          { withCredentials: true }
+        );
+        
+        // Handle both old and new response structures
+        const newAccessToken = resp.data.accessToken || resp.data.token;
+        const newRefreshToken = resp.data.refreshToken;
+        
+        if (!newAccessToken) {
+          console.error("[AUTH] ❌ No accessToken in refresh response", resp.data);
+          clearAccessToken();
+          clearRefreshToken();
+          isInitializing = false;
+          return false;
+        }
+        
+        setAccessToken(newAccessToken);
+        if (newRefreshToken) setRefreshToken(newRefreshToken);
+        
+        console.log("[AUTH] ✅ Re-authenticated from refresh token");
+        isInitializing = false;
+        return true;
+      } catch (error) {
+        console.log("[AUTH] ❌ Failed to re-authenticate:", error.message);
+        clearAccessToken();
+        clearRefreshToken();
+        isInitializing = false;
+        return false;
+      }
+    }
+    
+    isInitializing = false;
+    return !!accessToken;
+  })();
+
+  return initializePromise;
 }
 
 export default api;

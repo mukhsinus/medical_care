@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import api, { setAccessToken, setRefreshToken } from '@/api';
+import { useAuth } from '@/App';
 import { Mail, Lock, UserPlus, AlertCircle, User, Phone, Eye, EyeOff } from 'lucide-react';
 
 
@@ -59,6 +60,7 @@ const Login: React.FC = () => {
   const { locale, t } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const [isLogin, setIsLogin] = useState(true);
   const [nameOrEmail, setNameOrEmail] = useState("");
@@ -79,6 +81,9 @@ const Login: React.FC = () => {
       // Store tokens for Safari compatibility
       if (data.accessToken) setAccessToken(data.accessToken);
       if (data.refreshToken) setRefreshToken(data.refreshToken);
+      
+      // Update user in auth context
+      if (data.user) setUser(data.user);
 
       setError(null);
       navigate(`/${locale}/account`);
@@ -96,6 +101,9 @@ const Login: React.FC = () => {
       // Store tokens for Safari compatibility
       if (data.accessToken) setAccessToken(data.accessToken);
       if (data.refreshToken) setRefreshToken(data.refreshToken);
+      
+      // Update user in auth context
+      if (data.user) setUser(data.user);
 
       setError(null);
       navigate(`/${locale}/account`);
@@ -107,7 +115,7 @@ const Login: React.FC = () => {
     },
   });
 
-  /* ===================== SUBMIT ===================== */
+/* ===================== SUBMIT ===================== */
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -80,13 +80,30 @@ const AUTH_ROUTES = [
 /**
  * Request interceptor
  * Adds Authorization header if access token exists
- * On first request, waits for auth initialization
+ * On first request, waits for auth initialization (but NOT for auth routes)
  */
 api.interceptors.request.use(
   async (config) => {
-    // Wait for initialization to complete if it's happening
-    if (isInitializing && initializePromise) {
-      await initializePromise;
+    // Don't wait for auth on auth routes
+    const isAuthRoute = AUTH_ROUTES.some((route) =>
+      config.url?.includes(route)
+    );
+    
+    // Wait for initialization to complete if it's happening (but not for auth routes)
+    if (!isAuthRoute && isInitializing && initializePromise) {
+      console.log("[REQUEST INTERCEPTOR] Waiting for auth initialization...");
+      try {
+        await Promise.race([
+          initializePromise,
+          new Promise((_, reject) => 
+            setTimeout(() => reject(new Error("Auth initialization timeout")), 5000)
+          )
+        ]);
+        console.log("[REQUEST INTERCEPTOR] Auth initialization complete");
+      } catch (err) {
+        console.error("[REQUEST INTERCEPTOR] Auth initialization failed or timed out:", err.message);
+        // Continue anyway for non-auth routes
+      }
     }
     
     if (accessToken) {

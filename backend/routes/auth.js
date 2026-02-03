@@ -73,7 +73,9 @@ async function createAndSendRefreshToken(res, user, req) {
 
   // Still set cookie as fallback for browsers that support it
   // Use dynamic domain based on environment
-  const cookieDomain = req.hostname === "localhost" ? undefined : ".medicare.uz";
+  const host = req.hostname || req.host || "localhost";
+  const isLocalhost = host.includes("localhost") || host.includes("127.0.0.1");
+  const cookieDomain = isLocalhost ? undefined : ".medicare.uz";
   
   res.cookie(REFRESH_COOKIE_NAME, value, {
     httpOnly: true,
@@ -90,7 +92,9 @@ async function createAndSendRefreshToken(res, user, req) {
 
 function clearRefreshCookie(res, req) {
   // Use dynamic domain based on environment
-  const cookieDomain = req?.hostname === "localhost" ? undefined : ".medicare.uz";
+  const host = req?.hostname || req?.host || "localhost";
+  const isLocalhost = host.includes("localhost") || host.includes("127.0.0.1");
+  const cookieDomain = isLocalhost ? undefined : ".medicare.uz";
   
   res.clearCookie(REFRESH_COOKIE_NAME, {
     httpOnly: true,

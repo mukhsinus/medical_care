@@ -59,6 +59,7 @@ import {
 } from "@/components/ui/dialog";
 
 import api, { startPayment } from "@/api";
+import { PaymentProvider } from "@/types/api";
 
 const fetchUserProfile = async (): Promise<{ user: UserProfile }> => {
   const response = await api.get("/api/user/me");
@@ -102,7 +103,6 @@ const formatCurrency = (n: number) =>
   n.toLocaleString(undefined, { style: "currency", currency: "UZS" });
 
 type Tab = "info" | "basket" | "orders";
-type PaymentProvider = "payme" | "click";
 
 const Account: React.FC = () => {
   const { locale, t } = useLanguage();
@@ -561,7 +561,7 @@ const Account: React.FC = () => {
                           </div>
                         </div>
 
-                        <div className="flex gap-3 mt-6">
+                        <div className="flex flex-col md:flex-row gap-3 mt-6">
                           <Button
                             variant="outline"
                             className="flex-1"

@@ -113,7 +113,7 @@ export default function About() {
           </div>
 
           {/* TIMELINE */}
-          <div className="max-w-4xl mx-auto mb-20">
+          <div className="max-w-4xl mx-auto mb-20 hidden">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
               {t.about.journeyTitle}
             </h2>
@@ -225,7 +225,7 @@ export default function About() {
                 className="w-[200px]"
                 onClick={() =>
                   window.open(
-                    "https://www.google.com/maps/search/?api=1&query=41.3111,69.2401",
+                    "https://maps.google.com/maps?q=41.159574,69.251526&ll=41.159574,69.251526&z=16",
                     "_blank"
                   )
                 }

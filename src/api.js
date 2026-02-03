@@ -1,7 +1,24 @@
 import axios from "axios";
 
-// ✅ Always use subdomain for production
-const API_BASE = "https://api.medicare.uz";
+// Determine API base URL based on environment
+let API_BASE;
+
+if (typeof window !== "undefined") {
+  const isDevelopment = !window.location.hostname.includes("medicare.uz");
+  
+  if (isDevelopment) {
+    // In development, use localhost
+    API_BASE = "http://localhost:8090";
+  } else {
+    // In production, use the production subdomain
+    API_BASE = "https://api.medicare.uz";
+  }
+} else {
+  // Fallback for SSR
+  API_BASE = "https://api.medicare.uz";
+}
+
+console.log("[API] Using API_BASE:", API_BASE);
 
 if (!API_BASE) {
   throw new Error("API_BASE is not defined");
@@ -210,6 +227,23 @@ export async function initializeAuth() {
   })();
 
   return initializePromise;
+}
+
+/**
+ * Start payment process
+ */
+export async function startPayment({ items, amount, provider }) {
+  try {
+    const response = await api.post("/api/payment/create", {
+      items,
+      amount,
+      provider,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("[PAYMENT] ❌ Failed to start payment:", error.message);
+    throw error;
+  }
 }
 
 export default api;

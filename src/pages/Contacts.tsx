@@ -67,7 +67,7 @@ export default function Contacts() {
               {/* LEFT: MAP */}
               <div className="relative h-96 md:h-full min-h-96 bg-muted/20">
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=41.3111,69.2401"
+                  href="https://maps.google.com/maps?q=41.159574,69.251526&ll=41.159574,69.251526&z=16"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block absolute inset-0 z-10"
@@ -76,7 +76,7 @@ export default function Contacts() {
                 <iframe
                   title="Our location"
                   className="absolute inset-0 w-full h-full border-0"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.9!2d69.2401!3d41.3111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0a8b0a8b0b%3A0x8b0a8b0a8b0a8b0b!2sTashkent!5e0!3m2!1sen!2suz!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2996.897196308028!2d69.2401!3d41.311099999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDE4JzQwLjAiTiA2OcKwMTQnMjQuNCJF!5e0!3m2!1sru!2s!4v1770100919593!5m2!1sru!2s"
                   allowFullScreen={false}
                   loading="lazy"
                   style={{ pointerEvents: "none" }}
@@ -132,7 +132,7 @@ export default function Contacts() {
 
                   <Button asChild className="w-full md:w-auto">
                     <a
-                      href="https://maps.google.com?q=123+Business+Avenue"
+                      href="https://maps.google.com/maps?q=41.159574,69.251526&ll=41.159574,69.251526&z=16"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

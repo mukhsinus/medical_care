@@ -5,7 +5,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/App";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-import { startPayment, PaymentProvider } from "@/api";
+import { startPayment } from "@/api";
+import { PaymentProvider } from "@/types/api";
 import api from "@/api";
 import {
   Dialog,

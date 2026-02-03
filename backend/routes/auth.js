@@ -7,13 +7,35 @@ console.log(">> auth routes loaded");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const { v4: uuidv4 } = require("uuid");
 
 const sendEmail = require("../utils/sendEmail");
 const { sendNotification } = require("../utils/telegramNotifier");
 
 const User = require("../models/User");
 const RefreshToken = require("../models/RefreshToken");
+
+// Dynamic import for uuid (ES module) with synchronous-like behavior
+let uuidv4;
+let uuidReady = false;
+
+// Start loading uuid immediately
+import("uuid").then((module) => {
+  uuidv4 = module.v4;
+  uuidReady = true;
+  console.log("[AUTH] ✅ UUID module loaded");
+}).catch((err) => {
+  console.error("[AUTH] Failed to import uuid:", err);
+  // Fallback: create a simple UUID function if import fails
+  const crypto = require("crypto");
+  uuidv4 = () => {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0;
+      const v = c === "x" ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  };
+  uuidReady = true;
+});
 
 const ACCESS_TTL = "15m";
 const REFRESH_DAYS = 30;
@@ -28,6 +50,17 @@ function createAccessToken(userId) {
 }
 
 async function createAndSendRefreshToken(res, user, req) {
+  // Wait for uuid to be ready if not already
+  let attempts = 0;
+  while (!uuidReady && attempts < 100) {
+    await new Promise(resolve => setTimeout(resolve, 10));
+    attempts++;
+  }
+  
+  if (!uuidv4) {
+    throw new Error("UUID module failed to load");
+  }
+  
   const value = uuidv4() + "." + crypto.randomBytes(32).toString("hex");
 
   await RefreshToken.create({
@@ -39,11 +72,14 @@ async function createAndSendRefreshToken(res, user, req) {
   });
 
   // Still set cookie as fallback for browsers that support it
+  // Use dynamic domain based on environment
+  const cookieDomain = req.hostname === "localhost" ? undefined : ".medicare.uz";
+  
   res.cookie(REFRESH_COOKIE_NAME, value, {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    domain: ".medicare.uz",
+    domain: cookieDomain,
     path: "/",
     maxAge: REFRESH_DAYS * 24 * 60 * 60 * 1000,
   });
@@ -52,12 +88,15 @@ async function createAndSendRefreshToken(res, user, req) {
   return value;
 }
 
-function clearRefreshCookie(res) {
+function clearRefreshCookie(res, req) {
+  // Use dynamic domain based on environment
+  const cookieDomain = req?.hostname === "localhost" ? undefined : ".medicare.uz";
+  
   res.clearCookie(REFRESH_COOKIE_NAME, {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    domain: ".medicare.uz",
+    domain: cookieDomain,
     path: "/",
   });
 }
@@ -175,7 +214,7 @@ router.post("/refresh", async (req, res) => {
     const stored = await RefreshToken.findOne({ token: value });
     if (!stored || stored.expiresAt < new Date()) {
       if (stored) await RefreshToken.deleteOne({ token: value });
-      clearRefreshCookie(res);
+      clearRefreshCookie(res, req);
       console.log("[REFRESH] ❌ Token invalid or expired");
       return res.status(401).json({ message: "Refresh invalid" });
     }
@@ -183,7 +222,7 @@ router.post("/refresh", async (req, res) => {
     const user = await User.findById(stored.userId);
     if (!user) {
       await RefreshToken.deleteOne({ token: value });
-      clearRefreshCookie(res);
+      clearRefreshCookie(res, req);
       console.log("[REFRESH] ❌ User not found");
       return res.status(401).json({ message: "User not found" });
     }
@@ -217,7 +256,7 @@ router.post("/logout", async (req, res) => {
     const value = req.cookies?.[REFRESH_COOKIE_NAME];
     if (value) await RefreshToken.deleteOne({ token: value });
 
-    clearRefreshCookie(res);
+    clearRefreshCookie(res, req);
     res.json({ message: "Logged out" });
   } catch (err) {
     console.error("LOGOUT ERROR:", err);

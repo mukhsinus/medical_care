@@ -83,6 +83,11 @@ const Login: React.FC = () => {
       setError(null);
       navigate(`/${locale}/account`);
     },
+    onError: (error: unknown) => {
+      const err = error as { response?: { data?: { message?: string } } };
+      const message = err?.response?.data?.message || t.login?.error || "Invalid credentials";
+      setError(message);
+    },
   });
 
   const signupMutation = useMutation({
@@ -95,23 +100,12 @@ const Login: React.FC = () => {
       setError(null);
       navigate(`/${locale}/account`);
     },
+    onError: (error: unknown) => {
+      const err = error as { response?: { data?: { message?: string } } };
+      const message = err?.response?.data?.message || t.signup?.error || "Sign-up failed";
+      setError(message);
+    },
   });
-
-  /* ===================== ERROR HANDLING ===================== */
-
-  React.useEffect(() => {
-    if (loginMutation.isError) {
-      const error = loginMutation.error as any;
-      setError(error?.response?.data?.message || t.login?.error || "Invalid credentials");
-    }
-  }, [loginMutation.isError, t.login?.error]);
-
-  React.useEffect(() => {
-    if (signupMutation.isError) {
-      const error = signupMutation.error as any;
-      setError(error?.response?.data?.message || t.signup?.error || "Sign-up failed");
-    }
-  }, [signupMutation.isError, t.signup?.error]);
 
   /* ===================== SUBMIT ===================== */
 

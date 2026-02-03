@@ -7,10 +7,14 @@ import { useToast } from "@/components/ui/use-toast";
 import { Layout } from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { ShoppingBasket, ArrowLeft } from "lucide-react";
+import { ShoppingBasket, ArrowLeft, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/contexts/CartContext";
 import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/dialog";
 
 import {
   allItems,
@@ -130,6 +134,7 @@ export default function ItemDetails() {
   const [selectedColorKey, setSelectedColorKey] = useState<string | null>(
     item?.colors?.[0] ?? null
   );
+  const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
 
   // Memoize derived values
   const name = useMemo(
@@ -436,10 +441,11 @@ export default function ItemDetails() {
           {/* Left: Image Gallery */}
           <div className="space-y-4">
             <div
-              className="relative h-96 md:h-[500px] w-full overflow-hidden rounded-lg bg-gray-50 border-2 border-primary"
+              className="relative h-96 md:h-[500px] w-full overflow-hidden rounded-lg bg-gray-50 border-2 border-primary cursor-pointer hover:opacity-90 transition-opacity"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
+              onClick={() => setIsFullscreenOpen(true)}
             >
               <div className="relative w-full h-full">
                 {basenames.map((basename, idx) => {
@@ -709,6 +715,122 @@ export default function ItemDetails() {
             </div>
           </div>
         </div>
+
+        {/* Fullscreen Photo Modal */}
+        <Dialog open={isFullscreenOpen} onOpenChange={setIsFullscreenOpen}>
+          <DialogContent className="max-w-full max-h-[100vh] w-screen h-screen p-0 bg-black/95 border-0 rounded-0 flex items-center justify-center">
+            <button
+              onClick={() => setIsFullscreenOpen(false)}
+              className="absolute top-4 right-4 z-50 text-white hover:text-gray-300 transition-colors"
+              aria-label="Close fullscreen"
+            >
+              <X className="h-8 w-8" />
+            </button>
+
+            {/* Main Fullscreen Image */}
+            <div className="relative w-full h-full flex items-center justify-center">
+              {basenames.map((basename, idx) => {
+                if (idx !== activeImageIndex) return null;
+
+                return (
+                  <div
+                    key={idx}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <ItemPicture
+                      basename={basename}
+                      alt={name}
+                      category={item?.category}
+                      className="h-full w-full flex items-center justify-center"
+                      imgClassName="max-h-full max-w-full object-contain"
+                      loading="eager"
+                    />
+                  </div>
+                );
+              })}
+
+              {basenames.length > 1 && (
+                <>
+                  {/* Left Arrow */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveImageIndex((prev) =>
+                        prev === 0 ? basenames.length - 1 : prev - 1
+                      );
+                    }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+                    aria-label="Previous image"
+                  >
+                    <svg
+                      className="w-10 h-10"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+
+                  {/* Right Arrow */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveImageIndex((prev) =>
+                        prev === basenames.length - 1 ? 0 : prev + 1
+                      );
+                    }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+                    aria-label="Next image"
+                  >
+                    <svg
+                      className="w-10 h-10"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+
+                  {/* Dots - Bottom Center */}
+                  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                    {basenames.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setActiveImageIndex(idx)}
+                        className={`h-2 w-2 rounded-full transition-colors ${
+                          idx === activeImageIndex
+                            ? "bg-white"
+                            : "bg-white/30 hover:bg-white/50"
+                        }`}
+                        aria-label={`Show image ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Image Counter - Bottom Left */}
+                  <div className="absolute bottom-8 left-8 text-white text-sm font-medium z-10">
+                    {activeImageIndex + 1} / {basenames.length}
+                  </div>
+                </>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
       </section>
     </Layout>
   );

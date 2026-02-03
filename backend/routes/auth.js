@@ -254,8 +254,13 @@ router.post("/refresh", async (req, res) => {
 
 router.post("/logout", async (req, res) => {
   try {
-    const value = req.cookies?.[REFRESH_COOKIE_NAME];
-    if (value) await RefreshToken.deleteOne({ token: value });
+    const value =
+      req.cookies?.[REFRESH_COOKIE_NAME] ||
+      req.body?.refreshToken;
+
+    if (value) {
+      await RefreshToken.deleteOne({ token: value });
+    }
 
     clearRefreshCookie(res, req);
     res.json({ message: "Logged out" });

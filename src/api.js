@@ -141,8 +141,7 @@ api.interceptors.response.use(
 
       try {
         const refreshToken = getRefreshToken();
-        
-        if (!refreshToken) {
+        if (!refreshToken || refreshToken === "undefined") {
           console.log("[INTERCEPTOR] ❌ No refresh token available");
           clearAccessToken();
           clearRefreshToken();

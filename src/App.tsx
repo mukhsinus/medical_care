@@ -23,7 +23,7 @@ import NotFound from "./pages/NotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 
-import api, { setAccessToken, setRefreshToken, clearAccessToken, } from "./api";
+import api, { setAccessToken, setRefreshToken, clearAccessToken, clearRefreshToken,} from "./api";
 
 const queryClient = new QueryClient();
 
@@ -116,6 +116,7 @@ useEffect(() => {
       await api.post("/api/auth/logout");
     } finally {
       clearAccessToken();
+      clearRefreshToken(); // 🔥 КЛЮЧЕВАЯ СТРОКА
       setUser(null);
     }
   }, []);

@@ -41,8 +41,7 @@ let accessToken = null;
 /**
  * Auth initialization state (prevents concurrent refresh attempts)
  */
-let isInitializing = false;
-let initializePromise = null;
+
 
 export function setAccessToken(token) {
   accessToken = token;
@@ -84,27 +83,27 @@ const AUTH_ROUTES = [
  */
 api.interceptors.request.use(
   async (config) => {
-    // Don't wait for auth on auth routes
-    const isAuthRoute = AUTH_ROUTES.some((route) =>
-      config.url?.includes(route)
-    );
+
+    // const isAuthRoute = AUTH_ROUTES.some((route) =>
+    //   config.url?.includes(route)
+    // );
     
-    // Wait for initialization to complete if it's happening (but not for auth routes)
-    if (!isAuthRoute && isInitializing && initializePromise) {
-      console.log("[REQUEST INTERCEPTOR] Waiting for auth initialization...");
-      try {
-        await Promise.race([
-          initializePromise,
-          new Promise((_, reject) => 
-            setTimeout(() => reject(new Error("Auth initialization timeout")), 5000)
-          )
-        ]);
-        console.log("[REQUEST INTERCEPTOR] Auth initialization complete");
-      } catch (err) {
-        console.error("[REQUEST INTERCEPTOR] Auth initialization failed or timed out:", err.message);
-        // Continue anyway for non-auth routes
-      }
-    }
+    // // Wait for initialization to complete if it's happening (but not for auth routes)
+    // if (!isAuthRoute && isInitializing && initializePromise) {
+    //   console.log("[REQUEST INTERCEPTOR] Waiting for auth initialization...");
+    //   try {
+    //     await Promise.race([
+    //       initializePromise,
+    //       new Promise((_, reject) => 
+    //         setTimeout(() => reject(new Error("Auth initialization timeout")), 5000)
+    //       )
+    //     ]);
+    //     console.log("[REQUEST INTERCEPTOR] Auth initialization complete");
+    //   } catch (err) {
+    //     console.error("[REQUEST INTERCEPTOR] Auth initialization failed or timed out:", err.message);
+    //     // Continue anyway for non-auth routes
+    //   }
+    // }
     
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -188,63 +187,61 @@ api.interceptors.response.use(
   }
 );
 
-/**
- * Initialize auth on app load
- * If we have a refresh token but no access token, get a fresh one
- */
-export async function initializeAuth() {
-  // Prevent concurrent initialization attempts
-  if (isInitializing) {
-    return initializePromise;
-  }
 
-  isInitializing = true;
+// export async function initializeAuth() {
+//   // Prevent concurrent initialization attempts
+//   if (isInitializing) {
+//     return initializePromise;
+//   }
+
+//   isInitializing = true;
   
-  initializePromise = (async () => {
-    const refreshToken = getRefreshToken();
+//   initializePromise = (async () => {
+//     const refreshToken = getRefreshToken();
     
-    if (refreshToken && !accessToken) {
-      try {
-        console.log("[AUTH] Initializing from refresh token stored in localStorage");
-        const resp = await api.post(
-          "/api/auth/refresh",
-          { refreshToken },
-          { withCredentials: true }
-        );
+//     if (refreshToken && !accessToken) {
+//       try {
+//         console.log("[AUTH] Initializing from refresh token stored in localStorage");
+//         const resp = await api.post(
+//           "/api/auth/refresh",
+//           { refreshToken },
+//           { withCredentials: true }
+//         );
         
-        // Handle both old and new response structures
-        const newAccessToken = resp.data.accessToken || resp.data.token;
-        const newRefreshToken = resp.data.refreshToken;
+//         // Handle both old and new response structures
+//         const newAccessToken = resp.data.accessToken || resp.data.token;
+//         const newRefreshToken = resp.data.refreshToken;
         
-        if (!newAccessToken) {
-          console.error("[AUTH] ❌ No accessToken in refresh response", resp.data);
-          clearAccessToken();
-          clearRefreshToken();
-          isInitializing = false;
-          return false;
-        }
+//         if (!newAccessToken) {
+//           console.error("[AUTH] ❌ No accessToken in refresh response", resp.data);
+//           clearAccessToken();
+//           clearRefreshToken();
+//           isInitializing = false;
+//           return false;
+//         }
         
-        setAccessToken(newAccessToken);
-        if (newRefreshToken) setRefreshToken(newRefreshToken);
+//         setAccessToken(newAccessToken);
+//         if (newRefreshToken) setRefreshToken(newRefreshToken);
         
-        console.log("[AUTH] ✅ Re-authenticated from refresh token");
-        isInitializing = false;
-        return true;
-      } catch (error) {
-        console.log("[AUTH] ❌ Failed to re-authenticate:", error.message);
-        clearAccessToken();
-        clearRefreshToken();
-        isInitializing = false;
-        return false;
-      }
-    }
+//         console.log("[AUTH] ✅ Re-authenticated from refresh token");
+//         isInitializing = false;
+//         return true;
+//       } catch (error) {
+//         console.log("[AUTH] ❌ Failed to re-authenticate:", error.message);
+//         clearAccessToken();
+//         clearRefreshToken();
+//         isInitializing = false;
+//         return false;
+//       }
+//     }
     
-    isInitializing = false;
-    return !!accessToken;
-  })();
+//     isInitializing = false;
+//     return !!accessToken;
+//   })();
 
-  return initializePromise;
-}
+//   return initializePromise;
+// }
+
 
 /**
  * Start payment process

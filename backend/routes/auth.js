@@ -109,16 +109,16 @@ async function handleRegister(req, res) {
     const { name, email, phone, password } = req.body;
     
     // Log only non-sensitive data
-    console.log("[SIGNUP] Received signup request for:", { name, email, hasPassword: !!password });
+    console.log("[SIGNUP] Received signup request for:", { name, phone, hasPassword: !!password });
 
-    if (!name || !email || !password) {
-      console.log("[SIGNUP] ❌ Missing required fields:", { name: !!name, email: !!email, password: !!password });
-      return res.status(400).json({ message: "name, email, password required" });
+    if (!name || !phone || !password) {
+      console.log("[SIGNUP] ❌ Missing required fields:", { name: !!name, phone: !!phone, password: !!password });
+      return res.status(400).json({ message: "name, phone, password required" });
     }
 
-    const exists = await User.findOne({ email });
+    const exists = await User.findOne({ phone });
     if (exists) {
-      console.log("[SIGNUP] ❌ User already exists:", email);
+      console.log("[SIGNUP] ❌ User already exists:", phone);
       return res.status(400).json({ message: "User already exists" });
     }
 

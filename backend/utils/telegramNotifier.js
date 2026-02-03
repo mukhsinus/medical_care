@@ -4,7 +4,6 @@ const User = require('../models/User');
 const Order = require('../models/Order');
 const BotChannel = require('../models/BotChannel');
 
-let botInstance = null;
 
 const loginStates = new Map();
 
@@ -12,6 +11,11 @@ const LOGIN_STATES = {
   WAITING_USERNAME: 'WAITING_USERNAME',
   WAITING_PASSWORD: 'WAITING_PASSWORD',
 };
+
+
+const axios = require('axios');
+const API = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}`;
+
 
 const SUPPORTED_LANGS = ['en', 'ru', 'uz'];
 
@@ -149,9 +153,8 @@ async function ensureSession(chatId, adminId, langHint) {
 }
 
 async function sendNotification(message, options = {}) {
-  if (!botInstance) return;
-
   const now = Date.now();
+
   const [sessions, channels] = await Promise.all([
     BotSession.find({ expiresAt: { $gt: now } }),
     BotChannel.find(),
@@ -163,29 +166,18 @@ async function sendNotification(message, options = {}) {
   ]);
 
   for (const chatId of targets) {
-    await botInstance.sendMessage(chatId, message, {
+    await axios.post(`${API}/sendMessage`, {
+      chat_id: chatId,
+      text: message,
       parse_mode: 'HTML',
       ...options,
     });
   }
 }
 
-function setBot(bot) {
-  botInstance = bot;
-}
+
 
 function t(lang, key, ...args) {
   const value = i18n[lang]?.[key] ?? i18n.en[key];
   return typeof value === 'function' ? value(...args) : value || key;
 }
-
-module.exports = {
-  sendNotification,
-  setBot,
-  getLang,
-  ensureSession,
-  loginStates,
-  LOGIN_STATES,
-  SUPPORTED_LANGS,
-  t,
-};

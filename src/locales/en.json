@@ -174,8 +174,8 @@
   },
   "login": {
     "description": "Log in or create an account to manage your orders.",
-    "name_or_email": "Name or Email",
-    "name_or_email_placeholder": "Enter your name or email",
+    "name_or_email": "Name or Phone Number",
+    "name_or_email_placeholder": "Enter your name or phone number: +998901234567",
     "password": "Password",
     "password_placeholder": "Enter your password",
     "button": "Log In",

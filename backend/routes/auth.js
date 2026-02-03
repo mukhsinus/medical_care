@@ -169,7 +169,7 @@ router.post("/login", async (req, res) => {
     }
 
     const user = await User.findOne({
-      $or: [{ email: loginId }, { name: loginId }],
+      $or: [{ phone: loginId }, { name: loginId }],
     });
 
     if (!user) return res.status(400).json({ message: "Invalid credentials" });

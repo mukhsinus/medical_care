@@ -181,3 +181,13 @@ function t(lang, key, ...args) {
   const value = i18n[lang]?.[key] ?? i18n.en[key];
   return typeof value === 'function' ? value(...args) : value || key;
 }
+
+module.exports = {
+  sendNotification,
+  getLang,
+  ensureSession,
+  loginStates,
+  LOGIN_STATES,
+  SUPPORTED_LANGS,
+  t,
+};

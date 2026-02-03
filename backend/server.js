@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 /* -------------------------
-   CORS (CORRECT)
+   CORS (SAFARI FIX)
 ------------------------- */
 const ALLOWED_ORIGINS = [
   "https://medicare.uz",
@@ -43,17 +43,20 @@ const ALLOWED_ORIGINS = [
 app.use(
   cors({
     origin: (origin, cb) => {
+      // Allow requests without origin (like from some mobile apps)
       if (!origin) return cb(null, true);
+      
+      // Allow from whitelist
       if (ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
-      // For disallowed origins, still return true to allow the request
-      // The response will still go out, just without CORS headers
-      // This prevents preflight from failing
-      return cb(null, true);
+      
+      // Reject others with proper error
+      return cb(new Error("CORS origin not allowed: " + origin));
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     exposedHeaders: ["Set-Cookie"],
+    maxAge: 86400, // Cache preflight 24 hours
   })
 );
 

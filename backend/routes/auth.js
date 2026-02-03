@@ -71,17 +71,16 @@ async function createAndSendRefreshToken(res, user, req) {
     expiresAt: new Date(Date.now() + REFRESH_DAYS * 24 * 60 * 60 * 1000),
   });
 
-  // Still set cookie as fallback for browsers that support it
-  // Use dynamic domain based on environment
+  // Set cookie for browsers that support it (Android, some desktop)
+  // For Safari on iOS, this won't work due to ITP, but localStorage is used instead
   const host = req.hostname || req.host || "localhost";
   const isLocalhost = host.includes("localhost") || host.includes("127.0.0.1");
-  const cookieDomain = isLocalhost ? undefined : ".medicare.uz";
   
   res.cookie(REFRESH_COOKIE_NAME, value, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    domain: cookieDomain,
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    // Don't set domain for same-site requests (Safari requirement)
     path: "/",
     maxAge: REFRESH_DAYS * 24 * 60 * 60 * 1000,
   });
@@ -91,16 +90,14 @@ async function createAndSendRefreshToken(res, user, req) {
 }
 
 function clearRefreshCookie(res, req) {
-  // Use dynamic domain based on environment
+  // Match clearCookie settings to cookie creation
   const host = req?.hostname || req?.host || "localhost";
   const isLocalhost = host.includes("localhost") || host.includes("127.0.0.1");
-  const cookieDomain = isLocalhost ? undefined : ".medicare.uz";
   
   res.clearCookie(REFRESH_COOKIE_NAME, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    domain: cookieDomain,
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     path: "/",
   });
 }

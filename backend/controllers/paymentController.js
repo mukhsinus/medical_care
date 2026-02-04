@@ -12,7 +12,7 @@ let allItems = [];
 
 try {
   // ⚠️ path may differ in your project structure
-  const catalogData = require("../../src/data/CatalogData");
+  const catalogData = require("../data/paymeCatalog");
   allItems = catalogData.allItems || [];
   console.log(`✅ CatalogData loaded: ${allItems.length} items`);
 } catch (err) {
@@ -810,7 +810,7 @@ ${itemsList}
   }
 };
 
-// UZUM BANK CALLBACK (skeleton)
+// UZUM BANK CALLBACK (skeleton) 
 exports.uzumCallback = async (req, res) => {
   try {
     const payload = req.body;

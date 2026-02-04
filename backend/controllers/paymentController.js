@@ -4,6 +4,25 @@ const User = require("../models/User");
 const crypto = require("crypto");
 const { sendNotification } = require("../utils/telegramNotifier");
 
+
+
+// Try to load CatalogData from frontend folder (Vite project)
+// This is needed ONLY to map item.id -> IKPU/package_code/vat_percent
+let allItems = [];
+
+try {
+  // ⚠️ path may differ in your project structure
+  const catalogData = require("../../src/data/CatalogData");
+  allItems = catalogData.allItems || [];
+  console.log(`✅ CatalogData loaded: ${allItems.length} items`);
+} catch (err) {
+  console.warn("⚠️ CatalogData not available for Payme fiscalization");
+  console.warn("Reason:", err.message);
+}
+
+
+
+
 exports.createOrderAndInitPayment = async (req, res) => {
   console.log('PAYMENT BODY:', req.body);
   console.log('👉 userId from auth:', req.userId);
@@ -143,6 +162,67 @@ exports.createOrderAndInitPayment = async (req, res) => {
   }
 };
 
+
+
+function buildPaymeReceiptDetailFromOrder(order, allItems) {
+  const receiptItems = [];
+
+  for (const cartItem of order.items) {
+    const catalogItem = allItems.find((c) => Number(c.id) === Number(cartItem.id));
+
+    // Если не нашли в каталоге — это критично для фискализации
+    if (!catalogItem) {
+      throw new Error(`Catalog item not found for order item id=${cartItem.id}`);
+    }
+
+    // 1) IKPU (size-level > base)
+    let ikpuCode = catalogItem.ikpuCode;
+
+    if (cartItem.size && catalogItem.sizeIkpuCodes) {
+      ikpuCode = catalogItem.sizeIkpuCodes[cartItem.size] || ikpuCode;
+    }
+
+    // 2) Package code (size-level > base)
+    let packageCode = catalogItem.package_code;
+
+    if (cartItem.size && catalogItem.sizePackageCodes) {
+      packageCode = catalogItem.sizePackageCodes[cartItem.size] || packageCode;
+    }
+
+    // 3) VAT percent
+    const vatPercent = catalogItem.vat_percent || 12;
+
+    // 4) Title
+    const titleParts = [];
+    if (cartItem.name) titleParts.push(cartItem.name);
+    if (cartItem.size) titleParts.push(cartItem.size);
+    if (cartItem.color) titleParts.push(cartItem.color);
+
+    const title = titleParts.join(" ");
+
+    // 5) Price in tiyin
+    // cartItem.price у тебя в суммах (UZS), Payme ждёт тийины
+    const priceTiyin = Math.round(Number(cartItem.price) * 100);
+
+    receiptItems.push({
+      title,
+      price: priceTiyin,
+      count: Number(cartItem.quantity),
+      code: String(ikpuCode),
+      vat_percent: Number(vatPercent),
+      package_code: String(packageCode || ""),
+    });
+  }
+
+  return {
+    receipt_type: 0,
+    items: receiptItems,
+  };
+}
+
+
+
+
 // PAYME CALLBACK - API RECEIVER
 // Documentation: https://paycom.uz/ru/developers/api/checkout/
 exports.paymeCallback = async (req, res) => {
@@ -183,24 +263,39 @@ exports.paymeCallback = async (req, res) => {
 
     // Method: CheckPerformTransaction (проверка перед оплатой)
     if (method === "CheckPerformTransaction") {
-      console.log('Method: CheckPerformTransaction');
-      const account = params?.account;
-      const amount = params?.amount; // в тийинах (1 УЗС = 100 тийинов)
-      const orderId = account?.orderId;
+      console.log('✅ CheckPerformTransaction validation passed');
 
-      const order = await Order.findById(orderId);
-      if (!order) {
-        console.error('Order not found:', orderId);
+      // Build fiscal receipt detail
+      let detail;
+      try {
+        detail = buildPaymeReceiptDetailFromOrder(order, allItems);
+      } catch (e) {
+        console.error("❌ Fiscal detail build failed:", e.message);
+
         const response = {
           jsonrpc: "2.0",
           error: {
-            code: -31050,
-            message: "Order not found",
+            code: -31001,
+            message: "Fiscalization error: cannot build receipt items",
           },
           id: requestId,
         };
+
         console.log('Response:', JSON.stringify(response, null, 2));
         return res.json(response);
+      }
+
+      const response = {
+        jsonrpc: "2.0",
+        result: {
+          allow: true,
+          detail,
+        },
+        id: requestId,
+      };
+
+      console.log('Response:', JSON.stringify(response, null, 2));
+      return res.json(response);
       }
 
       // Check amount (in tiyins)

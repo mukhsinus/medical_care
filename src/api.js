@@ -247,7 +247,7 @@ api.interceptors.response.use(
  */
 export async function startPayment({ items, amount, provider }) {
   try {
-    const response = await api.post("/api/payment/create", {
+    const response = await api.post("/api/payments/create", {
       items,
       amount,
       provider,

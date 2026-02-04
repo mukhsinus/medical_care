@@ -263,7 +263,42 @@ exports.paymeCallback = async (req, res) => {
 
     // Method: CheckPerformTransaction (проверка перед оплатой)
     if (method === "CheckPerformTransaction") {
-      console.log('✅ CheckPerformTransaction validation passed');
+      console.log("Method: CheckPerformTransaction");
+
+      const account = params?.account;
+      const amount = params?.amount; // в тийинах
+      const orderId = account?.orderId;
+
+      const order = await Order.findById(orderId);
+
+      if (!order) {
+        const response = {
+          jsonrpc: "2.0",
+          error: { code: -31050, message: "Order not found" },
+          id: requestId,
+        };
+        return res.json(response);
+      }
+
+      // Check amount
+      if (Math.round(order.amount * 100) !== Math.round(amount)) {
+        const response = {
+          jsonrpc: "2.0",
+          error: { code: -31001, message: "Invalid amount" },
+          id: requestId,
+        };
+        return res.json(response);
+      }
+
+      // Already paid
+      if (order.paymentStatus === "paid") {
+        const response = {
+          jsonrpc: "2.0",
+          error: { code: -31099, message: "Order already paid" },
+          id: requestId,
+        };
+        return res.json(response);
+      }
 
       // Build fiscal receipt detail
       let detail;
@@ -281,7 +316,6 @@ exports.paymeCallback = async (req, res) => {
           id: requestId,
         };
 
-        console.log('Response:', JSON.stringify(response, null, 2));
         return res.json(response);
       }
 
@@ -294,55 +328,14 @@ exports.paymeCallback = async (req, res) => {
         id: requestId,
       };
 
-      console.log('Response:', JSON.stringify(response, null, 2));
-      return res.json(response);
-      }
-
-      // Check amount (in tiyins)
-      if (Math.round(order.amount * 100) !== Math.round(amount)) {
-        console.error('Amount mismatch. Expected:', order.amount * 100, 'Received:', amount);
-        const response = {
-          jsonrpc: "2.0",
-          error: {
-            code: -31001,
-            message: "Invalid amount",
-          },
-          id: requestId,
-        };
-        console.log('Response:', JSON.stringify(response, null, 2));
-        return res.json(response);
-      }
-
-      // Check if already paid
-      if (order.paymentStatus === 'paid') {
-        console.log('Order already paid');
-        const response = {
-          jsonrpc: "2.0",
-          error: {
-            code: -31099,
-            message: "Order already paid",
-          },
-          id: requestId,
-        };
-        console.log('Response:', JSON.stringify(response, null, 2));
-        return res.json(response);
-      }
-
-      console.log('✅ CheckPerformTransaction validation passed');
-      const response = {
-        jsonrpc: "2.0",
-        result: {
-          allow: true,
-        },
-        id: requestId,
-      };
-      console.log('Response:', JSON.stringify(response, null, 2));
       return res.json(response);
     }
 
+
     // Method: PerformTransaction (выполнение платежа)
     if (method === "PerformTransaction") {
-      console.log('Method: PerformTransaction');
+      console.log("Method: PerformTransaction");
+
       const account = params?.account;
       const amount = params?.amount;
       const transactionId = params?.id; // Payme transaction ID
@@ -351,7 +344,8 @@ exports.paymeCallback = async (req, res) => {
 
       const order = await Order.findById(orderId);
       if (!order) {
-        console.error('Order not found:', orderId);
+        console.error("Order not found:", orderId);
+
         const response = {
           jsonrpc: "2.0",
           error: {
@@ -360,14 +354,38 @@ exports.paymeCallback = async (req, res) => {
           },
           id: requestId,
         };
-        console.log('Response:', JSON.stringify(response, null, 2));
+
+        console.log("Response:", JSON.stringify(response, null, 2));
         return res.json(response);
       }
 
-      // Check if already paid
-      if (order.paymentStatus === 'paid') {
+      // (опционально, но правильно) проверка суммы
+      if (Math.round(order.amount * 100) !== Math.round(amount)) {
+        console.error(
+          "Amount mismatch. Expected:",
+          order.amount * 100,
+          "Received:",
+          amount
+        );
+
+        const response = {
+          jsonrpc: "2.0",
+          error: {
+            code: -31001,
+            message: "Invalid amount",
+          },
+          id: requestId,
+        };
+
+        console.log("Response:", JSON.stringify(response, null, 2));
+        return res.json(response);
+      }
+
+      // Check if already paid (idempotency)
+      if (order.paymentStatus === "paid") {
         if (order.providerTransactionId === String(transactionId)) {
-          console.log('Idempotent response - same transaction already paid');
+          console.log("Idempotent response - same transaction already paid");
+
           const response = {
             jsonrpc: "2.0",
             result: {
@@ -378,28 +396,45 @@ exports.paymeCallback = async (req, res) => {
             },
             id: requestId,
           };
-          console.log('Response:', JSON.stringify(response, null, 2));
+
+          console.log("Response:", JSON.stringify(response, null, 2));
           return res.json(response);
         }
+
+        // Если заказ уже оплачен, но пришёл другой transactionId — это ошибка
+        const response = {
+          jsonrpc: "2.0",
+          error: {
+            code: -31099,
+            message: "Order already paid",
+          },
+          id: requestId,
+        };
+
+        console.log("Response:", JSON.stringify(response, null, 2));
+        return res.json(response);
       }
 
       // Mark as paid
       order.paymentStatus = "paid";
-      order.providerTransactionId = transactionId;
+      order.providerTransactionId = String(transactionId);
       await order.save();
-      console.log('Order marked as paid:', order._id);
+
+      console.log("Order marked as paid:", order._id);
 
       // Send Telegram notification on successful payment
       try {
         const user = await User.findById(order.userId);
+
         if (user) {
           const itemsList = order.items
-            .map(
-              (item) =>
-                `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
-                  item.price * item.quantity
-                ).toLocaleString("uz-UZ")} UZS`
-            )
+            .map((item) => {
+              const lineTotal = Number(item.price) * Number(item.quantity);
+
+              return `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${
+                item.quantity
+              } | ${lineTotal.toLocaleString("uz-UZ")} UZS`;
+            })
             .join("\n");
 
           const addr = user.address
@@ -409,33 +444,35 @@ exports.paymeCallback = async (req, res) => {
             : "Not provided";
 
           const orderMessage = `
-<b>🛒 New Order Placed</b>
+    <b>🛒 New Order Placed</b>
 
-<b>Order ID:</b> ${order._id}
-<b>Payment Status:</b> ✅ Paid
-<b>Provider:</b> ${order.paymentProvider}
-<b>Payme Trans ID:</b> ${transactionId}
+    <b>Order ID:</b> ${order._id}
+    <b>Payment Status:</b> ✅ Paid
+    <b>Provider:</b> ${order.paymentProvider}
+    <b>Payme Trans ID:</b> ${transactionId}
 
-<b>Customer:</b>
-• Name: ${user.name}
-• Email: ${user.email}
-• Phone: ${user.phone || "Not provided"}
-• Address: ${addr}
+    <b>Customer:</b>
+    • Name: ${user.name}
+    • Email: ${user.email}
+    • Phone: ${user.phone || "Not provided"}
+    • Address: ${addr}
 
-<b>Products:</b>
-${itemsList}
+    <b>Products:</b>
+    ${itemsList}
 
-<b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
+    <b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
 
-<b>Time:</b> ${new Date().toISOString()}
-`;
+    <b>Time:</b> ${new Date().toISOString()}
+    `;
+
           sendNotification(orderMessage);
         }
       } catch (e) {
         console.error("Telegram notification failed (non-blocking):", e?.message);
       }
 
-      console.log('✅ PerformTransaction successful');
+      console.log("✅ PerformTransaction successful");
+
       const response = {
         jsonrpc: "2.0",
         result: {
@@ -446,18 +483,24 @@ ${itemsList}
         },
         id: requestId,
       };
-      console.log('Response:', JSON.stringify(response, null, 2));
+
+      console.log("Response:", JSON.stringify(response, null, 2));
       return res.json(response);
     }
 
     // Method: CancelTransaction (отмена платежа)
     if (method === "CancelTransaction") {
-      console.log('Method: CancelTransaction');
+      console.log("Method: CancelTransaction");
+
       const transactionId = params?.id;
 
-      const order = await Order.findOne({ providerTransactionId: transactionId });
+      const order = await Order.findOne({
+        providerTransactionId: String(transactionId),
+      });
+
       if (!order) {
-        console.error('Transaction not found:', transactionId);
+        console.error("Transaction not found:", transactionId);
+
         const response = {
           jsonrpc: "2.0",
           error: {
@@ -466,13 +509,15 @@ ${itemsList}
           },
           id: requestId,
         };
-        console.log('Response:', JSON.stringify(response, null, 2));
+
+        console.log("Response:", JSON.stringify(response, null, 2));
         return res.json(response);
       }
 
       order.paymentStatus = "cancelled";
       await order.save();
-      console.log('Order cancelled:', order._id);
+
+      console.log("Order cancelled:", order._id);
 
       const response = {
         jsonrpc: "2.0",
@@ -483,13 +528,15 @@ ${itemsList}
         },
         id: requestId,
       };
-      console.log('Response:', JSON.stringify(response, null, 2));
-      console.log('=== END PAYME CALLBACK ===\n');
+
+      console.log("Response:", JSON.stringify(response, null, 2));
+      console.log("=== END PAYME CALLBACK ===\n");
       return res.json(response);
     }
 
     // Unknown method
-    console.error('Unknown method:', method);
+    console.error("Unknown method:", method);
+
     const response = {
       jsonrpc: "2.0",
       error: {
@@ -498,10 +545,13 @@ ${itemsList}
       },
       id: requestId,
     };
-    console.log('Response:', JSON.stringify(response, null, 2));
+
+    console.log("Response:", JSON.stringify(response, null, 2));
     return res.json(response);
+
   } catch (err) {
     console.error("paymeCallback error:", err);
+
     const response = {
       jsonrpc: "2.0",
       error: {
@@ -510,9 +560,10 @@ ${itemsList}
       },
       id: req.body?.id,
     };
-    console.log('Error Response:', JSON.stringify(response, null, 2));
-    console.log('=== END PAYME CALLBACK (ERROR) ===\n');
-    res.json(response);
+
+    console.log("Error Response:", JSON.stringify(response, null, 2));
+    console.log("=== END PAYME CALLBACK (ERROR) ===\n");
+    return res.json(response);
   }
 };
 

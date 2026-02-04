@@ -51,43 +51,45 @@ exports.createOrderAndInitPayment = async (req, res) => {
     // Проверяем что у всех товаров есть IKPU код (для Payme)
     if (provider === "payme") {
       for (const item of items) {
-        let itemIkpuCode = null;
-        
-        // 1. Сначала проверяем вариант-уровневый IKPU (если есть цвет + размер комбинация)
-        if (item.color && item.size && item.variantIkpuCodes) {
-          const variantKey = `${item.color}_${item.size}`;
-          itemIkpuCode = item.variantIkpuCodes[variantKey];
-        }
-        
-        // 2. Если нет вариант-уровневого IKPU, используем общий IKPU товара
-        if (!itemIkpuCode && item.ikpuCode) {
-          itemIkpuCode = item.ikpuCode;
-        }
-        
-        // 3. Если IKPU всё еще не найден - ошибка
-        if (!itemIkpuCode) {
-          return res.status(400).json({ 
-            message: "Item missing IKPU code for Payme payment",
-            itemId: item.id,
-            details: item.color && item.size ? 
-              `No variant IKPU for color='${item.color}' and size='${item.size}'. Set in variantIkpuCodes or ikpuCode.` :
-              "No ikpuCode or variantIkpuCodes defined"
+        // productId типа "102-nosize-nocolor"
+        const numericId = Number(String(item.productId).split("-")[0]);
+
+        const catalogItem = allItems.find((c) => Number(c.id) === numericId);
+
+        if (!catalogItem) {
+          return res.status(400).json({
+            message: "Item not found in Payme catalog",
+            productId: item.productId,
           });
         }
-        
-        // Добавляем рассчитанный IKPU обратно в item для последующего использования
+
+        // IKPU (size-level > base)
+        let itemIkpuCode = catalogItem.ikpuCode;
+
+        if (item.size && catalogItem.sizeIkpuCodes) {
+          itemIkpuCode = catalogItem.sizeIkpuCodes[item.size] || itemIkpuCode;
+        }
+
+        if (!itemIkpuCode) {
+          return res.status(400).json({
+            message: "Item missing IKPU code in catalog",
+            productId: item.productId,
+            catalogId: catalogItem.id,
+          });
+        }
+
+        // сохраним найденный IKPU в item (чтобы дальше использовать)
         item._resolvedIkpuCode = itemIkpuCode;
       }
-      
-      // Если разные товары имеют разные IKPU коды - это ошибка
-      // (простая модель: один заказ -> один IKPU, один vendora)
-      const ikpuCodes = [...new Set(items.map(i => i._resolvedIkpuCode))];
+
+      // Проверка: все товары должны иметь одинаковый IKPU (твоя логика)
+      const ikpuCodes = [...new Set(items.map((i) => i._resolvedIkpuCode))];
+
       if (ikpuCodes.length > 1) {
-        console.warn('⚠️ Multiple IKPU codes in order:', ikpuCodes);
-        return res.status(400).json({ 
+        console.warn("⚠️ Multiple IKPU codes in order:", ikpuCodes);
+        return res.status(400).json({
           message: "Items from different merchants cannot be purchased together",
-          ikpuCodes: ikpuCodes,
-          details: "All items in a single order must belong to the same vendor (same IKPU code)"
+          ikpuCodes,
         });
       }
     }
@@ -168,7 +170,8 @@ function buildPaymeReceiptDetailFromOrder(order, allItems) {
   const receiptItems = [];
 
   for (const cartItem of order.items) {
-    const catalogItem = allItems.find((c) => Number(c.id) === Number(cartItem.id));
+    const numericId = Number(String(cartItem.productId).split("-")[0]);
+    const catalogItem = allItems.find((c) => Number(c.id) === numericId);
 
     // Если не нашли в каталоге — это критично для фискализации
     if (!catalogItem) {

@@ -128,7 +128,7 @@ const Login: React.FC = () => {
       }
       loginMutation.mutate({ nameOrEmail, password });
     } else {
-      if (!name || !email || !password || !repeatPassword) {
+      if (!name || !phone || !password || !repeatPassword) {
         setError(t.signup?.error || "Please fill in all required fields");
         return;
       }
@@ -136,7 +136,7 @@ const Login: React.FC = () => {
         setError(t.signup?.password_mismatch || "Passwords do not match");
         return;
       }
-      signupMutation.mutate({ name, email, phone, password });
+      signupMutation.mutate({ name, phone, password, email: email || undefined,});
     }
   };
 
@@ -273,7 +273,7 @@ const Login: React.FC = () => {
                               onChange={(e) => setEmail(e.target.value)}
                               className="pl-10 bg-white/70"
                               placeholder={t.signup?.email_placeholder || 'Enter your email'}
-                              required
+                              
                               disabled={loginMutation.isPending || signupMutation.isPending}
                             />
                           </div>

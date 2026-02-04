@@ -33,7 +33,6 @@ process.on('SIGTERM', () => process.exit(0));
     console.error('Polling error:', err.message)
   );
 
-  notifier.setBot(bot);
   const { loginStates, LOGIN_STATES, SUPPORTED_LANGS } = notifier;
 
   bot.getMe().then((i) =>
@@ -154,5 +153,5 @@ process.on('SIGTERM', () => process.exit(0));
     { command: '/help', description: 'Help' },
   ]);
 
-  console.log('Telegram bot initialized and polling');
+  console.log('✅ Bot started');
 })();

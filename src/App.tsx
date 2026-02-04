@@ -23,7 +23,7 @@ import NotFound from "./pages/NotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 
-import api, { setAccessToken, setRefreshToken, clearAccessToken, initializeAuth } from "./api";
+import api, { setAccessToken, setRefreshToken, clearAccessToken, clearRefreshToken,} from "./api";
 
 const queryClient = new QueryClient();
 
@@ -43,42 +43,64 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [authLoaded, setAuthLoaded] = useState(false);
 
-  useEffect(() => {
-    let mounted = true;
 
-    (async () => {
-      try {
-        console.log("[APP] Initializing auth...");
-        
-        // Initialize auth from refresh token if available
-        const authSuccess = await initializeAuth();
-        console.log("[APP] Auth initialization result:", authSuccess);
-        
-        // Only fetch user profile if auth was successful
-        if (authSuccess) {
-          try {
-            const res = await api.get("/api/user/me");
-            const { user } = res.data || {};
-            if (mounted) setUser(user || null);
-            console.log("[APP] ✅ User profile loaded");
-          } catch (err) {
-            console.error("[APP] Failed to fetch user profile:", err.message);
-            if (mounted) setUser(null);
-          }
-        } else {
-          console.log("[APP] Auth initialization failed, user not logged in");
-          if (mounted) setUser(null);
-        }
-      } catch (err) {
-        console.error("[APP] Auth initialization error:", err);
-        if (mounted) setUser(null);
-      } finally {
-        if (mounted) setAuthLoaded(true);
-      }
-    })();
 
-    return () => (mounted = false);
-  }, []);
+useEffect(() => {
+  let mounted = true;
+
+  (async () => {
+    try {
+      const res = await api.get("/api/user/me");
+      const { user } = res.data || {};
+      if (mounted) setUser(user || null);
+    } catch {
+      if (mounted) setUser(null);
+    } finally {
+      if (mounted) setAuthLoaded(true);
+    }
+  })();
+
+  return () => (mounted = false);
+}, []);  
+
+
+
+  // useEffect(() => {
+  //   let mounted = true;
+
+  //   (async () => {
+  //     try {
+  //       console.log("[APP] Initializing auth...");
+        
+  //       // Initialize auth from refresh token if available
+  //       // const authSuccess = await initializeAuth();
+  //       console.log("[APP] Auth initialization result:", authSuccess);
+        
+  //       // Only fetch user profile if auth was successful
+  //       if (authSuccess) {
+  //         try {
+  //           const res = await api.get("/api/user/me");
+  //           const { user } = res.data || {};
+  //           if (mounted) setUser(user || null);
+  //           console.log("[APP] ✅ User profile loaded");
+  //         } catch (err) {
+  //           console.error("[APP] Failed to fetch user profile:", err.message);
+  //           if (mounted) setUser(null);
+  //         }
+  //       } else {
+  //         console.log("[APP] Auth initialization failed, user not logged in");
+  //         if (mounted) setUser(null);
+  //       }
+  //     } catch (err) {
+  //       console.error("[APP] Auth initialization error:", err);
+  //       if (mounted) setUser(null);
+  //     } finally {
+  //       if (mounted) setAuthLoaded(true);
+  //     }
+  //   })();
+
+  //   return () => (mounted = false);
+  // }, []);
 
   const login = useCallback(async (data) => {
     const res = await api.post("/api/auth/login", data);
@@ -94,6 +116,7 @@ function AuthProvider({ children }) {
       await api.post("/api/auth/logout");
     } finally {
       clearAccessToken();
+      clearRefreshToken(); // 🔥 КЛЮЧЕВАЯ СТРОКА
       setUser(null);
     }
   }, []);

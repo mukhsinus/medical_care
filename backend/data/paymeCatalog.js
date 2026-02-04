@@ -1,41 +1,6 @@
 // backend/data/Catalog.ts
 
-export type CatalogItem = {
-  id: number;
-  category: string;
-  nameKey: string;
-  descriptionKey?: string;
-  price?: number;
-  
-  ikpuCode?: string; // 16-digit Payme merchant ID для товара (по умолчанию для всех вариантов)
-
-  variantIkpuCodes?: Record<string, string>; // Map of "color_size" => IKPU code
-
-  sizeIkpuCodes?: Record<string, string>; // Map of "variants.sizes.XXX" => IKPU code
-  
-  sizePackageCodes?: Record<string, string>; // Map of "variants.sizes.XXX" => package code
-  
-  package_code?: string; // Код упаковки (для учета и инвентаризации)
-  
-  // НДС процент (по умолчанию 12%)
-  vat_percent: number; // НДС процент, по умолчанию 12
-  
-  imageBase?: string;
-
-  imageBases?: string[];
-
-  colors?: string[];
-  colorImages?: Record<string, string | string[]>; // Map color key to image filename(s) - supports multiple photos per color
-
-  sizes?: string[];
-  sizeImages?: Record<string, string | string[]>; // Map size key to image filename(s) - supports multiple photos per size
-  sizePrices?: Record<string, number>; // Map color key to image sources - renders different images for each color
-  sizesDescription?: Record<string, string>; // Map size key to description key - renders different descriptions for each size
-};
-
-
-
-export const allItems: CatalogItem[] = [
+const allItems = [
   {
     id: 1,
     category: "injection",
@@ -3682,3 +3647,4 @@ export const allItems: CatalogItem[] = [
 ];
 
 
+module.exports = { allItems };

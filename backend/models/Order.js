@@ -16,14 +16,15 @@ const orderSchema = new mongoose.Schema(
           required: true,
         },
         name: { type: String, required: true },
-        description: { type: String }, // add description
+        description: { type: String },
         quantity: { type: Number, required: true },
-        price: { type: Number, required: true }, // price at purchase time
+        price: { type: Number, required: true }, // price at purchase time (in UZS)
+        size: { type: String }, // Optional: for IKPU mapping
       },
     ],
 
     // Financial Details
-    amount: { type: Number, required: true }, // total sum user pays
+    amount: { type: Number, required: true }, // total sum user pays (in UZS)
     currency: { type: String, default: "UZS" },
 
     // Payment Details
@@ -35,25 +36,27 @@ const orderSchema = new mongoose.Schema(
 
     paymentStatus: {
       type: String,
-      enum: ["pending", "paid", "cancelled", "failed", "refunded"],
+      enum: ["pending", "processing", "completed", "cancelled", "failed", "refunded"],
       default: "pending",
     },
 
-    // IKPU коды товаров (для Payme мультивендорной системы)
-    itemIkpuCodes: [{ type: String }], // массив IKPU кодов товаров в заказе
-
-    providerTransactionId: { type: String }, // transaction code from provider
-    providerRawResponse: { type: Object }, // useful for debugging
+    // Paycom-specific
+    providerTransactionId: { type: String }, // Payme transaction ID
+    providerRawResponse: { type: Object }, // raw callback for debugging
     callbackVerified: { type: Boolean, default: false },
 
-    // System & Analytics
+    // Metadata
     meta: {
       ip: String,
       userAgent: String,
       notes: String,
+      paycomCreatedAt: Date, // When Payme created transaction
+      paycomPerformedAt: Date, // When Payme performed transaction
+      paycomCancelledAt: Date, // When Payme cancelled transaction
+      cancellationReason: { type: String, default: null }
     },
 
-    // Delivery / Customer info (future-proof)
+    // Customer info
     customer: {
       fullName: String,
       phone: String,

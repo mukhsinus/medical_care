@@ -24,6 +24,9 @@ const orderSchema = new mongoose.Schema(
         quantity: { type: Number, required: true },
         price: { type: Number, required: true }, // price at purchase time (in UZS)
         size: { type: String }, // Optional: for IKPU mapping
+        ikpuCode: { type: String }, // ИКПУ code (for Paycom fiscalization)
+        package_code: { type: String }, // Package code (for Paycom fiscalization)
+        vat_percent: { type: Number, default: 12 }, // VAT percent (for Paycom)
       },
     ],
 

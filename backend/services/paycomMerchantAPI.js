@@ -73,30 +73,10 @@ function buildReceiptDetail(items, catalogItems = []) {
 
   for (const cartItem of items) {
     try {
-      // Find catalog item (by numeric ID from productId like "102-nosize-nocolor")
-      const numericId = Number(String(cartItem.productId || cartItem.id).split('-')[0]);
-      const catalogItem = catalogItems?.find(c => Number(c.id) === numericId);
-
-      let ikpuCode = '00000000000000000'; // Fallback IKPU
-      let packageCode = '';
-      let vatPercent = 12;
-
-      if (catalogItem) {
-        // Get IKPU code (size-level > general)
-        ikpuCode = catalogItem.ikpuCode || '00000000000000000';
-        if (cartItem.size && catalogItem.sizeIkpuCodes) {
-          ikpuCode = catalogItem.sizeIkpuCodes[cartItem.size] || ikpuCode;
-        }
-
-        // Get package code (size-level > general)
-        packageCode = catalogItem.package_code || '';
-        if (cartItem.size && catalogItem.sizePackageCodes) {
-          packageCode = catalogItem.sizePackageCodes[cartItem.size] || packageCode;
-        }
-
-        // Get VAT percent
-        vatPercent = catalogItem.vat_percent || 12;
-      }
+      // Read fiscal codes directly from item (already resolved at order creation time)
+      const ikpuCode = cartItem.ikpuCode || '00000000000000000'; // Fallback IKPU
+      const packageCode = cartItem.package_code || '';
+      const vatPercent = cartItem.vat_percent || 12;
 
       const itemPrice = Math.round((cartItem.price || 0) * 100); // Convert to tiyin
       const itemCount = cartItem.quantity || 1;
@@ -123,11 +103,9 @@ function buildReceiptDetail(items, catalogItems = []) {
 
   return {
     receipt_type: RECEIPT_TYPES.SELL,
-    items: receiptItems,
-    _totalAmount: totalAmount // For internal validation only (not sent to Payme)
+    items: receiptItems
   };
 }
-
 /**
  * CheckPerformTransaction Handler
  * Called by Payme BEFORE payment processing
@@ -372,36 +350,46 @@ async function handleCancelTransaction(params) {
     };
   }
 
-  // Check if can be cancelled
+  // ✅ If already cancelled or refunded → return SAME result (idempotent)
   if (order.paymentStatus === 'cancelled' || order.paymentStatus === 'refunded') {
-    // Already cancelled - return success
+    const cancelTime = order.meta?.paycomCancelledAt
+      ? new Date(order.meta.paycomCancelledAt).getTime()
+      : 0;
+
     return {
       transaction_id: transaction_id,
-      state: PAYCOM_STATES.CANCELLED,
-      cancel_time: order.meta?.paycomCancelledAt ? order.meta.paycomCancelledAt.getTime() : 0,
+      state: order.paymentStatus === 'refunded' ? PAYCOM_STATES.REFUNDED : PAYCOM_STATES.CANCELLED,
+      cancel_time: cancelTime,
       transaction: transaction_id
     };
   }
 
-  if (order.paymentStatus === 'completed') {
-    // Mark as refunded instead of cancelled
-    order.paymentStatus = 'refunded';
-  } else {
-    // Mark as cancelled
-    order.paymentStatus = 'cancelled';
-  }
-
   order.meta = order.meta || {};
   order.meta.paycomCancelledAt = new Date();
-  order.meta.cancellationReason = reason;
+  order.meta.cancellationReason = Number(reason) || 0; // Store as number
+
+  let state;
+
+  if (order.paymentStatus === 'completed') {
+    // 🔁 Refund (cancel after payment)
+    order.paymentStatus = 'refunded';
+    state = PAYCOM_STATES.REFUNDED; // -2
+  } else {
+    // ❌ Cancel (before payment)
+    order.paymentStatus = 'cancelled';
+    state = PAYCOM_STATES.CANCELLED; // -1
+  }
+
   await order.save();
 
-  console.log(`❌ CancelTransaction OK: Order ${transaction_id}, Reason: ${reason}`);
+  const cancelTime = new Date(order.meta.paycomCancelledAt).getTime();
+
+  console.log(`❌ CancelTransaction OK: Order ${transaction_id}, Status: ${order.paymentStatus}, Reason: ${reason}`);
 
   return {
     transaction_id: transaction_id,
-    state: PAYCOM_STATES.CANCELLED,
-    cancel_time: Date.now(),
+    state: state,
+    cancel_time: cancelTime,
     transaction: transaction_id
   };
 }
@@ -443,17 +431,26 @@ async function handleCheckTransaction(params) {
   };
 
   const state = statusToState[order.paymentStatus] || PAYCOM_STATES.CREATED;
-  
-  // Read all times from DB - must be stable across repeated calls
+
   const createTime = order.meta?.paycomCreatedAt
     ? new Date(order.meta.paycomCreatedAt).getTime()
     : 0;
-  const performTime = order.meta?.paycomPerformedAt
-    ? new Date(order.meta.paycomPerformedAt).getTime()
-    : 0;
+
   const cancelTime = order.meta?.paycomCancelledAt
     ? new Date(order.meta.paycomCancelledAt).getTime()
     : 0;
+
+  // ✅ perform_time is only set when status is completed (not cancelled/refunded)
+  const performTime =
+    order.paymentStatus === 'completed' && order.meta?.paycomPerformedAt
+      ? new Date(order.meta.paycomPerformedAt).getTime()
+      : 0;
+
+  // ✅ reason is only set when status is cancelled or refunded, as a number
+  const reason =
+    order.paymentStatus === 'cancelled' || order.paymentStatus === 'refunded'
+      ? Number(order.meta?.cancellationReason) || null
+      : null;
 
   console.log(`🔍 CheckTransaction OK: Order ${transaction_id}, State: ${state}`);
 
@@ -464,7 +461,7 @@ async function handleCheckTransaction(params) {
     perform_time: performTime,
     cancel_time: cancelTime,
     transaction: transaction_id,
-    reason: order.meta?.cancellationReason || null
+    reason: reason
   };
 }
 

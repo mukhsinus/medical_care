@@ -74,11 +74,11 @@ exports.createOrderAndInitPayment = async (req, res) => {
           });
         }
 
-        // IKPU (size-level > base)
+        // Get IKPU (size-level > base)
         let itemIkpuCode = catalogItem.ikpuCode;
-
         if (item.size && catalogItem.sizeIkpuCodes) {
-          itemIkpuCode = catalogItem.sizeIkpuCodes[item.size] || itemIkpuCode;
+          const sizeKey = `variants.sizes.${item.size}`;
+          itemIkpuCode = catalogItem.sizeIkpuCodes[sizeKey] || itemIkpuCode;
         }
 
         if (!itemIkpuCode) {
@@ -89,8 +89,17 @@ exports.createOrderAndInitPayment = async (req, res) => {
           });
         }
 
-        // сохраним найденный IKPU в item (чтобы дальше использовать)
-        item._resolvedIkpuCode = itemIkpuCode;
+        // Get package code (size-level > base)
+        let itemPackageCode = catalogItem.package_code || '';
+        if (item.size && catalogItem.sizePackageCodes) {
+          const sizeKey = `variants.sizes.${item.size}`;
+          itemPackageCode = catalogItem.sizePackageCodes[sizeKey] || itemPackageCode;
+        }
+
+        // Store fiscal data WITH the item
+        item.ikpuCode = itemIkpuCode;
+        item.package_code = itemPackageCode;
+        item.vat_percent = catalogItem.vat_percent || 12;
       }
     }
 
@@ -103,8 +112,6 @@ exports.createOrderAndInitPayment = async (req, res) => {
       currency: "UZS",
       paymentProvider: provider,
       paymentStatus: "pending",
-      // Сохраняем IKPU коды товаров (рассчитанные IKPU для каждого товара)
-      itemIkpuCodes: provider === "payme" ? items.map(i => i._resolvedIkpuCode) : undefined,
       meta: {
         userAgent: req.headers["user-agent"],
         ip: req.ip,

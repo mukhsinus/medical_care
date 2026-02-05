@@ -258,7 +258,13 @@ export function startPayment({ items, amount, provider }) {
       const input = document.createElement("input");
       input.type = "hidden";
       input.name = key;
-      input.value = JSON.stringify(value);
+
+      if (typeof value === "string" || typeof value === "number") {
+        input.value = String(value);
+      } else {
+        input.value = JSON.stringify(value);
+      }
+
       form.appendChild(input);
     });
 

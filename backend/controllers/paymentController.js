@@ -27,7 +27,17 @@ exports.createOrderAndInitPayment = async (req, res) => {
   console.log('PAYMENT BODY:', req.body);
   console.log('👉 userId from auth:', req.userId);
   try {
-    const { items, amount, provider } = req.body; // provider: 'payme', 'click', or 'uzum'
+    let { items, amount, provider } = req.body;
+
+    if (typeof items === "string") {
+      try {
+        items = JSON.parse(items);
+      } catch (e) {
+        return res.status(400).json({ message: "Invalid items JSON" });
+      }
+    }
+
+    amount = Number(amount);
 
     if (!["payme", "click", "uzum"].includes(provider)) {
       return res.status(400).json({ message: "Invalid payment provider" });
@@ -295,10 +305,10 @@ exports.paymeCallback = async (req, res) => {
       }
 
       // Already paid
-      if (order.paymentStatus === "paid") {
+      if (order.paymentStatus === "completed") {
         const response = {
           jsonrpc: "2.0",
-          error: { code: -31099, message: "Order already paid" },
+          error: { code: -31099, message: "Order already completed" },
           id: requestId,
         };
         return res.json(response);
@@ -386,9 +396,9 @@ exports.paymeCallback = async (req, res) => {
       }
 
       // Check if already paid (idempotency)
-      if (order.paymentStatus === "paid") {
+      if (order.paymentStatus === "completed") {
         if (order.providerTransactionId === String(transactionId)) {
-          console.log("Idempotent response - same transaction already paid");
+          console.log("Idempotent response - same transaction already completed");
 
           const response = {
             jsonrpc: "2.0",
@@ -410,7 +420,7 @@ exports.paymeCallback = async (req, res) => {
           jsonrpc: "2.0",
           error: {
             code: -31099,
-            message: "Order already paid",
+            message: "Order already completed",
           },
           id: requestId,
         };
@@ -419,16 +429,17 @@ exports.paymeCallback = async (req, res) => {
         return res.json(response);
       }
 
-      // Mark as paid
-      order.paymentStatus = "paid";
+      // Mark as completed
+      order.paymentStatus = "completed";
       order.providerTransactionId = String(transactionId);
       await order.save();
 
-      console.log("Order marked as paid:", order._id);
-
+      console.log("Order marked as completed:", order._id);
       // Send Telegram notification on successful payment
       try {
-        const user = await User.findById(order.userId);
+        const user = order.userId
+          ? await User.findById(order.userId)
+          : null;
 
         if (user) {
           const itemsList = order.items
@@ -661,12 +672,12 @@ exports.clickCallback = async (req, res) => {
     if (action === 0) {
       console.log('PREPARE request for order:', order._id);
       
-      // Check if order is already paid
-      if (order.paymentStatus === 'paid') {
-        console.error('Order already paid');
+      // Check if order is already completed
+      if (order.paymentStatus === 'completed') {
+        console.error('Order already completed');
         const response = {
           error: -4,
-          error_note: "Order already paid",
+          error_note: "Order already completed",
         };
         console.log('Response:', JSON.stringify(response, null, 2));
         return res.json(response);
@@ -699,8 +710,8 @@ exports.clickCallback = async (req, res) => {
     if (action === 1) {
       console.log('COMPLETE request for order:', order._id);
       
-      // Check if already paid
-      if (order.paymentStatus === 'paid') {
+      // Check if already completed
+      if (order.paymentStatus === 'completed') {
         console.log('Order already completed');
         // Check if same click_trans_id was used for this payment
         if (order.providerTransactionId === String(clickTransId)) {
@@ -715,10 +726,10 @@ exports.clickCallback = async (req, res) => {
           console.log('Response:', JSON.stringify(response, null, 2));
           return res.json(response);
         } else {
-          console.error('Order already paid with different transaction ID');
+          console.error('Order already completed with different transaction ID');
           const response = {
             error: -4,
-            error_note: "Order already paid",
+            error_note: "Order already completed",
           };
           console.log('Response:', JSON.stringify(response, null, 2));
           return res.json(response);
@@ -736,11 +747,11 @@ exports.clickCallback = async (req, res) => {
         return res.json(response);
       }
 
-      // Mark as paid
-      order.paymentStatus = "paid";
+      // Mark as completed
+      order.paymentStatus = "completed";
       order.providerTransactionId = clickTransId;
       await order.save();
-      console.log('Order marked as paid:', order._id);
+      console.log('Order marked as completed:', order._id);
 
       // Send Telegram notification on successful payment
       try {
@@ -829,8 +840,8 @@ exports.uzumCallback = async (req, res) => {
     }
 
     // TODO: verify Uzum signature, amount, etc.
-    if (status === "success" || status === "paid") {
-      order.paymentStatus = "paid";
+    if (status === "success" || status === "completed") {
+      order.paymentStatus = "completed";
       order.providerTransactionId = transactionId;
       await order.save();
 

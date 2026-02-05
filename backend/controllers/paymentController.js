@@ -123,10 +123,9 @@ exports.createOrderAndInitPayment = async (req, res) => {
       const paymeGateway = paymeTestMode 
         ? "https://checkout.test.paycom.uz"
         : "https://checkout.paycom.uz";
-      
-      paymentInitData = {
-        redirectUrl: `${paymeGateway}/${paramsBase64}`,
-      };
+
+      return res.redirect(`${paymeGateway}/${paramsBase64}`);
+
     } else if (provider === "click") {
       const clickServiceId = process.env.CLICK_SERVICE_ID;
       const clickMerchantId = process.env.CLICK_MERCHANT_ID;
@@ -153,6 +152,7 @@ exports.createOrderAndInitPayment = async (req, res) => {
       provider,
       paymentInitData,
     });
+
   } catch (err) {
     console.error("createOrderAndInitPayment error:", err);
     res.status(500).json({

@@ -57,6 +57,9 @@ const ALLOWED_ORIGINS = [
   "https://www.medicare.uz",
   "http://localhost:5173",
   "http://127.0.0.1:5173",
+  "https://checkout.paycom.uz",      
+  "https://checkout.test.paycom.uz",   
+  "https://paycom.uz"
 ];
 
 app.use(

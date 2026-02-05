@@ -245,18 +245,37 @@ api.interceptors.response.use(
 /**
  * Start payment process
  */
-export async function startPayment({ items, amount, provider }) {
-  try {
-    const response = await api.post("/api/payments/create", {
+export function startPayment({ items, amount, provider }) {
+  // ✅ PAYME — ТОЛЬКО browser navigation
+  if (provider === "payme") {
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = `${API_BASE}/api/payments/create`;
+
+    const fields = { items, amount, provider };
+
+    Object.entries(fields).forEach(([key, value]) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = JSON.stringify(value);
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+
+    return; // ⛔ ничего не возвращаем
+  }
+
+  // ✅ CLICK / UZUM — можно axios
+  return api
+    .post("/api/payments/create", {
       items,
       amount,
       provider,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("[PAYMENT] ❌ Failed to start payment:", error.message);
-    throw error;
-  }
+    })
+    .then((res) => res.data);
 }
 
 export default api;

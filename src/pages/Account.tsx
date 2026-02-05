@@ -278,6 +278,17 @@ const Account: React.FC = () => {
         price: ci.product.price,
       }));
 
+      if (provider === "payme") {
+        startPayment({
+          items: payloadItems,
+          amount: totalPrice ?? 0,
+          provider,
+        });
+
+        setIsCheckoutOpen(false);
+        return;
+      }
+
       const result = await startPayment({
         items: payloadItems,
         amount: totalPrice ?? 0,
@@ -286,6 +297,7 @@ const Account: React.FC = () => {
 
       setIsCheckoutOpen(false);
       window.location.href = result.paymentInitData.redirectUrl;
+
     } catch (err: any) {
       console.error(err);
       const msg =

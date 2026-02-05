@@ -121,6 +121,17 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
         price: item.product.price,
       }));
 
+      if (provider === "payme") {
+        startPayment({
+          items: payload,
+          amount: totalPrice,
+          provider,
+        });
+
+        onOpenChange(false);
+        return;
+      }
+
       const result = await startPayment({
         items: payload,
         amount: totalPrice,
@@ -129,6 +140,7 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
 
       onOpenChange(false);
       window.location.href = result.paymentInitData.redirectUrl;
+
     } catch (err: any) {
       toast({
         title: t.basket?.payment_error_title || "Payment failed",

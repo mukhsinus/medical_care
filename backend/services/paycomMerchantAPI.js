@@ -210,7 +210,7 @@ async function handleCheckPerformTransaction(params, catalogItems = []) {
  * @returns {Promise<Object>} Transaction details
  */
 async function handleCreateTransaction(params) {
-  const { account, amount, time, id } = params; // id = Paycom's transaction ID
+  const { account, amount, time, id: paycomTxId } = params;
 
   if (!account || !account.order_id) {
     throw {
@@ -220,9 +220,7 @@ async function handleCreateTransaction(params) {
   }
 
   const orderId = account.order_id;
-  const paycomTransactionId = String(id);
 
-  // Find order
   const order = await Order.findById(orderId);
   if (!order) {
     throw {
@@ -235,47 +233,53 @@ async function handleCreateTransaction(params) {
   if (order.amount * 100 !== amount) {
     throw {
       code: PAYCOM_ERRORS.INVALID_AMOUNT,
-      message: `Amount mismatch`
+      message: 'Amount mismatch'
     };
   }
 
-  // Check if already have a Paycom transaction for this order
-  if (order.providerTransactionId) {
-    // If already processing or completed → idempotent return
-    if (order.paymentStatus === 'processing' || order.paymentStatus === 'completed') {
-      return {
-        transaction_id: order.providerTransactionId,
-        state: order.paymentStatus === 'completed' ? PAYCOM_STATES.PERFORMED : PAYCOM_STATES.CREATED,
-        create_time: order.meta?.paycomCreatedAt ? new Date(order.meta.paycomCreatedAt).getTime() : 0,
-        perform_time: order.meta?.paycomPerformedAt ? new Date(order.meta.paycomPerformedAt).getTime() : 0,
-        cancel_time: 0,
-        transaction: order.providerTransactionId
-      };
-    }
-
-    // If  already pending or any other status → return error
+  // 🚨 CRITICAL PAYCOM RULE:
+  // If there is already a transaction and order is still pending → return error
+  if (order.providerTransactionId && order.paymentStatus === 'pending') {
     throw {
       code: -31099,
-      message: `Order already has payment status: ${order.paymentStatus}`
+      message: 'Order already has pending transaction'
     };
   }
 
-  // Create new transaction - mark as processing
+  // ✅ If already created/processing/completed → idempotent success
+  if (order.providerTransactionId && order.paymentStatus !== 'pending') {
+    return {
+      transaction_id: order.providerTransactionId,
+      state: order.paymentStatus === 'completed'
+        ? PAYCOM_STATES.PERFORMED
+        : PAYCOM_STATES.CREATED,
+      create_time: order.meta?.paycomCreatedAt
+        ? new Date(order.meta.paycomCreatedAt).getTime()
+        : 0,
+      perform_time: order.meta?.paycomPerformedAt
+        ? new Date(order.meta.paycomPerformedAt).getTime()
+        : 0,
+      cancel_time: 0,
+      transaction: order.providerTransactionId
+    };
+  }
+
+  // ✅ First time CreateTransaction → create it
   order.paymentStatus = 'processing';
-  order.providerTransactionId = paycomTransactionId; // Store Paycom's transaction ID
+  order.providerTransactionId = String(paycomTxId);
   order.meta = order.meta || {};
   order.meta.paycomCreatedAt = new Date(time);
   await order.save();
 
-  console.log(`🆕 CreateTransaction OK: Order ${orderId}, Paycom TxID: ${paycomTransactionId}`);
+  console.log(`🆕 CreateTransaction OK: Order ${orderId}, Paycom TxID: ${paycomTxId}`);
 
   return {
-    transaction_id: paycomTransactionId,
+    transaction_id: order.providerTransactionId,
     state: PAYCOM_STATES.CREATED,
-    create_time: time,
+    create_time: new Date(order.meta.paycomCreatedAt).getTime(),
     perform_time: 0,
     cancel_time: 0,
-    transaction: paycomTransactionId
+    transaction: order.providerTransactionId
   };
 }
 

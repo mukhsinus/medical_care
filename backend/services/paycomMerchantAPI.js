@@ -238,17 +238,29 @@ async function handleCreateTransaction(params) {
     };
   }
 
-  // Check if already paid/processing
+  // ✅ Idempotent behavior - if already processing/completed, return it
+  if (order.paymentStatus === 'processing' || order.paymentStatus === 'completed') {
+    return {
+      transaction_id: order._id.toString(),
+      state: order.paymentStatus === 'completed' ? PAYCOM_STATES.PERFORMED : PAYCOM_STATES.CREATED,
+      create_time: order.meta?.paycomCreatedAt ? new Date(order.meta.paycomCreatedAt).getTime() : 0,
+      perform_time: order.meta?.paycomPerformedAt ? new Date(order.meta.paycomPerformedAt).getTime() : 0,
+      cancel_time: 0,
+      transaction: order._id.toString()
+    };
+  }
+
+  // If cancelled/refunded/etc → return proper error in allowed range
   if (order.paymentStatus !== 'pending') {
     throw {
-      code: PAYCOM_ERRORS.CANNOT_PERFORM,
+      code: -31099,
       message: `Order already has payment status: ${order.paymentStatus}`
     };
   }
 
-  // Update order - mark as processing
+  // Create new transaction - mark as processing
   order.paymentStatus = 'processing';
-  order.providerTransactionId = orderId; // Store Payme transaction ID
+  order.providerTransactionId = order._id.toString();
   order.meta = order.meta || {};
   order.meta.paycomCreatedAt = new Date(time);
   await order.save();
@@ -256,12 +268,12 @@ async function handleCreateTransaction(params) {
   console.log(`🆕 CreateTransaction OK: Order ${orderId}`);
 
   return {
-    transaction_id: orderId,
+    transaction_id: order._id.toString(),
     state: PAYCOM_STATES.CREATED,
     create_time: time,
     perform_time: 0,
     cancel_time: 0,
-    transaction: orderId
+    transaction: order._id.toString()
   };
 }
 
@@ -273,7 +285,7 @@ async function handleCreateTransaction(params) {
  * @returns {Promise<Object>} Performance confirmation
  */
 async function handlePerformTransaction(params) {
-  const { transaction_id } = params;
+  const transaction_id = params.transaction_id || params.id;
 
   if (!transaction_id) {
     throw {
@@ -334,7 +346,8 @@ async function handlePerformTransaction(params) {
  * @returns {Promise<Object>} Cancellation confirmation
  */
 async function handleCancelTransaction(params) {
-  const { transaction_id, reason } = params;
+  const transaction_id = params.transaction_id || params.id;
+  const { reason } = params;
 
   if (!transaction_id) {
     throw {
@@ -394,7 +407,7 @@ async function handleCancelTransaction(params) {
  * @returns {Promise<Object>} Transaction status
  */
 async function handleCheckTransaction(params) {
-  const { transaction_id } = params;
+  const transaction_id = params.transaction_id || params.id;
 
   if (!transaction_id) {
     throw {

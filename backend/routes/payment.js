@@ -12,7 +12,7 @@ const {
 const authMiddleware = require('../middleware/auth');
 
 // frontend calls this to start payment (user must be logged in)
-router.post('/create', authMiddleware, createOrderAndInitPayment);
+router.post('/create', createOrderAndInitPayment);
 
 // Payme will call this URL (configure in Payme cabinet later)
 router.post('/payme/callback', paymeCallback);

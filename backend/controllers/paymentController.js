@@ -42,10 +42,11 @@ exports.createOrderAndInitPayment = async (req, res) => {
     }
 
     // authMiddleware should have set req.userId
-    const userId = req.userId;
-    if (!userId) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
+    // const userId = req.userId;
+    const userId = req.userId || null;
+    // if (!userId) {
+    //   return res.status(401).json({ message: "Unauthorized" });
+    // }
     console.log('👉 First item:', items[0]);
 
     // Проверяем что у всех товаров есть IKPU код (для Payme)
@@ -85,7 +86,8 @@ exports.createOrderAndInitPayment = async (req, res) => {
 
     // 1) Create order in DB
     const order = await Order.create({
-      userId,
+      userId: userId || undefined,
+      isGuest: !userId,
       items,
       amount,
       currency: "UZS",

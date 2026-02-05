@@ -7,6 +7,10 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
       required: false, // <-- allow guest checkout if needed
     },
+    isGuest: {
+      type: Boolean,
+      default: false,
+    },
 
     items: [
       {

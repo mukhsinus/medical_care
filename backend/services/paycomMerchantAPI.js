@@ -7,6 +7,7 @@
  * Methods: https://developer.help.paycom.uz/metody-merchant-api/
  */
 
+const mongoose = require("mongoose");
 const Order = require("../models/Order");
 
 // Receipt types for fiscalization
@@ -35,6 +36,17 @@ const PAYCOM_ERRORS = {
   INVALID_PARAMS: -32602,
   UNAUTHORIZED: -32504
 };
+
+/**
+ * Validate MongoDB ObjectId format
+ * Returns true if the ID is a valid MongoDB ObjectId format
+ * 
+ * @param {string} id - The ID to validate
+ * @returns {boolean} true if valid ObjectId format
+ */
+function isValidObjectId(id) {
+  return mongoose.Types.ObjectId.isValid(id);
+}
 
 /**
  * Verify Basic Auth header
@@ -126,6 +138,16 @@ async function handleCheckPerformTransaction(params, catalogItems = []) {
   }
 
   const orderId = account.order_id;
+  
+  // Validate ObjectId format
+  if (!isValidObjectId(orderId)) {
+    console.error(`❌ Invalid ObjectId format: ${orderId}`);
+    throw {
+      code: PAYCOM_ERRORS.INVALID_ACCOUNT,
+      message: `Invalid account.order_id format: ${orderId}`
+    };
+  }
+
   console.log(`🔍 CheckPerformTransaction: Looking for order ${orderId}`);
 
   // Find order in database
@@ -198,6 +220,15 @@ async function handleCreateTransaction(params) {
   }
 
   const orderId = account.order_id;
+
+  // Validate ObjectId format
+  if (!isValidObjectId(orderId)) {
+    console.error(`❌ Invalid ObjectId format: ${orderId}`);
+    throw {
+      code: PAYCOM_ERRORS.INVALID_ACCOUNT,
+      message: `Invalid account.order_id format: ${orderId}`
+    };
+  }
 
   const order = await Order.findById(orderId);
   if (!order) {

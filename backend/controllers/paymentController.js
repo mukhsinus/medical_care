@@ -82,17 +82,6 @@ exports.createOrderAndInitPayment = async (req, res) => {
         item._resolvedIkpuCode = itemIkpuCode;
       }
 
-      // Проверка: все товары должны иметь одинаковый IKPU (твоя логика)
-      const ikpuCodes = [...new Set(items.map((i) => i._resolvedIkpuCode))];
-
-      if (ikpuCodes.length > 1) {
-        console.warn("⚠️ Multiple IKPU codes in order:", ikpuCodes);
-        return res.status(400).json({
-          message: "Items from different merchants cannot be purchased together",
-          ikpuCodes,
-        });
-      }
-    }
 
     // 1) Create order in DB
     const order = await Order.create({

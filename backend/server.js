@@ -26,9 +26,39 @@ const app = express();
 /* -------------------------
    Core middlewares
 ------------------------- */
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
+
+/* -------------------------
+   JSON parsing error handler (must be right after middleware)
+------------------------- */
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    console.error('❌ JSON parse error:', err.message);
+    return res.status(200).json({
+      jsonrpc: '2.0',
+      error: {
+        code: -32700,
+        message: 'Parse error: Invalid JSON',
+        data: err.message
+      },
+      id: null
+    });
+  }
+  next(err);
+});
+
+/* -------------------------
+   Paycom webhook logging
+------------------------- */
+app.use('/api/paycom/webhook', (req, res, next) => {
+  console.log('🔔 Paycom webhook request received');
+  console.log('   Auth:', req.headers.authorization?.substring(0, 20) + '...');
+  console.log('   Method:', req.body?.method);
+  console.log('   Body keys:', Object.keys(req.body || {}));
+  next();
+});
 
 /* -------------------------
    CORS (SAFARI FIX)

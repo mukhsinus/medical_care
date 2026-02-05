@@ -38,26 +38,56 @@ try {
  * Validates auth, routes JSON-RPC methods, handles errors
  */
 const paycomWebhookHandler = async (req, res) => {
+  // MUST always return JSON-RPC response, never HTML
+  res.setHeader('Content-Type', 'application/json');
+
   try {
     // Step 1: Validate Basic Auth (Paycom:MERCHANT_KEY)
     const authHeader = req.headers.authorization;
     if (!verifyBasicAuth(authHeader)) {
       console.log('🚫 Paycom webhook: Invalid authorization');
-      return res.status(401).json({
+      return res.status(200).json({
         jsonrpc: '2.0',
         error: {
           code: PAYCOM_ERRORS.UNAUTHORIZED,
           message: 'Invalid authorization',
           data: 'Paycom credentials mismatch'
         },
-        id: req.body.id || null
+        id: req.body?.id || null
       });
     }
 
     // Step 2: Parse JSON-RPC request
-    const { method, params, id } = req.body;
+    const body = req.body || {};
+    const { method, params, id } = body;
 
-    console.log(`📨 Paycom webhook [${method}]:`, JSON.stringify(params));
+    console.log(`📨 Paycom webhook [${method}]:`, params);
+
+    if (!method) {
+      console.warn('❌ Missing method in request');
+      return res.status(200).json({
+        jsonrpc: '2.0',
+        error: {
+          code: -32600,
+          message: 'Invalid Request: method is required',
+          data: null
+        },
+        id: id || null
+      });
+    }
+
+    if (!params || typeof params !== 'object') {
+      console.warn(`❌ Invalid params for ${method}:`, params);
+      return res.status(200).json({
+        jsonrpc: '2.0',
+        error: {
+          code: -32602,
+          message: 'Invalid params',
+          data: null
+        },
+        id: id || null
+      });
+    }
 
     // Step 3: Route to appropriate handler
     let result;
@@ -102,38 +132,48 @@ const paycomWebhookHandler = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('❌ Paycom webhook error:', error);
+    console.error('❌ Paycom webhook CRITICAL error:', error);
     
     // Handle both Error objects and custom error objects
     let errorCode = -32000;
     let errorMessage = 'Server error';
     let errorData = null;
     
-    if (error && typeof error === 'object') {
-      if (error.code) {
-        errorCode = error.code;
+    try {
+      if (error && typeof error === 'object') {
+        if (error.code !== undefined) {
+          errorCode = error.code;
+        }
+        if (error.message) {
+          errorMessage = String(error.message);
+        }
+        if (error.data !== undefined) {
+          errorData = error.data;
+        }
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      } else {
+        errorMessage = String(error);
       }
-      if (error.message) {
-        errorMessage = String(error.message);
-      }
-      if (error.data) {
-        errorData = error.data;
-      }
-    } else if (error instanceof Error) {
-      errorMessage = error.message;
-    } else {
-      errorMessage = String(error);
+    } catch (parseError) {
+      console.error('Error parsing error object:', parseError);
+      errorMessage = 'Unknown error';
     }
 
-    return res.status(200).json({
+    console.error(`   Error details: code=${errorCode}, message=${errorMessage}`);
+
+    // Ensure we always send valid JSON
+    const responseData = {
       jsonrpc: '2.0',
       error: {
-        code: errorCode,
-        message: errorMessage,
-        data: errorData
+        code: Number(errorCode) || -32000,
+        message: String(errorMessage) || 'Server error',
+        data: errorData || null
       },
-      id: req.body?.id || null
-    });
+      id: (req.body && req.body.id) ? req.body.id : null
+    };
+
+    return res.status(200).json(responseData);
   }
 };
 

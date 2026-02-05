@@ -237,30 +237,31 @@ async function handleCreateTransaction(params) {
     };
   }
 
-  // 🚨 CRITICAL PAYCOM RULE:
-  // If there is already a transaction and order is still pending → return error
-  if (order.providerTransactionId && order.paymentStatus === 'pending') {
+  // 🚨 If order already has a Paycom transaction
+  if (order.providerTransactionId) {
+    // ✅ Same transaction → idempotent success
+    if (order.providerTransactionId === String(paycomTxId)) {
+      return {
+        transaction_id: order.providerTransactionId,
+        state:
+          order.paymentStatus === 'completed'
+            ? PAYCOM_STATES.PERFORMED
+            : PAYCOM_STATES.CREATED,
+        create_time: order.meta?.paycomCreatedAt
+          ? new Date(order.meta.paycomCreatedAt).getTime()
+          : 0,
+        perform_time: order.meta?.paycomPerformedAt
+          ? new Date(order.meta.paycomPerformedAt).getTime()
+          : 0,
+        cancel_time: 0,
+        transaction: order.providerTransactionId
+      };
+    }
+
+    // ❌ Different transaction id → MUST ERROR
     throw {
       code: -31099,
-      message: 'Order already has pending transaction'
-    };
-  }
-
-  // ✅ If already created/processing/completed → idempotent success
-  if (order.providerTransactionId && order.paymentStatus !== 'pending') {
-    return {
-      transaction_id: order.providerTransactionId,
-      state: order.paymentStatus === 'completed'
-        ? PAYCOM_STATES.PERFORMED
-        : PAYCOM_STATES.CREATED,
-      create_time: order.meta?.paycomCreatedAt
-        ? new Date(order.meta.paycomCreatedAt).getTime()
-        : 0,
-      perform_time: order.meta?.paycomPerformedAt
-        ? new Date(order.meta.paycomPerformedAt).getTime()
-        : 0,
-      cancel_time: 0,
-      transaction: order.providerTransactionId
+      message: 'Order already has another active transaction'
     };
   }
 

@@ -436,23 +436,32 @@ async function handleCheckTransaction(params) {
     ? new Date(order.meta.paycomCreatedAt).getTime()
     : 0;
 
-  const cancelTime = order.meta?.paycomCancelledAt
-    ? new Date(order.meta.paycomCancelledAt).getTime()
-    : 0;
-
-  // ✅ perform_time is only set when status is completed (not cancelled/refunded)
-  const performTime =
-    order.paymentStatus === 'completed' && order.meta?.paycomPerformedAt
+  // ✅ CRITICAL: perform_time logic depends on state
+  // If state = -2 (REFUNDED) → MUST have perform_time > 0 (when it was performed)
+  // If state = -1 (CANCELLED) → perform_time = 0 (never performed)
+  let performTime = 0;
+  if (order.paymentStatus === 'completed' || order.paymentStatus === 'refunded') {
+    // Was performed, so include the timestamp
+    performTime = order.meta?.paycomPerformedAt
       ? new Date(order.meta.paycomPerformedAt).getTime()
       : 0;
+  }
 
-  // ✅ reason is only set when status is cancelled or refunded, as a number
+  // cancel_time is set only for cancelled/refunded
+  let cancelTime = 0;
+  if (order.paymentStatus === 'cancelled' || order.paymentStatus === 'refunded') {
+    cancelTime = order.meta?.paycomCancelledAt
+      ? new Date(order.meta.paycomCancelledAt).getTime()
+      : 0;
+  }
+
+  // ✅ reason is only set when state is -1 or -2
   const reason =
     order.paymentStatus === 'cancelled' || order.paymentStatus === 'refunded'
       ? Number(order.meta?.cancellationReason) || null
       : null;
 
-  console.log(`🔍 CheckTransaction OK: Order ${transaction_id}, State: ${state}`);
+  console.log(`🔍 CheckTransaction OK: Order ${transaction_id}, State: ${state}, PerformTime: ${performTime}, CancelTime: ${cancelTime}`);
 
   return {
     transaction_id: transaction_id,

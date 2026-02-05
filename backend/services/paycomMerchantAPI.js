@@ -239,7 +239,7 @@ async function handleCreateTransaction(params) {
     };
   }
 
-  // If already have a Paycom transaction for this order
+  // Check if already have a Paycom transaction for this order
   if (order.providerTransactionId) {
     // If already processing or completed → idempotent return
     if (order.paymentStatus === 'processing' || order.paymentStatus === 'completed') {
@@ -253,15 +253,7 @@ async function handleCreateTransaction(params) {
       };
     }
 
-    // If still pending but transaction already exists → MUST return error
-    if (order.paymentStatus === 'pending') {
-      throw {
-        code: -31099,
-        message: 'Order already has a pending transaction'
-      };
-    }
-
-    // If cancelled/refunded/etc → return proper error
+    // If  already pending or any other status → return error
     throw {
       code: -31099,
       message: `Order already has payment status: ${order.paymentStatus}`
@@ -315,11 +307,11 @@ async function handlePerformTransaction(params) {
 
   // Check if already performed or cancelled
   if (order.paymentStatus === 'completed') {
-    // Already performed - return success
+    // Already performed - return success with stable times from DB
     return {
       transaction_id: transaction_id,
       state: PAYCOM_STATES.PERFORMED,
-      perform_time: order.paycomPerformedAt ? order.paycomPerformedAt.getTime() : 0,
+      perform_time: order.meta?.paycomPerformedAt ? new Date(order.meta.paycomPerformedAt).getTime() : 0,
       transaction: transaction_id
     };
   }
@@ -343,7 +335,7 @@ async function handlePerformTransaction(params) {
   return {
     transaction_id: transaction_id,
     state: PAYCOM_STATES.PERFORMED,
-    perform_time: Date.now(),
+    perform_time: order.meta.paycomPerformedAt.getTime(), // Use the actual saved timestamp
     transaction: transaction_id
   };
 }
@@ -446,15 +438,24 @@ async function handleCheckTransaction(params) {
   };
 
   const state = statusToState[order.paymentStatus] || PAYCOM_STATES.CREATED;
-  const performTime = order.meta?.paycomPerformedAt ? new Date(order.meta.paycomPerformedAt).getTime() : 0;
-  const cancelTime = order.meta?.paycomCancelledAt ? new Date(order.meta.paycomCancelledAt).getTime() : 0;
+  
+  // Read all times from DB - must be stable across repeated calls
+  const createTime = order.meta?.paycomCreatedAt
+    ? new Date(order.meta.paycomCreatedAt).getTime()
+    : 0;
+  const performTime = order.meta?.paycomPerformedAt
+    ? new Date(order.meta.paycomPerformedAt).getTime()
+    : 0;
+  const cancelTime = order.meta?.paycomCancelledAt
+    ? new Date(order.meta.paycomCancelledAt).getTime()
+    : 0;
 
   console.log(`🔍 CheckTransaction OK: Order ${transaction_id}, State: ${state}`);
 
   return {
     transaction_id: transaction_id,
     state: state,
-    create_time: order.createdAt ? order.createdAt.getTime() : 0,
+    create_time: createTime,
     perform_time: performTime,
     cancel_time: cancelTime,
     transaction: transaction_id,

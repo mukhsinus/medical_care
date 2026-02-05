@@ -50,17 +50,6 @@ app.use((err, req, res, next) => {
 });
 
 /* -------------------------
-   Paycom webhook logging
-------------------------- */
-app.use('/api/paycom/webhook', (req, res, next) => {
-  console.log('🔔 Paycom webhook request received');
-  console.log('   Auth:', req.headers.authorization?.substring(0, 20) + '...');
-  console.log('   Method:', req.body?.method);
-  console.log('   Body keys:', Object.keys(req.body || {}));
-  next();
-});
-
-/* -------------------------
    CORS (SAFARI FIX)
 ------------------------- */
 const ALLOWED_ORIGINS = [

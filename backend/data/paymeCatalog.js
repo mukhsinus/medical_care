@@ -1,4 +1,4 @@
-// backend/data/Catalog.ts
+// backend/data/Catalog.js
 
 const allItems = [
   {

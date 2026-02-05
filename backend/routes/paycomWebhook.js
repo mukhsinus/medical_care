@@ -26,7 +26,7 @@ const { sendNotification } = require("../utils/telegramNotifier");
 // Try to load CatalogData for receipt building
 let allItems = [];
 try {
-  const catalogData = require("../../src/data/CatalogData");
+  const catalogData = require("..data/paymeCatalog");
   allItems = catalogData.allItems || [];
   console.log(`✅ CatalogData loaded: ${allItems.length} items for Paycom fiscalization`);
 } catch (err) {

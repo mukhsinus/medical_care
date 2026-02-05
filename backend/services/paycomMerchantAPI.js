@@ -210,7 +210,7 @@ async function handleCheckPerformTransaction(params, catalogItems = []) {
  * @returns {Promise<Object>} Transaction details
  */
 async function handleCreateTransaction(params) {
-  const { account, amount, time } = params;
+  const { account, amount, time, id } = params; // id = Paycom's transaction ID
 
   if (!account || !account.order_id) {
     throw {
@@ -220,6 +220,7 @@ async function handleCreateTransaction(params) {
   }
 
   const orderId = account.order_id;
+  const paycomTransactionId = String(id);
 
   // Find order
   const order = await Order.findById(orderId);
@@ -238,20 +239,29 @@ async function handleCreateTransaction(params) {
     };
   }
 
-  // ✅ Idempotent behavior - if already processing/completed, return it
-  if (order.paymentStatus === 'processing' || order.paymentStatus === 'completed') {
-    return {
-      transaction_id: order._id.toString(),
-      state: order.paymentStatus === 'completed' ? PAYCOM_STATES.PERFORMED : PAYCOM_STATES.CREATED,
-      create_time: order.meta?.paycomCreatedAt ? new Date(order.meta.paycomCreatedAt).getTime() : 0,
-      perform_time: order.meta?.paycomPerformedAt ? new Date(order.meta.paycomPerformedAt).getTime() : 0,
-      cancel_time: 0,
-      transaction: order._id.toString()
-    };
-  }
+  // If already have a Paycom transaction for this order
+  if (order.providerTransactionId) {
+    // If already processing or completed → idempotent return
+    if (order.paymentStatus === 'processing' || order.paymentStatus === 'completed') {
+      return {
+        transaction_id: order.providerTransactionId,
+        state: order.paymentStatus === 'completed' ? PAYCOM_STATES.PERFORMED : PAYCOM_STATES.CREATED,
+        create_time: order.meta?.paycomCreatedAt ? new Date(order.meta.paycomCreatedAt).getTime() : 0,
+        perform_time: order.meta?.paycomPerformedAt ? new Date(order.meta.paycomPerformedAt).getTime() : 0,
+        cancel_time: 0,
+        transaction: order.providerTransactionId
+      };
+    }
 
-  // If cancelled/refunded/etc → return proper error in allowed range
-  if (order.paymentStatus !== 'pending') {
+    // If still pending but transaction already exists → MUST return error
+    if (order.paymentStatus === 'pending') {
+      throw {
+        code: -31099,
+        message: 'Order already has a pending transaction'
+      };
+    }
+
+    // If cancelled/refunded/etc → return proper error
     throw {
       code: -31099,
       message: `Order already has payment status: ${order.paymentStatus}`
@@ -260,20 +270,20 @@ async function handleCreateTransaction(params) {
 
   // Create new transaction - mark as processing
   order.paymentStatus = 'processing';
-  order.providerTransactionId = order._id.toString();
+  order.providerTransactionId = paycomTransactionId; // Store Paycom's transaction ID
   order.meta = order.meta || {};
   order.meta.paycomCreatedAt = new Date(time);
   await order.save();
 
-  console.log(`🆕 CreateTransaction OK: Order ${orderId}`);
+  console.log(`🆕 CreateTransaction OK: Order ${orderId}, Paycom TxID: ${paycomTransactionId}`);
 
   return {
-    transaction_id: order._id.toString(),
+    transaction_id: paycomTransactionId,
     state: PAYCOM_STATES.CREATED,
     create_time: time,
     perform_time: 0,
     cancel_time: 0,
-    transaction: order._id.toString()
+    transaction: paycomTransactionId
   };
 }
 
@@ -294,8 +304,8 @@ async function handlePerformTransaction(params) {
     };
   }
 
-  // Find order
-  const order = await Order.findById(transaction_id);
+  // Find order by Paycom's transaction ID
+  const order = await Order.findOne({ providerTransactionId: String(transaction_id) });
   if (!order) {
     throw {
       code: PAYCOM_ERRORS.TRANSACTION_NOT_FOUND,
@@ -356,8 +366,8 @@ async function handleCancelTransaction(params) {
     };
   }
 
-  // Find order
-  const order = await Order.findById(transaction_id);
+  // Find order by Paycom's transaction ID
+  const order = await Order.findOne({ providerTransactionId: String(transaction_id) });
   if (!order) {
     throw {
       code: PAYCOM_ERRORS.TRANSACTION_NOT_FOUND,
@@ -416,8 +426,8 @@ async function handleCheckTransaction(params) {
     };
   }
 
-  // Find order
-  const order = await Order.findById(transaction_id);
+  // Find order by Paycom's transaction ID
+  const order = await Order.findOne({ providerTransactionId: String(transaction_id) });
   if (!order) {
     throw {
       code: PAYCOM_ERRORS.TRANSACTION_NOT_FOUND,

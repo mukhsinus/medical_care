@@ -426,7 +426,7 @@ async function handleCheckTransaction(params) {
     'processing': PAYCOM_STATES.CREATED,
     'completed': PAYCOM_STATES.PERFORMED,
     'cancelled': PAYCOM_STATES.CANCELLED,
-    'refunded': PAYCOM_STATES.CANCELLED,
+    'refunded': PAYCOM_STATES.REFUNDED,
     'failed': PAYCOM_STATES.CANCELLED
   };
 

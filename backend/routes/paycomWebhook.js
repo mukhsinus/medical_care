@@ -104,18 +104,35 @@ const paycomWebhookHandler = async (req, res) => {
   } catch (error) {
     console.error('❌ Paycom webhook error:', error);
     
-    // Check if it's a structured Paycom error or generic error
-    const errorCode = error.code || -32000;
-    const errorMessage = error.message || 'Server error';
+    // Handle both Error objects and custom error objects
+    let errorCode = -32000;
+    let errorMessage = 'Server error';
+    let errorData = null;
+    
+    if (error && typeof error === 'object') {
+      if (error.code) {
+        errorCode = error.code;
+      }
+      if (error.message) {
+        errorMessage = String(error.message);
+      }
+      if (error.data) {
+        errorData = error.data;
+      }
+    } else if (error instanceof Error) {
+      errorMessage = error.message;
+    } else {
+      errorMessage = String(error);
+    }
 
     return res.status(200).json({
       jsonrpc: '2.0',
       error: {
         code: errorCode,
         message: errorMessage,
-        data: error.data || null
+        data: errorData
       },
-      id: req.body.id || null
+      id: req.body?.id || null
     });
   }
 };

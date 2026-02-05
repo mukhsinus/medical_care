@@ -67,53 +67,58 @@ function buildReceiptDetail(items, catalogItems = []) {
   const receiptItems = [];
   let totalAmount = 0;
 
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    throw new Error('Items array is empty or invalid');
+  }
+
   for (const cartItem of items) {
-    // Find catalog item (by numeric ID from productId like "102-nosize-nocolor")
-    const numericId = Number(String(cartItem.productId || cartItem.id).split('-')[0]);
-    const catalogItem = catalogItems.find(c => Number(c.id) === numericId);
+    try {
+      // Find catalog item (by numeric ID from productId like "102-nosize-nocolor")
+      const numericId = Number(String(cartItem.productId || cartItem.id).split('-')[0]);
+      const catalogItem = catalogItems?.find(c => Number(c.id) === numericId);
 
-    if (!catalogItem) {
-      console.warn(`⚠️ Catalog item not found for: ${cartItem.productId || cartItem.id}`);
-      // Still add item but with basic info
+      let ikpuCode = '00000000000000000'; // Fallback IKPU
+      let packageCode = '';
+      let vatPercent = 12;
+
+      if (catalogItem) {
+        // Get IKPU code (size-level > general)
+        ikpuCode = catalogItem.ikpuCode || '00000000000000000';
+        if (cartItem.size && catalogItem.sizeIkpuCodes) {
+          ikpuCode = catalogItem.sizeIkpuCodes[cartItem.size] || ikpuCode;
+        }
+
+        // Get package code (size-level > general)
+        packageCode = catalogItem.package_code || '';
+        if (cartItem.size && catalogItem.sizePackageCodes) {
+          packageCode = catalogItem.sizePackageCodes[cartItem.size] || packageCode;
+        }
+
+        // Get VAT percent
+        vatPercent = catalogItem.vat_percent || 12;
+      }
+
+      const itemPrice = Math.round((cartItem.price || 0) * 100); // Convert to tiyin
+      const itemCount = cartItem.quantity || 1;
+
       receiptItems.push({
-        title: cartItem.name || 'Unknown Item',
-        price: Math.round(cartItem.price * 100), // Convert to tiyin
-        count: cartItem.quantity || 1,
-        code: '00000000000000000', // Fallback IKPU
-        vat_percent: 12,
-        package_code: ''
+        title: `${cartItem.name || 'Unknown Item'}${cartItem.size ? ' (' + cartItem.size + ')' : ''}`,
+        price: itemPrice,
+        count: itemCount,
+        code: ikpuCode,              // ИКПУ code (обязательное)
+        vat_percent: vatPercent,     // НДС процент (обязательное)
+        package_code: packageCode    // Код упаковки (опционально)
       });
-      totalAmount += Math.round(cartItem.price * cartItem.quantity * 100);
-      continue;
+
+      totalAmount += itemPrice * itemCount;
+    } catch (itemError) {
+      console.error(`⚠️ Error processing item ${cartItem.productId}:`, itemError);
+      // Continue processing other items instead of failing
     }
+  }
 
-    // Get IKPU code (size-level > general)
-    let ikpuCode = catalogItem.ikpuCode || '00000000000000000';
-    if (cartItem.size && catalogItem.sizeIkpuCodes) {
-      ikpuCode = catalogItem.sizeIkpuCodes[cartItem.size] || ikpuCode;
-    }
-
-    // Get package code (size-level > general)
-    let packageCode = catalogItem.package_code || '';
-    if (cartItem.size && catalogItem.sizePackageCodes) {
-      packageCode = catalogItem.sizePackageCodes[cartItem.size] || packageCode;
-    }
-
-    // Get VAT percent
-    const vatPercent = catalogItem.vat_percent || 12;
-    const itemPrice = Math.round(cartItem.price * 100); // Convert to tiyin
-    const itemCount = cartItem.quantity || 1;
-
-    receiptItems.push({
-      title: `${cartItem.name}${cartItem.size ? ' (' + cartItem.size + ')' : ''}`,
-      price: itemPrice,
-      count: itemCount,
-      code: ikpuCode,              // ИКПУ code (обязательное)
-      vat_percent: vatPercent,     // НДС процент (обязательное)
-      package_code: packageCode    // Код упаковки (опционально)
-    });
-
-    totalAmount += itemPrice * itemCount;
+  if (receiptItems.length === 0) {
+    throw new Error('No valid items in receipt');
   }
 
   return {
@@ -143,18 +148,23 @@ async function handleCheckPerformTransaction(params, catalogItems = []) {
   }
 
   const orderId = account.order_id;
+  console.log(`🔍 CheckPerformTransaction: Looking for order ${orderId}`);
 
   // Find order in database
   const order = await Order.findById(orderId);
   if (!order) {
+    console.error(`❌ Order not found: ${orderId}`);
     throw {
       code: PAYCOM_ERRORS.ORDER_NOT_FOUND,
       message: `Order not found: ${orderId}`
     };
   }
 
+  console.log(`✓ Order found. Status: ${order.paymentStatus}, Amount: ${order.amount}`);
+
   // Check order status
   if (order.paymentStatus !== 'pending') {
+    console.error(`❌ Invalid order status: ${order.paymentStatus}`);
     throw {
       code: PAYCOM_ERRORS.CANNOT_PERFORM,
       message: `Cannot perform transaction. Order status: ${order.paymentStatus}`
@@ -164,6 +174,7 @@ async function handleCheckPerformTransaction(params, catalogItems = []) {
   // Validate amount matches
   const expectedAmount = order.amount * 100; // Convert UZS to tiyin
   if (expectedAmount !== amount) {
+    console.error(`❌ Amount mismatch. Expected: ${expectedAmount}, Got: ${amount}`);
     throw {
       code: PAYCOM_ERRORS.INVALID_AMOUNT,
       message: `Amount mismatch. Expected: ${expectedAmount}, Got: ${amount}`
@@ -171,7 +182,17 @@ async function handleCheckPerformTransaction(params, catalogItems = []) {
   }
 
   // Build receipt detail with fiscalization data
-  const detail = buildReceiptDetail(order.items, catalogItems);
+  let detail;
+  try {
+    detail = buildReceiptDetail(order.items, catalogItems);
+    console.log(`✓ Receipt detail built with ${detail.items.length} items`);
+  } catch (buildError) {
+    console.error(`❌ Error building receipt detail:`, buildError);
+    throw {
+      code: -31008,
+      message: 'Error building receipt detail'
+    };
+  }
 
   console.log(`✅ CheckPerformTransaction OK: Order ${orderId}, Amount: ${amount} tiyin`);
 

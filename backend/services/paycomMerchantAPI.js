@@ -7,7 +7,7 @@
  * Methods: https://developer.help.paycom.uz/metody-merchant-api/
  */
 
-const Order = require("../models/order");
+const Order = require("../models/Order");
 
 // Receipt types for fiscalization
 const RECEIPT_TYPES = {

@@ -1,7 +1,7 @@
 const BotAdmin = require('../models/BotAdmin');
 const BotSession = require('../models/BotSession');
 const User = require('../models/User');
-const Order = require('../models/order');
+const Order = require('../models/Order');
 const BotChannel = require('../models/BotChannel');
 
 

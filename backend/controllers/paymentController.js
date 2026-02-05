@@ -118,15 +118,25 @@ exports.createOrderAndInitPayment = async (req, res) => {
     let paymentInitData;
 
     if (provider === "payme") {
-      // Используем IKPU код первого товара (так как они все одинаковые после валидации)
-      const itemIkpuCode = items[0]._resolvedIkpuCode;
+      // Paycom GET method: base64(m=MERCHANT_ID;ac.order_id=ORDER_ID;a=AMOUNT)
+      const paycomMerchantId = process.env.PAYCOM_MERCHANT_ID;
+      if (!paycomMerchantId) {
+        return res.status(500).json({ 
+          message: "Server error: PAYCOM_MERCHANT_ID not configured" 
+        });
+      }
+      
+      // Build params string: m=merchant_id;ac.order_id=order_id;a=amount
+      const paramsStr = `m=${paycomMerchantId};ac.order_id=${order._id};a=${Math.round(amount * 100)}`;
+      const paramsBase64 = Buffer.from(paramsStr).toString('base64');
+      
       const paymeTestMode = process.env.PAYME_TEST_MODE === 'true';
       const paymeGateway = paymeTestMode 
         ? "https://checkout.test.paycom.uz"
         : "https://checkout.paycom.uz";
       
       paymentInitData = {
-        redirectUrl: `${paymeGateway}/${itemIkpuCode}?orderId=${order._id}&amount=${Math.round(amount * 100)}`,
+        redirectUrl: `${paymeGateway}/${paramsBase64}`,
       };
     } else if (provider === "click") {
       const clickServiceId = process.env.CLICK_SERVICE_ID;

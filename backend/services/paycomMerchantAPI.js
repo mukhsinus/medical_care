@@ -140,22 +140,22 @@ async function handleCheckPerformTransaction(params, catalogItems = []) {
 
   console.log(`✓ Order found. Status: ${order.paymentStatus}, Amount: ${order.amount}`);
 
-  // Check order status
-  if (order.paymentStatus !== 'pending') {
-    console.error(`❌ Invalid order status: ${order.paymentStatus}`);
-    throw {
-      code: PAYCOM_ERRORS.CANNOT_PERFORM,
-      message: `Cannot perform transaction. Order status: ${order.paymentStatus}`
-    };
-  }
-
-  // Validate amount matches
+  // ✅ Validate amount matches FIRST (Paycom requirement)
   const expectedAmount = order.amount * 100; // Convert UZS to tiyin
   if (expectedAmount !== amount) {
     console.error(`❌ Amount mismatch. Expected: ${expectedAmount}, Got: ${amount}`);
     throw {
-      code: PAYCOM_ERRORS.INVALID_AMOUNT,
+      code: PAYCOM_ERRORS.INVALID_AMOUNT, // -31001
       message: `Amount mismatch. Expected: ${expectedAmount}, Got: ${amount}`
+    };
+  }
+
+  // Then check order status
+  if (order.paymentStatus !== 'pending') {
+    console.error(`❌ Invalid order status: ${order.paymentStatus}`);
+    throw {
+      code: PAYCOM_ERRORS.CANNOT_PERFORM, // -31008
+      message: `Cannot perform transaction. Order status: ${order.paymentStatus}`
     };
   }
 

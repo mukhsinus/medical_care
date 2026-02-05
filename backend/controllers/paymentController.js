@@ -136,7 +136,24 @@ exports.createOrderAndInitPayment = async (req, res) => {
         ? "https://checkout.test.paycom.uz"
         : "https://checkout.paycom.uz";
 
-      return res.redirect(`${paymeGateway}/${paramsBase64}`);
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+
+      return res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8" />
+          <meta http-equiv="refresh" content="0;url=${paymeGateway}/${paramsBase64}" />
+          <title>Redirecting to Payme…</title>
+        </head>
+        <body>
+          <p>Redirecting to Payme…</p>
+          <script>
+            window.location.href = "${paymeGateway}/${paramsBase64}";
+          </script>
+        </body>
+      </html>
+      `);
 
     } else if (provider === "click") {
       const clickServiceId = process.env.CLICK_SERVICE_ID;

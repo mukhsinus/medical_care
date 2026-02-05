@@ -81,7 +81,7 @@ exports.createOrderAndInitPayment = async (req, res) => {
         // сохраним найденный IKPU в item (чтобы дальше использовать)
         item._resolvedIkpuCode = itemIkpuCode;
       }
-
+    }
 
     // 1) Create order in DB
     const order = await Order.create({

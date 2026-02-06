@@ -1,3 +1,4 @@
+// Order.js
 const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
@@ -74,5 +75,12 @@ const orderSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+
+orderSchema.index({
+  paymentProvider: 1,
+  'meta.paycomCreatedAt': 1
+});
+
 
 module.exports = mongoose.model("Order", orderSchema);

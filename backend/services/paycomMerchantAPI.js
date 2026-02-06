@@ -1,10 +1,5 @@
 /**
  * Paycom Merchant API Service
- * 
- * This is a WEBHOOK HANDLER SERVICE - Payme calls our endpoints, not vice versa
- * 
- * Reference: https://developer.help.paycom.uz/protokol-merchant-api/
- * Methods: https://developer.help.paycom.uz/metody-merchant-api/
  */
 
 const mongoose = require("mongoose");
@@ -211,6 +206,9 @@ async function handleCheckPerformTransaction(params, catalogItems = []) {
  */
 async function handleCreateTransaction(params) {
   const { account, amount, time, id: paycomTxId } = params;
+
+  console.log('✅ PAYME transaction id:', paycomTxId);
+  console.log('📦 Order id (account.order_id):', account.order_id);
 
   if (!account || !account.order_id) {
     throw {
@@ -515,44 +513,66 @@ async function handleCheckTransaction(params) {
 async function handleGetStatement(params) {
   const { from, to } = params;
 
-  if (!from || !to) {
+  if (typeof from !== 'number' || typeof to !== 'number') {
     throw {
       code: PAYCOM_ERRORS.INVALID_PARAMS,
       message: 'from and to parameters are required'
     };
   }
 
-  const fromDate = new Date(from * 1000);
-  const toDate = new Date(to * 1000);
+  const fromDate = new Date(from);
+  const toDate = new Date(to);
 
   // Find all orders in date range with paymentProvider = 'payme'
   const orders = await Order.find({
     paymentProvider: 'payme',
-    createdAt: { $gte: fromDate, $lte: toDate }
+    'meta.paycomCreatedAt': { $gte: fromDate, $lte: toDate }
   }).lean();
 
-  const transactions = orders.map(order => {
+  const transactions = orders
+    .filter(o => o.providerTransactionId)
+    .map(order => {
     const statusToState = {
       'pending': PAYCOM_STATES.CREATED,
       'processing': PAYCOM_STATES.CREATED,
       'completed': PAYCOM_STATES.PERFORMED,
       'cancelled': PAYCOM_STATES.CANCELLED,
-      'refunded': PAYCOM_STATES.CANCELLED,
+      'refunded': PAYCOM_STATES.REFUNDED,
       'failed': PAYCOM_STATES.CANCELLED
     };
 
     const state = statusToState[order.paymentStatus] || PAYCOM_STATES.CREATED;
-    const performTime = order.meta?.paycomPerformedAt ? new Date(order.meta.paycomPerformedAt).getTime() : 0;
-    const cancelTime = order.meta?.paycomCancelledAt ? new Date(order.meta.paycomCancelledAt).getTime() : 0;
+    let performTime = 0;
+
+    if (state === PAYCOM_STATES.PERFORMED || state === PAYCOM_STATES.REFUNDED) {
+      performTime = order.meta?.paycomPerformedAt
+        ? new Date(order.meta.paycomPerformedAt).getTime()
+        : 0;
+    }
+    
+    const cancelTime =
+      state === PAYCOM_STATES.CANCELLED || state === PAYCOM_STATES.REFUNDED
+        ? order.meta?.paycomCancelledAt
+          ? new Date(order.meta.paycomCancelledAt).getTime()
+          : 0
+        : 0;
+
+    const reason =
+      state === PAYCOM_STATES.CANCELLED || state === PAYCOM_STATES.REFUNDED
+        ? Number(order.meta?.cancellationReason ?? null)
+        : null;
 
     return {
-      transaction_id: order._id.toString(),
+      transaction_id: order.providerTransactionId,
       state: state,
-      create_time: order.createdAt ? order.createdAt.getTime() : 0,
+      create_time: order.meta?.paycomCreatedAt
+        ? new Date(order.meta.paycomCreatedAt).getTime()
+        : 0,
       perform_time: performTime,
       cancel_time: cancelTime,
-      transaction: order._id.toString(),
-      amount: order.amount * 100 // Convert to tiyin
+      transaction: order.providerTransactionId,
+      amount: Math.round(order.amount * 100),
+      reason: reason
     };
   });
 

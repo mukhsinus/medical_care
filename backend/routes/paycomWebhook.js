@@ -1,10 +1,5 @@
-/**
- * Payme Merchant API Webhook Handler
- * Handles incoming JSON-RPC requests from Payme
- * 
- * Reference: https://developer.help.paycom.uz/protokol-merchant-api/
- * Methods: https://developer.help.paycom.uz/metody-merchant-api/
- */
+// paycomWebhook.js
+
 
 const express = require('express');
 const router = express.Router();

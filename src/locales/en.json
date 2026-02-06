@@ -210,7 +210,10 @@
     "checkout_uzum": "Pay with Uzum",
     "added_to_basket": "Item added to basket",
     "minimum_amount": "Minimum order amount is 500,000 UZS",
-    "total": "Total"
+    "total": "Total",
+    "error": "Error",
+    "login_required": "You must be logged in to complete the order.",
+    "address": "Please add your shipping address in your account."
   },
   "account": {
     "title": "Your Account",

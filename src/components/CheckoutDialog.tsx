@@ -61,11 +61,19 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
   /* ================= Checkout ================= */
 
   const handleCheckout = async (provider: PaymentProvider) => {
+    // 🔒 HARD LOCK - prevent multiple rapid calls on mobile
+    if (isPaying || externalIsPaying) return;
+    setIsPaying(true);
+
     const MIN_CHECKOUT_AMOUNT = 500_000;
 
-    if (!items.length || !totalPrice) return;
+    if (!items.length || !totalPrice) {
+      setIsPaying(false);
+      return;
+    }
 
     if (totalPrice < MIN_CHECKOUT_AMOUNT) {
+      setIsPaying(false);
       toast({
         title: t.basket?.error || "Order too small",
         description:
@@ -77,6 +85,7 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
     const currentUser = freshUser || user;
 
     if (!currentUser) {
+      setIsPaying(false);
       toast({
         title: t.basket?.error || "Authentication required",
         description:
@@ -99,6 +108,7 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
       );
 
     if (!hasAddress) {
+      setIsPaying(false);
       toast({
         title: t.basket?.error || "Address required",
         description:
@@ -111,8 +121,6 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
     }
 
     try {
-      setIsPaying(true);
-
       const payload = items.map((item) => ({
         productId: item.product.id,
         name: item.product.name,
@@ -162,51 +170,58 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
       <DialogContent
         className="
           w-full
-          min-w-[720px]
           max-w-lg
-          max-h-[90vh]
+          h-[90vh]
+          sm:h-auto
+          sm:max-h-[90vh]
+          sm:min-w-[640px]
           sm:rounded-lg
           rounded-none
-          p-0
+          px-3
+          py-4
+          sm:px-6
+          sm:py-6
+          sm:p-6
           flex
           flex-col
+          overflow-hidden
         "
       >
         {/* HEADER */}
-        <DialogHeader className="px-4 pt-4 sm:px-6 sm:pt-6">
-          <DialogTitle>
+        <DialogHeader className="px-0 pt-0 pb-3 sm:pb-4">
+          <DialogTitle className="text-lg sm:text-xl">
             {t.basket?.checkout_title || "Confirm Order"}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-xs sm:text-sm">
             {t.basket?.checkout_desc ||
               "Review your order and choose payment method."}
           </DialogDescription>
         </DialogHeader>
 
         {/* SCROLLABLE CONTENT */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6">
-          <div className="mt-4 space-y-4">
-            <div className="space-y-2">
+        <div className="flex-1 overflow-y-auto px-0 py-2 sm:py-3 -mx-3 sm:-mx-6 px-3 sm:px-6 min-h-0">
+          <div className="mt-2 sm:mt-3 space-y-3 sm:space-y-4">
+            <div className="space-y-1.5 sm:space-y-2">
               {items.map((item) => (
                 <div
                   key={item.product.id}
-                  className="flex justify-between text-sm"
+                  className="flex justify-between text-xs sm:text-sm gap-2"
                 >
-                  <div className="flex-1 pr-2">
-                    <div className="font-medium">{item.product.name}</div>
-                    <div className="text-muted-foreground">
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium truncate">{item.product.name}</div>
+                    <div className="text-muted-foreground text-xs">
                       {item.quantity} × {formatCurrency(item.product.price)}
                     </div>
                   </div>
-                  <div className="font-semibold whitespace-nowrap">
+                  <div className="font-semibold whitespace-nowrap flex-shrink-0">
                     {formatCurrency(item.product.price * item.quantity)}
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="border-t pt-3">
-              <div className="flex justify-between font-semibold text-lg">
+            <div className="border-t pt-2 sm:pt-3">
+              <div className="flex justify-between font-semibold text-sm sm:text-base">
                 <span>{t.basket?.total || "Total"}</span>
                 <span>{formatCurrency(totalPrice)}</span>
               </div>
@@ -215,12 +230,17 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
         </div>
 
         {/* FOOTER */}
-        <DialogFooter className="px-4 pb-4 sm:px-6 sm:pb-6 flex flex-col gap-3">
+        <DialogFooter className="px-0 pt-2 sm:pt-4 pb-0 flex flex-col gap-2 sm:gap-3">
           <Button
-            size="lg"
-            className="w-full btn-primary"
+            type="button"
+            size="sm"
+            className="w-full btn-primary text-xs sm:text-sm h-9 sm:h-10"
             disabled={isPaying || externalIsPaying}
-            onClick={() => handleCheckout("payme")}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleCheckout("payme");
+            }}
           >
             {isPaying || externalIsPaying
               ? t.basket?.processing || "Processing..."
@@ -228,11 +248,16 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
           </Button>
 
           <Button
-            size="lg"
+            type="button"
+            size="sm"
             variant="outline"
-            className="w-full"
+            className="w-full text-xs sm:text-sm h-9 sm:h-10"
             disabled={isPaying || externalIsPaying}
-            onClick={() => handleCheckout("click")}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleCheckout("click");
+            }}
           >
             {isPaying || externalIsPaying
               ? t.basket?.processing || "Processing..."
@@ -240,11 +265,16 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
           </Button>
 
           <Button
-            size="lg"
+            type="button"
+            size="sm"
             variant="outline"
-            className="w-full"
+            className="w-full text-xs sm:text-sm h-9 sm:h-10"
             disabled={isPaying || externalIsPaying}
-            onClick={() => handleCheckout("uzum")}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleCheckout("uzum");
+            }}
           >
             {isPaying || externalIsPaying
               ? t.basket?.processing || "Processing..."

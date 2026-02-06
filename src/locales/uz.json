@@ -215,7 +215,10 @@
     "checkout_uzum": "Uzum orqali to'lash",
     "added_to_basket": "Mahsulot savatga qo'shildi",
     "minimum_amount": "Eng kam buyurtma miqdori 500 000 so'm",
-    "total": "Jami"
+    "total": "Jami",
+    "error": "Xatolik",
+    "login_required": "Buyurtmani yakunlash uchun tizimga kirish kerak.",
+    "address": "Iltimos, akkauntingizda yetkazib berish manzilini qo'shing."
   },
   "account": {
     "title": "Sizning hisobingiz",

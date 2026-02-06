@@ -207,6 +207,9 @@ async function handleCheckPerformTransaction(params, catalogItems = []) {
 async function handleCreateTransaction(params) {
   const { account, amount, time, id: paycomTxId } = params;
 
+  console.log('✅ PAYME transaction id:', paycomTxId);
+  console.log('📦 Order id (account.order_id):', account.order_id);
+
   if (!account || !account.order_id) {
     throw {
       code: PAYCOM_ERRORS.INVALID_ACCOUNT,

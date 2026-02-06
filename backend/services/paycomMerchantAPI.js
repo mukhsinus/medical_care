@@ -542,8 +542,25 @@ async function handleGetStatement(params) {
     };
 
     const state = statusToState[order.paymentStatus] || PAYCOM_STATES.CREATED;
-    const performTime = order.meta?.paycomPerformedAt ? new Date(order.meta.paycomPerformedAt).getTime() : 0;
-    const cancelTime = order.meta?.paycomCancelledAt ? new Date(order.meta.paycomCancelledAt).getTime() : 0;
+    let performTime = 0;
+
+    if (state === PAYCOM_STATES.PERFORMED || state === PAYCOM_STATES.REFUNDED) {
+      performTime = order.meta?.paycomPerformedAt
+        ? new Date(order.meta.paycomPerformedAt).getTime()
+        : 0;
+    }
+    
+    const cancelTime =
+      state === PAYCOM_STATES.CANCELLED || state === PAYCOM_STATES.REFUNDED
+        ? order.meta?.paycomCancelledAt
+          ? new Date(order.meta.paycomCancelledAt).getTime()
+          : 0
+        : 0;
+
+    const reason =
+      state === PAYCOM_STATES.CANCELLED || state === PAYCOM_STATES.REFUNDED
+        ? Number(order.meta?.cancellationReason ?? null)
+        : null;
 
     return {
       transaction_id: order.providerTransactionId,
@@ -554,7 +571,8 @@ async function handleGetStatement(params) {
       perform_time: performTime,
       cancel_time: cancelTime,
       transaction: order.providerTransactionId,
-      amount: Math.round(order.amount * 100)
+      amount: Math.round(order.amount * 100),
+      reason: reason
     };
   });
 

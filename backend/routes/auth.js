@@ -133,7 +133,7 @@ async function handleRegister(req, res) {
     👤 Name: ${name}
     📞 Phone: ${phone}
     📧 Email: ${email || '-'}
-    🆔 ID: ${user._id}`
+    🕒 Time: ${new Date().toLocaleString()}`,
     );
 
     console.log("[SIGNUP] ✅ User created:", { id: user._id, email });

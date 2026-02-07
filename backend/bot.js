@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
-const bcrypt = require('bcryptjs');
 
 const BotAdmin = require('./models/BotAdmin');
 const BotSession = require('./models/BotSession');
@@ -19,16 +18,15 @@ if (!TOKEN || !MONGO_URI) {
 }
 
 /* =========================
-   1. CREATE BOT ONCE
+   BOT INIT
 ========================= */
 const bot = new TelegramBot(TOKEN, { polling: true });
 module.exports = bot;
 
 /* =========================
-   2. GRACEFUL SHUTDOWN
+   GRACEFUL SHUTDOWN
 ========================= */
 process.on('SIGTERM', async () => {
-  console.log('[BOT] SIGTERM received');
   try {
     await mongoose.connection.close();
   } catch (_) {}
@@ -36,7 +34,26 @@ process.on('SIGTERM', async () => {
 });
 
 /* =========================
-   3. ASYNC INIT
+   HELPERS
+========================= */
+async function requireSession(chatId) {
+  return BotSession.findOne({
+    chatId,
+    expiresAt: { $gt: Date.now() },
+  });
+}
+
+async function requireRole(chatId, roles = []) {
+  const session = await requireSession(chatId);
+  if (!session) return null;
+  const admin = await BotAdmin.findById(session.adminId);
+  if (!admin || !admin.isActive) return null;
+  if (roles.length && !roles.includes(admin.role)) return null;
+  return admin;
+}
+
+/* =========================
+   ASYNC INIT
 ========================= */
 (async () => {
   await mongoose.connect(MONGO_URI);
@@ -44,34 +61,24 @@ process.on('SIGTERM', async () => {
 
   try {
     await bot.deleteWebHook({ drop_pending_updates: true });
-  } catch (e) {
-    console.warn('[BOT] deleteWebhook failed (ok):', e?.message);
-  }
-
-  bot.on('polling_error', (err) =>
-    console.error('[BOT] Polling error:', err.message)
-  );
+  } catch (_) {}
 
   bot.getMe().then((i) =>
     console.log(`🤖 Bot connected as @${i.username}`)
   );
 
+  const notifier = require('./utils/telegramNotifier');
+  const { loginStates, LOGIN_STATES } = notifier;
+
   /* =========================
-     HANDLERS
+     AUTH
   ========================= */
 
   bot.onText(/\/login/, async (msg) => {
-    const notifier = require('./utils/telegramNotifier');
-    const { loginStates, LOGIN_STATES } = notifier;
-
     const chatId = msg.chat.id.toString();
     const lang = await notifier.getLang(chatId);
 
-    const existing = await BotSession.findOne({
-      chatId,
-      expiresAt: { $gt: Date.now() },
-    });
-
+    const existing = await requireSession(chatId);
     if (existing) {
       return bot.sendMessage(chatId, notifier.t(lang, 'already_logged_in'));
     }
@@ -85,12 +92,8 @@ process.on('SIGTERM', async () => {
   });
 
   bot.on('message', async (msg) => {
-    const notifier = require('./utils/telegramNotifier');
-    const { loginStates, LOGIN_STATES } = notifier;
-
     const chatId = msg.chat.id.toString();
     const text = msg.text?.trim();
-
     if (!text || text.startsWith('/')) return;
 
     const state = loginStates.get(chatId);
@@ -98,46 +101,35 @@ process.on('SIGTERM', async () => {
 
     if (state.state === LOGIN_STATES.WAITING_USERNAME) {
       const admin = await BotAdmin.findOne({ username: text });
-
-      if (!admin) {
+      if (!admin || !admin.isActive) {
         loginStates.delete(chatId);
-        return bot.sendMessage(
-          chatId,
-          notifier.t(state.lang, 'invalid_username')
-        );
+        return bot.sendMessage(chatId, notifier.t(state.lang, 'invalid_username'));
       }
 
       loginStates.set(chatId, {
         state: LOGIN_STATES.WAITING_PASSWORD,
-        username: text,
+        username: admin.username,
         adminId: admin._id,
         lang: state.lang,
       });
 
-      return bot.sendMessage(
-        chatId,
-        notifier.t(state.lang, 'enter_password')
-      );
+      return bot.sendMessage(chatId, notifier.t(state.lang, 'enter_password'));
     }
 
     if (state.state === LOGIN_STATES.WAITING_PASSWORD) {
-      const admin = await BotAdmin.findOne({ username: state.username });
-      const ok = await bcrypt.compare(text, admin.password);
-
-      if (!ok) {
+      const admin = await BotAdmin.findById(state.adminId);
+      if (!admin || !(await admin.comparePassword(text))) {
         loginStates.delete(chatId);
-        return bot.sendMessage(
-          chatId,
-          notifier.t(state.lang, 'invalid_password')
-        );
+        return bot.sendMessage(chatId, notifier.t(state.lang, 'invalid_password'));
       }
 
-      await notifier.ensureSession(chatId, state.adminId, state.lang);
+      await admin.markLogin();
+      await notifier.ensureSession(chatId, admin._id, state.lang);
       loginStates.delete(chatId);
 
       return bot.sendMessage(
         chatId,
-        notifier.t(state.lang, 'logged_in', state.username)
+        notifier.t(state.lang, 'logged_in', admin.username)
       );
     }
   });
@@ -148,23 +140,14 @@ process.on('SIGTERM', async () => {
     bot.sendMessage(chatId, 'Logged out');
   });
 
-  bot.onText(/^\/lang\s*(\w+)?/, async (msg, match) => {
-    const notifier = require('./utils/telegramNotifier');
-    const { SUPPORTED_LANGS } = notifier;
-
-    const chatId = msg.chat.id.toString();
-    const code = (match?.[1] || '').toLowerCase();
-
-    if (!SUPPORTED_LANGS.includes(code)) return;
-
-    await BotSession.findOneAndUpdate({ chatId }, { lang: code });
-    bot.sendMessage(chatId, `Language set to ${code}`);
-  });
+  /* =========================
+     ADMIN COMMANDS
+  ========================= */
 
   bot.onText(/\/clients/, async (msg) => {
     const chatId = msg.chat.id.toString();
-    if (!(await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } })))
-      return;
+    const admin = await requireRole(chatId, ['admin', 'owner']);
+    if (!admin) return;
 
     const users = await User.find().sort({ createdAt: -1 }).limit(5);
     let t = 'Clients:\n\n';
@@ -174,8 +157,8 @@ process.on('SIGTERM', async () => {
 
   bot.onText(/\/orders/, async (msg) => {
     const chatId = msg.chat.id.toString();
-    if (!(await BotSession.findOne({ chatId, expiresAt: { $gt: Date.now() } })))
-      return;
+    const admin = await requireRole(chatId, ['admin', 'owner']);
+    if (!admin) return;
 
     const orders = await Order.find().limit(5);
     let t = 'Orders:\n\n';
@@ -185,10 +168,39 @@ process.on('SIGTERM', async () => {
 
   bot.onText(/\/stats/, async (msg) => {
     const chatId = msg.chat.id.toString();
+    const admin = await requireRole(chatId, ['admin', 'owner']);
+    if (!admin) return;
+
     const users = await User.countDocuments();
     const orders = await Order.countDocuments();
     bot.sendMessage(chatId, `Users: ${users}\nOrders: ${orders}`);
   });
+
+  /* =========================
+     OWNER ONLY
+  ========================= */
+
+  bot.onText(/\/addadmin (\w+) (\w+) (\w+)/, async (msg, match) => {
+    const chatId = msg.chat.id.toString();
+    const owner = await requireRole(chatId, ['owner']);
+    if (!owner) return bot.sendMessage(chatId, 'Access denied');
+
+    const [, username, password, role] = match;
+    if (!['owner', 'admin', 'viewer'].includes(role)) {
+      return bot.sendMessage(chatId, 'Invalid role');
+    }
+
+    try {
+      await BotAdmin.create({ username, password, role });
+      bot.sendMessage(chatId, `✅ Admin ${username} created with role ${role}`);
+    } catch (e) {
+      bot.sendMessage(chatId, '❌ Failed to create admin');
+    }
+  });
+
+  /* =========================
+     GROUP SUBSCRIPTIONS
+  ========================= */
 
   bot.onText(/\/setgroup/, async (msg) => {
     if (!['group', 'supergroup'].includes(msg.chat.type)) return;
@@ -203,26 +215,23 @@ process.on('SIGTERM', async () => {
   });
 
   bot.onText(/\/unsetgroup/, async (msg) => {
-    await BotChannel.findOneAndDelete({
-      chatId: msg.chat.id.toString(),
-    });
+    await BotChannel.findOneAndDelete({ chatId: msg.chat.id.toString() });
     bot.sendMessage(msg.chat.id, 'Group unsubscribed');
   });
 
-  bot.onText(/\/help/, (msg) => {
-    bot.sendMessage(msg.chat.id, 'Help');
-  });
+  /* =========================
+     COMMANDS LIST
+  ========================= */
 
   await bot.setMyCommands([
     { command: '/login', description: 'Login' },
     { command: '/logout', description: 'Logout' },
-    { command: '/clients', description: 'Clients' },
-    { command: '/orders', description: 'Orders' },
-    { command: '/stats', description: 'Stats' },
+    { command: '/clients', description: 'Clients (admin)' },
+    { command: '/orders', description: 'Orders (admin)' },
+    { command: '/stats', description: 'Stats (admin)' },
+    { command: '/addadmin', description: 'Add admin (owner)' },
     { command: '/setgroup', description: 'Subscribe group' },
     { command: '/unsetgroup', description: 'Unsubscribe group' },
-    { command: '/lang', description: 'Language' },
-    { command: '/help', description: 'Help' },
   ]);
 
   console.log('✅ Bot fully started');

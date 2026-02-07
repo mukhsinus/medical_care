@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const BotAdmin = require('../models/BotAdmin');
 const BotSession = require('../models/BotSession');
 const User = require('../models/User');
@@ -150,6 +152,12 @@ async function ensureSession(chatId, adminId, langHint) {
 
 async function sendNotification(message, options = {}) {
   const now = Date.now();
+  const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+
+  if (!TOKEN) {
+    console.error('[NOTIFIER] TELEGRAM_BOT_TOKEN not set in env');
+    return;
+  }
 
   const [sessions, channels] = await Promise.all([
     BotSession.find({ expiresAt: { $gt: now } }),
@@ -161,22 +169,26 @@ async function sendNotification(message, options = {}) {
     ...channels.map(c => c.chatId),
   ]);
 
+  const apiUrl = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+
+
   for (const chatId of targets) {
     try {
-      // require the running bot instance at runtime to avoid circular require issues
-      const bot = require('../bot');
-      if (!bot || !bot.sendMessage) {
-        console.error('[NOTIFIER] Bot instance not available for sending message');
-        continue;
-      }
-      await bot.sendMessage(chatId, message, { parse_mode: 'HTML', ...options });
+      await axios.post(apiUrl, {
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'HTML',
+        ...options,
+      });
+      console.log(`[NOTIFIER] Sent to ${chatId}`);
+
     } catch (err) {
       console.error(`[NOTIFIER] Failed to send message to ${chatId}:`, err?.message || err);
+      
       // continue to next target
     }
   }
 }
-
 
 
 function t(lang, key, ...args) {

@@ -13,10 +13,6 @@ const LOGIN_STATES = {
 };
 
 
-const axios = require('axios');
-const API = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}`;
-
-
 const SUPPORTED_LANGS = ['en', 'ru', 'uz'];
 
 const i18n = {
@@ -166,12 +162,18 @@ async function sendNotification(message, options = {}) {
   ]);
 
   for (const chatId of targets) {
-    await axios.post(`${API}/sendMessage`, {
-      chat_id: chatId,
-      text: message,
-      parse_mode: 'HTML',
-      ...options,
-    });
+    try {
+      // require the running bot instance at runtime to avoid circular require issues
+      const bot = require('../bot');
+      if (!bot || !bot.sendMessage) {
+        console.error('[NOTIFIER] Bot instance not available for sending message');
+        continue;
+      }
+      await bot.sendMessage(chatId, message, { parse_mode: 'HTML', ...options });
+    } catch (err) {
+      console.error(`[NOTIFIER] Failed to send message to ${chatId}:`, err?.message || err);
+      // continue to next target
+    }
   }
 }
 

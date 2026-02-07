@@ -128,11 +128,13 @@ async function handleRegister(req, res) {
     const accessToken = createAccessToken(user._id);
     const refreshToken = await createAndSendRefreshToken(res, user, req);
 
-    try {
-      sendNotification(
-        `<b>New user</b>\n👤 ${name}\n📧 ${email}\n🆔 ${user._id}`
-      );
-    } catch (_) {}
+    await sendNotification(
+      `<b>🆕 New user registered</b>
+    👤 Name: ${name}
+    📞 Phone: ${phone}
+    📧 Email: ${email || '-'}
+    🆔 ID: ${user._id}`
+    );
 
     console.log("[SIGNUP] ✅ User created:", { id: user._id, email });
 

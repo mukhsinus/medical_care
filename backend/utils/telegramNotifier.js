@@ -153,6 +153,8 @@ async function ensureSession(chatId, adminId, langHint) {
 async function sendNotification(message, options = {}) {
   const now = Date.now();
   const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+  console.log('[NOTIFIER] sendNotification CALLED');
+  console.log('[NOTIFIER] message:', message);
 
   if (!TOKEN) {
     console.error('[NOTIFIER] TELEGRAM_BOT_TOKEN not set in env');
@@ -168,6 +170,7 @@ async function sendNotification(message, options = {}) {
     ...sessions.map(s => s.chatId),
     ...channels.map(c => c.chatId),
   ]);
+  console.log('[NOTIFIER] targets:', Array.from(targets));
 
   const apiUrl = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
 

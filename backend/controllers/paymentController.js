@@ -176,11 +176,24 @@ exports.createOrderAndInitPayment = async (req, res) => {
           redirectUrl: `https://my.click.uz/services/pay?service_id=${clickServiceId}&merchant_id=${clickMerchantId}&amount=${Math.round(amount)}&transaction_param=${order._id}`,
         };
       }
-    } else {
-      // provider === 'uzum'
-      paymentInitData = {
-        redirectUrl: `${backendBase}/mock/uzum-gateway?orderId=${order._id}`,
-      };
+    } else if (provider === "uzum") {
+      // Uzum payment flow
+      // Uzum typically provides a deeplink or checkout URL in merchant dashboard
+      // Format: https://mobile.uzumbank.uz/pay or similar (verify with Uzum docs)
+      const uzumServiceId = process.env.UZUM_SERVICE_ID;
+      const testMode = process.env.UZUM_TEST_MODE === 'true';
+      
+      if (testMode) {
+        paymentInitData = {
+          redirectUrl: `${backendBase}/mock/uzum-gateway?orderId=${order._id}`,
+        };
+      } else {
+        // Production Uzum checkout URL - update based on Uzum merchant docs
+        // This is a placeholder format; verify exact URL with Uzum support
+        paymentInitData = {
+          redirectUrl: `https://mobile.uzumbank.uz/pay?serviceId=${uzumServiceId}&transactionParam=${order._id}&amount=${Math.round(amount * 100)}`,
+        };
+      }
     }
 
     return res.status(201).json({

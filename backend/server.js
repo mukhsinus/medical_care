@@ -128,6 +128,15 @@ try {
   process.exit(1);
 }
 
+let uzumRoutes;
+try {
+  uzumRoutes = require("./routes/uzumWebhook");
+  console.log("[ROUTES] ✅ uzum loaded");
+} catch (e) {
+  console.error("[ROUTES] ❌ uzum failed:", e.message);
+  process.exit(1);
+}
+
 try {
   mockRoutes = require("./routes/mock");
   console.log("[ROUTES] ✅ mock loaded");
@@ -141,6 +150,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/paycom", paycomRoutes);
 app.use("/api/click", clickRoutes);
+app.use("/api/uzum", uzumRoutes);
 app.use("/mock", mockRoutes);
 
 /* -------------------------

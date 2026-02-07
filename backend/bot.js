@@ -51,43 +51,59 @@ const userLang = new Map();
 
 const T = {
   en: {
-    choose_lang: '🌍 Choose language',
+    choose: '🌍 Choose language',
     hello: (name, id, role) =>
-      `👋 Hello, ${name}\n\n👤 Name: ${name}\n🆔 ID: ${id}\n⚡️ Status: ${role || 'GUEST'}`,
-    help: '📖 Available commands',
+`👋 Hello, ${name}
+
+👤 Name: ${name}
+🆔 ID: ${id}
+⚡️ Status: ${role}
+
+ℹ️ Use /help to learn more`,
   },
   ru: {
-    choose_lang: '🌍 Выберите язык',
+    choose: '🌍 Выберите язык',
     hello: (name, id, role) =>
-      `👋 Привет, ${name}\n\n👤 Имя: ${name}\n🆔 ID: ${id}\n⚡️ Статус: ${role || 'ГОСТЬ'}`,
-    help: '📖 Доступные команды',
+`👋 Привет, ${name}
+
+👤 Имя: ${name}
+🆔 ID: ${id}
+⚡️ Статус: ${role}
+
+ℹ️ Используйте /help`,
   },
   uz: {
-    choose_lang: '🌍 Tilni tanlang',
+    choose: '🌍 Tilni tanlang',
     hello: (name, id, role) =>
-      `👋 Salom, ${name}\n\n👤 Ism: ${name}\n🆔 ID: ${id}\n⚡️ Holat: ${role || 'MEHMON'}`,
-    help: '📖 Mavjud buyruqlar',
+`👋 Salom, ${name}
+
+👤 Ism: ${name}
+🆔 ID: ${id}
+⚡️ Holat: ${role}
+
+ℹ️ /help buyrug‘idan foydalaning`,
   },
 };
 
 /* =========================
    HELPERS
 ========================= */
+function isPrivate(msg) {
+  return msg.chat.type === 'private';
+}
+
 async function getRole(msg) {
   const tgId = msg.from?.id?.toString();
-  if (!tgId) return null;
-  if (OWNER_IDS.has(tgId)) return 'owner';
+  if (!tgId) return 'GUEST';
+  if (OWNER_IDS.has(tgId)) return 'OWNER';
+
   const admin = await BotAdmin.findOne({ telegramId: tgId, isActive: true });
-  return admin ? 'admin' : null;
+  return admin ? 'ADMIN' : 'GUEST';
 }
 
 async function requireRole(msg, roles) {
   const role = await getRole(msg);
-  return role && roles.includes(role);
-}
-
-function isPrivate(msg) {
-  return msg.chat.type === 'private';
+  return roles.includes(role);
 }
 
 /* =========================
@@ -104,11 +120,9 @@ function isPrivate(msg) {
      /start + language
   ========================= */
   bot.onText(/\/start/, async (msg) => {
-    const chatId = msg.chat.id;
-
     await bot.sendMessage(
-      chatId,
-      T.en.choose_lang,
+      msg.chat.id,
+      T.en.choose,
       {
         reply_markup: {
           inline_keyboard: [
@@ -122,59 +136,59 @@ function isPrivate(msg) {
   });
 
   bot.on('callback_query', async (q) => {
-    const chatId = q.message.chat.id;
     if (!q.data.startsWith('lang_')) return;
 
     const lang = q.data.replace('lang_', '');
     if (!LANGS.includes(lang)) return;
 
+    const chatId = q.message.chat.id;
     userLang.set(chatId, lang);
 
     const name = q.from.first_name || q.from.username || 'User';
     const role = await getRole({ from: q.from });
 
     await bot.editMessageText(
-      T[lang].hello(name, q.from.id, role ? role.toUpperCase() : null),
+      T[lang].hello(name, q.from.id, role),
       { chat_id: chatId, message_id: q.message.message_id }
     );
   });
 
   /* =========================
-     /help
+     /help (SAFE TEXT)
   ========================= */
   bot.onText(/\/help/, async (msg) => {
-    const chatId = msg.chat.id;
-    const lang = userLang.get(chatId) || 'en';
     const role = await getRole(msg);
 
-    let text = `<b>${T[lang].help}</b>\n\n`;
+    let text = `📖 Commands\n\n`;
 
-    if (role === 'owner') {
+    if (role === 'OWNER') {
       text +=
-`👑 OWNER
+`OWNER:
 /addadmin TG_ID
 /removeadmin TG_ID
 
 `;
     }
 
-    if (role === 'admin' || role === 'owner') {
+    if (role === 'ADMIN' || role === 'OWNER') {
       text +=
-`🛠 ADMIN
+`ADMIN:
 /clients
 /orders
-/stats
+/status
 /setgroup
 /unsetgroup
-/logout
+
 `;
     }
 
-    if (!role) {
-      text += `ℹ️ No admin access`;
-    }
+    text +=
+`COMMON:
+/help
+/login (private)
+/logout (private)`;
 
-    bot.sendMessage(chatId, text, { parse_mode: 'HTML' });
+    bot.sendMessage(msg.chat.id, text);
   });
 
   /* =========================
@@ -182,7 +196,7 @@ function isPrivate(msg) {
   ========================= */
   bot.onText(/\/login/, async (msg) => {
     if (!isPrivate(msg)) return;
-    bot.sendMessage(msg.chat.id, '✅ You are logged in');
+    bot.sendMessage(msg.chat.id, '✅ Logged in');
   });
 
   bot.onText(/\/logout/, async (msg) => {
@@ -192,29 +206,47 @@ function isPrivate(msg) {
   });
 
   /* =========================
+     STATUS (GROUP + PRIVATE)
+  ========================= */
+  bot.onText(/\/status/, async (msg) => {
+    if (!(await requireRole(msg, ['ADMIN', 'OWNER']))) return;
+
+    const users = await User.countDocuments();
+    const orders = await Order.countDocuments();
+    const role = await getRole(msg);
+
+    bot.sendMessage(
+      msg.chat.id,
+`📊 Status
+
+👤 Role: ${role}
+👥 Clients: ${users}
+🧾 Orders: ${orders}`
+    );
+  });
+
+  /* =========================
      CLIENTS
   ========================= */
   bot.onText(/\/clients/, async (msg) => {
-    if (!(await requireRole(msg, ['admin', 'owner']))) return;
+    if (!(await requireRole(msg, ['ADMIN', 'OWNER']))) return;
 
     const users = await User.find().sort({ createdAt: -1 });
     let text = `👥 Clients (${users.length})\n\n`;
 
     users.forEach(u => {
-      text += `👤 ${u.name}\n📞 ${u.phone || '-'}\n📧 ${u.email || '-'}\n\n`;
+      text += `👤 ${u.name}\n📞 ${u.phone || '-'}\n\n`;
     });
 
     bot.sendMessage(msg.chat.id, text);
   });
 
   /* =========================
-     ORDERS (PAGINATION BY USER)
+     ORDERS (PAGINATED)
   ========================= */
-  async function sendOrdersPage(chatId, page = 0) {
+  async function sendOrdersPage(chatId, page) {
     const users = await User.find().sort({ createdAt: -1 });
-    if (!users.length) {
-      return bot.sendMessage(chatId, 'No orders yet');
-    }
+    if (!users.length) return bot.sendMessage(chatId, 'No orders');
 
     if (page < 0) page = 0;
     if (page >= users.length) page = users.length - 1;
@@ -222,38 +254,33 @@ function isPrivate(msg) {
     const user = users[page];
     const orders = await Order.find({ userId: user._id });
 
-    let text = `🧾 Orders for ${user.name}\n\n`;
+    let text = `🧾 Orders — ${user.name}\n\n`;
 
     orders.forEach(o => {
       o.items?.forEach(i => {
-        text +=
-`• ${i.name} × ${i.quantity}
-📅 ${o.createdAt.toLocaleDateString()}
-📦 ${o.status || 'unknown'}
-
-`;
+        text += `• ${i.name} × ${i.quantity}\n📅 ${o.createdAt.toLocaleDateString()}\n📦 ${o.status}\n\n`;
       });
     });
 
-    await bot.sendMessage(chatId, text, {
+    bot.sendMessage(chatId, text, {
       reply_markup: {
         inline_keyboard: [[
-          { text: '⬅️ Prev', callback_data: `orders_${page - 1}` },
-          { text: '➡️ Next', callback_data: `orders_${page + 1}` },
+          { text: '⬅️', callback_data: `orders_${page - 1}` },
+          { text: '➡️', callback_data: `orders_${page + 1}` },
         ]],
       },
     });
   }
 
   bot.onText(/\/orders/, async (msg) => {
-    if (!(await requireRole(msg, ['admin', 'owner']))) return;
-    await sendOrdersPage(msg.chat.id, 0);
+    if (!(await requireRole(msg, ['ADMIN', 'OWNER']))) return;
+    sendOrdersPage(msg.chat.id, 0);
   });
 
   bot.on('callback_query', async (q) => {
     if (!q.data.startsWith('orders_')) return;
     const page = parseInt(q.data.replace('orders_', ''), 10);
-    await sendOrdersPage(q.message.chat.id, page);
+    sendOrdersPage(q.message.chat.id, page);
   });
 
   console.log('✅ Bot fully started');

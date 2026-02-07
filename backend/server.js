@@ -119,6 +119,15 @@ try {
   process.exit(1);
 }
 
+let clickRoutes;
+try {
+  clickRoutes = require("./routes/clickWebhook");
+  console.log("[ROUTES] ✅ click loaded");
+} catch (e) {
+  console.error("[ROUTES] ❌ click failed:", e.message);
+  process.exit(1);
+}
+
 try {
   mockRoutes = require("./routes/mock");
   console.log("[ROUTES] ✅ mock loaded");
@@ -131,6 +140,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/paycom", paycomRoutes);
+app.use("/api/click", clickRoutes);
 app.use("/mock", mockRoutes);
 
 /* -------------------------

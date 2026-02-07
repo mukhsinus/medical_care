@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import api, { setAccessToken, setRefreshToken } from '@/api';
 import { useAuth } from '@/App';
+import { useCallback } from 'react';
 import { Mail, Lock, UserPlus, AlertCircle, User, Phone, Eye, EyeOff } from 'lucide-react';
 
 
@@ -60,6 +61,7 @@ const Login: React.FC = () => {
   const { locale, t } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const [isLogin, setIsLogin] = useState(true);
   const [nameOrEmail, setNameOrEmail] = useState("");
@@ -84,6 +86,8 @@ const Login: React.FC = () => {
       // Update localStorage with user data
       if (data.user) {
         localStorage.setItem('user', JSON.stringify(data.user));
+        // UPDATE AUTH CONTEXT - THIS WAS MISSING!
+        setUser(data.user);
       }
 
       setError(null);
@@ -111,6 +115,8 @@ const Login: React.FC = () => {
       // Update localStorage with user data
       if (data.user) {
         localStorage.setItem('user', JSON.stringify(data.user));
+        // UPDATE AUTH CONTEXT - THIS WAS MISSING!
+        setUser(data.user);
       }
 
       setError(null);

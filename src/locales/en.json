@@ -36,12 +36,12 @@
       "desc": "Protective surgical gowns and medical apparel"
     },
     "dressings": {
-      "name": "Laboratory Equipment",
-      "desc": "Wound care supplies including bandages, gauze, and adhesive plasters"
-    },
-    "lab": {
       "name": "Sterilization",
       "desc": "Essential laboratory supplies and consumables"
+    },
+    "lab": {
+      "name": "Laboratory Equipment",
+      "desc": "Wound care supplies including bandages, gauze, and adhesive plasters"
     }
   },
   "cats": {
@@ -58,10 +58,10 @@
       "name": "Hygiene"
     },
     "dressings": {
-      "name": "Lab"
+      "name": "Sterilization"
     },
     "lab": {
-      "name": "Sterilization"
+      "name": "Lab"
     }
   },
   "howWeWork": {
@@ -296,7 +296,8 @@
     "legal": "Legal",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "copyright": "© {year} Medicare. All rights reserved."
+    "copyright": "© {year} Medicare. All rights reserved.",
+    "madeBy": "Made by"
   },
   "legal": {
     "privacy": {

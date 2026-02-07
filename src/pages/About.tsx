@@ -1,14 +1,16 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Layout } from "@/components/Layout";
+import { Link } from 'react-router-dom';
 import { SEO } from "@/components/SEO";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, Truck, Award, Users, MapPin, Phone } from "lucide-react";
 import warehouseImage from "@/assets/warehouse.jpg";
 import { useState } from "react";
+import logo from '@/assets/logo-removebg-preview.png';
 
 export default function About() {
-  const { t } = useLanguage();
+  const { locale, t } = useLanguage();
 
   const [phoneMenuOpen, setPhoneMenuOpen] = useState(false);
   const cards = [
@@ -226,7 +228,7 @@ export default function About() {
                 onClick={() =>
                   window.open(
                     "https://maps.google.com/maps?q=41.159574,69.251526&ll=41.159574,69.251526&z=16",
-                    "_blank"
+                    "_blank",
                   )
                 }
               >
@@ -249,9 +251,7 @@ export default function About() {
 
                   {/* Text + ▾ in one container */}
                   <div className="flex flex-1 items-center justify-center gap-1">
-                    <span className="text-center">
-                      {t.contacts.phoneLabel}
-                    </span>
+                    <span className="text-center">{t.contacts.phoneLabel}</span>
                     <span className="text-xs text-muted-foreground">▾</span>
                   </div>
                 </Button>
@@ -291,6 +291,53 @@ export default function About() {
                   </div>
                 )}
               </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <img
+                  src={logo}
+                  alt="Medicare"
+                  className="h-8 w-auto rounded-none"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {t.footer.description}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-3">{t.nav.catalog}</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>{t.categories.injection.name}</li>
+                <li>{t.categories.equipment.name}</li>
+                <li>{t.categories.surgery.name}</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-3">{t.footer.legal}</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link
+                    to={`/${locale}/legal/privacy`}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {t.footer.privacy}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={`/${locale}/legal/terms`}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {t.footer.terms}
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

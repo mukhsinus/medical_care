@@ -30,8 +30,8 @@ const categories = [
   { key: "equipment", image: categoryEquipment },
   { key: "surgery", image: categorySurgery },
   { key: "hygiene", image: categoryHygiene },
-  { key: "dressings", image: categoryLab },
-  { key: "lab", image: categoryDressings },
+  { key: "dressings", image: categoryDressings },
+  { key: "lab", image: categoryLab },
 ];
 
 export default function Home() {

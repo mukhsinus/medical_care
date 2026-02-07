@@ -204,7 +204,7 @@ export default function App() {
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/en" replace />} />
+      <Route path="/" element={<Navigate to="/uz" replace />} />
 
       {/* Admin Routes */}
       <Route

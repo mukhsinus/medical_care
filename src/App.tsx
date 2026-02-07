@@ -22,6 +22,9 @@ import Account from "./pages/Account";
 import NotFound from "./pages/NotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminUsers from "./pages/AdminUsers";
+import AdminStock from "./pages/AdminStock";
 
 import api, { setAccessToken, setRefreshToken, clearAccessToken, clearRefreshToken,} from "./api";
 
@@ -30,9 +33,9 @@ const queryClient = new QueryClient();
 /* ================= AUTH CONTEXT ================= */
 
 const AuthContext = createContext({
-  user: null,
-  setUser: () => {},
-  login: async () => {},
+  user: null as any,
+  setUser: (_user: any) => {},
+  login: async (_data: any) => {},
   logout: async () => {},
   authLoaded: false
 });
@@ -50,11 +53,28 @@ useEffect(() => {
 
   (async () => {
     try {
+      // Try to restore token from localStorage first
+      const token = localStorage.getItem('token');
+      if (token && token !== 'undefined') {
+        setAccessToken(token);
+      }
+
       const res = await api.get("/api/user/me");
       const { user } = res.data || {};
       if (mounted) setUser(user || null);
     } catch {
-      if (mounted) setUser(null);
+      // If API fails, try to restore from localStorage
+      try {
+        const userStr = localStorage.getItem('user');
+        if (userStr) {
+          const user = JSON.parse(userStr);
+          if (mounted) setUser(user);
+        } else {
+          if (mounted) setUser(null);
+        }
+      } catch {
+        if (mounted) setUser(null);
+      }
     } finally {
       if (mounted) setAuthLoaded(true);
     }
@@ -117,6 +137,7 @@ useEffect(() => {
     } finally {
       clearAccessToken();
       clearRefreshToken(); // 🔥 КЛЮЧЕВАЯ СТРОКА
+      localStorage.removeItem('user');
       setUser(null);
     }
   }, []);
@@ -139,6 +160,20 @@ function RequireAuth({ children }) {
   if (!user) {
     const locale = location.pathname.split("/")[1] || "en";
     return <Navigate to={`/${locale}/login`} replace />;
+  }
+
+  return children;
+}
+
+/* ================= ADMIN ROUTE ================= */
+
+function RequireAdmin({ children }) {
+  const { user, authLoaded } = useAuth();
+
+  if (!authLoaded) return <div style={{ padding: 20 }}>Loading...</div>;
+
+  if (!user || user.role !== 'admin') {
+    return <Navigate to="/" replace />;
   }
 
   return children;
@@ -170,6 +205,32 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/en" replace />} />
+
+      {/* Admin Routes */}
+      <Route
+        path="/admin"
+        element={
+          <RequireAdmin>
+            <AdminDashboard />
+          </RequireAdmin>
+        }
+      />
+      <Route
+        path="/admin/users"
+        element={
+          <RequireAdmin>
+            <AdminUsers />
+          </RequireAdmin>
+        }
+      />
+      <Route
+        path="/admin/stock"
+        element={
+          <RequireAdmin>
+            <AdminStock />
+          </RequireAdmin>
+        }
+      />
 
       {["en", "ru", "uz"].map((locale) => (
         <React.Fragment key={locale}>

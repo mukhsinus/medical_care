@@ -10,6 +10,7 @@ const crypto = require("crypto");
 
 const Order = require("../models/Order");
 const User = require("../models/User");
+const { deductOrderStock } = require("../utils/stockManager");
 const {
   verifyClickSignature,
   buildClickResponse,
@@ -248,6 +249,9 @@ router.post("/webhook", async (req, res) => {
 
       await order.save();
       console.log("✅ Order marked as completed:", order._id);
+
+      // ---- Deduct stock for ordered items ----
+      await deductOrderStock(order);
 
       // ---- Send Telegram notification ----
       try {

@@ -1,7 +1,8 @@
 // middleware/auth.js
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
   let token = null;
 
   // 1. Сначала пробуем из Authorization заголовка (это наш accessToken из фронта)
@@ -23,6 +24,19 @@ module.exports = function (req, res, next) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.id;  // ← теперь точно будет
     req.tokenSource = token.length > 500 ? 'header' : 'cookie'; // для дебага (необязательно)
+    
+    // Fetch user object for role checks
+    try {
+      req.user = await User.findById(req.userId);
+      if (!req.user) {
+        console.error('[AUTH] User not found in DB:', req.userId);
+        return res.status(401).json({ message: 'Пользователь не найден' });
+      }
+    } catch (userErr) {
+      console.error('[AUTH] Failed to fetch user:', userErr.message);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+    
     next();
   } catch (err) {
     console.error('[AUTH] Invalid token:', err.message, 'Token:', token?.substring(0, 50) + '...');

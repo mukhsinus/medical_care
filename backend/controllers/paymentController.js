@@ -3,6 +3,7 @@ const Order = require("../models/Order");
 const User = require("../models/User");
 const crypto = require("crypto");
 const { sendNotification } = require("../utils/telegramNotifier");
+const { deductOrderStock } = require("../utils/stockManager");
 
 
 
@@ -471,6 +472,9 @@ exports.paymeCallback = async (req, res) => {
       order.providerTransactionId = String(transactionId);
       await order.save();
 
+      // Deduct stock for ordered items
+      await deductOrderStock(order);
+
       console.log("Order marked as completed:", order._id);
       // Send Telegram notification on successful payment
       try {
@@ -790,6 +794,9 @@ exports.clickCallback = async (req, res) => {
       await order.save();
       console.log('Order marked as completed:', order._id);
 
+      // Deduct stock for ordered items
+      await deductOrderStock(order);
+
       // Send Telegram notification on successful payment
       try {
         const user = await User.findById(order.userId);
@@ -881,6 +888,9 @@ exports.uzumCallback = async (req, res) => {
       order.paymentStatus = "completed";
       order.providerTransactionId = transactionId;
       await order.save();
+
+      // Deduct stock for ordered items
+      await deductOrderStock(order);
 
       // Send Telegram notification on successful payment
       try {

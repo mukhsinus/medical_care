@@ -141,6 +141,7 @@ export const Header = () => {
                       {item.label}
                     </Link>
                   ))}
+
                   <div className="pt-2 mt-2 border-t border-white/60">
                     <LanguageSwitcher />
                   </div>

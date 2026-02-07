@@ -60,7 +60,6 @@ const Login: React.FC = () => {
   const { locale, t } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
-  const { setUser } = useAuth();
 
   const [isLogin, setIsLogin] = useState(true);
   const [nameOrEmail, setNameOrEmail] = useState("");
@@ -82,11 +81,18 @@ const Login: React.FC = () => {
       if (data.accessToken) setAccessToken(data.accessToken);
       if (data.refreshToken) setRefreshToken(data.refreshToken);
       
-      // Update user in auth context
-      if (data.user) setUser(data.user);
+      // Update localStorage with user data
+      if (data.user) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+      }
 
       setError(null);
-      navigate(`/${locale}/account`);
+      // Redirect admin to admin dashboard, regular users to account
+      if (data.user?.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate(`/${locale}/account`);
+      }
     },
     onError: (error: unknown) => {
       const err = error as { response?: { data?: { message?: string } } };
@@ -102,11 +108,18 @@ const Login: React.FC = () => {
       if (data.accessToken) setAccessToken(data.accessToken);
       if (data.refreshToken) setRefreshToken(data.refreshToken);
       
-      // Update user in auth context
-      if (data.user) setUser(data.user);
+      // Update localStorage with user data
+      if (data.user) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+      }
 
       setError(null);
-      navigate(`/${locale}/account`);
+      // Redirect admin to admin dashboard, regular users to account
+      if (data.user?.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate(`/${locale}/account`);
+      }
     },
     onError: (error: unknown) => {
       const err = error as { response?: { data?: { message?: string } } };

@@ -21,7 +21,18 @@ router.get("/me", async (req, res) => {
     );
     if (!user)
       return res.status(404).json({ message: "Пользователь не найден" });
-    res.json({ user });
+    
+    // Explicitly include role in response
+    res.json({ 
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role || "user",
+        address: user.address,
+      }
+    });
   } catch (err) {
     console.error("GET /me error:", err);
     res.status(500).json({ message: "Ошибка при получении профиля" });

@@ -171,7 +171,7 @@ router.post("/login", async (req, res) => {
     }
 
     const user = await User.findOne({
-      $or: [{ phone: loginId }, { name: loginId }],
+      $or: [{ phone: loginId }, { name: loginId }, { email: loginId }],
     });
 
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
@@ -182,6 +182,14 @@ router.post("/login", async (req, res) => {
     const accessToken = createAccessToken(user._id);
     const refreshToken = await createAndSendRefreshToken(res, user, req);
     console.log("[LOGIN] ✅ Refresh cookie set for user:", user._id);
+    console.log("[LOGIN] User role from DB:", user.role);
+    console.log("[LOGIN] User object:", {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
+    });
 
     return res.json({
       accessToken,
@@ -191,6 +199,7 @@ router.post("/login", async (req, res) => {
         name: user.name,
         email: user.email,
         phone: user.phone || "",
+        role: user.role || "user",
       },
     });
   } catch (err) {

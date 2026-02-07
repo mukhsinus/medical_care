@@ -1,287 +1,275 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const mongoose = require('mongoose');
-const TelegramBot = require('node-telegram-bot-api');
+const mongoose = require("mongoose");
+const TelegramBot = require("node-telegram-bot-api");
 
-const BotAdmin = require('./models/BotAdmin');
-const BotSession = require('./models/BotSession');
-const User = require('./models/User');
-const Order = require('./models/Order');
-const BotChannel = require('./models/BotChannel');
+const BotAdmin = require("./models/BotAdmin");
+const User = require("./models/User");
+const Order = require("./models/Order");
+const BotChannel = require("./models/BotChannel");
 
-/* =========================
-   OWNER IDS
-========================= */
-const OWNER_IDS = new Set([
-  '1157064',
-  '5532256714',
-  '370255715',
-]);
+/* ================= OWNER IDS ================= */
+const OWNER_IDS = new Set(["1157064", "5532256714", "370255715"]);
 
-/* =========================
-   ENV
-========================= */
+/* ================= ENV ================= */
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const MONGO_URI = process.env.MONGO_URI;
 
 if (!TOKEN || !MONGO_URI) {
-  console.error('❌ Missing env vars');
+  console.error("❌ Missing env vars");
   process.exit(1);
 }
 
-/* =========================
-   BOT INIT
-========================= */
+/* ================= BOT ================= */
 const bot = new TelegramBot(TOKEN, { polling: true });
 module.exports = bot;
 
-/* =========================
-   GRACEFUL SHUTDOWN
-========================= */
-process.on('SIGTERM', async () => {
-  try { await mongoose.connection.close(); } catch (_) {}
-  process.exit(0);
-});
-
-/* =========================
-   I18N
-========================= */
-const LANGS = ['en', 'ru', 'uz'];
+/* ================= I18N ================= */
+const LANGS = ["en", "ru", "uz"];
 const userLang = new Map();
 
 const T = {
   en: {
-    choose: '🌍 Choose language',
-    hello: (name, id, role) =>
-`👋 Hello, ${name}
+    choose: "🌍 Choose language",
+    hello: (n, id, r) =>
+      `👋 Hello, ${n}
 
-👤 Name: ${name}
+👤 Name: ${n}
 🆔 ID: ${id}
-⚡️ Status: ${role}
+⚡️ Status: ${r}
 
 ℹ️ Use /help to learn more`,
   },
   ru: {
-    choose: '🌍 Выберите язык',
-    hello: (name, id, role) =>
-`👋 Привет, ${name}
+    choose: "🌍 Выберите язык",
+    hello: (n, id, r) =>
+      `👋 Привет, ${n}
 
-👤 Имя: ${name}
+👤 Имя: ${n}
 🆔 ID: ${id}
-⚡️ Статус: ${role}
+⚡️ Статус: ${r}
 
 ℹ️ Используйте /help`,
   },
   uz: {
-    choose: '🌍 Tilni tanlang',
-    hello: (name, id, role) =>
-`👋 Salom, ${name}
+    choose: "🌍 Tilni tanlang",
+    hello: (n, id, r) =>
+      `👋 Salom, ${n}
 
-👤 Ism: ${name}
+👤 Ism: ${n}
 🆔 ID: ${id}
-⚡️ Holat: ${role}
+⚡️ Holat: ${r}
 
 ℹ️ /help buyrug‘idan foydalaning`,
   },
 };
 
-/* =========================
-   HELPERS
-========================= */
+/* ================= HELPERS ================= */
 function isPrivate(msg) {
-  return msg.chat.type === 'private';
+  return msg.chat.type === "private";
 }
 
 async function getRole(msg) {
-  const tgId = msg.from?.id?.toString();
-  if (!tgId) return 'GUEST';
-  if (OWNER_IDS.has(tgId)) return 'OWNER';
-
-  const admin = await BotAdmin.findOne({ telegramId: tgId, isActive: true });
-  return admin ? 'ADMIN' : 'GUEST';
+  const id = msg.from?.id?.toString();
+  if (!id) return "GUEST";
+  if (OWNER_IDS.has(id)) return "OWNER";
+  const admin = await BotAdmin.findOne({ telegramId: id, isActive: true });
+  return admin ? "ADMIN" : "GUEST";
 }
 
 async function requireRole(msg, roles) {
-  const role = await getRole(msg);
-  return roles.includes(role);
+  const r = await getRole(msg);
+  return roles.includes(r);
 }
 
-/* =========================
-   ASYNC INIT
-========================= */
+/* ================= DB ================= */
 (async () => {
   await mongoose.connect(MONGO_URI);
-  console.log('✅ Bot connected to MongoDB');
-
+  console.log("✅ Mongo connected");
   await bot.deleteWebHook({ drop_pending_updates: true }).catch(() => {});
-  console.log('🤖 Bot started');
 
-  /* =========================
-     /start + language
-  ========================= */
+  /* ================= START ================= */
   bot.onText(/\/start/, async (msg) => {
-    await bot.sendMessage(
-      msg.chat.id,
-      T.en.choose,
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: '🇬🇧 English', callback_data: 'lang_en' }],
-            [{ text: '🇷🇺 Русский', callback_data: 'lang_ru' }],
-            [{ text: '🇺🇿 O‘zbek', callback_data: 'lang_uz' }],
-          ],
-        },
-      }
-    );
+    bot.sendMessage(msg.chat.id, T.en.choose, {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: "🇬🇧 English", callback_data: "lang_en" }],
+          [{ text: "🇷🇺 Русский", callback_data: "lang_ru" }],
+          [{ text: "🇺🇿 O‘zbek", callback_data: "lang_uz" }],
+        ],
+      },
+    });
   });
 
-  bot.on('callback_query', async (q) => {
-    if (!q.data.startsWith('lang_')) return;
+  bot.on("callback_query", async (q) => {
+    if (!q.data.startsWith("lang_")) return;
+    const lang = q.data.replace("lang_", "");
+    userLang.set(q.message.chat.id, lang);
 
-    const lang = q.data.replace('lang_', '');
-    if (!LANGS.includes(lang)) return;
-
-    const chatId = q.message.chat.id;
-    userLang.set(chatId, lang);
-
-    const name = q.from.first_name || q.from.username || 'User';
+    const name = q.from.first_name || q.from.username || "User";
     const role = await getRole({ from: q.from });
 
-    await bot.editMessageText(
-      T[lang].hello(name, q.from.id, role),
-      { chat_id: chatId, message_id: q.message.message_id }
-    );
+    bot.editMessageText(T[lang].hello(name, q.from.id, role), {
+      chat_id: q.message.chat.id,
+      message_id: q.message.message_id,
+    });
   });
 
-  /* =========================
-     /help (SAFE TEXT)
-  ========================= */
+  /* ================= HELP ================= */
   bot.onText(/\/help/, async (msg) => {
     const role = await getRole(msg);
 
-    let text = `📖 Commands\n\n`;
+    let text = `📖 Commands
 
-    if (role === 'OWNER') {
-      text +=
-`OWNER:
-/addadmin TG_ID
-/removeadmin TG_ID
-
+COMMON:
+/help
+/login (private)
+/logout (private)
 `;
-    }
 
-    if (role === 'ADMIN' || role === 'OWNER') {
-      text +=
-`ADMIN:
+    if (role === "ADMIN" || role === "OWNER") {
+      text += `
+ADMIN:
 /clients
 /orders
 /status
-/setgroup
-/unsetgroup
-
 `;
     }
 
-    text +=
-`COMMON:
-/help
-/login (private)
-/logout (private)`;
+    if (role === "OWNER") {
+      text += `
+OWNER:
+/addadmin TG_ID
+/removeadmin TG_ID
+`;
+    }
 
     bot.sendMessage(msg.chat.id, text);
   });
 
-  /* =========================
-     LOGIN / LOGOUT (PRIVATE ONLY)
-  ========================= */
-  bot.onText(/\/login/, async (msg) => {
-    if (!isPrivate(msg)) return;
-    bot.sendMessage(msg.chat.id, '✅ Logged in');
-  });
-
-  bot.onText(/\/logout/, async (msg) => {
-    if (!isPrivate(msg)) return;
-    await BotSession.deleteOne({ chatId: msg.chat.id.toString() });
-    bot.sendMessage(msg.chat.id, '👋 Logged out');
-  });
-
-  /* =========================
-     STATUS (GROUP + PRIVATE)
-  ========================= */
+  /* ================= STATUS ================= */
   bot.onText(/\/status/, async (msg) => {
-    if (!(await requireRole(msg, ['ADMIN', 'OWNER']))) return;
+    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) return;
 
-    const users = await User.countDocuments();
-    const orders = await Order.countDocuments();
-    const role = await getRole(msg);
+    const clients = await User.countDocuments();
+    const last30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+
+    const orders30 = await Order.countDocuments({
+      createdAt: { $gte: last30 },
+    });
+    const clientsWithOrders = await Order.distinct("userId");
+    const newToday = await Order.countDocuments({
+      createdAt: { $gte: todayStart },
+    });
 
     bot.sendMessage(
       msg.chat.id,
-`📊 Status
-
-👤 Role: ${role}
-👥 Clients: ${users}
-🧾 Orders: ${orders}`
+      `📊 Status
+      
+👤 Role: ${await getRole(msg)}
+🆕 New orders today: ${newToday}`,
     );
   });
 
-  /* =========================
-     CLIENTS
-  ========================= */
-  bot.onText(/\/clients/, async (msg) => {
-    if (!(await requireRole(msg, ['ADMIN', 'OWNER']))) return;
+  /* ================= CLIENTS PAGINATION ================= */
+  async function sendClients(chatId, page = 0) {
+    const limit = 10;
+    const users = await User.find()
+      .sort({ createdAt: -1 })
+      .skip(page * limit)
+      .limit(limit);
 
-    const users = await User.find().sort({ createdAt: -1 });
-    let text = `👥 Clients (${users.length})\n\n`;
+    let text = `👥 Clients (page ${page + 1})\n\n`;
+    const kb = [];
 
-    users.forEach(u => {
-      text += `👤 ${u.name}\n📞 ${u.phone || '-'}\n\n`;
+    users.forEach((u) => {
+      text += `👤 ${u.name} (${u.phone || "-"})\n`;
+      kb.push([{ text: u.name, callback_data: `client_${u._id}` }]);
     });
 
-    bot.sendMessage(msg.chat.id, text);
+    kb.push([
+      { text: "⬅️", callback_data: `clients_${page - 1}` },
+      { text: "➡️", callback_data: `clients_${page + 1}` },
+    ]);
+
+    bot.sendMessage(chatId, text, { reply_markup: { inline_keyboard: kb } });
+  }
+
+  bot.onText(/\/clients/, async (msg) => {
+    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) return;
+    sendClients(msg.chat.id, 0);
   });
 
-  /* =========================
-     ORDERS (PAGINATED)
-  ========================= */
-  async function sendOrdersPage(chatId, page) {
-    const users = await User.find().sort({ createdAt: -1 });
-    if (!users.length) return bot.sendMessage(chatId, 'No orders');
+  /* ================= ORDERS BY CLIENT ================= */
+  async function sendOrdersByUser(chatId, userId, page = 0, all = false) {
+    const limit = 5;
+    const q = { userId };
 
-    if (page < 0) page = 0;
-    if (page >= users.length) page = users.length - 1;
+    if (!all) {
+      q.createdAt = { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) };
+    }
 
-    const user = users[page];
-    const orders = await Order.find({ userId: user._id });
+    const orders = await Order.find(q)
+      .sort({ createdAt: -1 })
+      .skip(page * limit)
+      .limit(limit);
 
-    let text = `🧾 Orders — ${user.name}\n\n`;
+    if (!orders.length) {
+      return bot.sendMessage(chatId, "No orders");
+    }
 
-    orders.forEach(o => {
-      o.items?.forEach(i => {
-        text += `• ${i.name} × ${i.quantity}\n📅 ${o.createdAt.toLocaleDateString()}\n📦 ${o.status}\n\n`;
+    let text = `🧾 Orders\n\n`;
+
+    orders.forEach((o) => {
+      o.items?.forEach((i) => {
+        text += `• ${i.name} × ${i.quantity}
+📅 ${o.createdAt.toLocaleDateString()}
+📦 ${o.status || "unknown"}
+
+`;
       });
     });
 
     bot.sendMessage(chatId, text, {
       reply_markup: {
-        inline_keyboard: [[
-          { text: '⬅️', callback_data: `orders_${page - 1}` },
-          { text: '➡️', callback_data: `orders_${page + 1}` },
-        ]],
+        inline_keyboard: [
+          [
+            {
+              text: "⬅️",
+              callback_data: `orders_${userId}_${page - 1}_${all ? 1 : 0}`,
+            },
+            {
+              text: "➡️",
+              callback_data: `orders_${userId}_${page + 1}_${all ? 1 : 0}`,
+            },
+          ],
+        ],
       },
     });
   }
 
   bot.onText(/\/orders/, async (msg) => {
-    if (!(await requireRole(msg, ['ADMIN', 'OWNER']))) return;
-    sendOrdersPage(msg.chat.id, 0);
+    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) return;
+    const u = await User.findOne().sort({ createdAt: -1 });
+    if (!u) return;
+    sendOrdersByUser(msg.chat.id, u._id, 0, false);
   });
 
-  bot.on('callback_query', async (q) => {
-    if (!q.data.startsWith('orders_')) return;
-    const page = parseInt(q.data.replace('orders_', ''), 10);
-    sendOrdersPage(q.message.chat.id, page);
+  /* ================= CALLBACKS ================= */
+  bot.on("callback_query", async (q) => {
+    if (q.data.startsWith("clients_")) {
+      sendClients(q.message.chat.id, parseInt(q.data.split("_")[1]));
+    }
+
+    if (q.data.startsWith("client_")) {
+      sendOrdersByUser(q.message.chat.id, q.data.split("_")[1], 0, true);
+    }
+
+    if (q.data.startsWith("orders_")) {
+      const [, uid, page, all] = q.data.split("_");
+      sendOrdersByUser(q.message.chat.id, uid, parseInt(page), all === "1");
+    }
   });
 
-  console.log('✅ Bot fully started');
+  console.log("✅ Bot fully started");
 })();

@@ -9,6 +9,7 @@ const router = express.Router();
 
 const Order = require("../models/Order");
 const User = require("../models/User");
+const { deductOrderStock } = require("../utils/stockManager");
 const {
   verifyBasicAuth,
   buildUzumResponse,
@@ -323,6 +324,9 @@ router.post("/confirm", async (req, res) => {
 
     await order.save();
     console.log("✅ Order marked as completed:", orderId);
+
+    // ========== STEP 7.5: Deduct stock for ordered items ==========
+    await deductOrderStock(order);
 
     // ========== STEP 8: Send Telegram notification ==========
     try {

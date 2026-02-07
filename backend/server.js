@@ -56,6 +56,8 @@ const ALLOWED_ORIGINS = [
   "https://medicare.uz",
   "https://www.medicare.uz",
   "http://localhost:5173",
+  "http://localhost:8080",
+  "http://localhost:8081",
   "http://127.0.0.1:5173",
   "https://checkout.paycom.uz",      
   "https://checkout.test.paycom.uz",   
@@ -137,6 +139,15 @@ try {
   process.exit(1);
 }
 
+let adminRoutes;
+try {
+  adminRoutes = require("./routes/admin");
+  console.log("[ROUTES] ✅ admin loaded");
+} catch (e) {
+  console.error("[ROUTES] ❌ admin failed:", e.message);
+  process.exit(1);
+}
+
 try {
   mockRoutes = require("./routes/mock");
   console.log("[ROUTES] ✅ mock loaded");
@@ -151,6 +162,7 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/paycom", paycomRoutes);
 app.use("/api/click", clickRoutes);
 app.use("/api/uzum", uzumRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/mock", mockRoutes);
 
 /* -------------------------

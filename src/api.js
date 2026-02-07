@@ -45,10 +45,25 @@ let accessToken = null;
 
 export function setAccessToken(token) {
   accessToken = token;
+  if (token) {
+    localStorage.setItem('token', token);
+  }
+}
+
+export function getAccessToken() {
+  if (accessToken) return accessToken;
+  // Try to restore from localStorage on first access
+  const token = localStorage.getItem('token');
+  if (token && token !== 'undefined') {
+    accessToken = token;
+    return token;
+  }
+  return null;
 }
 
 export function clearAccessToken() {
   accessToken = null;
+  localStorage.removeItem('token');
 }
 
 /**
@@ -107,6 +122,13 @@ api.interceptors.request.use(
     
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
+    } else {
+      // Fall back to localStorage if in-memory token is missing
+      const token = localStorage.getItem('token');
+      if (token && token !== 'undefined') {
+        config.headers.Authorization = `Bearer ${token}`;
+        accessToken = token; // Keep in-memory copy in sync
+      }
     }
     return config;
   },

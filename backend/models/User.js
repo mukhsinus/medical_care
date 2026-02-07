@@ -5,6 +5,11 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true, sparse: true }, // необязательно
   phone: { type: String, required: true, unique: true }, // ОБЯЗАТЕЛЬНО
   password: { type: String, required: true },   // хеш пароля
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user"
+  },
   resetPasswordToken: String,                   // хеш токена восстановления
   resetPasswordExpires: Date,                   // срок действия токена
   address: {

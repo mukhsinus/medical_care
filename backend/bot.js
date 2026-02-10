@@ -152,24 +152,38 @@ OWNER:
   bot.onText(/\/status/, async (msg) => {
     if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) return;
 
-    const clients = await User.countDocuments();
-    const last30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    try {
+      // Get today's start time (00:00:00)
+      const todayStart = new Date();
+      todayStart.setHours(0, 0, 0, 0);
 
-    const orders30 = await Order.countDocuments({
-      createdAt: { $gte: last30 },
-    });
-    const clientsWithOrders = await Order.distinct("userId");
-    const newToday = await Order.countDocuments({
-      createdAt: { $gte: todayStart },
-    });
+      // Query stats
+      const clients = await User.countDocuments();
+      const last30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
-    bot.sendMessage(
-      msg.chat.id,
-      `📊 Status
-      
-👤 Role: ${await getRole(msg)}
-🆕 New orders today: ${newToday}`,
-    );
+      const orders30 = await Order.countDocuments({
+        createdAt: { $gte: last30 },
+      });
+      const clientsWithOrders = await Order.distinct("userId");
+      const newToday = await Order.countDocuments({
+        createdAt: { $gte: todayStart },
+      });
+
+      const text = `📊 Status
+
+👥 Total clients: ${clients}
+🛍️ Clients with orders: ${clientsWithOrders.length}
+
+📅 Orders (last 30 days): ${orders30}
+🆕 New orders today: ${newToday}
+
+👤 Your role: ${await getRole(msg)}`;
+
+      bot.sendMessage(msg.chat.id, text);
+    } catch (err) {
+      console.error('Status command error:', err);
+      bot.sendMessage(msg.chat.id, '❌ Error fetching status');
+    }
   });
 
   /* ================= CLIENTS PAGINATION ================= */

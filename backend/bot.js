@@ -1,3 +1,4 @@
+// bot.js
 require("dotenv").config();
 
 const mongoose = require("mongoose");
@@ -36,7 +37,7 @@ const T = {
 
 👤 Name: ${n}
 🆔 ID: ${id}
-⚡️ Status: ${r}
+⚡️ Status: ${r || 'User'}
 
 ℹ️ Use /help to learn more`,
   },
@@ -47,7 +48,7 @@ const T = {
 
 👤 Имя: ${n}
 🆔 ID: ${id}
-⚡️ Статус: ${r}
+⚡️ Статус: ${r || 'Пользователь'}
 
 ℹ️ Используйте /help`,
   },
@@ -58,7 +59,7 @@ const T = {
 
 👤 Ism: ${n}
 🆔 ID: ${id}
-⚡️ Holat: ${r}
+⚡️ Holat: ${r || "Foydalanuvchi"}
 
 ℹ️ /help buyrug‘idan foydalaning`,
   },
@@ -71,10 +72,10 @@ function isPrivate(msg) {
 
 async function getRole(msg) {
   const id = msg.from?.id?.toString();
-  if (!id) return "GUEST";
+  if (!id) return null;
   if (OWNER_IDS.has(id)) return "OWNER";
   const admin = await BotAdmin.findOne({ telegramId: id, isActive: true });
-  return admin ? "ADMIN" : "GUEST";
+  return admin ? "ADMIN" : null;
 }
 
 async function requireRole(msg, roles) {

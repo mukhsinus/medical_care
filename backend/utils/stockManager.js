@@ -1,6 +1,4 @@
-/**
- * Stock Manager - Handle inventory updates on successful payments
- */
+/* Stock Manager - Handle inventory updates on successful payments */
 
 const Stock = require('../models/Stock');
 

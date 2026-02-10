@@ -30,6 +30,15 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
+
+console.log({
+  CLICK_SERVICE_ID: process.env.CLICK_SERVICE_ID,
+  CLICK_MERCHANT_ID: process.env.CLICK_MERCHANT_ID,
+  CLICK_SECRET_KEY: !!process.env.CLICK_SECRET_KEY,
+  CLICK_TEST_MODE: process.env.CLICK_TEST_MODE
+});
+
+
 /* -------------------------
    JSON parsing error handler (must be right after middleware)
 ------------------------- */
@@ -121,15 +130,6 @@ try {
   process.exit(1);
 }
 
-let clickRoutes;
-try {
-  clickRoutes = require("./routes/clickWebhook");
-  console.log("[ROUTES] ✅ click loaded");
-} catch (e) {
-  console.error("[ROUTES] ❌ click failed:", e.message);
-  process.exit(1);
-}
-
 let uzumRoutes;
 try {
   uzumRoutes = require("./routes/uzumWebhook");
@@ -160,7 +160,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/paycom", paycomRoutes);
-app.use("/api/click", clickRoutes);
 app.use("/api/uzum", uzumRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/mock", mockRoutes);

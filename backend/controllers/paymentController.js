@@ -791,28 +791,39 @@ exports.clickCallback = async (req, res) => {
       await order.save();
       console.log('Order marked as completed:', order._id);
 
-      // Deduct stock for ordered items
-      await deductOrderStock(order);
+      const response = {
+        error: 0,
+        error_note: "Success",
+        click_trans_id: clickTransId,
+        merchant_trans_id: merchantTransId,
+        merchant_confirm_id: order._id,
+      };
+      console.log('COMPLETE Success. Response:', JSON.stringify(response, null, 2));
+      console.log('=== END CLICK CALLBACK ===\n');
+      res.json(response);
 
-      // Send Telegram notification on successful payment
-      try {
-        const user = order.userId ? await User.findById(order.userId) : null;
-        const itemsList = order.items
-          .map(
-            (item) =>
-              `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
-                item.price * item.quantity
-              ).toLocaleString("uz-UZ")} UZS`
-          )
-          .join("\n");
+      // Run non-critical work after responding to Click (avoid timeout)
+      setImmediate(async () => {
+        try {
+          await deductOrderStock(order);
 
-        // Use order.customer info that was captured during order creation
-        const customerName = order.customer?.fullName || user?.name || "Guest";
-        const customerEmail = user?.email || "Not provided";
-        const customerPhone = order.customer?.phone || user?.phone || "Not provided";
-        const addr = order.customer?.address || "Not provided";
+          const user = order.userId ? await User.findById(order.userId) : null;
+          const itemsList = order.items
+            .map(
+              (item) =>
+                `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
+                  item.price * item.quantity
+                ).toLocaleString("uz-UZ")} UZS`
+            )
+            .join("\n");
 
-        const orderMessage = `
+          // Use order.customer info that was captured during order creation
+          const customerName = order.customer?.fullName || user?.name || "Guest";
+          const customerEmail = user?.email || "Not provided";
+          const customerPhone = order.customer?.phone || user?.phone || "Not provided";
+          const addr = order.customer?.address || "Not provided";
+
+          const orderMessage = `
 <b>🛒 New Order Placed</b>
 
 <b>Order ID:</b> ${order._id}
@@ -833,21 +844,13 @@ ${itemsList}
 
 <b>Time:</b> ${new Date().toISOString()}
 `;
-        sendNotification(orderMessage);
-      } catch (e) {
-        console.error("Telegram notification failed (non-blocking):", e?.message);
-      }
+          sendNotification(orderMessage);
+        } catch (e) {
+          console.error("Post-response Click tasks failed:", e?.message);
+        }
+      });
 
-      const response = {
-        error: 0,
-        error_note: "Success",
-        click_trans_id: clickTransId,
-        merchant_trans_id: merchantTransId,
-        merchant_confirm_id: order._id,
-      };
-      console.log('COMPLETE Success. Response:', JSON.stringify(response, null, 2));
-      console.log('=== END CLICK CALLBACK ===\n');
-      return res.json(response);
+      return;
     }
 
     // Unknown action

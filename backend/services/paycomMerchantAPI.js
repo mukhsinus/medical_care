@@ -4,6 +4,9 @@
 
 const mongoose = require("mongoose");
 const Order = require("../models/Order");
+const User = require("../models/User");
+const { deductOrderStock } = require("../utils/stockManager");
+const { sendNotification } = require("../utils/telegramNotifier");
 
 // Receipt types for fiscalization
 const RECEIPT_TYPES = {
@@ -343,6 +346,57 @@ async function handlePerformTransaction(params) {
   await order.save();
 
   console.log(`✔️ PerformTransaction OK: Order ${transaction_id}`);
+
+  // Deduct stock and notify admins
+  try {
+    await deductOrderStock(order);
+
+    const user = order.userId ? await User.findById(order.userId) : null;
+    const itemsList = order.items
+      .map((item) => {
+        const lineTotal = Number(item.price) * Number(item.quantity);
+
+        return `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${
+          item.quantity
+        } | ${lineTotal.toLocaleString("uz-UZ")} UZS`;
+      })
+      .join("\n");
+
+    const customerName = user?.name || order.customer?.fullName || "Guest";
+    const customerEmail = user?.email || "Not provided";
+    const customerPhone = user?.phone || order.customer?.phone || "Not provided";
+    const addr = user?.address
+      ? `${user.address.house ? user.address.house + ", " : ""}${
+          user.address.street || ""
+        }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
+      : order.customer?.address || "Not provided";
+
+    const orderMessage = `
+<b>🛒 New Order Placed</b>
+
+<b>Order ID:</b> ${order._id}
+<b>Payment Status:</b> ✅ Paid
+<b>Provider:</b> ${order.paymentProvider}
+<b>Payme Trans ID:</b> ${transaction_id}
+
+<b>Customer:</b>
+• Name: ${customerName}
+• Email: ${customerEmail}
+• Phone: ${customerPhone}
+• Address: ${addr}
+
+<b>Products:</b>
+${itemsList}
+
+<b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
+
+<b>Time:</b> ${new Date().toISOString()}
+`;
+
+    sendNotification(orderMessage);
+  } catch (e) {
+    console.error("Telegram notification failed (non-blocking):", e?.message);
+  }
 
   return {
     transaction_id: transaction_id,

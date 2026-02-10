@@ -268,42 +268,22 @@ api.interceptors.response.use(
  * Start payment process
  */
 export function startPayment({ items, amount, provider }) {
-  // ✅ PAYME — ТОЛЬКО browser navigation
-  if (provider === "payme") {
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = `${API_BASE}/api/payments/create`;
-
-    const fields = { items, amount, provider };
-
-    Object.entries(fields).forEach(([key, value]) => {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = key;
-
-      if (typeof value === "string" || typeof value === "number") {
-        input.value = String(value);
-      } else {
-        input.value = JSON.stringify(value);
-      }
-
-      form.appendChild(input);
-    });
-
-    document.body.appendChild(form);
-    form.submit();
-
-    return; // ⛔ ничего не возвращаем
-  }
-
-  // ✅ CLICK / UZUM — можно axios
+  // ✅ All providers use axios to include Authorization header
+  // This ensures userId is properly captured on the backend
   return api
     .post("/api/payments/create", {
       items,
       amount,
       provider,
     })
-    .then((res) => res.data);
+    .then((res) => {
+      // Handle redirect to payment gateway
+      if (res.data?.paymentInitData?.redirectUrl) {
+        window.location.href = res.data.paymentInitData.redirectUrl;
+      }
+      
+      return res.data;
+    });
 }
 
 export default api;

@@ -52,12 +52,11 @@ exports.createOrderAndInitPayment = async (req, res) => {
       return res.status(400).json({ message: "Invalid amount" });
     }
 
-    // authMiddleware should have set req.userId
-    // const userId = req.userId;
-    const userId = req.userId || null;
-    // if (!userId) {
-    //   return res.status(401).json({ message: "Unauthorized" });
-    // }
+    // authMiddleware should have set req.userId - validate it exists
+    const userId = req.userId;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized: User must be logged in to place an order" });
+    }
     console.log('👉 First item:', items[0]);
 
     // Проверяем что у всех товаров есть IKPU код (для Payme)
@@ -144,24 +143,11 @@ exports.createOrderAndInitPayment = async (req, res) => {
         ? "https://checkout.test.paycom.uz"
         : "https://checkout.paycom.uz";
 
-      res.setHeader("Content-Type", "text/html; charset=utf-8");
-
-      return res.send(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8" />
-          <meta http-equiv="refresh" content="0;url=${paymeGateway}/${paramsBase64}" />
-          <title>Redirecting to Payme…</title>
-        </head>
-        <body>
-          <p>Redirecting to Payme…</p>
-          <script>
-            window.location.href = "${paymeGateway}/${paramsBase64}";
-          </script>
-        </body>
-      </html>
-      `);
+      // Return redirect URL as JSON instead of HTML
+      // This allows axios to include Authorization header
+      paymentInitData = {
+        redirectUrl: `${paymeGateway}/${paramsBase64}`,
+      };
 
     } else if (provider === "click") {
       const clickServiceId = process.env.CLICK_SERVICE_ID;

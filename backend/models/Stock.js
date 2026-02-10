@@ -74,6 +74,8 @@ const stockSchema = new mongoose.Schema(
 
 // Create compound index for unique product+color+size combination
 // This allows multiple entries for the same product with different color/size combinations
-stockSchema.index({ productId: 1, color: 1, size: 1 }, { unique: true });
+// sparse: true ensures the index only applies to documents with actual values (not null)
+// This allows multiple entries with null values for products without variants
+stockSchema.index({ productId: 1, color: 1, size: 1 }, { unique: true, sparse: true });
 
 module.exports = mongoose.model("Stock", stockSchema);

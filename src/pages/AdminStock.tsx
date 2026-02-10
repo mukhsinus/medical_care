@@ -61,6 +61,10 @@ export default function AdminStock() {
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [selectedProductForStock, setSelectedProductForStock] = useState<CatalogItem | null>(null);
   const [editingStockId, setEditingStockId] = useState<string | null>(null);
+  const [dialogError, setDialogError] = useState('');
+  const [dialogSuccess, setDialogSuccess] = useState('');
+  const [editingVariantId, setEditingVariantId] = useState<string | null>(null);
+  const [editQuantity, setEditQuantity] = useState<number>(0);
   const [formData, setFormData] = useState<StockFormData>({
     productId: 0,
     productName: '',
@@ -128,6 +132,33 @@ export default function AdminStock() {
     return getTranslatedField(item.nameKey) || `Item ${item.id}`;
   };
 
+  const getTranslatedVariantKey = (key: string): string => {
+    // Check if key already has the full path (variants.colors.xxx or variants.sizes.xxx)
+    // or just the key (xxx)
+    const fullKey = key.startsWith('variants.') ? key : `variants.${key}`;
+    return getTranslatedField(fullKey);
+  };
+
+  const getDisplayVariantName = (color: string | null, size: string | null): string => {
+    const parts: string[] = [];
+    
+    if (color) {
+      // Check if color already has the full path (variants.colors.xxx) or just the key (xxx)
+      const colorKey = color.startsWith('variants.colors.') ? color : `variants.colors.${color}`;
+      const colorTranslated = getTranslatedField(colorKey);
+      parts.push(colorTranslated);
+    }
+    
+    if (size) {
+      // Check if size already has the full path (variants.sizes.xxx) or just the key (xxx)
+      const sizeKey = size.startsWith('variants.sizes.') ? size : `variants.sizes.${size}`;
+      const sizeTranslated = getTranslatedField(sizeKey);
+      parts.push(sizeTranslated);
+    }
+    
+    return parts.length > 0 ? parts.join(' • ') : 'Base';
+  };
+
   const getVariantKey = (item: StockItem): string => {
     return `${item.productId}_${item.color || 'none'}_${item.size || 'none'}`;
   };
@@ -150,16 +181,48 @@ export default function AdminStock() {
   };
 
   const handleCreateStock = async () => {
-    try {
-      const res = await api.post('/api/admin/stock', formData);
-      const data = res.data;
+    // Validate that quantity is set
+    if (formData.quantity <= 0) {
+      setDialogError(locale === 'ru' ? 'Введите количество больше 0' : locale === 'uz' ? 'Miqdorni kiriting 0 dan ko\'p' : 'Enter quantity greater than 0');
+      return;
+    }
 
-      setShowCreateDialog(false);
-      setSelectedProductForStock(null);
-      await fetchStock();
-    } catch (err) {
+    try {
+      setDialogError('');
+      setDialogSuccess('');
+      const res = await api.post('/api/admin/stock', formData);
+      
+      setDialogSuccess(
+        locale === 'ru' ? '✅ Запас добавлен' : locale === 'uz' ? '✅ Zaxira qo\'shildi' : '✅ Stock added'
+      );
+      
+      // Refetch stock after short delay to show success message
+      setTimeout(async () => {
+        await fetchStock();
+        // Reset form for adding another variant
+        setFormData({
+          productId: selectedProductForStock?.id || 0,
+          productName: selectedProductForStock ? getItemName(selectedProductForStock) : '',
+          color: null,
+          size: null,
+          quantity: 0,
+          minStockLevel: 10,
+        });
+        setDialogSuccess('');
+      }, 500);
+    } catch (err: unknown) {
       console.error('Error creating stock:', err);
-      // Silently fail - user will see dialog close on success
+      let errorMsg = locale === 'ru' ? 'Ошибка при добавлении запаса' : locale === 'uz' ? 'Zaxira qo\'shishda xato' : 'Error adding stock';
+      if (err && typeof err === 'object' && 'response' in err) {
+        const errObj = err as Record<string, unknown>;
+        if (errObj.response && typeof errObj.response === 'object' && 'data' in errObj.response) {
+          const data = errObj.response.data as Record<string, unknown>;
+          if (data.error && typeof data.error === 'string') {
+            errorMsg = data.error;
+          }
+        }
+      }
+      setDialogError(errorMsg);
     }
   };
 
@@ -181,6 +244,23 @@ export default function AdminStock() {
     } catch (err) {
       console.error('Error deleting stock:', err);
       // Silently fail
+    }
+  };
+
+  const handleEditStock = async (stockId: string | undefined, productId: number, color: string | null, size: string | null) => {
+    if (!stockId) return;
+
+    try {
+      const color_param = color ? `color=${encodeURIComponent(color)}` : '';
+      const size_param = size ? `size=${encodeURIComponent(size)}` : '';
+      const params = [color_param, size_param].filter(Boolean).join('&');
+      const url = `/api/admin/stock/${productId}${params ? '?' + params : ''}`;
+      
+      await api.put(url, { quantity: editQuantity });
+      setEditingVariantId(null);
+      await fetchStock();
+    } catch (err) {
+      console.error('Error updating stock:', err);
     }
   };
 
@@ -235,8 +315,7 @@ export default function AdminStock() {
               {lowStockItems.slice(0, 5).map((item: StockItem) => (
                 <div key={getVariantKey(item)} className="text-sm text-orange-800">
                   <strong>{item.productName}</strong>
-                  {item.color && <span> • {item.color}</span>}
-                  {item.size && <span> • {item.size}</span>}
+                  <span> • {getDisplayVariantName(item.color || null, item.size || null)}</span>
                   : {item.quantity}
                 </div>
               ))}
@@ -357,48 +436,84 @@ export default function AdminStock() {
                           <div className="space-y-2">
                             {variants.map((variant, idx) => {
                               const isLowStock = variant.quantity < variant.minStockLevel;
+                              const variantIdStr = getVariantKey(variant);
+                              const isEditing = editingVariantId === variantIdStr;
                               return (
-                                <div key={getVariantKey(variant)} className="flex items-center justify-between text-sm bg-gray-50 p-2 rounded">
-                                  <span>
-                                    {variant.color && <span>{variant.color}</span>}
-                                    {variant.color && variant.size && <span> • </span>}
-                                    {variant.size && <span>{variant.size}</span>}
-                                    {!variant.color && !variant.size && <span>Base</span>}
+                                <div key={variantIdStr} className="flex items-center justify-between text-sm bg-gray-50 p-2 rounded gap-2">
+                                  <span className="min-w-[100px]">
+                                    {getDisplayVariantName(variant.color || null, variant.size || null)}
                                   </span>
-                                  <div className="flex gap-4 items-center">
-                                    <span className={isLowStock ? 'text-orange-600 font-semibold' : ''}>
-                                      {variant.quantity}
-                                    </span>
-                                    <Badge variant={isLowStock ? 'destructive' : 'outline'} className="w-12 text-center">
-                                      {isLowStock ? (locale === 'ru' ? 'Низко' : locale === 'uz' ? 'Kam' : 'Low') : 'OK'}
-                                    </Badge>
-                                  </div>
+                                  
+                                  {isEditing ? (
+                                    <>
+                                      <Input
+                                        type="number"
+                                        min="0"
+                                        value={editQuantity}
+                                        onChange={(e) => setEditQuantity(parseInt(e.target.value) || 0)}
+                                        className="h-7 w-20"
+                                      />
+                                      <Button
+                                        size="sm"
+                                        variant="default"
+                                        onClick={() => handleEditStock(variant._id, variant.productId, variant.color || null, variant.size || null)}
+                                        className="h-7"
+                                      >
+                                        {locale === 'ru' ? 'Сохранить' : locale === 'uz' ? 'Saqlash' : 'Save'}
+                                      </Button>
+                                      <Button
+                                        size="sm"
+                                        variant="outline"
+                                        onClick={() => setEditingVariantId(null)}
+                                        className="h-7"
+                                      >
+                                        {locale === 'ru' ? 'Отмена' : locale === 'uz' ? 'Bekor' : 'Cancel'}
+                                      </Button>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <span className={isLowStock ? 'text-orange-600 font-semibold min-w-[50px]' : 'min-w-[50px]'}>
+                                        {variant.quantity}
+                                      </span>
+                                      <Badge variant={isLowStock ? 'destructive' : 'outline'} className="w-12 text-center">
+                                        {isLowStock ? (locale === 'ru' ? 'Низко' : locale === 'uz' ? 'Kam' : 'Low') : 'OK'}
+                                      </Badge>
+                                      <Button
+                                        size="sm"
+                                        variant="ghost"
+                                        onClick={() => {
+                                          setEditingVariantId(variantIdStr);
+                                          setEditQuantity(variant.quantity);
+                                        }}
+                                        className="h-7"
+                                      >
+                                        <Edit2 className="w-3 h-3" />
+                                      </Button>
+                                      <Button
+                                        size="sm"
+                                        variant="ghost"
+                                        onClick={() => handleDeleteStock(variant._id, variant.productId, variant.color || null, variant.size || null)}
+                                        className="h-7"
+                                      >
+                                        <Trash2 className="w-3 h-3 text-red-500" />
+                                      </Button>
+                                    </>
+                                  )}
                                 </div>
                               );
                             })}
                           </div>
                         </TableCell>
                         <TableCell>
-                          <div className="flex gap-2">
-                            <Button
-                              size="sm"
-                              onClick={() => openCreateDialog(item)}
-                              className="gap-1"
-                              variant="outline"
-                            >
-                              <Plus className="w-4 h-4" />
-                            </Button>
-                            {variants.map(variant => (
-                              <Button
-                                key={getVariantKey(variant)}
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => handleDeleteStock(variant._id, variant.productId, variant.color || null, variant.size || null)}
-                              >
-                                <Trash2 className="w-4 h-4 text-red-500" />
-                              </Button>
-                            ))}
-                          </div>
+                          <Button
+                            size="sm"
+                            onClick={() => openCreateDialog(item)}
+                            className="gap-1"
+                            variant="outline"
+                          >
+                            <Plus className="w-4 h-4" />
+                            {locale === 'ru' ? 'Размер' : locale === 'uz' ? 'O\'lchami' : 'Size'}
+                          </Button>
                         </TableCell>
                       </TableRow>
                     );
@@ -411,8 +526,14 @@ export default function AdminStock() {
       </Card>
 
       {/* Create/Edit Stock Dialog */}
-      <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-        <DialogContent>
+      <Dialog open={showCreateDialog} onOpenChange={(open) => {
+        setShowCreateDialog(open);
+        if (!open) {
+          setDialogError('');
+          setDialogSuccess('');
+        }
+      }}>
+        <DialogContent className="max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
               {locale === 'ru' ? 'Добавить запас' : locale === 'uz' ? 'Zaxira qo\'shish' : 'Add Stock'}
@@ -421,12 +542,43 @@ export default function AdminStock() {
           
           {selectedProductForStock && (
             <div className="space-y-4">
+              {/* Error Message */}
+              {dialogError && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+                  {dialogError}
+                </div>
+              )}
+
+              {/* Success Message */}
+              {dialogSuccess && (
+                <div className="p-3 bg-green-50 border border-green-200 rounded text-green-700 text-sm">
+                  {dialogSuccess}
+                </div>
+              )}
+
               <div>
                 <label className="text-sm font-medium">
                   {locale === 'ru' ? 'Продукт' : locale === 'uz' ? 'Mahsulot' : 'Product'}
                 </label>
                 <Input value={formData.productName} disabled className="mt-1" />
               </div>
+
+              {/* Show existing variants for this product */}
+              {getProductVariants(selectedProductForStock.id).length > 0 && (
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded text-sm">
+                  <p className="font-medium text-blue-900 mb-2">
+                    {locale === 'ru' ? 'Существующие варианты:' : locale === 'uz' ? 'Mavjud variantlar:' : 'Existing variants:'}
+                  </p>
+                  <div className="space-y-1">
+                    {getProductVariants(selectedProductForStock.id).map(v => (
+                      <div key={getVariantKey(v)} className="text-blue-800 text-xs">
+                        {getDisplayVariantName(v.color || null, v.size || null)}
+                        {' - '}{v.quantity} {locale === 'ru' ? 'шт' : locale === 'uz' ? 'ta' : 'pcs'}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {selectedProductForStock.colors && selectedProductForStock.colors.length > 0 && (
                 <div>
@@ -443,7 +595,7 @@ export default function AdminStock() {
                     </option>
                     {selectedProductForStock.colors.map(color => (
                       <option key={color} value={color}>
-                        {color}
+                        {getTranslatedVariantKey(color)}
                       </option>
                     ))}
                   </select>
@@ -465,7 +617,7 @@ export default function AdminStock() {
                     </option>
                     {selectedProductForStock.sizes.map(size => (
                       <option key={size} value={size}>
-                        {size}
+                        {getTranslatedVariantKey(size)}
                       </option>
                     ))}
                   </select>
@@ -489,10 +641,14 @@ export default function AdminStock() {
           )}
 
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCreateDialog(false)}>
-              {locale === 'ru' ? 'Отмена' : locale === 'uz' ? 'Bekor qilish' : 'Cancel'}
+            <Button variant="outline" onClick={() => {
+              setShowCreateDialog(false);
+              setDialogError('');
+              setDialogSuccess('');
+            }}>
+              {locale === 'ru' ? 'Закрыть' : locale === 'uz' ? 'Yopish' : 'Close'}
             </Button>
-            <Button onClick={handleCreateStock}>
+            <Button onClick={handleCreateStock} disabled={dialogSuccess !== ''}>
               {locale === 'ru' ? 'Добавить' : locale === 'uz' ? 'Qo\'shish' : 'Add'}
             </Button>
           </DialogFooter>

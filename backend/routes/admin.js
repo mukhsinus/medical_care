@@ -18,6 +18,7 @@ const router = express.Router();
 
 const User = require("../models/User");
 const Stock = require("../models/Stock");
+const Order = require("../models/Order");
 const adminAuthMiddleware = require("../middleware/adminAuth");
 const authMiddleware = require("../middleware/auth");
 
@@ -141,6 +142,45 @@ router.delete("/users/:id", async (req, res) => {
   } catch (err) {
     console.error("❌ Delete user error:", err);
     res.status(500).json({ error: "Failed to delete user" });
+  }
+});
+
+/**
+ * GET /api/admin/users/:id
+ * Get detailed user information with orders
+ */
+router.get("/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Get user info
+    const user = await User.findById(id).select("-password");
+    
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Get user's orders
+    const orders = await Order.find({ userId: id })
+      .sort({ date: -1 })
+      .lean();
+
+    console.log(`✅ Admin fetched user details for: ${id}, orders: ${orders.length}`);
+
+    res.json({
+      user,
+      orders,
+      summary: {
+        totalOrders: orders.length,
+        totalSpent: orders.reduce((sum, order) => sum + (order.amount || 0), 0),
+        lastOrderDate: orders.length > 0 ? orders[0].date : null,
+        completedOrders: orders.filter(o => o.paymentStatus === 'completed').length,
+        pendingOrders: orders.filter(o => o.paymentStatus === 'pending').length,
+      }
+    });
+  } catch (err) {
+    console.error("❌ Get user details error:", err);
+    res.status(500).json({ error: "Failed to fetch user details" });
   }
 });
 

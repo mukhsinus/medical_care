@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/App';
 import { useLanguage } from '../contexts/LanguageContext';
+import api from '@/api';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -21,8 +22,14 @@ import {
   AlertDialogDescription,
   AlertDialogTitle,
 } from '../components/ui/alert-dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '../components/ui/dialog';
 import { Badge } from '../components/ui/badge';
-import { ChevronLeft, Edit2, Trash2, Shield, User, Users } from 'lucide-react';
+import { ChevronLeft, Edit2, Trash2, Shield, User, Users, Eye } from 'lucide-react';
 
 interface UserData {
   _id: string;
@@ -31,6 +38,41 @@ interface UserData {
   phone: string;
   role: 'user' | 'admin';
   address?: string;
+  createdAt?: string;
+}
+
+interface OrderItem {
+  productId: string;
+  name: string;
+  quantity: number;
+  price: number;
+  size?: string;
+}
+
+interface OrderData {
+  _id: string;
+  date: string;
+  amount: number;
+  paymentStatus: string;
+  paymentProvider: string;
+  items: OrderItem[];
+  customer?: {
+    fullName: string;
+    phone: string;
+    address: string;
+  };
+}
+
+interface UserDetailsData {
+  user: UserData;
+  orders: OrderData[];
+  summary: {
+    totalOrders: number;
+    totalSpent: number;
+    lastOrderDate: string | null;
+    completedOrders: number;
+    pendingOrders: number;
+  };
 }
 
 export default function AdminUsers() {
@@ -44,29 +86,22 @@ export default function AdminUsers() {
   const [deleteUserId, setDeleteUserId] = useState(null);
   const [page, setPage] = useState(1);
   const [error, setError] = useState('');
+  const [selectedUserDetails, setSelectedUserDetails] = useState<UserDetailsData | null>(null);
+  const [loadingDetails, setLoadingDetails] = useState(false);
 
   const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token found');
+
+      console.log(`📡 Fetching users: /api/admin/users?page=${page}&limit=10`);
+      const res = await api.get(`/api/admin/users?page=${page}&limit=10`);
+
+      console.log('✅ Users fetched:', res.data);
+      setUsers(res.data.users || []);
+      if (!res.data.users || res.data.users.length === 0) {
+        console.log('⚠️  No users returned from API');
       }
-
-      const res = await fetch(`/api/admin/users?page=${page}&limit=10`, {
-        headers: { 
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-      });
-
-      if (!res.ok) {
-        throw new Error(`API error: ${res.status} ${res.statusText}`);
-      }
-
-      const data = await res.json();
-      setUsers(data.users || []);
     } catch (err) {
       console.error('Error fetching users:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch users');
@@ -75,6 +110,19 @@ export default function AdminUsers() {
       setLoading(false);
     }
   }, [page]);
+
+  const fetchUserDetails = async (userId: string) => {
+    try {
+      setLoadingDetails(true);
+      const res = await api.get(`/api/admin/users/${userId}`);
+      setSelectedUserDetails(res.data);
+    } catch (err) {
+      console.error('Error fetching user details:', err);
+      setError(err instanceof Error ? err.message : 'Failed to fetch user details');
+    } finally {
+      setLoadingDetails(false);
+    }
+  };
 
   useEffect(() => {
     // Check if user is admin
@@ -102,27 +150,16 @@ export default function AdminUsers() {
 
   const saveEdit = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await fetch(`/api/admin/users/${editingId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name: editData.name,
-          email: editData.email,
-          phone: editData.phone,
-          role: editData.role,
-          address: editData.address,
-        }),
+      await api.put(`/api/admin/users/${editingId}`, {
+        name: editData.name,
+        email: editData.email,
+        phone: editData.phone,
+        role: editData.role,
+        address: editData.address,
       });
-
-      if (res.ok) {
-        setEditingId(null);
-        setEditData({});
-        fetchUsers();
-      }
+      setEditingId(null);
+      setEditData({});
+      fetchUsers();
     } catch (err) {
       console.error('Error saving user:', err);
     }
@@ -132,16 +169,9 @@ export default function AdminUsers() {
     if (!deleteUserId) return;
 
     try {
-      const token = localStorage.getItem('token');
-      const res = await fetch(`/api/admin/users/${deleteUserId}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (res.ok) {
-        setDeleteUserId(null);
-        fetchUsers();
-      }
+      await api.delete(`/api/admin/users/${deleteUserId}`);
+      setDeleteUserId(null);
+      fetchUsers();
     } catch (err) {
       console.error('Error deleting user:', err);
     }
@@ -237,8 +267,26 @@ export default function AdminUsers() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
-              <Table>
+            {/* Error Message Display */}
+            {error && (
+              <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+                <p className="font-medium">Error loading users:</p>
+                <p>{error}</p>
+              </div>
+            )}
+
+            {/* Loading State */}
+            {loading && users.length === 0 ? (
+              <div className="text-center py-8 text-gray-500">
+                {trans.loading}
+              </div>
+            ) : users.length === 0 ? (
+              <div className="text-center py-8 text-gray-500">
+                {locale === 'ru' ? 'Пользователей не найдено' : locale === 'uz' ? 'Foydalanuvchilar topilmadi' : 'No users found'}
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <Table>
                 <TableHeader>
                   <TableRow>
                     <TableHead>{trans.name}</TableHead>
@@ -347,6 +395,15 @@ export default function AdminUsers() {
                           <>
                             <Button
                               size="sm"
+                              onClick={() => fetchUserDetails(user._id)}
+                              variant="outline"
+                              className="gap-1"
+                            >
+                              <Eye className="w-4 h-4" />
+                              {locale === 'ru' ? 'Подробно' : locale === 'uz' ? 'Batafsil' : 'Details'}
+                            </Button>
+                            <Button
+                              size="sm"
                               onClick={() => startEdit(user)}
                               variant="outline"
                               className="gap-1"
@@ -370,7 +427,8 @@ export default function AdminUsers() {
                   ))}
                 </TableBody>
               </Table>
-            </div>
+                </div>
+            )}
           </CardContent>
         </Card>
       </div>
@@ -388,6 +446,172 @@ export default function AdminUsers() {
           </div>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* User Details Dialog */}
+      <Dialog open={!!selectedUserDetails} onOpenChange={(open) => !open && setSelectedUserDetails(null)}>
+        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              {locale === 'ru' ? 'Подробная информация пользователя' : locale === 'uz' ? 'Foydalanuvchi haqida batafsil' : 'User Details'}
+            </DialogTitle>
+          </DialogHeader>
+
+          {loadingDetails ? (
+            <div className="text-center py-8">
+              {locale === 'ru' ? 'Загрузка...' : locale === 'uz' ? 'Yuklanmoqda...' : 'Loading...'}
+            </div>
+          ) : selectedUserDetails ? (
+            <div className="space-y-6">
+              {/* User Info */}
+              <div className="bg-blue-50 p-4 rounded-lg space-y-2">
+                <h3 className="font-semibold text-lg">
+                  {locale === 'ru' ? 'Информация о пользователе' : locale === 'uz' ? 'Foydalanuvchi ma\'lumoti' : 'User Information'}
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-600">
+                      {locale === 'ru' ? 'Имя' : locale === 'uz' ? 'Ism' : 'Name'}
+                    </p>
+                    <p className="font-medium">{selectedUserDetails.user.name}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">
+                      {locale === 'ru' ? 'Email' : locale === 'uz' ? 'Email' : 'Email'}
+                    </p>
+                    <p className="font-medium">{selectedUserDetails.user.email || '-'}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">
+                      {locale === 'ru' ? 'Телефон' : locale === 'uz' ? 'Telefon' : 'Phone'}
+                    </p>
+                    <p className="font-medium">{selectedUserDetails.user.phone}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">
+                      {locale === 'ru' ? 'Роль' : locale === 'uz' ? 'Rol' : 'Role'}
+                    </p>
+                    <Badge variant={selectedUserDetails.user.role === 'admin' ? 'default' : 'secondary'}>
+                      {selectedUserDetails.user.role}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+
+              {/* Order Summary */}
+              <div className="bg-green-50 p-4 rounded-lg">
+                <h3 className="font-semibold text-lg mb-3">
+                  {locale === 'ru' ? 'Статистика заказов' : locale === 'uz' ? 'Buyurtmalar statistikasi' : 'Orders Summary'}
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-600">
+                      {locale === 'ru' ? 'Всего заказов' : locale === 'uz' ? 'Jami buyurtmalar' : 'Total Orders'}
+                    </p>
+                    <p className="text-2xl font-bold">{selectedUserDetails.summary.totalOrders}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">
+                      {locale === 'ru' ? 'Завершено' : locale === 'uz' ? 'Tugatildi' : 'Completed'}
+                    </p>
+                    <p className="text-2xl font-bold text-green-600">{selectedUserDetails.summary.completedOrders}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">
+                      {locale === 'ru' ? 'В ожидании' : locale === 'uz' ? 'Kutilmoqda' : 'Pending'}
+                    </p>
+                    <p className="text-2xl font-bold text-yellow-600">{selectedUserDetails.summary.pendingOrders}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">
+                      {locale === 'ru' ? 'Потрачено' : locale === 'uz' ? 'Sarflangan' : 'Total Spent'}
+                    </p>
+                    <p className="text-2xl font-bold">{(selectedUserDetails.summary.totalSpent / 1000).toFixed(0)}K UZS</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Orders List */}
+              <div>
+                <h3 className="font-semibold text-lg mb-3">
+                  {locale === 'ru' ? 'Заказы' : locale === 'uz' ? 'Buyurtmalar' : 'Orders'} ({selectedUserDetails.orders.length})
+                </h3>
+                {selectedUserDetails.orders.length === 0 ? (
+                  <p className="text-gray-500 py-4">
+                    {locale === 'ru' ? 'Нет заказов' : locale === 'uz' ? 'Buyurtmalar yo\'q' : 'No orders'}
+                  </p>
+                ) : (
+                  <div className="space-y-3">
+                    {selectedUserDetails.orders.map((order) => (
+                      <Card key={order._id} className="overflow-hidden">
+                        <CardContent className="p-4">
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <p className="text-sm font-medium text-gray-600">
+                                {locale === 'ru' ? 'Заказ ID' : locale === 'uz' ? 'Buyurtma ID' : 'Order ID'}
+                              </p>
+                              <p className="font-mono text-sm">{order._id.slice(-8)}</p>
+                            </div>
+                            <Badge
+                              variant={
+                                order.paymentStatus === 'completed'
+                                  ? 'default'
+                                  : order.paymentStatus === 'pending'
+                                    ? 'secondary'
+                                    : 'destructive'
+                              }
+                            >
+                              {order.paymentStatus}
+                            </Badge>
+                          </div>
+
+                          <div className="grid grid-cols-3 gap-4 text-sm mb-3">
+                            <div>
+                              <p className="text-gray-600">
+                                {locale === 'ru' ? 'Дата' : locale === 'uz' ? 'Sana' : 'Date'}
+                              </p>
+                              <p className="font-medium">
+                                {new Date(order.date).toLocaleDateString(
+                                  locale === 'ru' ? 'ru-RU' : locale === 'uz' ? 'uz-UZ' : 'en-US'
+                                )}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-gray-600">
+                                {locale === 'ru' ? 'Сумма' : locale === 'uz' ? 'Summa' : 'Amount'}
+                              </p>
+                              <p className="font-medium">{(order.amount / 1000).toFixed(0)}K UZS</p>
+                            </div>
+                            <div>
+                              <p className="text-gray-600">
+                                {locale === 'ru' ? 'Поставщик' : locale === 'uz' ? 'Provajder' : 'Provider'}
+                              </p>
+                              <p className="font-medium uppercase">{order.paymentProvider}</p>
+                            </div>
+                          </div>
+
+                          <div className="border-t pt-3">
+                            <p className="text-sm font-medium mb-2">
+                              {locale === 'ru' ? 'Товары' : locale === 'uz' ? 'Mahsulotlar' : 'Items'} ({order.items.length})
+                            </p>
+                            <div className="space-y-1 text-sm">
+                              {order.items.map((item, idx) => (
+                                <div key={idx} className="flex justify-between text-gray-700">
+                                  <span>{item.name} {item.size ? `(${item.size})` : ''} x{item.quantity}</span>
+                                  <span>{(item.price / 1000).toFixed(0)}K UZS</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

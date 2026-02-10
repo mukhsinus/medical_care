@@ -163,6 +163,11 @@ exports.createOrderAndInitPayment = async (req, res) => {
     } else if (provider === "click") {
       const clickServiceId = process.env.CLICK_SERVICE_ID;
       const clickMerchantId = process.env.CLICK_MERCHANT_ID;
+      if (!clickServiceId || !clickMerchantId) {
+        return res.status(500).json({
+          message: "Server error: CLICK_SERVICE_ID or CLICK_MERCHANT_ID not configured",
+        });
+      }
       // Click payment URL format: https://my.click.uz/services/pay?service_id=SERVICE_ID&merchant_id=MERCHANT_ID&amount=AMOUNT&transaction_param=ORDER_ID
       const testMode = process.env.CLICK_TEST_MODE === 'true';
       if (testMode) {
@@ -636,7 +641,7 @@ exports.clickCallback = async (req, res) => {
     const merchantTransId = payload?.merchant_trans_id; // our order ID
     const merchantPrepareId = payload?.merchant_prepare_id;
     const amount = payload?.amount;
-    const action = payload?.action; // 0=prepare, 1=complete
+    const action = Number(payload?.action); // 0=prepare, 1=complete
     const error = payload?.error;
     const errorNote = payload?.error_note;
     const signTime = payload?.sign_time;

@@ -1347,7 +1347,6 @@ export const allItems: CatalogItem[] = [
     package_code: "1342698",
     descriptionKey: "items.55.description",
     imageBases: [
-      "Пластырь MEDIK PLAST 1см х 5м №1 (2)",
       "Пластырь MEDIK PLAST 2,5см х 10м №1 (2)",
       "Пластырь MEDIK PLAST 5см х 10м №1 (3)",
       "Пластырь MEDIK PLAST 10см х 10м №1 (3)",
@@ -1360,13 +1359,11 @@ export const allItems: CatalogItem[] = [
       "variants.sizes.15b10m",
     ],
     sizeImages: {
-      "variants.sizes.2p5b10m": "Пластырь MEDIK PLAST 2,5см х 10м №1 (2)",
       "variants.sizes.5b10m": "Пластырь MEDIK PLAST 5см х 10м №1 (3)",
       "variants.sizes.10b10m": "Пластырь MEDIK PLAST 10см х 10м №1 (3)",
       "variants.sizes.15b10m": "Пластырь MEDIK PLAST 15см х 10м №1 (2)",
     },
     sizePrices: {
-      "variants.sizes.1b5m": 0,
       "variants.sizes.2p5b10m": 45000,
       "variants.sizes.5b10m": 70000,
       "variants.sizes.10b10m": 110000,

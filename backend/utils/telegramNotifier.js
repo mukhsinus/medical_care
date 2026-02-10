@@ -155,10 +155,10 @@ async function sendNotification(message, options = {}) {
   const now = Date.now();
   const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
   console.log('[NOTIFIER] sendNotification CALLED');
-  console.log('[NOTIFIER] message:', message);
+  console.log('[NOTIFIER] message (first 200 chars):', message.substring(0, 200));
 
   if (!TOKEN) {
-    console.error('[NOTIFIER] TELEGRAM_BOT_TOKEN not set in env');
+    console.error('[NOTIFIER] ❌ TELEGRAM_BOT_TOKEN not set in env');
     return;
   }
 
@@ -167,31 +167,45 @@ async function sendNotification(message, options = {}) {
     BotChannel.find(),
   ]);
 
+  console.log(`[NOTIFIER] Found ${sessions.length} active sessions and ${channels.length} registered channels`);
+
   const targets = new Set([
     ...sessions.map(s => s.chatId),
     ...channels.map(c => c.chatId),
   ]);
-  console.log('[NOTIFIER] targets:', Array.from(targets));
+  
+  if (targets.size === 0) {
+    console.warn('[NOTIFIER] ⚠️  No targets found! Check BotSession and BotChannel in database.');
+    return;
+  }
+  
+  console.log(`[NOTIFIER] Sending to ${targets.size} targets:`, Array.from(targets));
 
   const apiUrl = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
 
+  let successCount = 0;
+  let failCount = 0;
 
   for (const chatId of targets) {
     try {
-      await axios.post(apiUrl, {
+      const response = await axios.post(apiUrl, {
         chat_id: chatId,
         text: message,
         parse_mode: 'HTML',
         ...options,
       });
-      console.log(`[NOTIFIER] Sent to ${chatId}`);
+      successCount++;
+      console.log(`[NOTIFIER] ✅ Sent to ${chatId}`);
 
     } catch (err) {
-      console.error(`[NOTIFIER] Failed to send message to ${chatId}:`, err?.message || err);
+      failCount++;
+      console.error(`[NOTIFIER] ❌ Failed to send to ${chatId}:`, err?.response?.data || err?.message || err);
       
       // continue to next target
     }
   }
+  
+  console.log(`[NOTIFIER] Summary: ${successCount} sent, ${failCount} failed`);
 }
 
 

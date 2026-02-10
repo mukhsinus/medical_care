@@ -416,5 +416,121 @@ ${T[lang].yourRole} ${roleStr}`;
     }
   });
 
+  /* ================= SETGROUP ================= */
+  bot.onText(/\/setgroup/, async (msg) => {
+    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) {
+      const lang = getLang(msg.chat.id);
+      bot.sendMessage(msg.chat.id, T[lang].noAccess);
+      return;
+    }
+
+    const lang = getLang(msg.chat.id);
+    
+    // Check if this is a group chat
+    if (msg.chat.type === 'private') {
+      const i18nKey = lang === 'ru' ? 'Используйте /setgroup в группе.' : lang === 'uz' ? '/setgroup guruh ichida.' : 'Use /setgroup inside the group.';
+      bot.sendMessage(msg.chat.id, i18nKey);
+      return;
+    }
+
+    try {
+      // Save or update the group in BotChannel
+      await BotChannel.findOneAndUpdate(
+        { chatId: String(msg.chat.id) },
+        {
+          chatId: String(msg.chat.id),
+          type: msg.chat.type,
+          title: msg.chat.title || msg.chat.username || 'Group',
+        },
+        { upsert: true, new: true }
+      );
+
+      const successMsg = lang === 'ru' ? '✅ Группа подписана.' : lang === 'uz' ? '✅ Guruh obuna qilindi.' : '✅ Group subscribed.';
+      bot.sendMessage(msg.chat.id, successMsg);
+      console.log(`✅ Group subscribed: ${msg.chat.id} (${msg.chat.title})`);
+    } catch (err) {
+      console.error('Error setting group:', err);
+      const failMsg = lang === 'ru' ? '❌ Ошибка подписки.' : lang === 'uz' ? '❌ Obuna xatosi.' : '❌ Failed to subscribe group.';
+      bot.sendMessage(msg.chat.id, failMsg);
+    }
+  });
+
+  /* ================= UNSETGROUP ================= */
+  bot.onText(/\/unsetgroup/, async (msg) => {
+    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) {
+      const lang = getLang(msg.chat.id);
+      bot.sendMessage(msg.chat.id, T[lang].noAccess);
+      return;
+    }
+
+    const lang = getLang(msg.chat.id);
+    
+    // Check if this is a group chat
+    if (msg.chat.type === 'private') {
+      const i18nKey = lang === 'ru' ? 'Используйте /unsetgroup в группе.' : lang === 'uz' ? '/unsetgroup guruh ichida.' : 'Use /unsetgroup inside the group.';
+      bot.sendMessage(msg.chat.id, i18nKey);
+      return;
+    }
+
+    try {
+      const result = await BotChannel.findOneAndDelete({ chatId: String(msg.chat.id) });
+
+      if (result) {
+        const successMsg = lang === 'ru' ? '✅ Группа отписана.' : lang === 'uz' ? '✅ Guruh obunadan chiqdi.' : '✅ Group unsubscribed.';
+        bot.sendMessage(msg.chat.id, successMsg);
+        console.log(`✅ Group unsubscribed: ${msg.chat.id}`);
+      } else {
+        const notMsg = lang === 'ru' ? 'Группа не была подписана.' : lang === 'uz' ? 'Guruh obuna qilinmagan edi.' : 'Group was not subscribed.';
+        bot.sendMessage(msg.chat.id, notMsg);
+      }
+    } catch (err) {
+      console.error('Error unsetting group:', err);
+      const failMsg = lang === 'ru' ? '❌ Ошибка.' : lang === 'uz' ? '❌ Xato.' : '❌ Error.';
+      bot.sendMessage(msg.chat.id, failMsg);
+    }
+  });
+
+  /* ================= MY_CHAT_MEMBER (Auto-register/remove groups) ================= */
+  bot.on('my_chat_member', async (update) => {
+    const { chat, new_chat_member } = update;
+    const botMember = new_chat_member;
+
+    console.log(`[MY_CHAT_MEMBER] Bot status changed in ${chat.title || chat.id}:`, botMember.status);
+
+    if (chat.type === 'private') return; // Ignore private chats
+
+    // Bot was added to a group
+    if (botMember.status === 'member' || botMember.status === 'administrator') {
+      try {
+        await BotChannel.findOneAndUpdate(
+          { chatId: String(chat.id) },
+          {
+            chatId: String(chat.id),
+            type: chat.type,
+            title: chat.title || chat.username || 'Group',
+          },
+          { upsert: true, new: true }
+        );
+        console.log(`✅ Bot added to group: ${chat.id} (${chat.title})`);
+        
+        // Send a welcome message
+        const welcomeMsg = `👋 *MedShop Admin Bot* has joined!\n\nUse /help to see available commands.`;
+        bot.sendMessage(chat.id, welcomeMsg, { parse_mode: 'Markdown' }).catch(() => {});
+      } catch (err) {
+        console.error('Error registering group:', err);
+      }
+    }
+
+    // Bot was removed from a group
+    if (botMember.status === 'left' || botMember.status === 'kicked') {
+      try {
+        await BotChannel.findOneAndDelete({ chatId: String(chat.id) });
+        console.log(`✅ Bot removed from group: ${chat.id}`);
+      } catch (err) {
+        console.error('Error deregistering group:', err);
+      }
+    }
+  });
+
   console.log("✅ Bot fully started");
 })();

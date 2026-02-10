@@ -362,14 +362,11 @@ async function handlePerformTransaction(params) {
       })
       .join("\n");
 
-    const customerName = user?.name || order.customer?.fullName || "Guest";
+    // Use order.customer info that was captured during order creation
+    const customerName = order.customer?.fullName || user?.name || "Guest";
     const customerEmail = user?.email || "Not provided";
-    const customerPhone = user?.phone || order.customer?.phone || "Not provided";
-    const addr = user?.address
-      ? `${user.address.house ? user.address.house + ", " : ""}${
-          user.address.street || ""
-        }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
-      : order.customer?.address || "Not provided";
+    const customerPhone = order.customer?.phone || user?.phone || "Not provided";
+    const addr = order.customer?.address || "Not provided";
 
     const orderMessage = `
 <b>🛒 New Order Placed</b>

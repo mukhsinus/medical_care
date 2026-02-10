@@ -331,25 +331,23 @@ router.post("/confirm", async (req, res) => {
     // ========== STEP 8: Send Telegram notification ==========
     try {
       const user = await User.findById(order.userId);
-      if (user) {
-        const itemsList = order.items
-          .map(
-            (item) =>
-              `• ${item.name}${
-                item.description ? ` - ${item.description}` : ""
-              }\n  Qty: ${item.quantity} | ${(
-                item.price * item.quantity
-              ).toLocaleString("uz-UZ")} UZS`
-          )
-          .join("\n");
+      const itemsList = order.items
+        .map(
+          (item) =>
+            `• ${item.name}${
+              item.description ? ` - ${item.description}` : ""
+            }\n  Qty: ${item.quantity} | ${(
+              item.price * item.quantity
+            ).toLocaleString("uz-UZ")} UZS`
+        )
+        .join("\n");
 
-        const addr = user.address
-          ? `${user.address.house ? user.address.house + ", " : ""}${
-              user.address.street || ""
-            }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
-          : "Not provided";
+      // Use order.customer info that was captured during order creation
+      const customerName = order.customer?.fullName || user?.name || "Guest";
+      const customerPhone = order.customer?.phone || user?.phone || "Not provided";
+      const addr = order.customer?.address || "Not provided";
 
-        const orderMessage = `
+      const orderMessage = `
 <b>🛒 New Order Placed</b>
 
 <b>Order ID:</b> ${order._id}
@@ -358,9 +356,9 @@ router.post("/confirm", async (req, res) => {
 <b>Uzum Trans ID:</b> ${transId}
 
 <b>Customer:</b>
-• Name: ${user.name}
-• Email: ${user.email}
-• Phone: ${user.phone || "Not provided"}
+• Name: ${customerName}
+• Email: ${user?.email || "Not provided"}
+• Phone: ${customerPhone}
 • Address: ${addr}
 
 <b>Products:</b>
@@ -373,8 +371,7 @@ ${itemsList}
 
 <b>Time:</b> ${new Date().toISOString()}
 `;
-        sendNotification(orderMessage);
-      }
+      sendNotification(orderMessage);
     } catch (e) {
       console.error(
         "Telegram notification failed (non-blocking):",

@@ -103,7 +103,13 @@ exports.createOrderAndInitPayment = async (req, res) => {
       }
     }
 
-    // 1) Create order in DB
+    // 1) Fetch user data if logged in
+    let user = null;
+    if (userId) {
+      user = await User.findById(userId);
+    }
+
+    // 2) Create order in DB with customer info
     const order = await Order.create({
       userId: userId || undefined,
       isGuest: !userId,
@@ -112,6 +118,11 @@ exports.createOrderAndInitPayment = async (req, res) => {
       currency: "UZS",
       paymentProvider: provider,
       paymentStatus: "pending",
+      customer: user ? {
+        fullName: user.name,
+        phone: user.phone,
+        address: user.address ? `${user.address.house ? user.address.house + ", " : ""}${user.address.street || ""}, ${user.address.city || ""} ${user.address.zip || ""}`.trim() : null,
+      } : {},
       meta: {
         userAgent: req.headers["user-agent"],
         ip: req.ip,
@@ -120,7 +131,7 @@ exports.createOrderAndInitPayment = async (req, res) => {
 
     console.log("Order created:", order._id);
 
-    // 2) Build redirect URL / init data (for now just a placeholder)
+    // 3) Build redirect URL / init data (for now just a placeholder)
     const backendBase = process.env.BACKEND_URL || "http://localhost:8090";
 
     let paymentInitData;
@@ -475,14 +486,11 @@ exports.paymeCallback = async (req, res) => {
           })
           .join("\n");
 
-        const customerName = user?.name || order.customer?.fullName || "Guest";
+        // Use order.customer info that was captured during order creation
+        const customerName = order.customer?.fullName || user?.name || "Guest";
         const customerEmail = user?.email || "Not provided";
-        const customerPhone = user?.phone || order.customer?.phone || "Not provided";
-        const addr = user?.address
-          ? `${user.address.house ? user.address.house + ", " : ""}${
-              user.address.street || ""
-            }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
-          : order.customer?.address || "Not provided";
+        const customerPhone = order.customer?.phone || user?.phone || "Not provided";
+        const addr = order.customer?.address || "Not provided";
 
         const orderMessage = `
     <b>🛒 New Order Placed</b>
@@ -793,14 +801,11 @@ exports.clickCallback = async (req, res) => {
           )
           .join("\n");
 
-        const customerName = user?.name || order.customer?.fullName || "Guest";
+        // Use order.customer info that was captured during order creation
+        const customerName = order.customer?.fullName || user?.name || "Guest";
         const customerEmail = user?.email || "Not provided";
-        const customerPhone = user?.phone || order.customer?.phone || "Not provided";
-        const addr = user?.address
-          ? `${user.address.house ? user.address.house + ", " : ""}${
-              user.address.street || ""
-            }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
-          : order.customer?.address || "Not provided";
+        const customerPhone = order.customer?.phone || user?.phone || "Not provided";
+        const addr = order.customer?.address || "Not provided";
 
         const orderMessage = `
 <b>🛒 New Order Placed</b>
@@ -889,14 +894,11 @@ exports.uzumCallback = async (req, res) => {
           )
           .join("\n");
 
-        const customerName = user?.name || order.customer?.fullName || "Guest";
+        // Use order.customer info that was captured during order creation
+        const customerName = order.customer?.fullName || user?.name || "Guest";
         const customerEmail = user?.email || "Not provided";
-        const customerPhone = user?.phone || order.customer?.phone || "Not provided";
-        const addr = user?.address
-          ? `${user.address.house ? user.address.house + ", " : ""}${
-              user.address.street || ""
-            }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
-          : order.customer?.address || "Not provided";
+        const customerPhone = order.customer?.phone || user?.phone || "Not provided";
+        const addr = order.customer?.address || "Not provided";
 
         const orderMessage = `
 <b>🛒 New Order Placed</b>

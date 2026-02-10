@@ -106,14 +106,27 @@ function clearRefreshCookie(res, req) {
 
 async function handleRegister(req, res) {
   try {
-    const { name, email, phone, password } = req.body;
-    
+    let { name, email, phone, password } = req.body;
+    // Prepend +998 if not present
+    if (phone && !phone.startsWith("+998")) {
+      phone = "+998" + phone.replace(/^\+?998?/, "");
+    }
+
     // Log only non-sensitive data
     console.log("[SIGNUP] Received signup request for:", { name, phone, hasPassword: !!password });
 
     if (!name || !phone || !password) {
       console.log("[SIGNUP] ❌ Missing required fields:", { name: !!name, phone: !!phone, password: !!password });
       return res.status(400).json({ message: "name, phone, password required" });
+    }
+
+    // Password validation - minimum 6 characters
+    if (password.length < 6) {
+      console.log("[SIGNUP] ❌ Password too short:", phone);
+      return res.status(400).json({ 
+        message: "Password must be at least 6 characters long",
+        hint: "Please create a password with at least 6 symbols"
+      });
     }
 
     const exists = await User.findOne({ phone });
@@ -128,12 +141,23 @@ async function handleRegister(req, res) {
     const accessToken = createAccessToken(user._id);
     const refreshToken = await createAndSendRefreshToken(res, user, req);
 
+    // Format time in Uzbekistan timezone (UTC+5) - DD-MM-YYYY HH:MM:SS
+    const now = new Date();
+    const uzbekTime = new Date(now.getTime() + 5 * 60 * 60 * 1000);
+    const day = String(uzbekTime.getUTCDate()).padStart(2, '0');
+    const month = String(uzbekTime.getUTCMonth() + 1).padStart(2, '0');
+    const year = uzbekTime.getUTCFullYear();
+    const hours = String(uzbekTime.getUTCHours()).padStart(2, '0');
+    const minutes = String(uzbekTime.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(uzbekTime.getUTCSeconds()).padStart(2, '0');
+    const timeStr = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+
     await sendNotification(
       `<b>🆕 New user registered</b>
     👤 Name: ${name}
     📞 Phone: ${phone}
     📧 Email: ${email || '-'}
-    🕒 Time: ${new Date().toLocaleString()}`,
+    🕒 Time: ${timeStr} (UTC+5)`,
     );
 
     console.log("[SIGNUP] ✅ User created:", { id: user._id, email });

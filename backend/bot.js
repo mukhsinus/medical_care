@@ -40,6 +40,31 @@ const T = {
 ⚡️ Status: ${r || 'User'}
 
 ℹ️ Use /help to learn more`,
+    help: `📖 Commands
+
+COMMON:
+/help
+/login (private)
+/logout (private)`,
+    helpAdmin: `
+ADMIN:
+/clients
+/orders
+/status`,
+    helpOwner: `
+OWNER:
+/addadmin TG_ID
+/removeadmin TG_ID`,
+    status: `📊 Status`,
+    totalClients: `👥 Total clients:`,
+    paidOrders30: `💳 Paid orders (last 30 days):`,
+    paidOrdersToday: `🆕 Paid orders today:`,
+    yourRole: `👤 Your role:`,
+    clientsPage: `👥 Clients (page`,
+    noOrders: "No orders",
+    ordersTitle: "🧾 Orders",
+    noAccess: "❌ Access denied",
+    errorStatus: "❌ Error fetching status",
   },
   ru: {
     choose: "🌍 Выберите язык",
@@ -51,6 +76,31 @@ const T = {
 ⚡️ Статус: ${r || 'Пользователь'}
 
 ℹ️ Используйте /help`,
+    help: `📖 Команды
+
+ОБЩИЕ:
+/help
+/login (приватный)
+/logout (приватный)`,
+    helpAdmin: `
+АДМИНИСТРАТОР:
+/clients
+/orders
+/status`,
+    helpOwner: `
+ВЛАДЕЛЕЦ:
+/addadmin TG_ID
+/removeadmin TG_ID`,
+    status: `📊 Статус`,
+    totalClients: `👥 Всего клиентов:`,
+    paidOrders30: `💳 Оплаченные заказы (последние 30 дней):`,
+    paidOrdersToday: `🆕 Оплаченные заказы сегодня:`,
+    yourRole: `👤 Ваша роль:`,
+    clientsPage: `👥 Клиенты (страница`,
+    noOrders: "Нет заказов",
+    ordersTitle: "🧾 Заказы",
+    noAccess: "❌ Доступ запрещен",
+    errorStatus: "❌ Ошибка при получении статуса",
   },
   uz: {
     choose: "🌍 Tilni tanlang",
@@ -61,13 +111,40 @@ const T = {
 🆔 ID: ${id}
 ⚡️ Holat: ${r || "Foydalanuvchi"}
 
-ℹ️ /help buyrug‘idan foydalaning`,
-  },
+ℹ️ /help buyrug‘idan foydalaning`,    help: `📖 Buyruqlar
+
+UMUMIY:
+/help
+/login (xususiy)
+/logout (xususiy)`,
+    helpAdmin: `
+ADMIN:
+/clients
+/orders
+/status`,
+    helpOwner: `
+EGASI:
+/addadmin TG_ID
+/removeadmin TG_ID`,
+    status: `📊 Holat`,
+    totalClients: `👥 Jami mijozlar:`,
+    paidOrders30: `💳 To'langan buyurtmalar (oxirgi 30 kun):`,
+    paidOrdersToday: `🆕 Bugun to'langan buyurtmalar:`,
+    yourRole: `👤 Sizning rolni:`,
+    clientsPage: `👥 Mijozlar (sahifa`,
+    noOrders: "Buyurtmalar yo'q",
+    ordersTitle: "🧾 Buyurtmalar",
+    noAccess: "❌ Kirishga ruxsat yo'q",
+    errorStatus: "❌ Holat olishda xatolik",  },
 };
 
 /* ================= HELPERS ================= */
 function isPrivate(msg) {
   return msg.chat.type === "private";
+}
+
+function getLang(chatId) {
+  return userLang.get(chatId) || "en";
 }
 
 async function getRole(msg) {
@@ -118,31 +195,17 @@ async function requireRole(msg, roles) {
 
   /* ================= HELP ================= */
   bot.onText(/\/help/, async (msg) => {
+    const lang = getLang(msg.chat.id);
     const role = await getRole(msg);
 
-    let text = `📖 Commands
-
-COMMON:
-/help
-/login (private)
-/logout (private)
-`;
+    let text = T[lang].help;
 
     if (role === "ADMIN" || role === "OWNER") {
-      text += `
-ADMIN:
-/clients
-/orders
-/status
-`;
+      text += T[lang].helpAdmin;
     }
 
     if (role === "OWNER") {
-      text += `
-OWNER:
-/addadmin TG_ID
-/removeadmin TG_ID
-`;
+      text += T[lang].helpOwner;
     }
 
     bot.sendMessage(msg.chat.id, text);
@@ -150,9 +213,14 @@ OWNER:
 
   /* ================= STATUS ================= */
   bot.onText(/\/status/, async (msg) => {
-    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) return;
+    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) {
+      const lang = getLang(msg.chat.id);
+      bot.sendMessage(msg.chat.id, T[lang].noAccess);
+      return;
+    }
 
     try {
+      const lang = getLang(msg.chat.id);
       // Get today's start time (00:00:00)
       const todayStart = new Date();
       todayStart.setHours(0, 0, 0, 0);
@@ -171,31 +239,34 @@ OWNER:
         createdAt: { $gte: todayStart },
       });
 
-      const text = `📊 Status
+      const roleStr = await getRole(msg);
+      const text = `${T[lang].status}
 
-👥 Total clients: ${clients}
+${T[lang].totalClients} ${clients}
 
-💳 Paid orders (last 30 days): ${paidOrders30}
-🆕 Paid orders today: ${paidToday}
+${T[lang].paidOrders30} ${paidOrders30}
+${T[lang].paidOrdersToday} ${paidToday}
 
-👤 Your role: ${await getRole(msg)}`;
+${T[lang].yourRole} ${roleStr}`;
 
       bot.sendMessage(msg.chat.id, text);
     } catch (err) {
       console.error('Status command error:', err);
-      bot.sendMessage(msg.chat.id, '❌ Error fetching status');
+      const lang = getLang(msg.chat.id);
+      bot.sendMessage(msg.chat.id, T[lang].errorStatus);
     }
   });
 
   /* ================= CLIENTS PAGINATION ================= */
   async function sendClients(chatId, page = 0) {
+    const lang = getLang(chatId);
     const limit = 10;
     const users = await User.find()
       .sort({ createdAt: -1 })
       .skip(page * limit)
       .limit(limit);
 
-    let text = `👥 Clients (page ${page + 1})\n\n`;
+    let text = `${T[lang].clientsPage} ${page + 1})\n\n`;
     const kb = [];
 
     users.forEach((u) => {
@@ -212,12 +283,17 @@ OWNER:
   }
 
   bot.onText(/\/clients/, async (msg) => {
-    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) return;
+    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) {
+      const lang = getLang(msg.chat.id);
+      bot.sendMessage(msg.chat.id, T[lang].noAccess);
+      return;
+    }
     sendClients(msg.chat.id, 0);
   });
 
   /* ================= ORDERS BY CLIENT ================= */
   async function sendOrdersByUser(chatId, userId, page = 0, all = false) {
+    const lang = getLang(chatId);
     const limit = 5;
     const q = { userId };
 
@@ -231,10 +307,10 @@ OWNER:
       .limit(limit);
 
     if (!orders.length) {
-      return bot.sendMessage(chatId, "No orders");
+      return bot.sendMessage(chatId, T[lang].noOrders);
     }
 
-    let text = `🧾 Orders\n\n`;
+    let text = `${T[lang].ordersTitle}\n\n`;
 
     orders.forEach((o) => {
       o.items?.forEach((i) => {
@@ -265,7 +341,11 @@ OWNER:
   }
 
   bot.onText(/\/orders/, async (msg) => {
-    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) return;
+    if (!(await requireRole(msg, ["ADMIN", "OWNER"]))) {
+      const lang = getLang(msg.chat.id);
+      bot.sendMessage(msg.chat.id, T[lang].noAccess);
+      return;
+    }
     const u = await User.findOne().sort({ createdAt: -1 });
     if (!u) return;
     sendOrdersByUser(msg.chat.id, u._id, 0, false);

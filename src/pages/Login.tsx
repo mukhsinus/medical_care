@@ -151,6 +151,10 @@ const Login: React.FC = () => {
         setError(t.signup?.error || "Please fill in all required fields");
         return;
       }
+      if (password.length < 6) {
+        setError(t.signup?.password_too_short || "Password must be at least 6 characters");
+        return;
+      }
       if (password !== repeatPassword) {
         setError(t.signup?.password_mismatch || "Passwords do not match");
         return;
@@ -216,6 +220,7 @@ const Login: React.FC = () => {
                               required
                               disabled={loginMutation.isPending || signupMutation.isPending}
                             />
+                            <p className="text-xs text-muted-foreground mt-1 ml-1">{t.signup?.password_hint || 'Password must be at least 6 characters.'}</p>
                           </div>
                         </div>
                         <div>
@@ -307,11 +312,16 @@ const Login: React.FC = () => {
                               id="phone"
                               type="tel"
                               value={phone}
-                              onChange={(e) => setPhone(e.target.value)}
-                              className="pl-10 bg-white/70"
+                              onChange={(e) => {
+                                // Remove any leading +998 or 998
+                                let val = e.target.value.replace(/^\+?998/, '');
+                                setPhone(val);
+                              }}
+                              className="pl-[4.5rem] bg-white/70"
                               placeholder={t.signup?.phone_placeholder || 'Enter your phone number'}
                               disabled={loginMutation.isPending || signupMutation.isPending}
                             />
+                            <span className="absolute left-10 top-1/2 -translate-y-1/2 text-muted-foreground select-none pointer-events-none text-base">+998</span>
                           </div>
                         </div>
                         <div>

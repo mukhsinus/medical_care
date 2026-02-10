@@ -292,14 +292,12 @@ ${T[lang].yourRole} ${roleStr}`;
   });
 
   /* ================= ORDERS BY CLIENT ================= */
-  async function sendOrdersByUser(chatId, userId, page = 0, all = false) {
+  async function sendOrdersByUser(chatId, userId, page = 0) {
     const lang = getLang(chatId);
     const limit = 5;
-    const q = { userId, paymentStatus: "completed" };
+    const q = { userId };
 
-    if (!all) {
-      q.createdAt = { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) };
-    }
+    if (page < 0) page = 0;
 
     const orders = await Order.find(q)
       .sort({ createdAt: -1 })
@@ -312,10 +310,14 @@ ${T[lang].yourRole} ${roleStr}`;
 
     let text = `${T[lang].ordersTitle}\n\n`;
 
-    orders.forEach((o) => {
-      o.items?.forEach((i) => {
-        text += `• ${i.name} × ${i.quantity}\n📅 ${o.createdAt.toLocaleDateString()}\n📦 ${o.status || "unknown"}\n\n`;
-      });
+    orders.forEach((o, idx) => {
+      const orderNumber = page * limit + idx + 1;
+      const itemsText = (o.items || [])
+        .map((i) => `• ${i.name} × ${i.quantity}`)
+        .join("\n");
+      const totalStr = Number(o.amount || 0).toLocaleString("uz-UZ");
+      const statusStr = o.paymentStatus || o.status || "unknown";
+      text += `🧾 Order ${orderNumber}\n${itemsText}\n💰 Total: ${totalStr} UZS\n📅 ${o.createdAt.toLocaleDateString()}\n📦 ${statusStr}\n\n`;
     });
 
     bot.sendMessage(chatId, text, {
@@ -324,12 +326,50 @@ ${T[lang].yourRole} ${roleStr}`;
           [
             {
               text: "⬅️",
-              callback_data: `orders_${userId}_${page - 1}_${all ? 1 : 0}`,
+              callback_data: `orders_${userId}_${page - 1}`,
             },
             {
               text: "➡️",
-              callback_data: `orders_${userId}_${page + 1}_${all ? 1 : 0}`,
+              callback_data: `orders_${userId}_${page + 1}`,
             },
+          ],
+        ],
+      },
+    });
+  }
+
+  async function sendPaidOrders(chatId, page = 0) {
+    const lang = getLang(chatId);
+    const limit = 5;
+    if (page < 0) page = 0;
+
+    const orders = await Order.find({ paymentStatus: "completed" })
+      .sort({ createdAt: -1 })
+      .skip(page * limit)
+      .limit(limit);
+
+    if (!orders.length) {
+      return bot.sendMessage(chatId, T[lang].noOrders);
+    }
+
+    let text = `${T[lang].ordersTitle}\n\n`;
+
+    orders.forEach((o, idx) => {
+      const orderNumber = page * limit + idx + 1;
+      const itemsText = (o.items || [])
+        .map((i) => `• ${i.name} × ${i.quantity}`)
+        .join("\n");
+      const totalStr = Number(o.amount || 0).toLocaleString("uz-UZ");
+      const statusStr = o.paymentStatus || o.status || "unknown";
+      text += `🧾 Order ${orderNumber}\n${itemsText}\n💰 Total: ${totalStr} UZS\n📅 ${o.createdAt.toLocaleDateString()}\n📦 ${statusStr}\n\n`;
+    });
+
+    bot.sendMessage(chatId, text, {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            { text: "⬅️", callback_data: `ordersall_${page - 1}` },
+            { text: "➡️", callback_data: `ordersall_${page + 1}` },
           ],
         ],
       },
@@ -342,14 +382,7 @@ ${T[lang].yourRole} ${roleStr}`;
       bot.sendMessage(msg.chat.id, T[lang].noAccess);
       return;
     }
-    // Find the latest user who has at least one paid order
-    const latestOrder = await Order.findOne({ paymentStatus: "completed" }).sort({ createdAt: -1 });
-    if (!latestOrder) {
-      const lang = getLang(msg.chat.id);
-      bot.sendMessage(msg.chat.id, T[lang].noOrders);
-      return;
-    }
-    sendOrdersByUser(msg.chat.id, latestOrder.userId, 0, false);
+    sendPaidOrders(msg.chat.id, 0);
   });
 
   /* ================= CALLBACKS ================= */
@@ -359,12 +392,17 @@ ${T[lang].yourRole} ${roleStr}`;
     }
 
     if (q.data.startsWith("client_")) {
-      sendOrdersByUser(q.message.chat.id, q.data.split("_")[1], 0, true);
+      sendOrdersByUser(q.message.chat.id, q.data.split("_")[1], 0);
     }
 
     if (q.data.startsWith("orders_")) {
-      const [, uid, page, all] = q.data.split("_");
-      sendOrdersByUser(q.message.chat.id, uid, parseInt(page), all === "1");
+      const [, uid, page] = q.data.split("_");
+      sendOrdersByUser(q.message.chat.id, uid, parseInt(page));
+    }
+
+    if (q.data.startsWith("ordersall_")) {
+      const [, page] = q.data.split("_");
+      sendPaidOrders(q.message.chat.id, parseInt(page));
     }
   });
 

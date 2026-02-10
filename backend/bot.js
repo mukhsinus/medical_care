@@ -161,21 +161,22 @@ OWNER:
       const clients = await User.countDocuments();
       const last30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
-      const orders30 = await Order.countDocuments({
+      // Count only paid orders (paymentStatus = "completed")
+      const paidOrders30 = await Order.countDocuments({
+        paymentStatus: "completed",
         createdAt: { $gte: last30 },
       });
-      const clientsWithOrders = await Order.distinct("userId");
-      const newToday = await Order.countDocuments({
+      const paidToday = await Order.countDocuments({
+        paymentStatus: "completed",
         createdAt: { $gte: todayStart },
       });
 
       const text = `📊 Status
 
 👥 Total clients: ${clients}
-🛍️ Clients with orders: ${clientsWithOrders.length}
 
-📅 Orders (last 30 days): ${orders30}
-🆕 New orders today: ${newToday}
+💳 Paid orders (last 30 days): ${paidOrders30}
+🆕 Paid orders today: ${paidToday}
 
 👤 Your role: ${await getRole(msg)}`;
 

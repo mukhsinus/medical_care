@@ -169,7 +169,7 @@
     "email": "Pochta",
     "email_placeholder": "Elektron pochta manzilingizni kiriting",
     "phone": "Telefon raqami",
-    "phone_placeholder": "Telefon raqamingizni kiriting: +998901234567",
+    "phone_placeholder": " ",
     "password": "Parol",
     "password_placeholder": "Parolingizni kiriting",
     "repeat_password": "Parolni takrorlang",

@@ -164,7 +164,7 @@
     "email": "Email",
     "email_placeholder": "Enter your email address",
     "phone": "Phone Number",
-    "phone_placeholder": "Enter your phone number",
+    "phone_placeholder": " ",
     "password": "Password",
     "password_placeholder": "Enter your password",
     "repeat_password": "Repeat Password",
@@ -175,7 +175,7 @@
   "login": {
     "description": "Log in or create an account to manage your orders.",
     "name_or_email": "Name or Phone Number",
-    "name_or_email_placeholder": "Enter your name or phone number: +998901234567",
+    "name_or_email_placeholder": " ",
     "password": "Password",
     "password_placeholder": "Enter your password",
     "button": "Log In",

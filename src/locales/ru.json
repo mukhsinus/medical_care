@@ -165,7 +165,7 @@
     "email": "Почта",
     "email_placeholder": "Введите ваш адрес электронной почты",
     "phone": "Номер телефона",
-    "phone_placeholder": "Введите ваш номер телефона: +998901234567",
+    "phone_placeholder": " ",
     "password": "Пароль",
     "password_placeholder": "Введите ваш пароль",
     "repeat_password": "Повторите пароль",

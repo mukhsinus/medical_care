@@ -478,28 +478,27 @@ exports.paymeCallback = async (req, res) => {
       console.log("Order marked as completed:", order._id);
       // Send Telegram notification on successful payment
       try {
-        const user = order.userId
-          ? await User.findById(order.userId)
-          : null;
+        const user = order.userId ? await User.findById(order.userId) : null;
+        const itemsList = order.items
+          .map((item) => {
+            const lineTotal = Number(item.price) * Number(item.quantity);
 
-        if (user) {
-          const itemsList = order.items
-            .map((item) => {
-              const lineTotal = Number(item.price) * Number(item.quantity);
+            return `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${
+              item.quantity
+            } | ${lineTotal.toLocaleString("uz-UZ")} UZS`;
+          })
+          .join("\n");
 
-              return `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${
-                item.quantity
-              } | ${lineTotal.toLocaleString("uz-UZ")} UZS`;
-            })
-            .join("\n");
+        const customerName = user?.name || order.customer?.fullName || "Guest";
+        const customerEmail = user?.email || "Not provided";
+        const customerPhone = user?.phone || order.customer?.phone || "Not provided";
+        const addr = user?.address
+          ? `${user.address.house ? user.address.house + ", " : ""}${
+              user.address.street || ""
+            }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
+          : order.customer?.address || "Not provided";
 
-          const addr = user.address
-            ? `${user.address.house ? user.address.house + ", " : ""}${
-                user.address.street || ""
-              }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
-            : "Not provided";
-
-          const orderMessage = `
+        const orderMessage = `
     <b>🛒 New Order Placed</b>
 
     <b>Order ID:</b> ${order._id}
@@ -508,9 +507,9 @@ exports.paymeCallback = async (req, res) => {
     <b>Payme Trans ID:</b> ${transactionId}
 
     <b>Customer:</b>
-    • Name: ${user.name}
-    • Email: ${user.email}
-    • Phone: ${user.phone || "Not provided"}
+    • Name: ${customerName}
+    • Email: ${customerEmail}
+    • Phone: ${customerPhone}
     • Address: ${addr}
 
     <b>Products:</b>
@@ -521,8 +520,7 @@ exports.paymeCallback = async (req, res) => {
     <b>Time:</b> ${new Date().toISOString()}
     `;
 
-          sendNotification(orderMessage);
-        }
+        sendNotification(orderMessage);
       } catch (e) {
         console.error("Telegram notification failed (non-blocking):", e?.message);
       }
@@ -799,24 +797,26 @@ exports.clickCallback = async (req, res) => {
 
       // Send Telegram notification on successful payment
       try {
-        const user = await User.findById(order.userId);
-        if (user) {
-          const itemsList = order.items
-            .map(
-              (item) =>
-                `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
-                  item.price * item.quantity
-                ).toLocaleString("uz-UZ")} UZS`
-            )
-            .join("\n");
+        const user = order.userId ? await User.findById(order.userId) : null;
+        const itemsList = order.items
+          .map(
+            (item) =>
+              `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
+                item.price * item.quantity
+              ).toLocaleString("uz-UZ")} UZS`
+          )
+          .join("\n");
 
-          const addr = user.address
-            ? `${user.address.house ? user.address.house + ", " : ""}${
-                user.address.street || ""
-              }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
-            : "Not provided";
+        const customerName = user?.name || order.customer?.fullName || "Guest";
+        const customerEmail = user?.email || "Not provided";
+        const customerPhone = user?.phone || order.customer?.phone || "Not provided";
+        const addr = user?.address
+          ? `${user.address.house ? user.address.house + ", " : ""}${
+              user.address.street || ""
+            }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
+          : order.customer?.address || "Not provided";
 
-          const orderMessage = `
+        const orderMessage = `
 <b>🛒 New Order Placed</b>
 
 <b>Order ID:</b> ${order._id}
@@ -825,9 +825,9 @@ exports.clickCallback = async (req, res) => {
 <b>Click Trans ID:</b> ${clickTransId}
 
 <b>Customer:</b>
-• Name: ${user.name}
-• Email: ${user.email}
-• Phone: ${user.phone || "Not provided"}
+• Name: ${customerName}
+• Email: ${customerEmail}
+• Phone: ${customerPhone}
 • Address: ${addr}
 
 <b>Products:</b>
@@ -837,8 +837,7 @@ ${itemsList}
 
 <b>Time:</b> ${new Date().toISOString()}
 `;
-          sendNotification(orderMessage);
-        }
+        sendNotification(orderMessage);
       } catch (e) {
         console.error("Telegram notification failed (non-blocking):", e?.message);
       }
@@ -894,24 +893,26 @@ exports.uzumCallback = async (req, res) => {
 
       // Send Telegram notification on successful payment
       try {
-        const user = await User.findById(order.userId);
-        if (user) {
-          const itemsList = order.items
-            .map(
-              (item) =>
-                `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
-                  item.price * item.quantity
-                ).toLocaleString("uz-UZ")} UZS`
-            )
-            .join("\n");
+        const user = order.userId ? await User.findById(order.userId) : null;
+        const itemsList = order.items
+          .map(
+            (item) =>
+              `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
+                item.price * item.quantity
+              ).toLocaleString("uz-UZ")} UZS`
+          )
+          .join("\n");
 
-          const addr = user.address
-            ? `${user.address.house ? user.address.house + ", " : ""}${
-                user.address.street || ""
-              }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
-            : "Not provided";
+        const customerName = user?.name || order.customer?.fullName || "Guest";
+        const customerEmail = user?.email || "Not provided";
+        const customerPhone = user?.phone || order.customer?.phone || "Not provided";
+        const addr = user?.address
+          ? `${user.address.house ? user.address.house + ", " : ""}${
+              user.address.street || ""
+            }, ${user.address.city || ""} ${user.address.zip || ""}`.trim()
+          : order.customer?.address || "Not provided";
 
-          const orderMessage = `
+        const orderMessage = `
 <b>🛒 New Order Placed</b>
 
 <b>Order ID:</b> ${order._id}
@@ -919,9 +920,9 @@ exports.uzumCallback = async (req, res) => {
 <b>Provider:</b> ${order.paymentProvider}
 
 <b>Customer:</b>
-• Name: ${user.name}
-• Email: ${user.email}
-• Phone: ${user.phone || "Not provided"}
+• Name: ${customerName}
+• Email: ${customerEmail}
+• Phone: ${customerPhone}
 • Address: ${addr}
 
 <b>Products:</b>
@@ -931,8 +932,7 @@ ${itemsList}
 
 <b>Time:</b> ${new Date().toISOString()}
 `;
-          sendNotification(orderMessage);
-        }
+        sendNotification(orderMessage);
       } catch (e) {
         console.error("Telegram notification failed (non-blocking):", e?.message);
       }

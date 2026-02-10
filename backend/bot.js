@@ -295,14 +295,24 @@ ${T[lang].yourRole} ${roleStr}`;
   async function sendOrdersByUser(chatId, userId, page = 0) {
     const lang = getLang(chatId);
     const limit = 5;
-    const q = { userId };
-
     if (page < 0) page = 0;
 
-    const orders = await Order.find(q)
+    const user = await User.findById(userId);
+    if (!user) {
+      return bot.sendMessage(chatId, T[lang].noOrders);
+    }
+
+    let orders = await Order.find({ userId: user._id, paymentStatus: "completed" })
       .sort({ createdAt: -1 })
       .skip(page * limit)
       .limit(limit);
+
+    if (!orders.length && user.phone) {
+      orders = await Order.find({ "customer.phone": user.phone, paymentStatus: "completed" })
+        .sort({ createdAt: -1 })
+        .skip(page * limit)
+        .limit(limit);
+    }
 
     if (!orders.length) {
       return bot.sendMessage(chatId, T[lang].noOrders);

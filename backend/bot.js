@@ -295,7 +295,7 @@ ${T[lang].yourRole} ${roleStr}`;
   async function sendOrdersByUser(chatId, userId, page = 0, all = false) {
     const lang = getLang(chatId);
     const limit = 5;
-    const q = { userId };
+    const q = { userId, paymentStatus: "completed" };
 
     if (!all) {
       q.createdAt = { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) };
@@ -314,11 +314,7 @@ ${T[lang].yourRole} ${roleStr}`;
 
     orders.forEach((o) => {
       o.items?.forEach((i) => {
-        text += `• ${i.name} × ${i.quantity}
-📅 ${o.createdAt.toLocaleDateString()}
-📦 ${o.status || "unknown"}
-
-`;
+        text += `• ${i.name} × ${i.quantity}\n📅 ${o.createdAt.toLocaleDateString()}\n📦 ${o.status || "unknown"}\n\n`;
       });
     });
 
@@ -346,9 +342,14 @@ ${T[lang].yourRole} ${roleStr}`;
       bot.sendMessage(msg.chat.id, T[lang].noAccess);
       return;
     }
-    const u = await User.findOne().sort({ createdAt: -1 });
-    if (!u) return;
-    sendOrdersByUser(msg.chat.id, u._id, 0, false);
+    // Find the latest user who has at least one paid order
+    const latestOrder = await Order.findOne({ paymentStatus: "completed" }).sort({ createdAt: -1 });
+    if (!latestOrder) {
+      const lang = getLang(msg.chat.id);
+      bot.sendMessage(msg.chat.id, T[lang].noOrders);
+      return;
+    }
+    sendOrdersByUser(msg.chat.id, latestOrder.userId, 0, false);
   });
 
   /* ================= CALLBACKS ================= */

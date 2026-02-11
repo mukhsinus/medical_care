@@ -623,10 +623,10 @@ exports.paymeCallback = async (req, res) => {
 // CLICK CALLBACK - SHOP API integration
 // Documentation: https://docs.click.uz/click-api-request
 exports.clickCallback = async (req, res) => {
+  // Debug log at the very top
+  console.log('=== CLICK CALLBACK ===', req.body);
   const isTest = process.env.CLICK_TEST_MODE === 'true';
-
   const requestTime = new Date().toISOString();
-  console.log('\n=== CLICK CALLBACK REQUEST ===' );
   console.log('Time:', requestTime);
   console.log('Body:', JSON.stringify(req.body, null, 2));
   console.log('Headers:', JSON.stringify(req.headers, null, 2));
@@ -747,37 +747,36 @@ exports.clickCallback = async (req, res) => {
     // Action 1: COMPLETE - finalize payment
     if (action === 1) {
       console.log('COMPLETE request for order:', order._id);
-      
+
       // Check if already completed
+      let response;
       if (order.paymentStatus === 'completed') {
         console.log('Order already completed');
         // Check if same click_trans_id was used for this payment
         if (order.providerTransactionId === String(clickTransId)) {
           console.log('Same transaction ID - idempotent response');
-          const response = {
+          response = {
             error: 0,
             error_note: "Success",
             click_trans_id: clickTransId,
             merchant_trans_id: merchantTransId,
             merchant_confirm_id: order._id,
           };
-          console.log('Response:', JSON.stringify(response, null, 2));
-          return res.json(response);
         } else {
           console.error('Order already completed with different transaction ID');
-          const response = {
+          response = {
             error: -4,
             error_note: "Order already completed",
           };
-          console.log('Response:', JSON.stringify(response, null, 2));
-          return res.json(response);
         }
+        console.log('Response:', JSON.stringify(response, null, 2));
+        return res.json(response);
       }
 
       // If Click reports error
       if (error && error < 0) {
         console.error('Click reported error:', error, errorNote);
-        const response = {
+        response = {
           error: -9,
           error_note: `Payment error: ${errorNote}`,
         };
@@ -785,13 +784,8 @@ exports.clickCallback = async (req, res) => {
         return res.json(response);
       }
 
-      // Mark as completed
-      order.paymentStatus = "completed";
-      order.providerTransactionId = clickTransId;
-      await order.save();
-      console.log('Order marked as completed:', order._id);
-
-      const response = {
+      // Respond immediately before any heavy logic
+      response = {
         error: 0,
         error_note: "Success",
         click_trans_id: clickTransId,
@@ -799,12 +793,17 @@ exports.clickCallback = async (req, res) => {
         merchant_confirm_id: order._id,
       };
       console.log('COMPLETE Success. Response:', JSON.stringify(response, null, 2));
-      console.log('=== END CLICK CALLBACK ===\n');
       res.json(response);
 
       // Run non-critical work after responding to Click (avoid timeout)
       setImmediate(async () => {
         try {
+          // Mark as completed and save
+          order.paymentStatus = "completed";
+          order.providerTransactionId = clickTransId;
+          await order.save();
+          console.log('Order marked as completed:', order._id);
+
           await deductOrderStock(order);
 
           const user = order.userId ? await User.findById(order.userId) : null;
@@ -846,7 +845,7 @@ ${itemsList}
 `;
           sendNotification(orderMessage);
         } catch (e) {
-          console.error("Post-response Click tasks failed:", e?.message);
+          console.error("Post-COMPLETE async error:", e?.message);
         }
       });
 

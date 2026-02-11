@@ -746,106 +746,64 @@ exports.clickCallback = async (req, res) => {
 
     // Action 1: COMPLETE - finalize payment
     if (action === 1) {
-      console.log('COMPLETE request for order:', order._id);
+      console.log("COMPLETE request for order:", order._id);
 
-      // Check if already completed
-      let response;
-      if (order.paymentStatus === 'completed') {
-        console.log('Order already completed');
-        // Check if same click_trans_id was used for this payment
+      const clickError = Number(error);
+
+      // 1️⃣ Validate merchant_prepare_id (required by Click SHOP API)
+      if (String(merchantPrepareId) !== String(order._id)) {
+        console.error("merchant_prepare_id mismatch");
+        return res.json({
+          error: -9,
+          error_note: "Invalid merchant_prepare_id",
+        });
+      }
+
+      // 2️⃣ If Click reports an error
+      if (clickError < 0) {
+        console.error("Click reported error:", clickError, errorNote);
+        return res.json({
+          error: clickError,
+          error_note: errorNote || "Payment error",
+        });
+      }
+
+      // 3️⃣ Idempotency check
+      if (order.paymentStatus === "completed") {
         if (order.providerTransactionId === String(clickTransId)) {
-          console.log('Same transaction ID - idempotent response');
-          response = {
-            error: 0,
-            error_note: "Success",
+          return res.json({
             click_trans_id: clickTransId,
             merchant_trans_id: merchantTransId,
             merchant_confirm_id: order._id,
-          };
-        } else {
-          console.error('Order already completed with different transaction ID');
-          response = {
-            error: -4,
-            error_note: "Order already completed",
-          };
+            error: 0,
+            error_note: "Success",
+          });
         }
-        console.log('Response:', JSON.stringify(response, null, 2));
-        return res.json(response);
+        return res.json({
+          error: -4,
+          error_note: "Order already completed",
+        });
       }
 
-      // If Click reports error
-      if (error && error < 0) {
-        console.error('Click reported error:', error, errorNote);
-        response = {
-          error: -9,
-          error_note: `Payment error: ${errorNote}`,
-        };
-        console.log('Response:', JSON.stringify(response, null, 2));
-        return res.json(response);
-      }
-
-      // Respond immediately before any heavy logic
-      response = {
-        error: 0,
-        error_note: "Success",
+      // 4️⃣ Respond immediately (DO NOT await anything before this)
+      res.json({
         click_trans_id: clickTransId,
         merchant_trans_id: merchantTransId,
         merchant_confirm_id: order._id,
-      };
-      console.log('COMPLETE Success. Response:', JSON.stringify(response, null, 2));
-      res.json(response);
+        error: 0,
+        error_note: "Success",
+      });
 
-      // Run non-critical work after responding to Click (avoid timeout)
+      // 5️⃣ Run heavy logic asynchronously AFTER response
       setImmediate(async () => {
         try {
-          // Mark as completed and save
           order.paymentStatus = "completed";
-          order.providerTransactionId = clickTransId;
+          order.providerTransactionId = String(clickTransId);
           await order.save();
-          console.log('Order marked as completed:', order._id);
-
           await deductOrderStock(order);
-
-          const user = order.userId ? await User.findById(order.userId) : null;
-          const itemsList = order.items
-            .map(
-              (item) =>
-                `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
-                  item.price * item.quantity
-                ).toLocaleString("uz-UZ")} UZS`
-            )
-            .join("\n");
-
-          // Use order.customer info that was captured during order creation
-          const customerName = order.customer?.fullName || user?.name || "Guest";
-          const customerEmail = user?.email || "Not provided";
-          const customerPhone = order.customer?.phone || user?.phone || "Not provided";
-          const addr = order.customer?.address || "Not provided";
-
-          const orderMessage = `
-<b>🛒 New Order Placed</b>
-
-<b>Order ID:</b> ${order._id}
-<b>Payment Status:</b> ✅ Paid
-<b>Provider:</b> ${order.paymentProvider}
-<b>Click Trans ID:</b> ${clickTransId}
-
-<b>Customer:</b>
-• Name: ${customerName}
-• Email: ${customerEmail}
-• Phone: ${customerPhone}
-• Address: ${addr}
-
-<b>Products:</b>
-${itemsList}
-
-<b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
-
-<b>Time:</b> ${new Date().toISOString()}
-`;
-          sendNotification(orderMessage);
+          sendNotification(`Order ${order._id} paid via Click`);
         } catch (e) {
-          console.error("Post-COMPLETE async error:", e?.message);
+          console.error("Post-COMPLETE async error:", e);
         }
       });
 

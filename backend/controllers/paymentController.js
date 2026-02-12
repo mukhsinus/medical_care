@@ -516,7 +516,7 @@ exports.paymeCallback = async (req, res) => {
 
     <b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
 
-    <b>Time:</b> ${new Date().toISOString()}
+        <b>Time:</b> ${(() => { const now = new Date(); const pad = n => n.toString().padStart(2, '0'); return `${pad(now.getDate())}.${pad(now.getMonth()+1)}.${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`; })()}
     `;
 
         sendNotification(orderMessage);
@@ -801,7 +801,27 @@ exports.clickCallback = async (req, res) => {
           order.providerTransactionId = String(clickTransId);
           await order.save();
           await deductOrderStock(order);
-          sendNotification(`Order ${order._id} paid via Click`);
+            // Build notification message in same format as Payme
+            const user = order.userId ? await User.findById(order.userId) : null;
+            const itemsList = order.items
+              .map((item) => {
+                const lineTotal = Number(item.price) * Number(item.quantity);
+                return `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${lineTotal.toLocaleString("uz-UZ")} UZS`;
+              })
+              .join("\n");
+
+            const customerName = order.customer?.fullName || user?.name || "Guest";
+            const customerEmail = user?.email || "Not provided";
+            const customerPhone = order.customer?.phone || user?.phone || "Not provided";
+            const addr = order.customer?.address || "Not provided";
+
+            // Format time as dd.mm.yyyy HH:MM
+            const now = new Date();
+            const pad = (n) => n.toString().padStart(2, '0');
+            const formattedTime = `${pad(now.getDate())}.${pad(now.getMonth()+1)}.${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+            const orderMessage = `\n<b>🛒 New Order Placed</b>\n\n<b>Order ID:</b> ${order._id}\n<b>Payment Status:</b> ✅ Paid\n<b>Provider:</b> ${order.paymentProvider}\n<b>Payme Trans ID:</b> ${clickTransId}\n\n<b>Customer:</b>\n• Name: ${customerName}\n• Email: ${customerEmail}\n• Phone: ${customerPhone}\n• Address: ${addr}\n\n<b>Products:</b>\n${itemsList}\n\n<b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS\n\n<b>Time:</b> ${formattedTime}\n`;
+            sendNotification(orderMessage);
         } catch (e) {
           console.error("Post-COMPLETE async error:", e);
         }

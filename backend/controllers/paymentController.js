@@ -498,6 +498,7 @@ exports.paymeCallback = async (req, res) => {
         const addr = order.customer?.address || "Not provided";
 
         const orderMessage = `
+
     <b>🛒 New Order Placed</b>
 
     <b>Order ID:</b> ${order._id}
@@ -516,7 +517,22 @@ exports.paymeCallback = async (req, res) => {
 
     <b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
 
-        <b>Time:</b> ${(() => { const now = new Date(); const pad = n => n.toString().padStart(2, '0'); return `${pad(now.getDate())}.${pad(now.getMonth()+1)}.${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`; })()}
+    <b>Time:</b> ${(() => {
+      try {
+        const now = new Date();
+        // Convert to Tashkent time
+        const tz = 'Asia/Tashkent';
+        const opts = { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+        const parts = new Intl.DateTimeFormat('en-GB', opts).formatToParts(now);
+        const get = (type) => parts.find(p => p.type === type)?.value;
+        return `${get('day')}.${get('month')}.${get('year')} ${get('hour')}:${get('minute')}`;
+      } catch (e) {
+        // fallback to UTC if Intl fails
+        const now = new Date();
+        const pad = n => n.toString().padStart(2, '0');
+        return `${pad(now.getUTCDate())}.${pad(now.getUTCMonth()+1)}.${now.getUTCFullYear()} ${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}`;
+      }
+    })()}
     `;
 
         sendNotification(orderMessage);

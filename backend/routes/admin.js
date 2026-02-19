@@ -266,7 +266,12 @@ router.post("/stock", async (req, res) => {
 
     await stock.save();
 
-    console.log("✅ Stock entry created by admin:", req.userId, "product:", productId, "variant:", { color, size });
+    // Fetch admin name for logging
+    const admin = await User.findById(req.userId).select('name');
+    const adminName = admin ? admin.name : 'Unknown Admin';
+    const timestamp = new Date().toISOString();
+    const logEntry = `[STOCK CREATE] Timestamp: ${timestamp} | Admin: ${adminName} (${req.userId}) | Product: ${productId} (${productName}) | Variant: Color=${color || 'N/A'}, Size=${size || 'N/A'} | Initial Qty: ${quantity || 0} | Min Stock Level: ${minStockLevel || 10}`;
+    console.log("✅", logEntry);
     res.status(201).json({ message: "Stock entry created", stock });
   } catch (err) {
     console.error("❌ Create stock error:", err);
@@ -299,6 +304,11 @@ router.put("/stock/:productId", async (req, res) => {
       });
     }
 
+    // Store old values for audit log
+    const oldQuantity = stock.quantity;
+    const oldMinStockLevel = stock.minStockLevel;
+    const oldIsAvailable = stock.isAvailable;
+    
     if (quantity !== undefined) stock.quantity = quantity;
     if (minStockLevel !== undefined) stock.minStockLevel = minStockLevel;
     if (isAvailable !== undefined) stock.isAvailable = isAvailable;
@@ -308,7 +318,23 @@ router.put("/stock/:productId", async (req, res) => {
 
     await stock.save();
 
-    console.log("✅ Stock updated by admin:", req.userId, "product:", productId, "variant:", { color: color || null, size: size || null });
+    // Fetch admin name for logging
+    const admin = await User.findById(req.userId).select('name');
+    const adminName = admin ? admin.name : 'Unknown Admin';
+    const timestamp = new Date().toISOString();
+    const changes = [];
+    if (quantity !== undefined && quantity !== oldQuantity) {
+      changes.push(`Quantity: ${oldQuantity} → ${quantity}`);
+    }
+    if (minStockLevel !== undefined && minStockLevel !== oldMinStockLevel) {
+      changes.push(`Min Stock Level: ${oldMinStockLevel} → ${minStockLevel}`);
+    }
+    if (isAvailable !== undefined && isAvailable !== oldIsAvailable) {
+      changes.push(`Available: ${oldIsAvailable} → ${isAvailable}`);
+    }
+    const changeDetails = changes.length > 0 ? changes.join(" | ") : "No quantity changes";
+    const logEntry = `[STOCK UPDATE] Timestamp: ${timestamp} | Admin: ${adminName} (${req.userId}) | Product: ${productId} | Variant: Color=${color || 'N/A'}, Size=${size || 'N/A'} | Changes: ${changeDetails}`;
+    console.log("✅", logEntry);
     res.json({ message: "Stock updated successfully", stock });
   } catch (err) {
     console.error("❌ Update stock error:", err);
@@ -340,7 +366,12 @@ router.delete("/stock/:productId", async (req, res) => {
       });
     }
 
-    console.log("✅ Stock deleted by admin:", req.userId, "product:", productId, "variant:", { color: color || null, size: size || null });
+    // Fetch admin name for logging
+    const admin = await User.findById(req.userId).select('name');
+    const adminName = admin ? admin.name : 'Unknown Admin';
+    const timestamp = new Date().toISOString();
+    const logEntry = `[STOCK DELETE] Timestamp: ${timestamp} | Admin: ${adminName} (${req.userId}) | Product: ${productId} (${stock.productName}) | Variant: Color=${stock.color || 'N/A'}, Size=${stock.size || 'N/A'} | Deleted Qty: ${stock.quantity}`;
+    console.log("✅", logEntry);
     res.json({ message: "Stock entry deleted successfully" });
   } catch (err) {
     console.error("❌ Delete stock error:", err);

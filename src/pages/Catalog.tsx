@@ -25,7 +25,6 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
-import debounce from "lodash.debounce";
 
 import {
   allItems,
@@ -379,7 +378,6 @@ export default function Catalog() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredItems, setFilteredItems] = useState<CatalogItem[]>([]);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 16;
 
@@ -393,7 +391,9 @@ export default function Catalog() {
   }, [t]);
 
   const getTranslatedField = useCallback(
-    (key: string): string => {
+    (key: string | undefined): string => {
+      if (!key) return "";
+
       const cached = translationCache.current.get(key);
       if (cached) return cached;
 
@@ -428,8 +428,8 @@ export default function Catalog() {
     if (srch.trim()) {
       const lower = srch.toLowerCase();
       list = list.filter((i) => {
-        const name = getTranslatedField(i.nameKey);
-        const desc = getTranslatedField(i.descriptionKey);
+        const name = i.nameKey ? getTranslatedField(i.nameKey) : "";
+        const desc = i.descriptionKey ? getTranslatedField(i.descriptionKey) : "";
         return (
           name.toLowerCase().includes(lower) ||
           desc.toLowerCase().includes(lower)
@@ -439,30 +439,22 @@ export default function Catalog() {
     setFilteredItems(list);
   }, [getTranslatedField]);
 
-  const debouncedFilter = useMemo(
-    () => debounce((cat: string, srch: string) => {
-      filterItems(cat, srch);
-    }, 300),
-    [filterItems]
-  );
+  // Live filtering - immediate, no debounce
+  useEffect(() => {
+    filterItems(activeCategory, searchTerm);
+    setCurrentPage(1);
+  }, [activeCategory, searchTerm, filterItems]);
 
+  // URL sync: only update state if values differ (prevents clobbering live input)
   useEffect(() => {
     const cat = searchParams.get("category") ?? "all";
     const srch = searchParams.get("search") ?? "";
     const page = parseInt(searchParams.get("page") ?? "1") || 1;
 
-    setActiveCategory(cat);
-    setSearchTerm(srch);
-    setCurrentPage(page);
-    setLoading(true);
-
-    const timeout = setTimeout(() => {
-      filterItems(cat, srch);
-      setLoading(false);
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, [searchParams, filterItems]);
+    setActiveCategory((prev) => (prev !== cat ? cat : prev));
+    setSearchTerm((prev) => (prev !== srch ? srch : prev));
+    setCurrentPage((prev) => (prev !== page ? page : prev));
+  }, [searchParams]);
 
   const totalPages = useMemo(
     () => Math.ceil(filteredItems.length / itemsPerPage) || 1,
@@ -478,45 +470,39 @@ export default function Catalog() {
     [filteredItems, currentPage, itemsPerPage]
   );
 
-  const updateUrl = (cat: string, srch: string, page: number = 1) => {
+  const handleCategoryClick = (cat: string) => {
     const params = new URLSearchParams();
     if (cat !== "all") params.set("category", cat);
-    if (srch.trim()) params.set("search", srch);
-    if (page > 1) params.set("page", page.toString());
+    if (searchTerm.trim()) params.set("search", searchTerm);
     navigate(`?${params.toString()}`, { replace: true });
   };
 
-  const handleCategoryClick = (cat: string) => {
-    setActiveCategory(cat);
-    setCurrentPage(1);
-    updateUrl(cat, searchTerm, 1);
-    // filtering will be handled by the effect based on URL
-  };
-
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setSearchTerm(val);
-    setCurrentPage(1);
-    debouncedFilter(activeCategory, val);
+    setSearchTerm(e.target.value);
   };
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateUrl(activeCategory, searchTerm, 1);
+    const params = new URLSearchParams();
+    if (activeCategory !== "all") params.set("category", activeCategory);
+    if (searchTerm.trim()) params.set("search", searchTerm);
+    navigate(`?${params.toString()}`, { replace: true });
   };
 
   const handleClearSearch = () => {
-    setSearchTerm("");
-    setCurrentPage(1);
-    updateUrl(activeCategory, "", 1);
-    // filtering will be handled by the effect based on URL
+    const params = new URLSearchParams();
+    if (activeCategory !== "all") params.set("category", activeCategory);
+    navigate(`?${params.toString()}`, { replace: true });
   };
 
   const handlePageChange = (page: number) => {
     const clamped = Math.max(1, Math.min(totalPages, page));
     if (clamped === currentPage) return;
-    setCurrentPage(clamped);
-    updateUrl(activeCategory, searchTerm, clamped);
+    const params = new URLSearchParams();
+    if (activeCategory !== "all") params.set("category", activeCategory);
+    if (searchTerm.trim()) params.set("search", searchTerm);
+    if (clamped > 1) params.set("page", clamped.toString());
+    navigate(`?${params.toString()}`, { replace: true });
     window.scrollTo(0, 0);
   };
 
@@ -529,25 +515,7 @@ export default function Catalog() {
     navigate(`/${locale}/catalog/${itemId}`, { state: catalogState });
   };
 
-  if (loading) {
-    return (
-      <Layout>
-        <SEO
-          title={t.catalog.title}
-          description={t.catalog.subtitle}
-          path="/catalog"
-        />
-        <div className="flex min-h-screen items-center justify-center">
-          <div className="text-center">
-            <div className="mx-auto mb-4 h-32 w-32 animate-spin rounded-full border-b-2 border-primary" />
-            <p className="text-muted-foreground">{t.catalog.loading}</p>
-          </div>
-        </div>
-      </Layout>
-    );
-  }
-
-  // Not a hook → safe after the `if (loading)` return
+  // Not a hook → safe after the state checks
   const visibleCategories = categories.filter((c) => c.key !== "all");
 
   return (

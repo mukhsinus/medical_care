@@ -148,6 +148,15 @@ try {
   process.exit(1);
 }
 
+let stockRoutes;
+try {
+  stockRoutes = require("./routes/stock");
+  console.log("[ROUTES] ✅ stock loaded");
+} catch (e) {
+  console.error("[ROUTES] ❌ stock failed:", e.message);
+  process.exit(1);
+}
+
 try {
   mockRoutes = require("./routes/mock");
   console.log("[ROUTES] ✅ mock loaded");
@@ -162,6 +171,7 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/paycom", paycomRoutes);
 app.use("/api/uzum", uzumRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/stock", stockRoutes);
 app.use("/mock", mockRoutes);
 
 /* -------------------------

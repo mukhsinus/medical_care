@@ -11,6 +11,7 @@ import { ShoppingBasket, ArrowLeft, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/contexts/CartContext";
 import { Label } from "@/components/ui/label";
+import api from "@/api";
 import {
   Dialog,
   DialogContent,
@@ -241,7 +242,7 @@ export default function ItemDetails() {
     [minQty]
   );
 
-  const handleAdd = useCallback(() => {
+  const handleAdd = useCallback(async () => {
     if (!item) return;
 
     const finalQty = qty || minQty;
@@ -266,6 +267,36 @@ export default function ItemDetails() {
     // Compute price according to selected size (if provided in data)
     const displayedPrice =
       (selectedSizeKey && item.sizePrices?.[selectedSizeKey]) || item.price || 0;
+
+    // ============= CHECK STOCK BEFORE ADDING =============
+    try {
+      const params = new URLSearchParams();
+      if (selectedColorKey) params.append("color", selectedColorKey);
+      if (selectedSizeKey) params.append("size", selectedSizeKey);
+
+      const stockRes = await api.get(`/api/stock/check/${item.id}?${params.toString()}`);
+      
+      if (!stockRes.data.available) {
+        toast({
+          title: "Out of Stock",
+          description: stockRes.data.message || "This item is not available right now",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (stockRes.data.quantity < finalQty) {
+        toast({
+          title: "Insufficient Stock",
+          description: `Only ${stockRes.data.quantity} available in stock. You requested ${finalQty}.`,
+          variant: "destructive",
+        });
+        return;
+      }
+    } catch (err) {
+      console.error("Stock check failed:", err);
+      // Continue anyway if stock check fails
+    }
 
     // Create unique variant ID: base_id-size-color
     const variantId = [

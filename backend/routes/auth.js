@@ -188,34 +188,57 @@ router.post("/login", async (req, res) => {
     const { identifier, nameOrEmail, email, password } = req.body || {};
     const loginId = (identifier || nameOrEmail || email || "").trim();
 
-    console.log("[LOGIN] Login attempt for:", loginId);
+    console.log("\n[LOGIN] 🔐 Login attempt");
+    console.log("[LOGIN] Identifier:", loginId);
+    console.log("[LOGIN] Password provided:", !!password);
+    console.log("[LOGIN] Request body keys:", Object.keys(req.body || {}));
 
     if (!loginId || !password) {
+      console.log("[LOGIN] ❌ Missing fields - identifier:", !!loginId, "password:", !!password);
       return res.status(400).json({ message: "identifier and password required" });
     }
 
+    console.log("[LOGIN] 🔍 Searching for user in DB...");
     const user = await User.findOne({
       $or: [{ phone: loginId }, { name: loginId }, { email: loginId }],
     });
 
-    if (!user) return res.status(400).json({ message: "Invalid credentials" });
+    if (!user) {
+      console.log("[LOGIN] ❌ User NOT found for identifier:", loginId);
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
 
+    console.log("[LOGIN] ✅ User found:", user.email, "Role:", user.role);
+
+    console.log("[LOGIN] 🔐 Comparing password...");
     const ok = await bcrypt.compare(password, user.password);
-    if (!ok) return res.status(400).json({ message: "Invalid credentials" });
+    
+    if (!ok) {
+      console.log("[LOGIN] ❌ Password does NOT match for user:", user.email);
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
 
+    console.log("[LOGIN] ✅ Password matches!");
+
+    console.log("[LOGIN] 🎫 Creating tokens...");
     const accessToken = createAccessToken(user._id);
+    console.log("[LOGIN] ✅ Access token created");
+    
     const refreshToken = await createAndSendRefreshToken(res, user, req);
-    console.log("[LOGIN] ✅ Refresh cookie set for user:", user._id);
-    console.log("[LOGIN] User role from DB:", user.role);
-    console.log("[LOGIN] User object:", {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      role: user.role,
+    console.log("[LOGIN] ✅ Refresh token created and cookie set");
+    
+    console.log("[LOGIN] 📤 Sending response...");
+    console.log("[LOGIN] Response data:", {
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+      }
     });
 
-    return res.json({
+    res.json({
       accessToken,
       refreshToken,
       user: {
@@ -226,8 +249,11 @@ router.post("/login", async (req, res) => {
         role: user.role || "user",
       },
     });
+    console.log("[LOGIN] ✅ Response sent successfully\n");
+    
   } catch (err) {
-    console.error("LOGIN ERROR:", err);
+    console.error("[LOGIN] ❌ ERROR:", err.message);
+    console.error("[LOGIN] Stack:", err.stack);
     res.status(500).json({ message: "Login failed" });
   }
 });

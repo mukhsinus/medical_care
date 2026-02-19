@@ -498,6 +498,7 @@ exports.paymeCallback = async (req, res) => {
         const addr = order.customer?.address || "Not provided";
 
         const orderMessage = `
+
     <b>🛒 New Order Placed</b>
 
     <b>Order ID:</b> ${order._id}
@@ -516,7 +517,22 @@ exports.paymeCallback = async (req, res) => {
 
     <b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
 
-    <b>Time:</b> ${new Date().toISOString()}
+    <b>Time:</b> ${(() => {
+      try {
+        const now = new Date();
+        // Convert to Tashkent time
+        const tz = 'Asia/Tashkent';
+        const opts = { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+        const parts = new Intl.DateTimeFormat('en-GB', opts).formatToParts(now);
+        const get = (type) => parts.find(p => p.type === type)?.value;
+        return `${get('day')}.${get('month')}.${get('year')} ${get('hour')}:${get('minute')}`;
+      } catch (e) {
+        // fallback to UTC if Intl fails
+        const now = new Date();
+        const pad = n => n.toString().padStart(2, '0');
+        return `${pad(now.getUTCDate())}.${pad(now.getUTCMonth()+1)}.${now.getUTCFullYear()} ${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}`;
+      }
+    })()}
     `;
 
         sendNotification(orderMessage);
@@ -623,10 +639,10 @@ exports.paymeCallback = async (req, res) => {
 // CLICK CALLBACK - SHOP API integration
 // Documentation: https://docs.click.uz/click-api-request
 exports.clickCallback = async (req, res) => {
+  // Debug log at the very top
+  console.log('=== CLICK CALLBACK ===', req.body);
   const isTest = process.env.CLICK_TEST_MODE === 'true';
-
   const requestTime = new Date().toISOString();
-  console.log('\n=== CLICK CALLBACK REQUEST ===' );
   console.log('Time:', requestTime);
   console.log('Body:', JSON.stringify(req.body, null, 2));
   console.log('Headers:', JSON.stringify(req.headers, null, 2));
@@ -746,107 +762,84 @@ exports.clickCallback = async (req, res) => {
 
     // Action 1: COMPLETE - finalize payment
     if (action === 1) {
-      console.log('COMPLETE request for order:', order._id);
-      
-      // Check if already completed
-      if (order.paymentStatus === 'completed') {
-        console.log('Order already completed');
-        // Check if same click_trans_id was used for this payment
+      console.log("COMPLETE request for order:", order._id);
+
+      const clickError = Number(error);
+
+      // 1️⃣ Validate merchant_prepare_id (required by Click SHOP API)
+      if (String(merchantPrepareId) !== String(order._id)) {
+        console.error("merchant_prepare_id mismatch");
+        return res.json({
+          error: -9,
+          error_note: "Invalid merchant_prepare_id",
+        });
+      }
+
+      // 2️⃣ If Click reports an error
+      if (clickError < 0) {
+        console.error("Click reported error:", clickError, errorNote);
+        return res.json({
+          error: clickError,
+          error_note: errorNote || "Payment error",
+        });
+      }
+
+      // 3️⃣ Idempotency check
+      if (order.paymentStatus === "completed") {
         if (order.providerTransactionId === String(clickTransId)) {
-          console.log('Same transaction ID - idempotent response');
-          const response = {
-            error: 0,
-            error_note: "Success",
+          return res.json({
             click_trans_id: clickTransId,
             merchant_trans_id: merchantTransId,
             merchant_confirm_id: order._id,
-          };
-          console.log('Response:', JSON.stringify(response, null, 2));
-          return res.json(response);
-        } else {
-          console.error('Order already completed with different transaction ID');
-          const response = {
-            error: -4,
-            error_note: "Order already completed",
-          };
-          console.log('Response:', JSON.stringify(response, null, 2));
-          return res.json(response);
+            error: 0,
+            error_note: "Success",
+          });
         }
+        return res.json({
+          error: -4,
+          error_note: "Order already completed",
+        });
       }
 
-      // If Click reports error
-      if (error && error < 0) {
-        console.error('Click reported error:', error, errorNote);
-        const response = {
-          error: -9,
-          error_note: `Payment error: ${errorNote}`,
-        };
-        console.log('Response:', JSON.stringify(response, null, 2));
-        return res.json(response);
-      }
-
-      // Mark as completed
-      order.paymentStatus = "completed";
-      order.providerTransactionId = clickTransId;
-      await order.save();
-      console.log('Order marked as completed:', order._id);
-
-      const response = {
-        error: 0,
-        error_note: "Success",
+      // 4️⃣ Respond immediately (DO NOT await anything before this)
+      res.json({
         click_trans_id: clickTransId,
         merchant_trans_id: merchantTransId,
         merchant_confirm_id: order._id,
-      };
-      console.log('COMPLETE Success. Response:', JSON.stringify(response, null, 2));
-      console.log('=== END CLICK CALLBACK ===\n');
-      res.json(response);
+        error: 0,
+        error_note: "Success",
+      });
 
-      // Run non-critical work after responding to Click (avoid timeout)
+      // 5️⃣ Run heavy logic asynchronously AFTER response
       setImmediate(async () => {
         try {
+          order.paymentStatus = "completed";
+          order.providerTransactionId = String(clickTransId);
+          await order.save();
           await deductOrderStock(order);
+            // Build notification message in same format as Payme
+            const user = order.userId ? await User.findById(order.userId) : null;
+            const itemsList = order.items
+              .map((item) => {
+                const lineTotal = Number(item.price) * Number(item.quantity);
+                return `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${lineTotal.toLocaleString("uz-UZ")} UZS`;
+              })
+              .join("\n");
 
-          const user = order.userId ? await User.findById(order.userId) : null;
-          const itemsList = order.items
-            .map(
-              (item) =>
-                `• ${item.name}${item.description ? ` - ${item.description}` : ""}\n  Qty: ${item.quantity} | ${(
-                  item.price * item.quantity
-                ).toLocaleString("uz-UZ")} UZS`
-            )
-            .join("\n");
+            const customerName = order.customer?.fullName || user?.name || "Guest";
+            const customerEmail = user?.email || "Not provided";
+            const customerPhone = order.customer?.phone || user?.phone || "Not provided";
+            const addr = order.customer?.address || "Not provided";
 
-          // Use order.customer info that was captured during order creation
-          const customerName = order.customer?.fullName || user?.name || "Guest";
-          const customerEmail = user?.email || "Not provided";
-          const customerPhone = order.customer?.phone || user?.phone || "Not provided";
-          const addr = order.customer?.address || "Not provided";
+            // Format time as dd.mm.yyyy HH:MM
+            const now = new Date();
+            const pad = (n) => n.toString().padStart(2, '0');
+            const formattedTime = `${pad(now.getDate())}.${pad(now.getMonth()+1)}.${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
 
-          const orderMessage = `
-<b>🛒 New Order Placed</b>
-
-<b>Order ID:</b> ${order._id}
-<b>Payment Status:</b> ✅ Paid
-<b>Provider:</b> ${order.paymentProvider}
-<b>Click Trans ID:</b> ${clickTransId}
-
-<b>Customer:</b>
-• Name: ${customerName}
-• Email: ${customerEmail}
-• Phone: ${customerPhone}
-• Address: ${addr}
-
-<b>Products:</b>
-${itemsList}
-
-<b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS
-
-<b>Time:</b> ${new Date().toISOString()}
-`;
-          sendNotification(orderMessage);
+            const orderMessage = `\n<b>🛒 New Order Placed</b>\n\n<b>Order ID:</b> ${order._id}\n<b>Payment Status:</b> ✅ Paid\n<b>Provider:</b> ${order.paymentProvider}\n<b>Payme Trans ID:</b> ${clickTransId}\n\n<b>Customer:</b>\n• Name: ${customerName}\n• Email: ${customerEmail}\n• Phone: ${customerPhone}\n• Address: ${addr}\n\n<b>Products:</b>\n${itemsList}\n\n<b>Total:</b> ${order.amount.toLocaleString("uz-UZ")} UZS\n\n<b>Time:</b> ${formattedTime}\n`;
+            sendNotification(orderMessage);
         } catch (e) {
-          console.error("Post-response Click tasks failed:", e?.message);
+          console.error("Post-COMPLETE async error:", e);
         }
       });
 

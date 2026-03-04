@@ -61,7 +61,17 @@ const orderSchema = new mongoose.Schema(
       paycomCreatedAt: Date, // When Payme created transaction
       paycomPerformedAt: Date, // When Payme performed transaction
       paycomCancelledAt: Date, // When Payme cancelled transaction
-      cancellationReason: { type: String, default: null }
+      cancellationReason: { type: String, default: null },
+      
+      // Uzum Bank - Webhook Integration
+      uzumTransId: String, // Uzum transaction ID
+      uzumCreatedAt: Date, // When Uzum created transaction
+      uzumConfirmedAt: Date, // When Uzum confirmed transaction
+      uzumReversedAt: Date, // When Uzum reversed transaction
+      uzumRefundedAt: Date, // When Uzum refunded transaction
+      uzumPaymentSource: String, // Payment source (UZCARD, HUMO, VISA, etc.)
+      uzumPhone: String, // Customer phone from Uzum
+      uzumCardType: String // Card type from Uzum
     },
 
     // Customer info

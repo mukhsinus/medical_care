@@ -385,6 +385,9 @@ ${itemsList}
       transId,
       confirmTime: Date.now(),
       amount,
+      data: {
+        account: orderId,
+      },
     });
 
     console.log("✅ CONFIRM Success");
@@ -549,6 +552,7 @@ router.post("/status", async (req, res) => {
     }
 
     // ========== STEP 5: Return current status ==========
+    const orderAmountInTiyin = order.amount ? Math.round(order.amount * 100) : null;
     const response = buildUzumResponse(uzumStatus, {
       serviceId,
       transId,
@@ -561,6 +565,10 @@ router.post("/status", async (req, res) => {
       reverseTime: order.meta?.uzumReversedAt
         ? new Date(order.meta.uzumReversedAt).getTime()
         : null,
+      amount: orderAmountInTiyin,
+      data: {
+        account: String(order._id),
+      },
     });
 
     console.log("✅ STATUS Success -", uzumStatus);

@@ -16,10 +16,6 @@ export type CatalogItem = {
   // IKPU коды для обработки платежей (Payme merchant IDs)
   ikpuCode?: string; // 16-digit Payme merchant ID для товара (по умолчанию для всех вариантов)
   
-  // Вариант-уровневые IKPU коды (цвет + размер комбинации)
-  // Format: "colorKey_sizeKey" => "507144111111111"
-  // Пример: "red_1ml": "507144111111111", "red_2ml": "507144222222222", "blue_1ml": "507144333333333"
-  // Если задан - переопределяет ikpuCode для конкретной комбинации цвет+размер
   variantIkpuCodes?: Record<string, string>; // Map of "color_size" => IKPU code
   
   // Size-specific IKPU коды (по размерам)

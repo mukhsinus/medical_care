@@ -65,7 +65,7 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({
     if (isPaying || externalIsPaying) return;
     setIsPaying(true);
 
-    const MIN_CHECKOUT_AMOUNT = 100;
+    const MIN_CHECKOUT_AMOUNT = 500000; // 500,000 UZS
 
     if (!items.length || !totalPrice) {
       setIsPaying(false);
